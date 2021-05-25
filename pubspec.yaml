@@ -21,6 +21,9 @@ dependencies:
   cached_network_image: ^3.0.0
   get: ^4.1.4
   shape_of_view: ^1.0.2
+  custom_navigator: ^0.3.0
+  share: ^2.0.1
+  device_preview: ^0.7.1
 
 dev_dependencies:
   flutter_test:
@@ -36,3 +39,5 @@ flutter:
     - assets/images/splash_screen/
     - assets/images/auth/
     - assets/images/home/
+    - assets/images/store/
+    - assets/images/bottom_navigation_bar/

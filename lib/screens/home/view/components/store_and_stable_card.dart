@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/configuration/themes/colors.dart';
+import 'package:pets_ecommerce/screens/home/view/components/open_now_coponent.dart';
 import 'package:pets_ecommerce/screens/home/view/components/social_media_components.dart';
 
 class StoreAndStableCard extends StatelessWidget {
@@ -10,19 +11,22 @@ class StoreAndStableCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 6),
-      width: getProportionateScreenWidth(193),
+      width: getProportionateScreenWidth(192),
       // height: getProportionateScreenHeight(150),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           border: Border.all(width: 0.3, color: borderColor),
-          color: Colors.white),
+          color: Colors.white,
+      ),
       child: Stack(
         children: [
           Positioned(
-              top: 120,
+              top: getProportionateScreenHeight(120),
+              height: getProportionateScreenHeight(100),
+              width: getProportionateScreenWidth(205.8),
+
               child: Container(
-                height: 95,
-                width: 205.8,
+
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(12),
@@ -30,66 +34,81 @@ class StoreAndStableCard extends StatelessWidget {
                   color: Colors.grey.shade200,
                 ),
                 child: Container(
-                    alignment: Alignment.centerRight,
+                    // alignment: Alignment.centerRight,
                     child: Row(
                       children: [
                         SizedBox(
-                          width: 15,
+                          width: getProportionateScreenHeight(15),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: 15,
+                              height: getProportionateScreenHeight(15),
                             ),
-                            Text(
-                              "pets carnival",
-                              style: body1_16pt,
+                            Container(
+                              height: getProportionateScreenHeight(25),
+                              child: AutoSizeText(
+                                "pets carnival",
+                                // minFontSize: 8,
+                                style: body1_16pt,
+                              ),
+                            ),
+                            // SizedBox(
+                            //   height: getProportionateScreenHeight(10),
+                            // ),
+                            Container(
+                              height: getProportionateScreenHeight(25),
+                              child: Row(
+                                // mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  // Icon(Icons.location_on_rounded,color: Colors.grey,size: 16,),
+                                  Image.asset(
+                                    "assets/images/home/location_icon.png",
+                                    height: getProportionateScreenHeight(12),
+                                    width: getProportionateScreenWidth(12),
+                                  ),
+                                  SizedBox(
+                                    width: getProportionateScreenWidth(10),
+                                  ),
+                                  AutoSizeText(
+                                    "فلسطين رام الله",
+                                    // minFontSize: 8,
+                                    style: darkGrayText_13pt,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // SizedBox(
+                            //   height: getProportionateScreenHeight(5),
+                            // ),
+                            Container(
+                              height: getProportionateScreenHeight(25),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  // Icon(Icons.location_on_rounded,color: Colors.grey,size: 16,),
+                                  Image.asset(
+                                    "assets/images/home/location_icon.png",
+                                    height: getProportionateScreenHeight(12),
+                                    width: getProportionateScreenWidth(12),
+                                  ),
+                                  SizedBox(
+                                    width: getProportionateScreenWidth(10),
+                                  ),
+                                  Container(
+                                    height: 10,
+                                    child: AutoSizeText(
+                                      "53 كم",
+                                      // minFontSize: 8,
+                                      style: darkGrayText_11pt,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              // mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                // Icon(Icons.location_on_rounded,color: Colors.grey,size: 16,),
-                                Image.asset(
-                                  "assets/images/home/location_icon.png",
-                                  height: 12,
-                                  width: 12,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "فلسطين رام الله",
-                                  style: darkGrayText_14pt,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                // Icon(Icons.location_on_rounded,color: Colors.grey,size: 16,),
-                                Image.asset(
-                                  "assets/images/home/location_icon.png",
-                                  height: 12,
-                                  width: 12,
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "53 كم",
-                                  style: darkGrayText_14pt,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
+                              height: getProportionateScreenHeight(5),
                             ),
                           ],
                         ),
@@ -103,10 +122,10 @@ class StoreAndStableCard extends StatelessWidget {
           ),///social media
           Positioned(
               // left: 15,
-              bottom: 90,
+              bottom: getProportionateScreenHeight(90),
               child: Container(
-                height: getProportionateScreenHeight(133),
-                width: getProportionateScreenWidth(194),
+                height: getProportionateScreenHeight(129),
+                width: getProportionateScreenWidth(192),
                 decoration: BoxDecoration(),
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
@@ -119,8 +138,8 @@ class StoreAndStableCard extends StatelessWidget {
                 ),
               )),///photo
           Positioned(
-              bottom: 70,
-              left: 20,
+              bottom: getProportionateScreenHeight(70),
+              left: getProportionateScreenWidth(20),
               child: CircleAvatar(
                 backgroundColor: Colors.white,
                 child: Container(
@@ -133,35 +152,14 @@ class StoreAndStableCard extends StatelessWidget {
                 ),
               )),///logo circle
           Positioned(
-            bottom: 90,
-            width: 73,
+            bottom: getProportionateScreenHeight(90),
+            width: getProportionateScreenWidth(73),
             height: 27,
-            child: Container(
-              padding: EdgeInsets.all(6),
-              decoration: BoxDecoration(
-               gradient: LinearGradient(
-                 colors:
-                   [
-
-                     Colors.brown.withOpacity(0.8),
-                     // Colors.white,
-                     Colors.brown,
-                   ]
-               ),
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
-              ),
-              child: Center(
-                child: AutoSizeText(
-                  "مفتوح الان"
-                  ,minFontSize: 11
-                      ,style: blueButton_14pt,
-                ),
-              ),
-            ),
+            child: OpenNow(rightBottom: false,),
           ),///opens now
           Positioned(
-            right: 10,
-            top: 8,
+            right: getProportionateScreenWidth(10),
+            top: getProportionateScreenHeight(8),
             child: Container(
               height: getProportionateScreenHeight(14),
               width: getProportionateScreenWidth(15),

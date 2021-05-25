@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/configuration/themes/colors.dart';
@@ -18,10 +19,10 @@ class StableNewsCard extends StatelessWidget {
       children: [
         Positioned(
           // left: 15,
-            bottom: 90,
+            bottom: getProportionateScreenHeight(90),
             child: Container(
-              height: getProportionateScreenHeight(133),
-              width: getProportionateScreenWidth(297),
+              height: getProportionateScreenHeight(134.7),
+              width: getProportionateScreenWidth(298.7),
               decoration: BoxDecoration(),
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
@@ -34,10 +35,10 @@ class StableNewsCard extends StatelessWidget {
               ),
             )),///
         Positioned(
-            top: 122,
+            top: getProportionateScreenHeight(135),
             child: Container(
-              height: 92,
-              width: 315,
+              height: getProportionateScreenHeight(87.7),
+              width: getProportionateScreenWidth(299.7),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(12),
@@ -46,59 +47,74 @@ class StableNewsCard extends StatelessWidget {
                 // color: Colors.red,
               ),
               child: Container(
-                  alignment: Alignment.centerRight,
+                  // alignment: Alignment.centerRight,
                   child: Row(
                     children: [
                       SizedBox(
-                        width: 15,
+                        width: getProportionateScreenWidth(15),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: 15,
+                          // SizedBox(
+                          //   height: getProportionateScreenHeight(15),
+                          // ),
+                          Container(
+                            height: getProportionateScreenHeight(40),
+                            width: getProportionateScreenWidth(280),
+                            child: AutoSizeText(
+                              "سباق الخيل يبدأ الاحد المقبل سباق الخيل",
+                              style: body1_16pt,
+                            ),
                           ),
-                          Text(
-                            "سباق الخيل يبدأ الاحد المقبل سباق الخيل",
-                            style: body1_16pt,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            // mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Image.asset(
-                                "assets/images/home/stable_icon.png",
-                                height: 12,
-                                width: 12,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "pets carnival",
-                                style: darkGrayText_14pt,
-                              ),
-                              // Icon(Icons.location_on_rounded,color: Colors.grey,size: 16,),
-                             SizedBox(width: 70,),
-                              Image.asset(
-                                "assets/images/home/location_icon.png",
-                                height: 12,
-                                width: 12,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "فلسطين رام الله",
-                                style: darkGrayText_14pt,
-                              ),
-                            ],
+                          // SizedBox(
+                          //   height: getProportionateScreenHeight(20),
+                          // ),
+                          Container(
+                            height: getProportionateScreenHeight(30),
+                            width: getProportionateScreenWidth(280),
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Image.asset(
+                                  "assets/images/home/stable_icon.png",
+                                  height: getProportionateScreenHeight(12),
+                                  width: getProportionateScreenWidth(12),
+                                ),
+                                SizedBox(
+                                  width: getProportionateScreenWidth(10),
+                                ),
+                                Container(
+                                  width: getProportionateScreenWidth(100),
+                                  child: AutoSizeText(
+                                    "pets carnival",
+                                    style: darkGrayText_14pt,
+                                  ),
+                                ),
+                                // Icon(Icons.location_on_rounded,color: Colors.grey,size: 16,),
+                               // SizedBox(width: getProportionateScreenWidth(70),),
+                              Spacer(),
+                                Image.asset(
+                                  "assets/images/home/location_icon.png",
+                                  height: getProportionateScreenHeight(12),
+                                  width: getProportionateScreenWidth(12),
+                                ),
+                                SizedBox(
+                                  width: getProportionateScreenWidth(10),
+                                ),
+                                Container(
+                                  width: getProportionateScreenWidth(100),
+                                  child: AutoSizeText(
+                                    "فلسطين رام الله",
+                                    style: darkGrayText_13pt,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
 
                           SizedBox(
-                            height: 5,
+                            height: getProportionateScreenHeight(5),
                           ),
                         ],
                       ),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/configuration/themes/colors.dart';
 import 'package:pets_ecommerce/screens/auth/view/components/auth_button.dart';
+import 'package:get/get.dart';
 
+import 'auth_2.dart';
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,14 +25,14 @@ class WelcomeScreen extends StatelessWidget {
               left: getProportionateScreenWidth(16),
               right: getProportionateScreenWidth(16),
 
-              child:AuthButton(color: true,title: "متابعة كزائر",ontap: (){},),
+              child:AuthButton(color: true,title: "متابعة كزائر",ontap: (){Get.to(SignUpTypeScreen());}),
           ),
           Positioned(
               top: getProportionateScreenHeight(713),
               left: getProportionateScreenWidth(16),
               right: getProportionateScreenWidth(16),
               child:
-              AuthButton(color: false,title: "إنشاء حساب",ontap: (){},),
+              AuthButton(color: false,title: "إنشاء حساب",ontap: (){Get.to(SignUpTypeScreen());},),
 
 
           ),

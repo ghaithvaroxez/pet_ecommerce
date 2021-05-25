@@ -15,12 +15,13 @@ class SelectedProductCard extends StatelessWidget {
           border: Border.all(width: 0.3, color: borderColor),
           color: Colors.white),
       child: Stack(
+        overflow: Overflow.visible,
         children: [
           Positioned(
-              top: 105,
+              top: getProportionateScreenHeight(105),
               child: Container(
-                height: 45,
-                width: 126,
+                height: getProportionateScreenHeight(45),
+                width: getProportionateScreenWidth(120),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(12),

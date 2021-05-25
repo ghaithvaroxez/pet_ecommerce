@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
 
 class SocialMedia extends StatelessWidget {
   @override
@@ -7,8 +8,8 @@ class SocialMedia extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          height: 24,
-          width: 98,
+          height: getProportionateScreenWidth(24),
+          width: getProportionateScreenWidth(98),
           // alignment: Alignment.bottomLeft,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(

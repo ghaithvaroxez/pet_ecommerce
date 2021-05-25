@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
@@ -19,18 +20,18 @@ class DoctorCard extends StatelessWidget {
         children: [
 
           Positioned(
-              height: 180,
-              width: 160,
-              bottom: 40,
+              height: getProportionateScreenHeight(190),
+              width: getProportionateScreenWidth(160),
+              bottom: getProportionateScreenHeight(40),
               child: Image.asset(
                 "assets/images/home/female_doctor.png",
                 fit: BoxFit.fitHeight,
               )),///doctor_image
           Positioned(
-              top: 150,
+              top: getProportionateScreenHeight(150),
               child: Container(
-                height: 59,
-                width: 169,
+                height: getProportionateScreenHeight(80),
+                width: getProportionateScreenWidth(169),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(12),
@@ -38,27 +39,37 @@ class DoctorCard extends StatelessWidget {
                   color: Colors.grey.shade200,
                   // color: Colors.red,
                 ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 11,
-                    ),
-                    Text(
-                      "منى الأحمد",
-                      style: h6_20pt,
-                    ),
-                    Row(
-                      children: [
-                        Spacer(),
-                        SocialMedia(),
-                      ],
-                    ),
-                  ],
+                child: Container(
+                  height: getProportionateScreenHeight(80),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: getProportionateScreenHeight(10),
+                      ),
+                      Container
+                        (height: (getProportionateScreenHeight(40)),
+                        child: AutoSizeText(
+                          "منى الأحمد",
+                          style: h6_20pt,
+                        ),
+                      ),
+                      Container(
+                        height: getProportionateScreenHeight(30),
+                        child: Row(
+                          children: [
+                            Spacer(),
+                            SocialMedia(),
+                            SizedBox(width: getProportionateScreenWidth(5),)
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               )),///grey footer
           Positioned(
-            right: 10,
-            top: 8,
+            right: getProportionateScreenWidth(10),
+            top: getProportionateScreenHeight(8),
             child: Container(
               height: getProportionateScreenHeight(14),
               width: getProportionateScreenWidth(15),
@@ -71,8 +82,8 @@ class DoctorCard extends StatelessWidget {
             ),
           ),///share icon
           Positioned(
-            left: 25,
-            top: 8,
+            left: getProportionateScreenWidth(25),
+            top: getProportionateScreenHeight(8),
             child: Container(
               height: getProportionateScreenHeight(14),
               width: getProportionateScreenWidth(15),

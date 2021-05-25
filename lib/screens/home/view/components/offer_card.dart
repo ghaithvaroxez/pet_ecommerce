@@ -19,10 +19,10 @@ child: Stack(
   children: [
     Positioned(
       // left: 15,
-        bottom: 60,
+        bottom: getProportionateScreenHeight(60),
         child: Container(
           height: getProportionateScreenHeight(165),
-          width: getProportionateScreenWidth(188
+          width: getProportionateScreenWidth(189.7
           ),
           decoration: BoxDecoration(),
           child: ClipRRect(
@@ -37,11 +37,11 @@ child: Stack(
         )),///photo
 
     Positioned(
-      bottom: 60,
-      width: 85,
-      height: 27,
+      bottom: getProportionateScreenHeight(60),
+      width: getProportionateScreenWidth(85),
+      height: getProportionateScreenHeight(27),
       child: Container(
-        padding: EdgeInsets.all(6),
+        padding: EdgeInsets.all(getProportionateScreenHeight(6)),
         decoration: BoxDecoration(
           gradient: LinearGradient(
               colors:
@@ -72,10 +72,10 @@ child: Stack(
       ),
     ),///opens now
     Positioned(
-        top: 163,
+        top: getProportionateScreenHeight(163),
         child: Container(
-          height: 51,
-          width: 200,
+          height: getProportionateScreenHeight(51),
+          width: getProportionateScreenWidth(200),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(12),
@@ -86,7 +86,7 @@ child: Stack(
           child: Column(
             children: [
               SizedBox(
-                height: 11,
+                height: getProportionateScreenHeight(11),
               ),
               Text(
                 "pets carnival",
