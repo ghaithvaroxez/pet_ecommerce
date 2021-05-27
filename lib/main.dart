@@ -8,7 +8,11 @@ import 'package:pets_ecommerce/screens/auth/view/auth_2.dart';
 import 'package:pets_ecommerce/screens/auth/view/auth_3.dart';
 import 'package:pets_ecommerce/screens/home/view/home_view.dart';
 import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
-import 'package:pets_ecommerce/screens/stores/view/components/store_details_body.dart';
+import 'package:pets_ecommerce/screens/stores/view/components/about/about_store_body.dart';
+import 'package:pets_ecommerce/screens/stores/view/components/offers/offers_body.dart';
+import 'package:pets_ecommerce/screens/stores/view/components/orders/orders_body.dart';
+import 'package:pets_ecommerce/screens/stores/view/select_stor_view.dart';
+import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets_ecommerce/lib/screens/stores/view/components/products/products_body.dart';
 import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets_ecommerce/lib/screens/stores/view/store_details.dart';
 import 'configuration/size_config.dart';
 
@@ -29,14 +33,17 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       locale: DevicePreview.locale(context), // Add the locale here
       builder: DevicePreview.appBuilder, // Add the builder here
-      // home:SplashScreen(),
+      // // home:SplashScreen(),
       // home:WelcomqeScreen(),
       // home:SignUpTypeScreen(),
       // home:PhonAuthScreen(),
       // home:HomeScreen(),
-      // home:MainScreen(),
+      home:MainScreen(),
       // home:StoreDetailsPage(),
-        home:StoreDetailsBody(),
+      // home: ProductsBodyScreen(),
+// home: AboutStoreBodyScreen(),
+
+
     );
   }
 }

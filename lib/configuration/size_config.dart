@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:pets_ecommerce/screens/auth/view/auth_1.dart';
+
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;

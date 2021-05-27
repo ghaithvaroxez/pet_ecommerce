@@ -40,4 +40,6 @@ flutter:
     - assets/images/auth/
     - assets/images/home/
     - assets/images/store/
+    - assets/images/store/active/
+    - assets/images/store/not active/
     - assets/images/bottom_navigation_bar/
