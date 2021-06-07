@@ -40,6 +40,13 @@ flutter:
     - assets/images/auth/
     - assets/images/home/
     - assets/images/store/
+    - assets/images/doctors/
+    - assets/images/doctors/active/
+    - assets/images/doctors/not_active/
     - assets/images/store/active/
-    - assets/images/store/not active/
+
+    - assets/images/favorite/notActive/
+    - assets/images/favorite/active/
+    - assets/images/favorite/
+    - assets/images/bottom_sheet/
     - assets/images/bottom_navigation_bar/

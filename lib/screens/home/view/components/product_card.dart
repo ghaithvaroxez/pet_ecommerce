@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/configuration/themes/colors.dart';
+import 'package:pets_ecommerce/screens/home/view/components/favorite_icon.dart';
 
 class ProductCard extends StatelessWidget {
   @override
@@ -42,16 +43,7 @@ class ProductCard extends StatelessWidget {
           Positioned(
               left: 25,
               top: 8,
-              child: Container(
-                height: getProportionateScreenHeight(14),
-                width: getProportionateScreenWidth(15),
-                child: IconButton(
-                  icon: Icon(
-                    CupertinoIcons.heart,
-                    size: 22,
-                  ),
-                ),
-              ))
+              child: FavoriteIcon()),
         ],
       ),
     );

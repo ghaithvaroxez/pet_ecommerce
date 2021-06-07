@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/configuration/themes/colors.dart';
+import 'package:pets_ecommerce/screens/home/view/components/favorite_icon.dart';
 import 'package:pets_ecommerce/screens/home/view/components/social_media_components.dart';
 
 class DoctorCard extends StatelessWidget {
@@ -11,7 +12,7 @@ class DoctorCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 6),
       width: getProportionateScreenWidth(161),
-      // height: getProportionateScreenHeight(150),
+      height: getProportionateScreenHeight(230),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           border: Border.all(width: 0.3, color: borderColor),
@@ -84,16 +85,7 @@ class DoctorCard extends StatelessWidget {
           Positioned(
             left: getProportionateScreenWidth(25),
             top: getProportionateScreenHeight(8),
-            child: Container(
-              height: getProportionateScreenHeight(14),
-              width: getProportionateScreenWidth(15),
-              child: IconButton(
-                icon: Icon(
-                  CupertinoIcons.heart,
-                  size: 22,
-                ),
-              ),
-            ),
+            child:FavoriteIcon(),
           ),///favorite icon
 
         ],

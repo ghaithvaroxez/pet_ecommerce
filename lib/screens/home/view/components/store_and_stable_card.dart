@@ -6,6 +6,8 @@ import 'package:pets_ecommerce/configuration/themes/colors.dart';
 import 'package:pets_ecommerce/screens/home/view/components/open_now_coponent.dart';
 import 'package:pets_ecommerce/screens/home/view/components/social_media_components.dart';
 
+import 'favorite_icon.dart';
+
 class StoreAndStableCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class StoreAndStableCard extends StatelessWidget {
           Positioned(
               top: getProportionateScreenHeight(120),
               height: getProportionateScreenHeight(100),
-              width: getProportionateScreenWidth(205.8),
+              width: getProportionateScreenWidth(191.8),
 
               child: Container(
 
@@ -172,6 +174,10 @@ class StoreAndStableCard extends StatelessWidget {
               ),
             ),
           ),///share icon
+          Positioned(
+              left: 25,
+              top: 8,
+              child: FavoriteIcon()),
         ],
       ),
     );

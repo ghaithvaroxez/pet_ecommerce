@@ -5,6 +5,7 @@ import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/configuration/themes/colors.dart';
 import 'package:pets_ecommerce/screens/auth/view/components/auth_button.dart';
 import 'package:pets_ecommerce/screens/home/view/home_view.dart';
+import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'package:get/get.dart';
 class PhonAuthScreen extends StatefulWidget {
@@ -163,7 +164,7 @@ class _PhonAuthScreenState extends State<PhonAuthScreen> {
                     child: AuthButton(
                       color: true,
                       title: "إنشاء حساب",
-                      ontap: () {Get.to(HomeScreen());},
+                      ontap: () {Get.to(MainScreen());},
                     )),
               ],
             ),

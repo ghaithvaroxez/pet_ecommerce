@@ -9,9 +9,9 @@ import 'package:pets_ecommerce/screens/home/view/components/category_selected_it
 import 'package:pets_ecommerce/screens/home/view/components/doctor_card.dart';
 import 'package:pets_ecommerce/screens/home/view/components/offer_card.dart';
 import 'package:pets_ecommerce/screens/home/view/components/product_card.dart';
-import 'package:pets_ecommerce/screens/home/view/components/search_bar_component.dart';
 import 'package:pets_ecommerce/screens/home/view/components/selected_product_card.dart';
 import 'package:pets_ecommerce/screens/widgets/custom_app_bar.dart';
+import 'components/search_bar_component.dart';
 import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets_ecommerce/lib/screens/widgets/navigation_bar/custom_navigation_bar.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'package:shape_of_view/shape_of_view.dart';
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child:ListView(
         children: [
-          SearchBar(),
+          // Container(height:getProportionateScreenHeight(50),child: SearchBar()),
 
           ///searchbar
 

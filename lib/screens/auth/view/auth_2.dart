@@ -7,6 +7,7 @@ import 'package:pets_ecommerce/screens/auth/view/components/auth_button.dart';
 import 'package:get/get.dart';
 
 import 'auth_3.dart';
+
 class SignUpTypeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,9 @@ class SignUpTypeScreen extends StatelessWidget {
                 color: true,
                 title: "كمستخدم",
                 image: "assets/images/auth/user_icon.png",
-                ontap: (){Get.to(PhonAuthScreen());},
+                ontap: () {
+                  Get.to(() => PhonAuthScreen());
+                },
               ),
             ),
             Positioned(
@@ -60,7 +63,9 @@ class SignUpTypeScreen extends StatelessWidget {
                 color: false,
                 title: "كصاحب متجر",
                 image: "assets/images/auth/vendor_icon.png",
-                ontap: (){Get.to(PhonAuthScreen());},
+                ontap: () {
+                  Get.to(() => PhonAuthScreen());
+                },
               ),
             ),
             Positioned(
@@ -71,10 +76,11 @@ class SignUpTypeScreen extends StatelessWidget {
                 color: false,
                 title: "كطبيب بيطري",
                 image: "assets/images/auth/doctor_icon.png",
-                ontap: (){Get.to(PhonAuthScreen());},
+                ontap: () {
+                  Get.to(() => PhonAuthScreen());
+                },
               ),
             ),
-
           ],
         ),
       ),

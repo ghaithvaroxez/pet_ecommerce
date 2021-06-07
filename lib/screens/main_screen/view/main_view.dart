@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/configuration/themes/colors.dart';
+import 'package:pets_ecommerce/screens/doctors/view/select_doctor_view.dart';
 import 'package:pets_ecommerce/screens/home/view/home_view.dart';
 import 'package:pets_ecommerce/screens/main_screen/controller/title_controller.dart';
 import 'package:pets_ecommerce/screens/main_screen/model/main_screen_model.dart';
@@ -9,6 +10,7 @@ import 'package:pets_ecommerce/screens/widgets/custom_app_bar.dart';
 import 'package:pets_ecommerce/screens/widgets/navigation_bar/custom_bottom_bar.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'package:pets_ecommerce/screens/main_screen/controller/title_controller.dart';
+import 'package:pets_ecommerce/screens/orders/views/select_order_view.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -63,9 +65,8 @@ with SingleTickerProviderStateMixin {
                   controller: bottomTabController,
                   children: [
                    HomeScreen(),
-                    Container(child: Center(child: Text("الاطباء"),),),
-                    Container(child: Center(child: Text("طلبات"),),),
-
+                    SelectDoctorView(),
+                    SelectOrderView(),
                     SelectStoreView(),
                   ],
                 ),

@@ -102,9 +102,10 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                 padding: EdgeInsets.only(top: getProportionateScreenHeight(10),bottom: getProportionateScreenHeight(10),left: getProportionateScreenWidth(15),right:getProportionateScreenWidth(25) ),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(colors: [
-                    Colors.brown.withOpacity(0.8),
-                    // Colors.white,
                     Colors.brown,
+                    Colors.brown.withOpacity(0.6),
+                    // Colors.white,
+
                   ]),
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(12),
@@ -120,21 +121,54 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
               ),
             ),
             Positioned(
-              top: getProportionateScreenHeight(240),
+              top: getProportionateScreenHeight(260),
               right: getProportionateScreenWidth(10),
               // width: getProportionateScreenWidth(190),
               height: getProportionateScreenHeight(80),
               child: Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+
                   children: [
                     Container(
+                      alignment: Alignment.centerRight,
                       height: getProportionateScreenHeight(30),
-                      width: getProportionateScreenWidth(150),
+                      width: getProportionateScreenWidth(200),
                       child: AutoSizeText(
                         "Pets carnival",
+                        textDirection: TextDirection.rtl,
                         style: blueButton_25pt,
+                      ),
+                    ),
+                    Container(
+                      height: getProportionateScreenHeight(20),
+                      // width: getProportionateScreenWidth(200),
+                      alignment: Alignment.centerRight,
+                      // color: Colors.red,
+                      child: Row(
+                        // mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+
+                            // alignment: Alignment.centerRight,
+                            height: getProportionateScreenHeight(20),
+                            width: getProportionateScreenWidth(200),
+                            child: AutoSizeText(
+                              "فلسطين رام الله ",
+                              style: blueButton_14pt,
+                              minFontSize: 10,
+                              maxLines: 1,
+                              textDirection: TextDirection.rtl,
+                            ),
+                          ),
+                          SizedBox(
+                            width: getProportionateScreenWidth(10),
+                          ),
+                          Image.asset(
+                            "assets/images/home/location_icon.png",
+                            height: getProportionateScreenHeight(12),
+                          ),
+                        ],
                       ),
                     ),
                     Row(
@@ -142,12 +176,13 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                       children: [
                         Container(
                           height: getProportionateScreenHeight(20),
-                          width: getProportionateScreenWidth(80),
+                          width: getProportionateScreenWidth(200),
                           child: AutoSizeText(
-                            "صباحا - 9 مساء",
+                            "من 9 صباحا  لغاية 9 مساء",
                             style: blueButton_14pt,
                             minFontSize: 10,
                             maxLines: 1,
+                            textDirection: TextDirection.rtl,
                           ),
                         ),
                         SizedBox(
@@ -155,27 +190,6 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                         ),
                         Image.asset(
                           "assets/images/home/clock_icon.png",
-                          height: getProportionateScreenHeight(12),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          height: getProportionateScreenHeight(20),
-                          width: getProportionateScreenWidth(80),
-                          child: AutoSizeText(
-                            "فلسطين رام الله ",
-                            style: blueButton_14pt,
-                            minFontSize: 10,
-                            maxLines: 1,
-                          ),
-                        ),
-                        SizedBox(
-                          width: getProportionateScreenWidth(10),
-                        ),
-                        Image.asset(
-                          "assets/images/home/location_icon.png",
                           height: getProportionateScreenHeight(12),
                         ),
                       ],
@@ -219,8 +233,9 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                                   ),
                                 ),
                                 Container(
+                                  alignment: Alignment.center,
                                   height: getProportionateScreenHeight(20),
-                                  width: getProportionateScreenWidth(40),
+                                  width: getProportionateScreenWidth(80),
                                   child: AutoSizeText(
                                     "المنتجات",
                                     style: controller.productsStyle,
@@ -262,8 +277,9 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                                   ),
                                 ),
                                 Container(
+                                  alignment: Alignment.center,
                                   height: getProportionateScreenHeight(20),
-                                  width: getProportionateScreenWidth(40),
+                                  width: getProportionateScreenWidth(80),
                                   child: AutoSizeText(
                                     "عن المتجر",
                                     style: controller.aboutStoreStyle,
@@ -305,8 +321,9 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                                   ),
                                 ),
                                 Container(
+                                  alignment: Alignment.center,
                                   height: getProportionateScreenHeight(20),
-                                  width: getProportionateScreenWidth(40),
+                                  width: getProportionateScreenWidth(80),
                                   child: AutoSizeText(
                                     "العروض",
                                     style: controller.offersStyle,
@@ -351,8 +368,9 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                                   ),
                                 ),
                                 Container(
+                                  alignment: Alignment.center,
                                   height: getProportionateScreenHeight(20),
-                                  width: getProportionateScreenWidth(60),
+                                  width: getProportionateScreenWidth(80),
                                   child: AutoSizeText(
                                     "ردود الطلبات",
                                     style: controller.ordersStyle,
