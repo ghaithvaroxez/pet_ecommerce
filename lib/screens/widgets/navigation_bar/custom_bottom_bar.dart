@@ -41,7 +41,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               homeStyle = activeTextStyle;
               doctorsStyle = notActiveTextStyle;
               ordersStyle = notActiveTextStyle;
-              customTitle.updateTitle("");
+              customTitle.updateTitle("الرئيسية");
             });
           }
           break;
@@ -130,122 +130,153 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Container(
-              height: getProportionateScreenHeight(60),
-              child: IconButton(
-                icon: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: getProportionateScreenHeight(17),
-                      // width: getProportionateScreenWidth(20),
-                      child: Image.asset(
-                        home,
-                        fit: BoxFit.fill,
+            GestureDetector(
+              onTap: (){                  widget.controller.animateTo(0, curve: Curves.easeInCubic);
+              },
+              child: Container(
+                height: getProportionateScreenHeight(60),
+                child:
+                // IconButton(
+                //   icon:
+                  Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Spacer(),
+                      Container(
+                        height: getProportionateScreenHeight(17),
+                        // width: getProportionateScreenWidth(20),
+                        child: Image.asset(
+                          home,
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                    ),
-                    Container(
-                      height: getProportionateScreenHeight(25),
-                      child: AutoSizeText(
-                        "الرئيسية",
-                        minFontSize: 4,
-                        style: homeStyle,
-                        textDirection: TextDirection.rtl,
-                      ),
-                    ),
-                  ],
-                ),
-                onPressed: () {
-                  widget.controller.animateTo(0, curve: Curves.easeInCubic);
-                },
-              ),
-            ),
-            Container(
-              height: getProportionateScreenHeight(60),
-              child: IconButton(
-                icon: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: getProportionateScreenHeight(17),
-                      // width: getProportionateScreenWidth(20),
-                      child: Image.asset(
-                        doctors,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    Container(
+                      Container(
                         height: getProportionateScreenHeight(25),
                         child: AutoSizeText(
-                          "الأطباء",
+                          "الرئيسية",
                           minFontSize: 4,
-                          style: doctorsStyle,
+                          style: homeStyle,
                           textDirection: TextDirection.rtl,
-                        )),
-                  ],
-                ),
-                onPressed: () {
-                  widget.controller.animateTo(1, curve: Curves.bounceIn);
-                },
+                        ),
+                      ),
+                      Spacer(),
+                    ],
+                  ),
+                //   onPressed: () {
+                //     widget.controller.animateTo(0, curve: Curves.easeInCubic);
+                //   },
+                // ),
               ),
             ),
-            Container(
-              height: getProportionateScreenHeight(60),
-              child: IconButton(
-                icon: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: getProportionateScreenHeight(17),
-                      // width: getProportionateScreenWidth(20),
-                      child: Image.asset(
-                        orders,
-                        fit: BoxFit.fill,
+            GestureDetector(
+              onTap: (){
+                widget.controller.animateTo(1, curve: Curves.bounceIn);
+              },
+              child: Container(
+                height: getProportionateScreenHeight(60),
+                child:
+                // IconButton(
+                //   icon:
+                  Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Spacer(),
+                      Container(
+                        height: getProportionateScreenHeight(17),
+                        // width: getProportionateScreenWidth(20),
+                        child: Image.asset(
+                          doctors,
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                    ),
-                    Container(
-                        height: getProportionateScreenHeight(25),
-                        child: AutoSizeText(
-                          "الطلبات",
-                          minFontSize: 4,
-                          style: ordersStyle,
-                          textDirection: TextDirection.rtl,
-                        )),
-                  ],
-                ),
-                onPressed: () {
-                  widget.controller.animateTo(2, curve: Curves.bounceIn);
-                },
+                      Container(
+                          height: getProportionateScreenHeight(25),
+                          child: AutoSizeText(
+                            "الأطباء",
+                            minFontSize: 4,
+                            style: doctorsStyle,
+                            textDirection: TextDirection.rtl,
+                          )),
+                      Spacer(),
+                    ],
+                  ),
+                //   onPressed: () {
+                //     widget.controller.animateTo(1, curve: Curves.bounceIn);
+                //   },
+                // ),
               ),
             ),
-            Container(
-              height: getProportionateScreenHeight(60),
-              child: IconButton(
-                // iconSize: getProportionateScreenHeight(35),
-                icon: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: getProportionateScreenHeight(17),
-                      // width: getProportionateScreenWidth(20),
-                      child: Image.asset(
-                        stores,
-                        fit: BoxFit.fill,
+            GestureDetector(
+              onTap: (){widget.controller.animateTo(2, curve: Curves.bounceIn);},
+              child: Container(
+                height: getProportionateScreenHeight(60),
+                child:
+                // IconButton(
+                //   icon:
+                  Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Spacer(),
+                      Container(
+                        height: getProportionateScreenHeight(17),
+                        // width: getProportionateScreenWidth(20),
+                        child: Image.asset(
+                          orders,
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                    ),
-                    Container(
-                        height: getProportionateScreenHeight(25),
-                        child: AutoSizeText(
-                          "المتاجر",
-                          minFontSize: 4,
-                          style: storesStyle,
-                          textDirection: TextDirection.rtl,
-                        )),
-                  ],
-                ),
-                onPressed: () {
-                  widget.controller.animateTo(3, curve: Curves.bounceIn);
-                },
+                      Container(
+                          height: getProportionateScreenHeight(25),
+                          child: AutoSizeText(
+                            "الطلبات",
+                            minFontSize: 4,
+                            style: ordersStyle,
+                            textDirection: TextDirection.rtl,
+                          )),
+                      Spacer(),
+                    ],
+                  ),
+                //   onPressed: () {
+                //     widget.controller.animateTo(2, curve: Curves.bounceIn);
+                //   },
+                // ),
+              ),
+            ),
+            GestureDetector(
+              onTap: (){  widget.controller.animateTo(3, curve: Curves.bounceIn);},
+              child: Container(
+                height: getProportionateScreenHeight(60),
+                child:
+                // IconButton(
+                  // iconSize: getProportionateScreenHeight(35),
+                  // icon:
+                  Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Spacer(),
+                      Container(
+                        height: getProportionateScreenHeight(17),
+                        // width: getProportionateScreenWidth(20),
+                        child: Image.asset(
+                          stores,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Container(
+                          height: getProportionateScreenHeight(25),
+                          child: AutoSizeText(
+                            "المتاجر",
+                            minFontSize: 4,
+                            style: storesStyle,
+                            textDirection: TextDirection.rtl,
+                          )),
+                      Spacer(),
+                    ],
+                  ),
+                  // onPressed: () {
+
+                  // },
+                // ),
               ),
             ),
           ],
