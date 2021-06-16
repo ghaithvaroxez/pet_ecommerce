@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/configuration/themes/colors.dart';
+
 import 'package:pets_ecommerce/screens/doctors/view/select_doctor_view.dart';
+import 'package:pets_ecommerce/screens/filter/view/filtter_bottom_sheet.dart';
 import 'package:pets_ecommerce/screens/home/view/home_view.dart';
 import 'package:pets_ecommerce/screens/main_screen/controller/title_controller.dart';
 import 'package:pets_ecommerce/screens/main_screen/model/main_screen_model.dart';
@@ -11,7 +12,7 @@ import 'package:pets_ecommerce/screens/widgets/navigation_bar/custom_bottom_bar.
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'package:pets_ecommerce/screens/main_screen/controller/title_controller.dart';
 import 'package:pets_ecommerce/screens/orders/views/select_order_view.dart';
-
+import 'package:get/get.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -31,7 +32,15 @@ with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
-
+// floatingActionButton: FloatingActionButton(
+//   onPressed: (){
+//       Get.bottomSheet(
+//         CustomBottomSheet(),
+//         barrierColor: Colors.grey.withOpacity(0.2),
+//         backgroundColor: Colors.white,
+//       );
+//   },
+// ),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: SafeArea(

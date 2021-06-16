@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/configuration/themes/colors.dart';
+import 'package:pets_ecommerce/configuration/constants/colors.dart';
+
 import 'package:pets_ecommerce/screens/main_screen/model/main_screen_model.dart';
 
 

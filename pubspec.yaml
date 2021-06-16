@@ -16,14 +16,21 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   auto_size_text: ^2.1.0
-  google_fonts: ^2.0.0
-  lottie: ^1.0.1
-  cached_network_image: ^3.0.0
+  google_fonts: ^0.4.0
+#  lottie: ^1.0.1
+  cached_network_image: ^2.2.0+1
   get: ^4.1.4
   shape_of_view: ^1.0.2
   custom_navigator: ^0.3.0
   share: ^2.0.1
-  device_preview: ^0.7.1
+#  device_preview:
+  shared_preferences: ^0.5.10
+  dio: ^3.0.10
+  cool_alert: ^1.0.3
+  firebase_core: ^0.7.0
+  firebase_auth: ^0.20.0+1
+  inspection: ^0.0.12
+  basic_utils: ^2.5.3
 
 dev_dependencies:
   flutter_test:
@@ -44,6 +51,7 @@ flutter:
     - assets/images/doctors/active/
     - assets/images/doctors/not_active/
     - assets/images/store/active/
+    - assets/images/splash_screen/
 
     - assets/images/favorite/notActive/
     - assets/images/favorite/active/

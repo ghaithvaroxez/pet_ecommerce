@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/themes/colors.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+
 class OpenNow extends StatelessWidget {
   final bool rightBottom;
 

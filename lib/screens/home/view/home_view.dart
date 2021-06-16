@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/configuration/themes/colors.dart';
 import 'package:pets_ecommerce/screens/home/model/constants.dart';
 import 'package:pets_ecommerce/screens/home/view/components/category_item.dart';
 import 'package:pets_ecommerce/screens/home/view/components/category_selected_item.dart';

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/configuration/themes/colors.dart';
 import 'package:pets_ecommerce/screens/auth/view/components/auth_button.dart';
 import 'package:get/get.dart';
+import 'package:pets_ecommerce/screens/auth/view/login/login_screen.dart';
+import 'package:pets_ecommerce/screens/auth/view/register/register_types_screen.dart';
 
-import 'auth_2.dart';
-class WelcomeScreen extends StatelessWidget {
+
+
+class LoginOrRegister extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +27,7 @@ class WelcomeScreen extends StatelessWidget {
               left: getProportionateScreenWidth(16),
               right: getProportionateScreenWidth(16),
 
-              child:AuthButton(color: true,title: "متابعة كزائر",ontap: (){Get.to(SignUpTypeScreen());}),
+              child:AuthButton(color: true,title: "تسجيل دخول",ontap: (){Get.to(LoginScreen());}),
           ),
           Positioned(
               top: getProportionateScreenHeight(713),

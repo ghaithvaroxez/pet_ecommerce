@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/configuration/themes/colors.dart';
 import 'package:pets_ecommerce/screens/doctors/controllers/customer_doctor_label_controller.dart';
 
 import 'components/orders_response/orders_response_body.dart';

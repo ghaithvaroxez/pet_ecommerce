@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "803039447629",
+    "project_id": "pets-app-9655d",
+    "storage_bucket": "pets-app-9655d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803039447629:android:2d76221339dcdf1ad12a04",
+        "android_client_info": {
+          "package_name": "com.varoxez.pets_ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803039447629-s9a2mp268fechbtb5h72r3t5g45m284p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA1olDLTSfTZft7bVwxUfDEGvg1Z8NI0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803039447629-s9a2mp268fechbtb5h72r3t5g45m284p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

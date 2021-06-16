@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/themes/colors.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+
 
 
 class LocationDropDownButton extends StatefulWidget {
@@ -24,13 +26,20 @@ class _LocationDropDownButtonState extends State<LocationDropDownButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(20),
+      width: getProportionateScreenWidth(156),
+      height: getProportionateScreenHeight(45),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(width: 1,color: Colors.grey.withOpacity(0.6)),
+      ),
+        padding: EdgeInsets.symmetric(horizontal: 15),
         child:DropdownButtonHideUnderline(
           child:DropdownButton(
-            value: _value,
+            // value: _value,
             items: list_items.map((String item) {
-              return DropdownMenuItem<int>(
-                child: Text('$item'),
+              return DropdownMenuItem<String>(
+                value: item,
+                child: Text(item,textDirection: TextDirection.rtl,style: blackText_14pt,),
               );
             }).toList(),
             onChanged:(value) {
@@ -44,7 +53,7 @@ class _LocationDropDownButtonState extends State<LocationDropDownButton> {
             icon: Icon(Icons.arrow_drop_down),
             iconDisabledColor: Colors.black,
             iconEnabledColor: Colors.blue,
-            isExpanded: true,
+            // isExpanded: true,
           ),
         )
     );

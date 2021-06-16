@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/themes/colors.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 
 
 class CustomTextField extends StatelessWidget {
@@ -9,10 +9,12 @@ class CustomTextField extends StatelessWidget {
   final bool password;
   final TextInputType textInputType;
 final bool color;
-  const CustomTextField({Key key, this.hint, this.prefixImage="", this.suffixImage="", this.password=false, this.textInputType=TextInputType.name, this.color=false}) : super(key: key);
+final TextEditingController textEditingController;
+  const CustomTextField({Key key, this.hint, this.prefixImage="", this.suffixImage="", this.password=false, this.textInputType=TextInputType.name, this.color=false,@required this.textEditingController}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return   TextField(
+controller: textEditingController,
       decoration: InputDecoration(
         border: InputBorder.none,
         hintText:hint,
