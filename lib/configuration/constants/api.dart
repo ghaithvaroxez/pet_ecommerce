@@ -9,7 +9,7 @@ class Api {
   static const registerStable = "/register/barn";
   static const registerStore = "/register/store";
   static const registerDoctor = "/register/doctor";
-
+  static const mobileExist = "/check/mobile";
   //login & logout
   static const login = "/login";
   static const logout = "/logout";

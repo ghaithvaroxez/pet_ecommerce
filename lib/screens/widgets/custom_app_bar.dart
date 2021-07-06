@@ -9,6 +9,9 @@ import 'package:pets_ecommerce/screens/main_screen/model/main_screen_model.dart'
 
 
 class CustomAppBar extends StatelessWidget {
+  final Function open_drawer;
+
+  const CustomAppBar({Key key, this.open_drawer}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,13 +26,18 @@ class CustomAppBar extends StatelessWidget {
                 SizedBox(
                   width: getProportionateScreenWidth(24),
                 ),
-                CircleAvatar(
-                  radius: 24,
-                  backgroundColor: Colors.grey.shade50,
-                  child: Image.asset(
-                    "assets/images/home/notification_icon.png",
-                    height: 24,
-                    width: 20,
+                GestureDetector(
+                  onTap: open_drawer,
+                  child: CircleAvatar(
+                    radius: 24,
+                    backgroundColor: Colors.grey.shade50,
+                    child: Image.asset(
+                      "assets/images/home/menu_icon.png",
+
+
+                      height: 24,
+                      width: 20,
+                    ),
                   ),
                 ),
                 Spacer(),
@@ -39,7 +47,7 @@ class CustomAppBar extends StatelessWidget {
                   radius: 24,
                   backgroundColor: Colors.grey.shade50,
                   child: Image.asset(
-                    "assets/images/home/menu_icon.png",
+                    "assets/images/home/notification_icon.png",
                     height: 24,
                     width: 20,
                   ),

@@ -24,11 +24,13 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
     orders = naOrders;
     doctors = naDoctors;
     stores = naStores;
+    corners=naCorners;
 
     homeStyle = activeTextStyle;
     storesStyle = notActiveTextStyle;
     ordersStyle = notActiveTextStyle;
     doctorsStyle = notActiveTextStyle;
+    cornersStyle=notActiveTextStyle;
     bottomTabController.addListener(() {
       switch (bottomTabController.index) {
         case 0:
@@ -42,6 +44,8 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               homeStyle = activeTextStyle;
               doctorsStyle = notActiveTextStyle;
               ordersStyle = notActiveTextStyle;
+              cornersStyle = notActiveTextStyle;
+              corners=naCorners;
               customTitle.updateTitle("الرئيسية");
             });
           }
@@ -58,6 +62,8 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               homeStyle = notActiveTextStyle;
               doctorsStyle = activeTextStyle;
               ordersStyle = notActiveTextStyle;
+              cornersStyle = notActiveTextStyle;
+              corners=naCorners;
               customTitle.updateTitle("الاطباء");
             });
           }
@@ -73,6 +79,8 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               homeStyle = notActiveTextStyle;
               doctorsStyle = notActiveTextStyle;
               ordersStyle = activeTextStyle;
+              cornersStyle = notActiveTextStyle;
+              corners=naCorners;
               customTitle.updateTitle("الطلبات");
             });
           }
@@ -88,7 +96,27 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
               homeStyle = notActiveTextStyle;
               doctorsStyle = notActiveTextStyle;
               ordersStyle = notActiveTextStyle;
+              cornersStyle = notActiveTextStyle;
+              corners=naCorners;
               customTitle.updateTitle("المتاجر");
+            });
+          }
+          break;
+        case 4:
+          {
+
+            setState(() {
+              corners=aCorners;
+              stores = naStores;
+              home = naHome;
+              doctors = naDoctors;
+              orders = naOrders;
+              cornersStyle = activeTextStyle;
+              storesStyle = notActiveTextStyle;
+              homeStyle = notActiveTextStyle;
+              doctorsStyle = notActiveTextStyle;
+              ordersStyle = notActiveTextStyle;
+              customTitle.updateTitle("الزوايا");
             });
           }
           break;
@@ -269,6 +297,43 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
                             "المتاجر",
                             minFontSize: 4,
                             style: storesStyle,
+                            textDirection: TextDirection.rtl,
+                          )),
+                      Spacer(),
+                    ],
+                  ),
+                  // onPressed: () {
+
+                  // },
+                // ),
+              ),
+            ),
+            GestureDetector(
+              onTap: (){  widget.controller.animateTo(4, curve: Curves.bounceIn);},
+              child: Container(
+                height: getProportionateScreenHeight(60),
+                child:
+                // IconButton(
+                  // iconSize: getProportionateScreenHeight(35),
+                  // icon:
+                  Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Spacer(),
+                      Container(
+                        height: getProportionateScreenHeight(17),
+                        // width: getProportionateScreenWidth(20),
+                        child: Image.asset(
+                          corners,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Container(
+                          height: getProportionateScreenHeight(25),
+                          child: AutoSizeText(
+                            "الزوايا",
+                            minFontSize: 4,
+                            style: cornersStyle,
                             textDirection: TextDirection.rtl,
                           )),
                       Spacer(),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/auth/controller/requests/auth_requests.dart';
+import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
 import 'package:pets_ecommerce/screens/auth/model/login.dart';
 import 'package:pets_ecommerce/screens/auth/model/user.dart';
 import 'package:pets_ecommerce/screens/auth/view/components/auth_button.dart';
@@ -12,6 +13,8 @@ import 'package:pets_ecommerce/screens/home/view/home_view.dart';
 import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'package:get/get.dart';
+
+import '../../../un_aprovverd_screen.dart';
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -23,6 +26,13 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController loginPasswordController=new TextEditingController();
   AuthRequest _authRequest=new AuthRequest();
   @override
+  void initState() {
+    // TODO: implement initState
+    loginPhoneNumberController.text="";
+    loginPasswordController.text="";
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
@@ -30,17 +40,20 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SingleChildScrollView(
           child: Container(
             width: SizeConfig.screenWidth,
-            height: SizeConfig.screenHeight,
+            height: getProportionateScreenHeight(800),
             child: Stack(
               children: [
                 Positioned(
                   top: getProportionateScreenHeight(55),
-                  left: getProportionateScreenWidth(130),
-                  right: getProportionateScreenWidth(130),
-                  child: AutoSizeText(
-                    "تسجيل دخول",
-                    style: h4_21pt,
-                    maxLines: 1,
+
+                  child: Container(
+                    width: getProportionateScreenWidth(390),
+                    alignment: Alignment.center,
+                    child: AutoSizeText(
+                      "تسجيل الدخول",
+                      style: h4_21pt,
+                      maxLines: 1,
+                    ),
                   ),
                 ),
 
@@ -71,10 +84,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: getProportionateScreenWidth(25),
                     child: Column(
                       children: [
-                        Text(
-                          "أضف رقم هاتفك الجوال وكلمة المرور لتسجيل الدخول",
-                          style: subtitle1_16pt,
+                          Container(
+                            width: getProportionateScreenWidth(320),
+                            child: AutoSizeText(
+                            "أضف رقم هاتفك الجوال وكلمة المرور لتسجيل الدخول",
+                            style: subtitle1_16pt,
+                              textDirection: TextDirection.rtl,
+                              maxLines: 1,
                         ),
+                          ),
                         SizedBox(height: getProportionateScreenHeight(15),)
                       ],
                     )),
@@ -90,20 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(width: 0.2)),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                              top: 17,
-                              right: 15,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  // Container(alignment: Alignment.bottomLeft,child: Text("رقم الهاتف الجوال",style: grayText_14pt,)),
-                                  // SizedBox(width: getProportionateScreenWidth(30),),
-                                  // Image.asset("assets/images/auth/mobile_icon.png",color: Color(0xFF348BA7).withOpacity(0.38),),
-                                ],
-                              )),
-                          // Positioned(right:60,top:20,child: ),
+                      child:
                           CustomTextField(
                             textEditingController: loginPhoneNumberController,
                             hint: "رقم الهاتف الجوال",
@@ -120,8 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           //   ),
                           //   keyboardType: TextInputType.phone,
                           // ),
-                        ],
-                      ),
+
                     ),
                   ),
                 ),
@@ -181,6 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: true,
                       title: "تسجيل دخول",
                       ontap: ()  {
+
+
 login();
                         },
                     ),),
@@ -193,15 +199,54 @@ login();
   }
 
   void login()async {
+    if(
+    loginPhoneNumberController.text==""
+    ){
+      CoolAlert.show(
+        context: context,
+        type: CoolAlertType.error,
+        text: "الرجاء ادخال رقم هاتف لتسجيل الدخول ",
+      );
+      return;
+    }
+    if(
+    loginPasswordController.text==""
+    ){
+      CoolAlert.show(
+        context: context,
+        type: CoolAlertType.error,
+        text: "الرجاء ادخال كلمة مرور لتسجيل الدخول ",
+      );
+      return;
+    }
+    if(!AuthServices.isValidPhoneNumber(loginPhoneNumberController.text))
+    {
+      CoolAlert.show(
+        context: context,
+        type: CoolAlertType.error,
+        text: " رقم الهاتف الذي ادخلته غير صالح",
+      );
+      return ;
+    }
+    if(loginPasswordController.text.length<6)
+    {
+      CoolAlert.show(
+        context: context,
+        type: CoolAlertType.error,
+        text: "كلمة المرور قصيرة جدا",
+      );
+      return ;
+    }
     CoolAlert.show(
       context: context,
       type: CoolAlertType.loading,
       // text: " رقم الهاتف  أو كلمة المرور غير صحيحة",
     );
-
     UserModel user=await _authRequest.loginRequest(mobile:loginPhoneNumberController.text , password: loginPasswordController.text);
     Navigator.pop(context);
-    if(user.error==false) Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>MainScreen()));
+    if(user.error==false) {
+      if(user.user.approve == "pending") Get.offAll(UnApprovedScreen());
+      else Get.offAll(MainScreen());}
     else {
       CoolAlert.show(
         context: context,

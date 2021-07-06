@@ -15,7 +15,7 @@ class SelectStoreView extends StatelessWidget {
             itemBuilder: (context, index) => index == 0
                 ? Column(
                     children: [
-                      // SearchBar(),
+                      SearchBar(),
                       VerticalStoreListCard()],
                   )
                 : VerticalStoreListCard()));

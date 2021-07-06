@@ -14,7 +14,6 @@ import 'package:pets_ecommerce/screens/widgets/custom_app_bar.dart';
 import 'components/search_bar_component.dart';
 import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets_ecommerce/lib/screens/widgets/navigation_bar/custom_navigation_bar.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
-import 'package:shape_of_view/shape_of_view.dart';
 
 import 'components/stable_news_card.dart';
 import 'components/store_and_stable_card.dart';
@@ -26,10 +25,10 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child:ListView(
         children: [
-          // Container(height:getProportionateScreenHeight(50),child: SearchBar()),
+
+          SearchBar(),
 
           ///searchbar
-
           Container(
             height: getProportionateScreenHeight(55),
             width: SizeConfig.screenWidth,
@@ -348,6 +347,7 @@ class HomeScreen extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             height: getProportionateScreenHeight(275),
             width: getProportionateScreenWidth(370),
+            margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(15)),
             // color: Colors.red,
             child: Column(
               children: [
@@ -394,10 +394,11 @@ class HomeScreen extends StatelessWidget {
           //   height: 20,
           // ),
           Container(
-            margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(25)),
             alignment: Alignment.bottomLeft,
             height: getProportionateScreenHeight(275),
             width: getProportionateScreenWidth(370),
+            margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(15)),
+
             // color: Colors.red,
             child: Column(
               children: [
@@ -406,10 +407,10 @@ class HomeScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       SizedBox(
-                        width: 25,
+                        width: getProportionateScreenWidth(25),
                       ),
                       Text(
-                        "اخبار الاسطبلات",
+                        "المناحل",
                         style: body3_18pt,
                       ),
                       Spacer(),
@@ -418,29 +419,30 @@ class HomeScreen extends StatelessWidget {
                         style: body2_14pt,
                       ),
                       SizedBox(
-                        width: 10,
+                        width: getProportionateScreenWidth(10),
                       )
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: getProportionateScreenHeight(25),
+                  height: getProportionateScreenHeight(20),
                 ),
                 Container(
-                    height: getProportionateScreenHeight(225),
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: productsImages.length,
-                      itemBuilder: (context, index) =>
-                          StableNewsCard(),
-                    )),
+                  height: getProportionateScreenHeight(220),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: productsImages.length,
+                    itemBuilder: (context, index) =>
+                        StoreAndStableCard(),
+                  ),
+                ),
               ],
             ),
           ),
 
-          ///stables_news
+          ///stables
           SizedBox(
-            height: getProportionateScreenHeight(200),
+            height: getProportionateScreenHeight(100),
           ),
         ],
       ),

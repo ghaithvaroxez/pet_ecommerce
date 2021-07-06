@@ -12,7 +12,7 @@ class SelectOrderView extends StatelessWidget {
           child: ListView.builder(
         // physics: NeverScrollableScrollPhysics(),
           itemCount: 20,itemBuilder:(context,index)=>index==0?Column(children: [
-            // SearchBar(),
+            SearchBar(),
             VerticalOrderListCard()],):VerticalOrderListCard() ));
 
   }

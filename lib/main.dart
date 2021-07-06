@@ -1,5 +1,6 @@
 // import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -8,8 +9,11 @@ import 'package:pets_ecommerce/screens/auth/view/login/login_screen.dart';
 import 'package:pets_ecommerce/screens/auth/view/otp/otp_screen.dart';
 import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
 import 'package:pets_ecommerce/screens/auth/view/splash/splash_screen.dart';
+import 'package:pets_ecommerce/screens/doctors/view/doctor_details.dart';
 import 'package:pets_ecommerce/screens/error/view/error_view.dart';
-
+import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
+import 'package:pets_ecommerce/screens/vendor_app/view/vendor_details_screen.dart';
+import 'package:pets_ecommerce/screens/doctor_app/view/doctor_details_screen.dart';
 
 void main() async {
 
@@ -53,7 +57,8 @@ class _AppState extends State<App> {
             // locale: DevicePreview.locale(context), // Add the locale here
             // builder: DevicePreview.appBuilder,
 // home: RegisterScreen(UserType.user),// Add the builder here
-//             home: OtpScreen(),
+//             home: VendorDetailsPage(),
+//             home: DoctorAppDetailsPage(),
             home: SplashScreen(),
 // home:WelcomqeScreen(),
 // home:SignUpTypeScreen(),
@@ -65,6 +70,9 @@ class _AppState extends State<App> {
 // home: AboutStoreBodyScreen(),
 // home: SelectDoctorView(),
 // home: FavoriteView(),
+// home: VendorDetailsPage(),
+// home: BL(),
+//           home: SplashScreen(),
           );
         }
 
@@ -96,4 +104,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class BL extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Container(
+        child: VendorDetailsPage(),
+      ),
+    );
+  }
+}
 

@@ -1,15 +1,20 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cool_alert/cool_alert.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/auth/controller/register_controller.dart';
 import 'package:pets_ecommerce/screens/auth/controller/requests/auth_requests.dart';
+import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
 import 'package:pets_ecommerce/screens/auth/model/contstants.dart';
 import 'package:pets_ecommerce/screens/auth/model/user.dart';
 import 'package:pets_ecommerce/screens/auth/view/components/auth_button.dart';
+import 'package:pets_ecommerce/screens/auth/view/login/login_screen.dart';
 import 'package:pets_ecommerce/screens/auth/view/otp/otp_screen.dart';
 import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
+import 'package:pets_ecommerce/screens/un_aprovverd_screen.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'package:get/get.dart';
 
@@ -42,16 +47,17 @@ List<String> type_items = [
   "متجر",
   "اسطبل",
 ];
+
 class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(child: Center(
-      child: CircularProgressIndicator(
-
-      ),
+    return Container(
+        child: Center(
+      child: CircularProgressIndicator(),
     ));
   }
 }
+
 TextEditingController registerFirstNameController = new TextEditingController();
 
 TextEditingController registerLastNameController = new TextEditingController();
@@ -63,19 +69,30 @@ TextEditingController registerStableNameController =
 
 TextEditingController registerPhoneNumberController =
     new TextEditingController();
+TextEditingController registerCountyController = new TextEditingController();
+TextEditingController registerNumberController = new TextEditingController();
 
 TextEditingController registerPasswordController = new TextEditingController();
 TextEditingController otpCodeController = new TextEditingController();
 
 String location = "القدس";
 
-RegisterController registerController= Get.put(RegisterController());
+RegisterController registerController = Get.put(RegisterController());
 
 bool showLoading = false;
 
 class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
+    registerFirstNameController.text = "";
+    registerLastNameController.text = "";
+    registerStoreNameController.text = "";
+    registerStableNameController.text = "";
+    registerPhoneNumberController.text = "";
+    registerPhoneNumberController.text = "";
+    registerNumberController.text = "";
+    registerPasswordController.text = "";
+    otpCodeController.text = "";
     registerController = Get.put(RegisterController());
     switch (widget.userType) {
       case UserType.user:
@@ -606,21 +623,57 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   SizedBox(
                                     height: getProportionateScreenHeight(15),
                                   ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 0.3),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: CustomTextField(
-                                      textEditingController:
-                                          registerPhoneNumberController,
-                                      hint: "رقم الهاتف الجوال",
-                                      prefixImage:
-                                          "assets/images/auth/mobile_icon.png",
-                                      textInputType: TextInputType.phone,
-                                      color: true,
-                                    ),
+                                  Row(
+                                    children: [
+                                      CountryCodePicker(
+                                        onInit: (value) {
+                                          registerCountyController.text =
+                                              value.dialCode;
+                                        },
+                                        onChanged: (value) {
+                                          print("*********");
+                                          print(value.dialCode);
+                                          print("*********");
+                                          registerCountyController.text =
+                                              value.dialCode;
+                                        },
+                                        // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                                        initialSelection: 'US',
+                                        favorite: [
+                                          '+963',
+                                          'SY',
+                                          '+1',
+                                          'US',
+                                          '+44',
+                                          'UK'
+                                        ],
+                                        // optional. Shows only country name and flag
+                                        showCountryOnly: false,
+                                        // optional. Shows only country name and flag when popup is closed.
+                                        showOnlyCountryWhenClosed: false,
+                                        // optional. aligns the flag and the Text left
+                                        alignLeft: false,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.grey,
+                                                  width: 0.3),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: CustomTextField(
+                                            textEditingController:
+                                                registerNumberController,
+                                            hint: "رقم الهاتف الجوال",
+                                            prefixImage:
+                                                "assets/images/auth/mobile_icon.png",
+                                            textInputType: TextInputType.phone,
+                                            color: true,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   SizedBox(
                                     height: getProportionateScreenHeight(20),
@@ -751,8 +804,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     color: true,
                                     title: "متابعة",
                                     ontap: () {
-                                      authRequest.verifyPhoneNumber(registerPhoneNumberController.text);
-                                      // register();
+                                      register();
                                     },
                                   ),
                                 ],
@@ -774,93 +826,156 @@ class _RegisterScreenState extends State<RegisterScreen> {
     //else
   }
 
-  Future<void> register() async {
-    CoolAlert.show(
-      context: context,
-      type: CoolAlertType.loading,
-      // text: " رقم الهاتف  أو كلمة المرور غير صحيحة",
-    );
-    switch (type) {
-      case "مستخدم":
-        {
-          if (!await authRequest.registerUserRequest(
-              firstName: registerFirstNameController.text,
-              secondName: registerLastNameController.text,
-              mobile: registerPhoneNumberController.text,
-              password: registerPasswordController.text,
-              address: location)) {
-            Navigator.pop(context);
-            CoolAlert.show(
-              context: context,
-              type: CoolAlertType.error,
-              text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
-            );
-          }
-        }
-        break;
-      case "طبيب":
-        {
-          if (!await authRequest.registerDoctorRequest(
-              firstName: registerFirstNameController.text,
-              secondName: registerLastNameController.text,
-              mobile: registerPhoneNumberController.text,
-              password: registerPasswordController.text,
-              address: location)) {
-            Navigator.pop(context);
-            CoolAlert.show(
-              context: context,
-              type: CoolAlertType.error,
-              text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
-            );
-          }
-        }
-        break;
-      case "اسطبل":
-        {
-          if (!await authRequest.registerStableRequest(
-              stable_name: registerStableNameController.text,
-              mobile: registerPhoneNumberController.text,
-              password: registerPasswordController.text,
-              address: location)) {
-            Navigator.pop(context);
-            CoolAlert.show(
-              context: context,
-              type: CoolAlertType.error,
-              text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
-            );
-          }
-        }
-        break;
-      case "متجر":
-        {
-          if (!await authRequest.registerStoreRequest(
-              store_name: registerStoreNameController.text,
-              mobile: registerPhoneNumberController.text,
-              password: registerPasswordController.text,
-              address: location)) {
-            Navigator.pop(context);
-            CoolAlert.show(
-              context: context,
-              type: CoolAlertType.error,
-              text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
-            );
-          }
-        }
-        break;
-    }
-    UserModel user = await authRequest.loginRequest(
-        mobile: registerPhoneNumberController.text,
-        password: registerPasswordController.text);
-    Navigator.pop(context);
-    if (user.error == false)
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => MainScreen()));
-    else {
+  Future<bool> register() async {
+    registerPhoneNumberController.text =
+        registerCountyController.text + registerNumberController.text;
+    consolePrint(registerPhoneNumberController.text);
+    if (!AuthServices.isValidPhoneNumber(registerPhoneNumberController.text)) {
       CoolAlert.show(
         context: context,
         type: CoolAlertType.error,
-        text: "حدث خطأ ما يرجى تسجيل الدخول مرة اخرى",
+        text: " رقم الهاتف الضي ادخلته غير صالح",
       );
+      return false;
+    }
+    if (registerPasswordController.text == "") {
+      CoolAlert.show(
+        context: context,
+        type: CoolAlertType.error,
+        text: "الرجاء ادخال كلمة مرور لإكمال طلبك ",
+      );
+      return false;
+    }
+    if (registerPasswordController.text.length < 6) {
+      CoolAlert.show(
+        context: context,
+        type: CoolAlertType.error,
+        text: "كلمة المرور قصيرة جدا",
+      );
+      return false;
+    }
+
+    if (await authRequest.isExist(registerPhoneNumberController.text)) {
+      CoolAlert.show(
+        context: context,
+        type: CoolAlertType.error,
+        text: " رقم الهاتف  موجود مسبقا بالفعل",
+      );
+      return false;
+    } else {
+      await authRequest.verifyPhoneNumber(registerPhoneNumberController.text);
     }
   }
+}
+
+Future<bool> register2() async {
+  // CoolAlert.show(
+  //   type: CoolAlertType.loading,
+  // );
+  String mobile="00"+registerPhoneNumberController.text.substring(1);
+  consolePrint(mobile);
+  bool auth = true;
+  switch (type) {
+    case "مستخدم":
+      {
+        if (!await authRequest.registerUserRequest(
+            firstName: registerFirstNameController.text,
+            secondName: registerLastNameController.text,
+            mobile: mobile,
+            password: registerPasswordController.text,
+            address: location)) {
+          auth = false;
+          // Get.back();
+          // CoolAlert.show(
+          //   type: CoolAlertType.error,
+          //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+          // );
+        }
+      }
+      break;
+    case "طبيب":
+      {
+        if (!await authRequest.registerDoctorRequest(
+            firstName: registerFirstNameController.text,
+            secondName: registerLastNameController.text,
+            mobile: mobile,
+            password: registerPasswordController.text,
+            address: location)) {
+          // Get.back();
+          auth = false;
+          customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
+
+          // CoolAlert.show(
+          //   type: CoolAlertType.error,
+          //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+          // );
+        }
+      }
+      break;
+    case "اسطبل":
+      {
+        if (!await authRequest.registerStableRequest(
+            stable_name: registerStableNameController.text,
+            mobile: mobile,
+            password: registerPasswordController.text,
+            address: location)) {
+          // Get.back();
+          auth = false;
+          customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
+
+          // CoolAlert.show(
+          //   type: CoolAlertType.error,
+          //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+          // );
+        }
+      }
+      break;
+    case "متجر":
+      {
+        if (!await authRequest.registerStoreRequest(
+            store_name: registerStoreNameController.text,
+            mobile: mobile,
+            password: registerPasswordController.text,
+            address: location)) {
+          // Get.back();
+          auth = false;
+          customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
+          // CoolAlert.show(
+          //   type: CoolAlertType.error,
+          //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+          // );
+        }
+      }
+      break;
+  }
+
+  // Get.back();
+  // registerController.changeState();
+  // registerController.changeLoading();
+  if (auth) {
+    UserModel user = await authRequest.loginRequest(
+        mobile:mobile,
+        password: registerPasswordController.text);
+
+    if (user.error != true) {
+      if (user.user.approve == "pending") {
+        Get.offAll(UnApprovedScreen());
+      } else
+        Get.offAll(MainScreen());
+    } else {
+      Get.offAll(LoginScreen());
+      customDialog("حدث خطأ ما اثناء التسجيل الرجاء تسجيل الدخول  مرة اخرى");
+    }
+    // CoolAlert.show(
+    //   type: CoolAlertType.error,
+    //   text: "حدث خطأ ما يرجى تسجيل الدخول مرة اخرى",
+    // );
+
+  }
+
+  return auth;
+}
+
+customDialog(String title) {
+  return Get.dialog(Text(title), barrierColor: Colors.grey.withOpacity(0.6));
 }

@@ -31,6 +31,11 @@ dependencies:
   firebase_auth: ^0.20.0+1
   inspection: ^0.0.12
   basic_utils: ^2.5.3
+  animate_icons: ^2.0.0
+  country_code_picker: ^2.0.2
+  image_picker: ^0.6.7+17
+  lottie:
+
 
 dev_dependencies:
   flutter_test:
@@ -43,18 +48,27 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/splash_screen/
+
     - assets/images/auth/
-    - assets/images/home/
-    - assets/images/store/
+    - assets/images/bottom_navigation_bar/
+    - assets/images/bottom_sheet/
     - assets/images/doctors/
     - assets/images/doctors/active/
     - assets/images/doctors/not_active/
-    - assets/images/store/active/
-    - assets/images/splash_screen/
-
     - assets/images/favorite/notActive/
     - assets/images/favorite/active/
     - assets/images/favorite/
-    - assets/images/bottom_sheet/
-    - assets/images/bottom_navigation_bar/
+    - assets/images/home/
+    - assets/images/splash_screen/
+    - assets/images/store/
+    - assets/images/store/active/
+    - assets/images/store/not active/
+    - assets/images/vendor_app/
+    - assets/images/
+    - assets/images/drawer/drawer_icons/
+    - assets/images/drawer/
+    - assets/images/profile/
+
+
+
+

@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/screens/auth/controller/register_controller.dart';
 import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
 import 'package:pets_ecommerce/screens/auth/model/user.dart';
 import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
+import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
 import 'package:pets_ecommerce/services/http_requests_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -163,6 +165,15 @@ class AuthRequest extends HttpService {
     @required String mobile,
     @required String password,
   }) async {
+    if(mobile[0]=='+') {
+      mobile = mobile.substring(1);
+      mobile = "00" + mobile;
+    }
+    if(!(mobile[0]=='0'&&mobile[1]=='0'))
+      {
+        mobile = "00" + mobile;
+      }
+    consolePrint(mobile);
     final apiResult = await postRequest(
       Api.login,
       {
@@ -171,9 +182,12 @@ class AuthRequest extends HttpService {
       },
     );
     if (apiResult.statusCode == 200 &&
-        apiResult.data["status"] != false)
+        apiResult.data["status"] != false
+    ) {
+
+    AuthServices.saveUser(apiResult.data);
       return UserModel.fromJson(apiResult.data);
-    else {
+    } else {
       UserModel error = UserModel();
       error.error = true;
       return error;
@@ -224,27 +238,48 @@ class AuthRequest extends HttpService {
 //   );
 //   return ApiResponse.fromResponse(apiResult);
 // }
+Future<bool> isExist(String mobile)async
+{
+  consolePrint(mobile);
+  final apiResult = await postRequest(
+    Api.mobileExist,
+    {
+      "mobile": mobile,
+    },
+  );
 
+  if(apiResult.statusCode ==200)
+    {
+      consolePrint(apiResult.data['message']);
+      if(apiResult.data['message']=="app.mobile does not  exist")
+        return false;
+      else return true;
+    }
+  else return true;
+}
 
 Future<bool> verifyPhoneNumber(String phone) async {
-
+consolePrint(phone);
 try{
-  registerController.changeLoading();
+  registerController.changeLoading(true);
 
 
   await _auth.verifyPhoneNumber(
     phoneNumber: phone,
     verificationCompleted: (phoneAuthCredential) async {
-      registerController.changeLoading();
-      registerController.changeState();
+      registerController.changeLoading(false);
+consolePrint("verify done");
+// Get.to(MainScreen());
+      registerController.changeToOtp();
       // setState(() {
       //   showLoading = false;
       // });
       //signInWithPhoneAuthCredential(phoneAuthCredential);
     },
     verificationFailed: (verificationFailed) async {
+      registerController.changeLoading(false);
       Get.snackbar("OOPS!!!", "verification failed:"+verificationFailed.message,duration: five_sec);
-      registerController.changeLoading();
+
       consolePrint("verification failed:"+verificationFailed.message);
       // setState(() {
       //   showLoading = false;
@@ -253,8 +288,9 @@ try{
       //     SnackBar(content: Text(verificationFailed.message)));
     },
     codeSent: (verificationId, resendingToken) async {
-      registerController.changeLoading();
-      registerController.changeState();
+      registerController.changeLoading(false);
+      registerController.changeToOtp();
+      // Get.to(MainScreen());
       phoneVerificationId=verificationId;
       consolePrint("code sent :\n verification id is"+verificationId);
       Get.snackbar("done", "we sent message to "+phone,duration: five_sec);
@@ -262,12 +298,12 @@ try{
       //   showLoading = false;
       //   currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
       //   this.verificationId = verificationId;
-      // });
+      // });9
     },
     codeAutoRetrievalTimeout: (verificationId) async {},
   );
 }on FirebaseAuthException catch (e) {
-
+consolePrint("firebase exception"+e.message);
 Get.snackbar("failed", e.message,duration: five_sec);
 
   // _scaffoldKey.currentState
@@ -279,13 +315,13 @@ Get.snackbar("failed", e.message,duration: five_sec);
 Future<bool> reVerifyPhoneNumber(String phone) async {
 
 try{
-  registerController.changeLoading();
+  registerController.changeLoading(true);
 
 
   await _auth.verifyPhoneNumber(
     phoneNumber: phone,
     verificationCompleted: (phoneAuthCredential) async {
-      registerController.changeLoading();
+      registerController.changeLoading(false);
       // registerController.changeState();
       // setState(() {
       //   showLoading = false;
@@ -294,8 +330,8 @@ try{
     },
     verificationFailed: (verificationFailed) async {
       Get.snackbar("OOPS!!!", "verification failed:"+verificationFailed.message,duration: five_sec);
-      registerController.changeLoading();
-      registerController.changeState();
+      registerController.changeLoading(false);
+      registerController.changeToRegister();
       consolePrint("verification failed:"+verificationFailed.message);
       // setState(() {
       //   showLoading = false;
@@ -304,7 +340,7 @@ try{
       //     SnackBar(content: Text(verificationFailed.message)));
     },
     codeSent: (verificationId, resendingToken) async {
-      registerController.changeLoading();
+      registerController.changeLoading(false);
       // registerController.changeState();
       phoneVerificationId=verificationId;
       consolePrint("code sent :\n verification id is"+verificationId);
@@ -318,7 +354,7 @@ try{
     codeAutoRetrievalTimeout: (verificationId) async {},
   );
 }on FirebaseAuthException catch (e) {
-
+  registerController.changeLoading(false);
 Get.snackbar("failed", e.message,duration: five_sec);
 
   // _scaffoldKey.currentState
@@ -334,7 +370,7 @@ Get.snackbar("failed", e.message,duration: five_sec);
     // });
 
     try {
-      registerController.changeLoading();
+      registerController.changeLoading(true);
       PhoneAuthCredential phoneAuthCredential =
       PhoneAuthProvider.credential(
           verificationId: phoneVerificationId, smsCode: otpCode);
@@ -345,19 +381,29 @@ Get.snackbar("failed", e.message,duration: five_sec);
       // setState(() {
       //   showLoading = false;
       // });
-   registerController.changeLoading();
-      if(authCredential?.user != null){
+
+      if(authCredential.user != null){
+        registerController.changeLoading(false);
         consolePrint("phone verified successfully");
-        Get.snackbar("Success", "Donnnnnnnnnnnnnnnnnnnnnnnnnnnnne!",duration: five_sec);
+        // Get.snackbar("Success", "Donnnnnnnnnnnnnnnnnnnnnnnnnnnnne!",duration: five_sec);
+bool k=await register2();
+        consolePrint("backeend register "+k.toString());
+
         // Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
       }
-      else Get.snackbar("Failed", "You have entered wrong code try again ",duration: five_sec);
+      else {
+        registerController.changeLoading(false);
+        // registerController.changeToRegister();
+        Get.snackbar("Failed", "You have entered wrong code try again ",
+            duration: five_sec);
+      };
 
     } on FirebaseAuthException catch (e) {
       // setState(() {
       //   showLoading = false;
       // });
-      registerController.changeLoading();
+      registerController.changeLoading(false);
+      registerController.changeToRegister();
       Get.snackbar("failed", e.message,duration: five_sec);
       // _scaffoldKey.currentState
       //     .showSnackBar(SnackBar(content: Text(e.message)));
