@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:803039447629:android:2d76221339dcdf1ad12a04",
+        "mobilesdk_app_id": "1:803039447629:android:f5d2a087a059c154d12a04",
         "android_client_info": {
           "package_name": "com.varoxez.pets_ecommerce"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "803039447629-2agk9ntvgkdsok8rr5vopf3k8cpota1s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.varoxez.pets_ecommerce",
+            "certificate_hash": "757b1d79a82bfc62da9a666fe490ebfe27e6932d"
+          }
+        },
         {
           "client_id": "803039447629-s9a2mp268fechbtb5h72r3t5g45m284p.apps.googleusercontent.com",
           "client_type": 3

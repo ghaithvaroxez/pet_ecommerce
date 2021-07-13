@@ -962,7 +962,8 @@ Future<bool> register2() async {
         Get.offAll(UnApprovedScreen());
       } else
         Get.offAll(MainScreen());
-    } else {
+    } else
+      {
       Get.offAll(LoginScreen());
       customDialog("حدث خطأ ما اثناء التسجيل الرجاء تسجيل الدخول  مرة اخرى");
     }

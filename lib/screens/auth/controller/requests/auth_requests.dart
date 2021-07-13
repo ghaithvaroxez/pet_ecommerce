@@ -28,7 +28,9 @@ class AuthRequest extends HttpService {
   //
   //   return ApiResponse.fromResponse(apiResult);
   //
-
+AuthRequest(){
+  _auth.setSettings(appVerificationDisabledForTesting: true);
+}
   FirebaseAuth _auth =FirebaseAuth.instance;
   String phoneVerificationId;
   Future<bool> registerUserRequest({
@@ -181,13 +183,16 @@ class AuthRequest extends HttpService {
         "password": password,
       },
     );
+    consolePrint(apiResult.data["status"].toString());
     if (apiResult.statusCode == 200 &&
         apiResult.data["status"] != false
     ) {
 
     AuthServices.saveUser(apiResult.data);
       return UserModel.fromJson(apiResult.data);
-    } else {
+    }
+    // else if(apiResult.statusCode == 200 ){ }
+    else {
       UserModel error = UserModel();
       error.error = true;
       return error;
@@ -261,6 +266,7 @@ Future<bool> isExist(String mobile)async
 Future<bool> verifyPhoneNumber(String phone) async {
 consolePrint(phone);
 try{
+
   registerController.changeLoading(true);
 
 
@@ -276,7 +282,7 @@ consolePrint("verify done");
       // });
       //signInWithPhoneAuthCredential(phoneAuthCredential);
     },
-    verificationFailed: (verificationFailed) async {
+    verificationFailed: (FirebaseAuthException verificationFailed) async {
       registerController.changeLoading(false);
       Get.snackbar("OOPS!!!", "verification failed:"+verificationFailed.message,duration: five_sec);
 
@@ -339,7 +345,7 @@ try{
       // _scaffoldKey.currentState.showSnackBar(
       //     SnackBar(content: Text(verificationFailed.message)));
     },
-    codeSent: (verificationId, resendingToken) async {
+    codeSent: (verificationId, [int forceResendingToken]) async {
       registerController.changeLoading(false);
       // registerController.changeState();
       phoneVerificationId=verificationId;
@@ -351,9 +357,12 @@ try{
       //   this.verificationId = verificationId;
       // });
     },
-    codeAutoRetrievalTimeout: (verificationId) async {},
+    codeAutoRetrievalTimeout: (verificationId) async {
+      phoneVerificationId=verificationId;
+    },
+    timeout: Duration(seconds: 30),
   );
-}on FirebaseAuthException catch (e) {
+}catch (e) {
   registerController.changeLoading(false);
 Get.snackbar("failed", e.message,duration: five_sec);
 
@@ -371,22 +380,23 @@ Get.snackbar("failed", e.message,duration: five_sec);
 
     try {
       registerController.changeLoading(true);
-      PhoneAuthCredential phoneAuthCredential =
+      AuthCredential credential =
       PhoneAuthProvider.credential(
           verificationId: phoneVerificationId, smsCode: otpCode);
 
       final authCredential =
-      await _auth.signInWithCredential(phoneAuthCredential);
+      await _auth.signInWithCredential(credential);
 
       // setState(() {
       //   showLoading = false;
       // });
 
       if(authCredential.user != null){
-        registerController.changeLoading(false);
+
         consolePrint("phone verified successfully");
         // Get.snackbar("Success", "Donnnnnnnnnnnnnnnnnnnnnnnnnnnnne!",duration: five_sec);
 bool k=await register2();
+        registerController.changeLoading(false);
         consolePrint("backeend register "+k.toString());
 
         // Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));

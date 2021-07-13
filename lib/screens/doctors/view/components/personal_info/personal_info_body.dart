@@ -89,10 +89,11 @@ class DoctorPersonalInfoBody extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(height:getProportionateScreenHeight(30), width:getProportionateScreenWidth(120),child: AutoSizeText("احدث التقييمات",style:body3_18pt,minFontSize: 12,)),
+                Container(height:getProportionateScreenHeight(30), child: AutoSizeText("احدث التقييمات",style:body3_18pt,minFontSize: 12,maxLines: 1,)),
                 Container(height:getProportionateScreenHeight(15),width:getProportionateScreenWidth(80),child: AutoSizeText("عرض المزيد ",style: body2_14pt,minFontSize: 8,)),
               ],
             ),
+            SizedBox(height: getProportionateScreenHeight(10),),
             Column(
               children: [
                 ReviewCad(),

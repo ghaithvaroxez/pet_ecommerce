@@ -9,8 +9,10 @@ import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.da
 import 'package:pets_ecommerce/screens/auth/model/login.dart';
 import 'package:pets_ecommerce/screens/auth/model/user.dart';
 import 'package:pets_ecommerce/screens/auth/view/components/auth_button.dart';
+import 'package:pets_ecommerce/screens/doctor_app/view/doctor_details_screen.dart';
 import 'package:pets_ecommerce/screens/home/view/home_view.dart';
 import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
+import 'package:pets_ecommerce/screens/vendor_app/view/vendor_details_screen.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'package:get/get.dart';
 
@@ -245,8 +247,20 @@ login();
     UserModel user=await _authRequest.loginRequest(mobile:loginPhoneNumberController.text , password: loginPasswordController.text);
     Navigator.pop(context);
     if(user.error==false) {
-      if(user.user.approve == "pending") Get.offAll(UnApprovedScreen());
-      else Get.offAll(MainScreen());}
+      if(user.user.approve == "pending") {
+
+          Get.offAll(UnApprovedScreen());
+
+      }
+      else {
+        if(user.user.role=="user")
+          Get.offAll(MainScreen());
+        else if(user.user.role=="provider")
+          Get.offAll(VendorDetailsPage());
+        else if(user.user.role=="doctor")
+          Get.offAll(DoctorAppDetailsPage());
+      }
+    }
     else {
       CoolAlert.show(
         context: context,
