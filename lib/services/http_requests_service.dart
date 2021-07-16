@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 
 
 import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,11 +17,11 @@ class HttpService {
   SharedPreferences prefs;
 
   Future<Map<String, String>> getHeaders() async {
-    // final userToken = await AuthServices.getAuthToken();
+    final userToken = await AuthServices.getAuthToken();
     return {
       // "mobile":userToken
       // HttpHeaders.acceptHeader: "application/json",
-      // HttpHeaders.authorizationHeader: "Bearer $userToken",
+      HttpHeaders.authorizationHeader: "Bearer $userToken",
     };
   }
 
@@ -59,7 +60,7 @@ class HttpService {
   Future<Response> getRequest(
     String url, {
     Map<String, dynamic> queryParameters,
-    bool includeHeaders = true,
+    bool includeHeaders = false,
   }) async {
     //preparing the api uri/url
     String uri = "$host$url";
@@ -70,7 +71,7 @@ class HttpService {
         : Options(
             headers: await getHeaders(),
           );
-
+    consolePrint("+++++++++++++++++++++++++++++++="+"try to post on"+uri+"+++++++++++++++++++++++++++++++=");
     return dio.get(
       uri,
       options: mOptions,
@@ -82,30 +83,34 @@ class HttpService {
   Future<Response> postRequest(
     String url,
     body, {
-    bool includeHeaders = true,
+    bool includeHeaders = false,
   }) async {
     //preparing the api uri/url
     String uri = "$host$url";
 print("+++++++++++++++++++++++++++++++="+"try to post on"+uri+"+++++++++++++++++++++++++++++++=");
     //preparing the post options if header is required
-    // final mOptions = !includeHeaders
-    //     ? null
-    //     : Options(
-    //         headers: await getHeaders(),
-    //       );
+    final mOptions = !includeHeaders
+        ? null
+        : Options(
+            headers: await getHeaders(),
+          );
 
-    return dio.post(
-      uri,
-      data: body,
-      // options: mOptions,
-    );
+   try {
+      return dio.post(
+        uri,
+        data: body,
+        options: mOptions,
+      );
+    }catch(e){
+     consolePrint("erorrrr :" +e.toString());
+   }
   }
 
   //for post api calls with file upload
   Future<Response> postWithFiles(
     String url,
     body, {
-    bool includeHeaders = true,
+    bool includeHeaders = false,
   }) async {
     //preparing the api uri/url
     String uri = "$host$url";

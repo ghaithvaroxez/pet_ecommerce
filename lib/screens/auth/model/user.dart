@@ -14,22 +14,42 @@ class UserModel {
   UserModel({
     this.user,
     this.token,
+    this.store,
   });
 
   User user;
   bool error=false;
   String token;
   String fcmToken;
+  List<StoreId> store;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
     user: User.fromJson(json["user"]),
     token: json["token"],
+    store: List<StoreId>.from(json["store"].map((x) => StoreId.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "user": user.toJson(),
     "token": token,
     "fcmToken":fcmToken,
+    "store": List<dynamic>.from(store.map((x) => x.toJson())),
+  };
+}
+
+class StoreId {
+  StoreId({
+    this.id,
+  });
+
+  int id;
+
+  factory StoreId.fromJson(Map<String, dynamic> json) => StoreId(
+    id: json["id"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
   };
 }
 

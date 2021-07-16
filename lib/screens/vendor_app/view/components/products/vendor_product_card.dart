@@ -1,16 +1,21 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/models/product.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/constants.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
 
 class VendorProductCard extends StatelessWidget {
-  Product product;
-VendorProductCard({this.product});
-  @override
+  StoreProduct product;
+  Function delete;
+  Function edit;
+VendorProductCard({@required this.product,@required this.delete,@required this.edit});
+
+@override
   Widget build(BuildContext context) {
     return Container(
       // margin: EdgeInsets.only(left: getProportionateScreenWidth(16),right:getProportionateScreenWidth(16),bottom: getProportionateScreenHeight(16)),
@@ -34,7 +39,7 @@ VendorProductCard({this.product});
               child: Stack(
                 children: [
                   Container(color:Colors.white,child: Image.asset("assets/images/home/custom_background.png",fit: BoxFit.fill,)),
-                  Container(child: Image.file(product.img,fit: BoxFit.fill,)),
+                  Container(child: CachedNetworkImage(imageUrl: Api.imagePath+product.image,fit: BoxFit.fill,)),
                 ],
               ),
 
@@ -64,8 +69,8 @@ children: [
                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                    children: [
-                     Container(              margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
-                         height: getProportionateScreenHeight(20),child: Image.asset("assets/images/vendor_app/cat_icon.png")),
+                     Container(
+                         width: getProportionateScreenHeight(75),height:getProportionateScreenHeight(20),child: AutoSizeText(product.categoryName,style: body1_16pt,),),
                      Spacer(),
                      Expanded(child: Container(height: getProportionateScreenHeight(20),child:Row(
                        children: [
@@ -77,7 +82,7 @@ children: [
                    ]
                  ),
                   SizedBox(height: getProportionateScreenHeight(10),),
-                  Container(alignment: Alignment.centerRight,height: getProportionateScreenHeight(20),child: AutoSizeText(product.desc,style: darkGrayText_11pt,),),
+                  Container(alignment: Alignment.centerRight,height: getProportionateScreenHeight(20),child: AutoSizeText(product.body,style: darkGrayText_11pt,),),
 Row(
   children: [
     Spacer(
@@ -97,14 +102,8 @@ Expanded(child: Padding(
   child:   Image.asset("assets/images/vendor_app/unupload_icon.png"),
 )),
 Expanded(child: Padding(   padding: const EdgeInsets.all(7.0),child: Image.asset("assets/images/vendor_app/upload_icon.png"))),
-Expanded(child: GestureDetector(  onTap:(){
-  vendorProductsController.changeToEditProduct();
-
-},child: Image.asset("assets/images/vendor_app/pen.png"))),
-Expanded(child: GestureDetector(onTap:(){
-  vendorProductsController.deleteProduct(product);
-
-},child: Image.asset("assets/images/vendor_app/trash.png"))),
+Expanded(child: GestureDetector(  onTap:edit,child: Image.asset("assets/images/vendor_app/pen.png"))),
+Expanded(child: GestureDetector(onTap:delete,child: Image.asset("assets/images/vendor_app/trash.png"))),
         ],
       ),
     ),

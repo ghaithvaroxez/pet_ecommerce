@@ -15,6 +15,8 @@ import 'package:pets_ecommerce/screens/auth/view/login/login_screen.dart';
 import 'package:pets_ecommerce/screens/auth/view/otp/otp_screen.dart';
 import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
 import 'package:pets_ecommerce/screens/un_aprovverd_screen.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/location_model.dart';
+import 'package:pets_ecommerce/screens/vendor_app/requests/vendor_app_requests.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'package:get/get.dart';
 
@@ -38,6 +40,8 @@ List<String> location_items = [
   "رام الله",
   "القدس",
 ];
+List<City> addresses=[];
+bool loaddata=false;
 
 String type;
 AuthRequest authRequest = new AuthRequest();
@@ -49,6 +53,8 @@ List<String> type_items = [
 ];
 
 class LoadingScreen extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -82,6 +88,29 @@ RegisterController registerController = Get.put(RegisterController());
 bool showLoading = false;
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  VendorAppRequests _vendorAppRequests=VendorAppRequests();
+  getaddresses() async {
+    loaddata=true;
+    setState(() {
+
+    });
+    try{
+      LocationModel locationModel = await _vendorAppRequests.getLocations();
+      addresses=locationModel.cities;
+      location=addresses[0].name;
+    }catch(e)
+    {
+      loaddata=false;
+      setState(() {
+
+      });
+    }
+
+    loaddata=false;
+    setState(() {
+
+    });
+  }
   @override
   void initState() {
     registerFirstNameController.text = "";
@@ -93,6 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     registerNumberController.text = "";
     registerPasswordController.text = "";
     otpCodeController.text = "";
+    getaddresses();
     registerController = Get.put(RegisterController());
     switch (widget.userType) {
       case UserType.user:
@@ -122,7 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     SizeConfig.init(context);
     return Scaffold(
       body: SafeArea(
-        child: GetBuilder<RegisterController>(
+        child: loaddata==true?LoadingScreen():GetBuilder<RegisterController>(
           init: registerController,
           builder: (controller) => controller.showLoading
               ? LoadingScreen()
@@ -191,13 +221,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       alignment: Alignment.centerRight,
                                       child: Container(
                                           width:
-                                              getProportionateScreenWidth(156),
+                                          getProportionateScreenWidth(156),
                                           height:
-                                              getProportionateScreenHeight(45),
+                                          getProportionateScreenHeight(45),
                                           alignment: Alignment.centerRight,
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(6),
+                                            BorderRadius.circular(6),
                                             border: Border.all(
                                                 width: 1,
                                                 color: Colors.grey
@@ -209,7 +239,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             child: DropdownButton<String>(
                                               // value: type,
                                               items:
-                                                  type_items.map((String item) {
+                                              type_items.map((String item) {
                                                 return DropdownMenuItem<String>(
                                                   value: item,
                                                   child: Text(item),
@@ -244,7 +274,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               icon: Icon(Icons.arrow_drop_down),
                                               iconDisabledColor: Colors.black,
                                               iconEnabledColor:
-                                                  Colors.blue.withOpacity(0.6),
+                                              Colors.blue.withOpacity(0.6),
                                               // isExpanded: true,
                                             ),
                                           )),
@@ -753,44 +783,55 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   Container(
                                     alignment: Alignment.centerRight,
+                                    padding: EdgeInsets.only(left: getProportionateScreenWidth(5),right: getProportionateScreenWidth(5)),
                                     child: Container(
+                                        padding: EdgeInsets.only(left: getProportionateScreenWidth(5),right: getProportionateScreenWidth(5)),
                                         width: getProportionateScreenWidth(156),
                                         height:
-                                            getProportionateScreenHeight(45),
+                                        getProportionateScreenHeight(45),
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(6),
+                                          BorderRadius.circular(6),
                                           border: Border.all(
                                               width: 1,
                                               color:
-                                                  Colors.grey.withOpacity(0.6)),
+                                              Colors.grey.withOpacity(0.6)),
                                         ),
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 15),
+                                        // padding: EdgeInsets.symmetric(
+                                        //     horizontal: 15),
                                         child: DropdownButtonHideUnderline(
                                           child: DropdownButton(
+                                            // value: controller.storeInfo.address,
                                             // value: _value,
-                                            items: location_items
-                                                .map((String item) {
-                                              return DropdownMenuItem<String>(
+                                            items: addresses
+                                                .map((City item) {
+                                              return DropdownMenuItem<City>(
                                                 value: item,
-                                                child: Text(
-                                                  item,
-                                                  textDirection:
-                                                      TextDirection.rtl,
-                                                  style: blackText_14pt,
+                                                child: Container(
+                                                  width: getProportionateScreenWidth(100),
+                                                  height:
+                                                  getProportionateScreenHeight(45),
+                                                  child: AutoSizeText(
+                                                    item.name,
+                                                    textDirection:
+                                                    TextDirection.rtl,
+                                                    style: blackText_14pt,
+                                                    minFontSize: 9,
+                                                  ),
                                                 ),
                                               );
                                             }).toList(),
-                                            onChanged: (value) {
-                                              setState(() {
-                                                location = value;
-                                              });
+                                            onChanged: (city) async{
+                                              print("before");
+                                              location=city.name;
+
+                                              print("after");
+
                                             },
                                             hint: Text(location),
                                             elevation: 8,
                                             style: blackText_14pt,
-                                            icon: Icon(Icons.arrow_drop_down),
+                                            icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
                                             iconDisabledColor: Colors.black,
                                             iconEnabledColor: Colors.blue,
                                             // isExpanded: true,

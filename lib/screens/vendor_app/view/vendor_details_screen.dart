@@ -1,6 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/screens/vendor_app/controller/info_controller.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/categories.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/types.dart';
+import 'package:pets_ecommerce/screens/vendor_app/requests/products_requests.dart';
+import 'package:pets_ecommerce/screens/vendor_app/view/components/offers/add_new_offer_screen.dart';
 import 'package:pets_ecommerce/screens/vendor_app/view/components/products/vendor_products_body.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/vendor_app/controller/vendor_label_controller.dart';
@@ -10,6 +17,7 @@ import 'package:pets_ecommerce/screens/widgets/floating_action_button.dart';
 import 'components/about/about_store_body.dart';
 import 'components/offers/vendor_offers_body.dart';
 import 'components/orders/orders_body.dart';
+import 'components/products/add_new_product_screen.dart';
 
 
 class VendorDetailsPage extends StatefulWidget {
@@ -17,9 +25,11 @@ class VendorDetailsPage extends StatefulWidget {
   _VendorDetailsPageState createState() => _VendorDetailsPageState();
 }
 
+
 class _VendorDetailsPageState extends State<VendorDetailsPage>
     with SingleTickerProviderStateMixin {
-
+  bool isloading=false;
+  VendorAppProductsReq _vendorAppProductsReq=VendorAppProductsReq();
 
   @override
   void initState() {
@@ -39,13 +49,12 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
 
         vendorAppTabController.animateTo(0);
         vendorAppLabelController.changeIndex(0);
-        vendorProductsController.changeToAddProduct();
-
+        Get.to(VendorAppAddProduct());
       },
         onPressed2:  (){
           vendorAppTabController.animateTo(2);
           vendorAppLabelController.changeIndex(2);
-          vendorOfferController.changeToAddOffer();
+          Get.to(VendorAppAddOffer());
         },
       ),
       body: SafeArea(
@@ -57,12 +66,28 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
                 right: 0,
                 height: getProportionateScreenHeight(300),
                 child: Container(
-                  child: Image.asset(
-                    "assets/images/home/shop_image.png",
-                    fit: BoxFit.fill,
+                  child:  GetBuilder<VendorInfoController>(
+                    init: customVendorInfoController,
+                    builder: (controller)=>controller.init==false? Image.asset(
+                      "assets/images/home/shop_image.png",
+                      fit: BoxFit.fill,
+                    ):controller.storeInfo.image==null?Image.asset(
+                      "assets/images/home/shop_image.png",
+                      fit: BoxFit.fill,
+                    ):CachedNetworkImage(
+                      imageUrl: Api.imagePath+controller.storeInfo.image,
+                      fit: BoxFit.cover,
+                      progressIndicatorBuilder: (context, url, downloadProgress) =>
+                          Container(alignment:Alignment.center,height:getProportionateScreenHeight(75),width:getProportionateScreenWidth(75),child: CircularProgressIndicator(value: downloadProgress.progress)),
+                      errorWidget: (context, url, error) => Image.asset(
+                        "assets/images/home/shop_image.png",
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
                   ),
                 ),
-            ),
+
 
             Positioned(
                 top: 0,
@@ -78,40 +103,40 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
             ),
 
 
-            Positioned(
-              top: getProportionateScreenHeight(34),
-              left: getProportionateScreenWidth(24),
-              child: GestureDetector(
-                onTap: (){
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  width: getProportionateScreenWidth(48),
-                  height: getProportionateScreenHeight(48),
-                  decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.8),
-                      shape: BoxShape.circle),
-                  child: Center(
-                    child: Icon(
-                      Icons.arrow_back_ios_outlined,
-                      size: 14,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              top: getProportionateScreenHeight(180),
-              right: getProportionateScreenWidth(10),
-              child: Stack(
-                children: [
-
-                  Image.asset("assets/images/vendor_app/camera.png",    width: getProportionateScreenWidth(52),
-                    height: getProportionateScreenHeight(52),fit: BoxFit.fill,),
-
-                ],
-              ),
-            ),///camera
+            // Positioned(
+            //   top: getProportionateScreenHeight(34),
+            //   left: getProportionateScreenWidth(24),
+            //   child: GestureDetector(
+            //     onTap: (){
+            //       Navigator.pop(context);
+            //     },
+            //     child: Container(
+            //       width: getProportionateScreenWidth(48),
+            //       height: getProportionateScreenHeight(48),
+            //       decoration: BoxDecoration(
+            //           color: Colors.white.withOpacity(0.8),
+            //           shape: BoxShape.circle),
+            //       child: Center(
+            //         child: Icon(
+            //           Icons.arrow_back_ios_outlined,
+            //           size: 14,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // Positioned(
+            //   top: getProportionateScreenHeight(180),
+            //   right: getProportionateScreenWidth(10),
+            //   child: Stack(
+            //     children: [
+            //
+            //       Image.asset("assets/images/vendor_app/camera.png",    width: getProportionateScreenWidth(52),
+            //         height: getProportionateScreenHeight(52),fit: BoxFit.fill,),
+            //
+            //     ],
+            //   ),
+            // ),///camera
 
             Positioned(
               top: getProportionateScreenHeight(250),
@@ -370,7 +395,7 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
                         AboutStoreBodyScreen(),
                         VendorOffersBodyScreen(),
                         OrdersBodyScreen(),
-                        OrdersBodyScreen()
+                        Container(),
                       ],
                     ),
                   ),

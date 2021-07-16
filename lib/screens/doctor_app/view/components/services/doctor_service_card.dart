@@ -100,7 +100,7 @@ class DoctorServiceCard extends StatelessWidget {
                               )),
                               Expanded(child: Padding(   padding: const EdgeInsets.all(7.0),child: Image.asset("assets/images/vendor_app/upload_icon.png"))),
                               Expanded(child: GestureDetector(  onTap:(){
-                                vendorProductsController.changeToEditProduct();
+                                // vendorProductsController.changeToEditProduct();
 
                               },child: Image.asset("assets/images/vendor_app/pen.png"))),
                               Expanded(child: GestureDetector(onTap:(){

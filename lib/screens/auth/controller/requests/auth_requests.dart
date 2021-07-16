@@ -187,7 +187,7 @@ AuthRequest(){
     if (apiResult.statusCode == 200 &&
         apiResult.data["status"] != false
     ) {
-
+consolePrint("saving user");
     AuthServices.saveUser(apiResult.data);
       return UserModel.fromJson(apiResult.data);
     }

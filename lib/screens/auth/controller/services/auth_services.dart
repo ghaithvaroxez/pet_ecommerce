@@ -58,10 +58,11 @@ class AuthServices {
       final userStringObject =
       await LocalStorageService.prefs.getString(AppStrings.userKey);
       final userObject = json.decode(userStringObject);
-      currentUser.user = User.fromJson(userObject);
+      currentUser = UserModel.fromJson(userObject);
     }
     return currentUser;
   }
+
 
   static Future<UserModel> saveUser(dynamic jsonObject) async {
      currentUser = UserModel.fromJson(jsonObject);

@@ -1,8 +1,9 @@
-enum ProductsScreenState{
-  addProduct,
-  showProducts,
-  editProduct
-}
+// enum ProductsScreenState{
+//   addProduct,
+//   showProducts,
+//   editProduct,
+//   loading
+// }
 
 enum OffersScreenState{
   addOffer,

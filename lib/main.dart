@@ -54,6 +54,14 @@ class _AppState extends State<App> {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return GetMaterialApp(
+            theme: ThemeData(
+              timePickerTheme: TimePickerThemeData(
+                backgroundColor: Colors.white,
+                shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                hourMinuteShape: CircleBorder(),
+              ),
+            ),
             // locale: DevicePreview.locale(context), // Add the locale here
             // builder: DevicePreview.appBuilder,
 // home: RegisterScreen(UserType.user),// Add the builder here
