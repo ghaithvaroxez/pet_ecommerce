@@ -67,7 +67,7 @@ getmodel()async{
     @required String body_ar,
     @required String body_en,
     @required String image,
-    @required int price,
+    @required String price,
 
     @required int product_id,
   })
@@ -110,7 +110,7 @@ Future<bool> AddProduct({
   @required String body_ar,
   @required String body_en,
   @required String image,
-  @required int price,
+  @required String price,
   })
   async {
     FormData formData =
@@ -122,7 +122,7 @@ Future<bool> AddProduct({
       "body_ar":body_ar,
       "body_en":body_en,
       "image":image,
-      "price":double.parse(price.toString()),
+      "price":price,
       "store_id": vendor.store[0].id
     });
 

@@ -40,8 +40,8 @@ class VendorOffersController extends GetxController{
   addNewOffer(
       {@required int category_id,
         @required int type_id,
-        // @required String name_ar,
-        // @required String name_en,
+        @required String name_ar,
+        @required String name_en,
         @required String desc_ar,
         @required String desc_en,
         @required String image,
@@ -54,8 +54,8 @@ class VendorOffersController extends GetxController{
       bool k = await vendorAppOffersReq.AddOffer(
           category_id: category_id,
           type_id: type_id,
-          // name_ar: name_ar,
-          // name_en: name_en,
+          name_ar: name_ar,
+          name_en: name_en,
           desc_ar: desc_ar,
           desc_en: desc_en,
           image: image,
@@ -140,6 +140,8 @@ for(int i=0;i<vendor_type_items.length;i++)
       bool k = await vendorAppOffersReq.updateOffer(
         category_id: category_id,
         type_id: type_id,
+        name_en: offer.name,
+        name_ar: offer.name,
         desc_ar: offer.desc,
         desc_en: offer.desc,
         offer_id: offer.id,

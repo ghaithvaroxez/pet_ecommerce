@@ -38,7 +38,7 @@ AuthRequest(){
     @required String secondName,
     @required String mobile,
     @required String password,
-    @required String address,
+    @required int address,
   }) async {
     final apiResult = await postRequest(
       Api.registerUser,
@@ -47,7 +47,7 @@ AuthRequest(){
         "last_name": secondName,
         "mobile": mobile,
         "password": password,
-        "address": address,
+        "district_id": address,
       },
     );
     if (apiResult.statusCode == 200)
@@ -70,7 +70,7 @@ AuthRequest(){
     // @required String secondName,
     @required String mobile,
     @required String password,
-    @required String address,
+    @required int address,
   }) async {
     final apiResult = await postRequest(
       Api.registerStore,
@@ -79,7 +79,7 @@ AuthRequest(){
         // "last_name":secondName,
         "phone": mobile,
         "password": password,
-        "address": address,
+        "district_id": address,
       },
     );
     if (apiResult.statusCode == 200)
@@ -103,7 +103,7 @@ AuthRequest(){
     // @required String secondName,
     @required String mobile,
     @required String password,
-    @required String address,
+    @required int address,
   }) async {
     final apiResult = await postRequest(
       Api.registerStable,
@@ -112,7 +112,7 @@ AuthRequest(){
         // "last_name":secondName,
         "phone": mobile,
         "password": password,
-        "address": address,
+        "district_id": address,
       },
     );
     if (apiResult.statusCode == 200)
@@ -135,7 +135,7 @@ AuthRequest(){
     @required String secondName,
     @required String mobile,
     @required String password,
-    @required String address,
+    @required int address,
   }) async {
     final apiResult = await postRequest(
       Api.registerDoctor,
@@ -144,7 +144,7 @@ AuthRequest(){
         "last_name": secondName,
         "mobile": mobile,
         "password": password,
-        "address": address,
+        "district_id": address,
       },
     );
 

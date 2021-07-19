@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/screens/vendor_app/controller/info_controller.dart';
+import 'package:pets_ecommerce/screens/vendor_app/controller/offers_controller.dart';
+import 'package:pets_ecommerce/screens/vendor_app/controller/products_controller.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/categories.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/types.dart';
 import 'package:pets_ecommerce/screens/vendor_app/requests/products_requests.dart';
@@ -30,7 +32,10 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
     with SingleTickerProviderStateMixin {
   bool isloading=false;
   VendorAppProductsReq _vendorAppProductsReq=VendorAppProductsReq();
-
+  VendorOffersController vendorOffersController =Get.put(VendorOffersController());
+  VendorProductsController vendorProductsController=Get.put(VendorProductsController());
+  VendorLabelController vendorAppLabelController =
+  Get.put(VendorLabelController());
   @override
   void initState() {
     // TODO: implement initState
@@ -39,6 +44,7 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
     vendorAppTabController.addListener(() {
       vendorAppLabelController.changeIndex(vendorAppTabController.index);
     });
+
   }
 
   @override
@@ -49,12 +55,12 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
 
         vendorAppTabController.animateTo(0);
         vendorAppLabelController.changeIndex(0);
-        Get.to(VendorAppAddProduct());
+        Get.to(VendorAppAddProduct(vendorProductsController));
       },
         onPressed2:  (){
           vendorAppTabController.animateTo(2);
           vendorAppLabelController.changeIndex(2);
-          Get.to(VendorAppAddOffer());
+          Get.to(VendorAppAddOffer(vendorOffersController));
         },
       ),
       body: SafeArea(
@@ -391,9 +397,9 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
                         // AboutStoreBodyScreen(),
                         // OffersBodyScreen(),
                         // OrdersBodyScreen(),
-                        VendorProductsBodyScreen(),
+                        VendorProductsBodyScreen(vendorProductsController),
                         AboutStoreBodyScreen(),
-                        VendorOffersBodyScreen(),
+                        VendorOffersBodyScreen(vendorOffersController),
                         OrdersBodyScreen(),
                         Container(),
                       ],

@@ -1,17 +1,21 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/models/product.dart';
 import 'package:pets_ecommerce/screens/doctor_app/model/constants.dart';
-import 'package:pets_ecommerce/screens/doctor_app/model/service.dart';
+import 'package:pets_ecommerce/screens/doctor_app/model/doctor.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/constants.dart';
 
 class DoctorServiceCard extends StatelessWidget {
-  Service service;
-  DoctorServiceCard({this.service});
+  DoctorService service;
+  DoctorServiceCard({this.service,this.delete,this.edit});
+  Function delete;
+  Function edit;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +30,8 @@ class DoctorServiceCard extends StatelessWidget {
             boxShadow: shadow),
         child: Row(
           children: [
-            Container(width: getProportionateScreenWidth(140),
+            Container(
+              width: getProportionateScreenWidth(140),
               height: getProportionateScreenHeight(140),
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
@@ -36,50 +41,62 @@ class DoctorServiceCard extends StatelessWidget {
                 child: Stack(
                   children: [
                     Container(color:Colors.white,child: Image.asset("assets/images/home/custom_background.png",fit: BoxFit.fill,)),
-                    Container(child: Image.file(service.img,fit: BoxFit.fill,)),
+                    Container(child: CachedNetworkImage(
+                      width: getProportionateScreenWidth(140),
+                      height: getProportionateScreenHeight(140),
+                      imageUrl: Api.imagePath+service.image,fit: BoxFit.fill,
+                    ),
+                    ),
                   ],
                 ),
 
               ),
             ),
-            SizedBox(width: getProportionateScreenWidth(8),),
+            // SizedBox(width: getProportionateScreenWidth(8),),
             Expanded(
+              flex: 4,
               child: Container(
 
                 child: Column(
                   children: [
                     SizedBox(height: getProportionateScreenHeight(20),),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
-
+                      // margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
+                      padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
                       height: getProportionateScreenHeight(20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(flex:5,child: Container(height: getProportionateScreenHeight(20),child: AutoSizeText(service.name,style: body1_16pt,),)),
-                          Expanded(flex:1,child: Container(height: getProportionateScreenHeight(20),child: AutoSizeText(service.price.toString()+" \$",style: body2_14pt,maxLines: 1,),)),
+                          Container(width:getProportionateScreenWidth(125),alignment:Alignment.centerRight,height: getProportionateScreenHeight(20),child: AutoSizeText(service.name,style: body1_16pt,),),
+                          Container(width:getProportionateScreenWidth(80),alignment:Alignment.centerLeft,padding:EdgeInsets.only(left: getProportionateScreenWidth(3)),height: getProportionateScreenHeight(20),child: AutoSizeText("\$"+service.price,style: body2_14pt,maxLines: 1,minFontSize: 8,),),
                         ],
                       ),
                     ),
                     SizedBox(height: getProportionateScreenHeight(10),),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                        children: [
-                          Container(              margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
-                              height: getProportionateScreenHeight(20),child: Image.asset("assets/images/vendor_app/cat_icon.png")),
-                          Spacer(),
-                          Expanded(child: Container(height: getProportionateScreenHeight(20),child:Row(
-                            children: [
-                              Image.asset("assets/images/home/clock_icon.png"),
-                              SizedBox(width: getProportionateScreenWidth(5),),
-                              AutoSizeText("منذ ساعة",style: darkGrayText_11pt,),
-                            ],
-                          ))),
-                        ]
+                          children: [
+                            Container(
+                              alignment: Alignment.centerRight,
+                              width: getProportionateScreenHeight(136),height:getProportionateScreenHeight(20),child: AutoSizeText(service.categoryName,style: body1_16pt,),),
+                            Spacer(),
+                            Container(
+                                height: getProportionateScreenHeight(20),
+                                child:Row(
+                                  children: [
+                                    Image.asset("assets/images/home/clock_icon.png"),
+                                    SizedBox(width: getProportionateScreenWidth(5),),
+                                    AutoSizeText(service.date+" ",style: darkGrayText_11pt,),
+                                  ],
+                                )),
+                          ]
+                      ),
                     ),
                     SizedBox(height: getProportionateScreenHeight(10),),
-                    Container(alignment: Alignment.centerRight,height: getProportionateScreenHeight(20),child: AutoSizeText(service.desc,style: darkGrayText_11pt,),),
+                    Container(padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),alignment: Alignment.centerRight,height: getProportionateScreenHeight(20),child: AutoSizeText(service.desc,style: darkGrayText_11pt,),),
                     Row(
                       children: [
                         Spacer(
@@ -99,13 +116,43 @@ class DoctorServiceCard extends StatelessWidget {
                                 child:   Image.asset("assets/images/vendor_app/unupload_icon.png"),
                               )),
                               Expanded(child: Padding(   padding: const EdgeInsets.all(7.0),child: Image.asset("assets/images/vendor_app/upload_icon.png"))),
-                              Expanded(child: GestureDetector(  onTap:(){
-                                // vendorProductsController.changeToEditProduct();
-
-                              },child: Image.asset("assets/images/vendor_app/pen.png"))),
+                              Expanded(child: GestureDetector(  onTap:edit,child: Image.asset("assets/images/vendor_app/pen.png"))),
                               Expanded(child: GestureDetector(onTap:(){
-                                customDoctorServicesController.deleteService(service);
-
+                                showDialog(
+                                    context: context,
+                                    builder: ((context) => AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5)),
+                                      title:  Text(
+                                        'هل أنت متأكد ؟',
+                                        textDirection: TextDirection.rtl,
+                                        style: body3_18pt,
+                                      ),
+                                      content: Text(
+                                        'انت على وشك حذف هذه الخدمة !',
+                                        textDirection: TextDirection.rtl,
+                                        style: body1_16pt,
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          child:  Text(
+                                            'نعم',
+                                          ),
+                                          onPressed: () async{
+                                            // language.changeLanguage();
+                                            Navigator.of(context).pop();
+                                            await delete();
+                                            // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: Text('لا'),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        )
+                                      ],
+                                    )));
                               },child: Image.asset("assets/images/vendor_app/trash.png"))),
                             ],
                           ),

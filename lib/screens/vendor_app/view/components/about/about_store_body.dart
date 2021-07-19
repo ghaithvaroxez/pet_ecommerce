@@ -139,7 +139,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
     SizeConfig.init(context);
     return  GetBuilder<VendorInfoController> (
       init: customVendorInfoController,
-      builder: (controller)=> controller.isLoading==true&&loaddata==false?Center(child: Container(height: getProportionateScreenHeight(100),width: getProportionateScreenWidth(100),child: Column(
+      builder: (controller)=> controller.isLoading==true||loaddata==true?Center(child: Container(height: getProportionateScreenHeight(100),width: getProportionateScreenWidth(100),child: Column(
         children: [
           CircularProgressIndicator(),
           SizedBox(height: getProportionateScreenHeight(5),),
@@ -149,13 +149,16 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
         textDirection: TextDirection.rtl,
         child: Container(
           color: Colors.white,
-          padding: EdgeInsets.symmetric(
-              horizontal: getProportionateScreenWidth(24),
+          padding: EdgeInsets.only(
+              left: getProportionateScreenWidth(24),
+              right: getProportionateScreenWidth(24),
+              top: getProportionateScreenWidth(16),
               // vertical: getProportionateScreenHeight(26)
           ),
           child: SingleChildScrollView(
             child: Column(
               children: [
+
                 Row(
                   children: [
                     AutoSizeText(
@@ -175,7 +178,9 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                       Container(
                         alignment: Alignment.centerRight,
                         child: Container(
-                            width: getProportionateScreenWidth(160),
+                            width: getProportionateScreenWidth(165),
+                            padding: EdgeInsets.only(right: getProportionateScreenWidth(4)),
+
                             height:
                             getProportionateScreenHeight(45),
                             decoration: BoxDecoration(
@@ -371,23 +376,24 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                     ),
                     SizedBox(height: getProportionateScreenHeight(15),),
 
-                    SizedBox(height: getProportionateScreenHeight(5),),
+
                     Container(
                       height: getProportionateScreenHeight(50),
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.grey)),
                       child: Row(
                         children: [
                           SizedBox(width: getProportionateScreenWidth(15),),
                           AutoSizeText("رقم الهاتف الجوال",style: darkGrayText_11pt,)  ,
                           Spacer(),
                           AutoSizeText(controller.storeInfo.phone,style: darkGrayText_11pt,)  ,
+                          Spacer(),
                         ],
                       ),
                     ),
                     SizedBox(height: getProportionateScreenHeight(8),),
                     Container(
                       height: getProportionateScreenHeight(50),
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),),
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.grey)),
                       child: Row(
                         children: [
                           SizedBox(width: getProportionateScreenWidth(15),),
@@ -420,7 +426,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: getProportionateScreenHeight(8),),
+                    SizedBox(height: getProportionateScreenHeight(20),),
                     Container(
                       height: getProportionateScreenHeight(30),
                       alignment: Alignment.centerRight,
@@ -470,6 +476,9 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                         ],
                       ),
                     ),
+                    SizedBox(height: getProportionateScreenHeight(15),),
+
+
                     for(int i=0;i<controller.storeInfo.storeContacts.length;i++)
                       if(controller.storeInfo.storeContacts[i].type=="facebook")
                         Column(

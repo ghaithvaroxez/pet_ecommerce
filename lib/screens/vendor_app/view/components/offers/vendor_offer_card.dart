@@ -31,7 +31,8 @@ class VendorOfferCard extends StatelessWidget {
             boxShadow: shadow),
         child: Row(
           children: [
-            Container(width: getProportionateScreenWidth(140),
+            Container(
+              width: getProportionateScreenWidth(140),
               height: getProportionateScreenHeight(140),
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
@@ -41,7 +42,12 @@ class VendorOfferCard extends StatelessWidget {
                 child: Stack(
                   children: [
                     Container(color:Colors.white,child: Image.asset("assets/images/home/custom_background.png",fit: BoxFit.fill,)),
-                    Container(child: CachedNetworkImage(imageUrl: Api.imagePath+offer.image,fit: BoxFit.fill,)),
+                    Container(child: CachedNetworkImage(
+                      width: getProportionateScreenWidth(140),
+                      height: getProportionateScreenHeight(140),
+                      imageUrl: Api.imagePath+offer.image,fit: BoxFit.fill,
+                    ),
+                    ),
                   ],
                 ),
 
@@ -54,19 +60,18 @@ class VendorOfferCard extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: getProportionateScreenHeight(20),),
-                    // Container(
-                    //   margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
-                    //
-                    //   height: getProportionateScreenHeight(20),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       Expanded(flex:5,child: Container(height: getProportionateScreenHeight(20),child: AutoSizeText(offer.name,style: body1_16pt,),)),
-                    //       Expanded(flex:1,child: Container(height: getProportionateScreenHeight(20),child: AutoSizeText(offer.price.toString()+" \$",style: body2_14pt,maxLines: 1,),)),
-                    //     ],
-                    //   ),
-                    // ),
-                    // SizedBox(height: getProportionateScreenHeight(10),),
+                    Container(
+                      // margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(8)),
+                      height: getProportionateScreenHeight(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(flex:5,child: Container(height: getProportionateScreenHeight(20),child: AutoSizeText(offer.name,style: body1_16pt,),)),
+                          // Expanded(flex:1,child: Container(height: getProportionateScreenHeight(20),child: AutoSizeText(offer.price.toString()+" \$",style: body2_14pt,maxLines: 1,),)),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(10),),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
@@ -84,7 +89,7 @@ class VendorOfferCard extends StatelessWidget {
                         ]
                     ),
                     SizedBox(height: getProportionateScreenHeight(10),),
-                    Container(alignment: Alignment.centerRight,height: getProportionateScreenHeight(50),width:getProportionateScreenWidth(320),child: AutoSizeText(offer.desc,style: darkGrayText_11pt,),),
+                    Container(alignment: Alignment.centerRight,height: getProportionateScreenHeight(20),width:getProportionateScreenWidth(320),child: AutoSizeText(offer.desc,style: darkGrayText_11pt,),),
                     Row(
                       children: [
                         Spacer(
@@ -105,7 +110,43 @@ class VendorOfferCard extends StatelessWidget {
                               )),
                               Expanded(child: Padding(   padding: const EdgeInsets.all(7.0),child: Image.asset("assets/images/vendor_app/upload_icon.png"))),
                               Expanded(child: GestureDetector(  onTap:edit,child: Image.asset("assets/images/vendor_app/pen.png"))),
-                              Expanded(child: GestureDetector(onTap:delete,child: Image.asset("assets/images/vendor_app/trash.png"))),
+                              Expanded(child: GestureDetector(onTap:(){
+                                showDialog(
+                                    context: context,
+                                    builder: ((context) => AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5)),
+                                      title:  Text(
+                                        'هل أنت متأكد ؟',
+                                        textDirection: TextDirection.rtl,
+                                        style: body3_18pt,
+                                      ),
+                                      content: Text(
+                                        'انت على وشك حذف هذا العرض !',
+                                        textDirection: TextDirection.rtl,
+                                        style: body1_16pt,
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          child:  Text(
+                                            'نعم',
+                                          ),
+                                          onPressed: () async{
+                                            // language.changeLanguage();
+                                            Navigator.of(context).pop();
+                                            await delete();
+                                            // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: Text('لا'),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        )
+                                      ],
+                                    )));
+                              },child: Image.asset("assets/images/vendor_app/trash.png"))),
                             ],
                           ),
                         ),

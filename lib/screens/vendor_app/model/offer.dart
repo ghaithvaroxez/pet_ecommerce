@@ -33,6 +33,8 @@ class Offer {
     this.type,
     this.desc,
     this.image,
+    this.name,
+    this.date
   });
 
   int id;
@@ -42,6 +44,8 @@ class Offer {
   String type;
   String desc;
   String image;
+  String name;
+  String date;
 
   factory Offer.fromJson(Map<String, dynamic> json) => Offer(
     id: json["id"],
@@ -51,6 +55,8 @@ class Offer {
     type: json["type"],
     desc: json["desc"],
     image: json["image"],
+    name: json["name"],
+    date: json["date"],
   );
 
   Map<String, dynamic> toJson() => {

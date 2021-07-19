@@ -63,8 +63,8 @@ class VendorAppOffersReq extends HttpService {
       ({
     @required int category_id,
     @required int type_id,
-    // @required String name_ar,
-    // @required String name_en,
+    @required String name_ar,
+    @required String name_en,
     @required String desc_ar,
     @required String desc_en,
     @required String image,
@@ -75,8 +75,8 @@ class VendorAppOffersReq extends HttpService {
     new FormData.fromMap({
       "category_id":category_id,
       "type_id":type_id,
-      // "name_ar":name_ar,
-      // "name_en":name_en,
+      "name_ar":name_ar,
+      "name_en":name_en,
       "desc_ar":desc_ar,
       "desc_en":desc_en,
       "image":image,
@@ -88,6 +88,7 @@ class VendorAppOffersReq extends HttpService {
           Api.updateOffer+"/"+offer_id.toString(), formData,
           includeHeaders: true);
       if (apiResult.statusCode == 200)
+
         if (apiResult.data["class"] == "success") {
           return true;
         }
@@ -103,8 +104,8 @@ class VendorAppOffersReq extends HttpService {
   Future<bool> AddOffer({
     @required int category_id,
     @required int type_id,
-    // @required String name_ar,
-    // @required String name_en,
+    @required String name_ar,
+    @required String name_en,
     @required String desc_ar,
     @required String desc_en,
     @required String image,
@@ -121,12 +122,12 @@ class VendorAppOffersReq extends HttpService {
     new FormData.fromMap({
       "category_id":category_id,
       "type_id":type_id,
-      // "name_ar":name_ar,
-      // "name_en":name_en,
+      "name_ar":name_ar,
+      "name_en":name_en,
       "desc_ar":desc_ar,
       "desc_en":desc_en,
-      "image":"blabla",
-      // "image":image,
+      // "image":"blabla",
+      "image":image,
       "store_id": vendor.store[0].id
     });
 /*
@@ -146,6 +147,7 @@ class VendorAppOffersReq extends HttpService {
           return false;
     }
     catch (e) {
+      consolePrint(e.toString());
       return false;
     }
   }

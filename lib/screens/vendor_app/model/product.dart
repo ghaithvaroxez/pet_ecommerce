@@ -23,13 +23,14 @@ class StoreProduct {
     this.typeName,
     this.storeId,
     this.storeName,
+    this.date
   });
 
   int id;
   String name;
   String body;
   String image;
-  int price;
+  String price;
   int favourites;
   int fav;
   int categoryId;
@@ -38,6 +39,7 @@ class StoreProduct {
   String typeName;
   int storeId;
   String storeName;
+  String date;
 
   factory StoreProduct.fromJson(Map<String, dynamic> json) => StoreProduct(
     id: json["id"],
@@ -53,6 +55,7 @@ class StoreProduct {
     typeName: json["type_name"],
     storeId: json["store_id"],
     storeName: json["store_name"],
+    date: json["date"],
   );
 
   Map<String, dynamic> toJson() => {

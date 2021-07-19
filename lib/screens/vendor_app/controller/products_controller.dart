@@ -32,7 +32,7 @@ update();
       @required String body_ar,
       @required String body_en,
       @required String image,
-      @required int price})async
+      @required String price})async
   {
   activeLoading();
 
@@ -120,6 +120,7 @@ async {
         body_ar: product.body,
         body_en: product.body,
         product_id: product.id,
+        price: product.price,
         image: newImage == "" ? null : newImage,
       );
       if (k == true) {

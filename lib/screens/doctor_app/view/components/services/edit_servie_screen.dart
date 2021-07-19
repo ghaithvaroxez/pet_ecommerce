@@ -12,8 +12,11 @@ import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/gradient.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/vendor_app/controller/offers_controller.dart';
-
+import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
+import 'package:pets_ecommerce/screens/doctor_app/controller/doctor_controler.dart';
+import 'package:pets_ecommerce/screens/doctor_app/model/doctor.dart';
+import 'package:pets_ecommerce/screens/doctor_app/requests/doctor_info_requests.dart';
+import 'package:pets_ecommerce/screens/vendor_app/controller/products_controller.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/categories.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/constants.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
@@ -21,21 +24,26 @@ import 'package:pets_ecommerce/screens/vendor_app/model/types.dart';
 import 'package:pets_ecommerce/screens/vendor_app/requests/products_requests.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../loading_screen.dart';
-import '../about/components/add_social_screen.dart';
 import 'dart:math' as Math;
 import 'package:image/image.dart' as Im;
 import 'dart:io';
-import '../../../model/offer.dart';
-class VendorAppEditOffer extends StatefulWidget {
-  VendorOffersController vendorOffersController;
-  Offer storeOffer;
-  VendorAppEditOffer(this.storeOffer,this.vendorOffersController);
+
+class VendorAppEditService extends StatefulWidget {
+  DoctorService service;
+  VendorAppEditService(this.service,this.doctorController);
+  DoctorController doctorController;
+
   @override
-  _VendorAppEditOfferState createState() => _VendorAppEditOfferState();
+  _VendorAppEditServiceState createState() => _VendorAppEditServiceState();
 }
 
-class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
+class _VendorAppEditServiceState extends State<VendorAppEditService> {
+  List<ProductType> vendor_type_items = [
+
+  ];
+
+  String categoryName="";
+
   getcompress(File imageFile) async
   {
     setState(() {
@@ -46,14 +54,8 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
       isloading=false;
     });
   }
-  List<ProductType> vendor_type_items = [
-
-  ];
-  String typeName="";
-  String categoryName="";
-  int typeId;
   int categoryId;
-
+  var pen=false.obs;
   List<Category> vendor_category_items = [
 
   ];
@@ -62,7 +64,6 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
   String base64Image;
   String newImage="";
   bool changeImage=false;
-
   Future<String> compressImage(File f) async {
     isloading=true;
     setState(() {
@@ -99,20 +100,18 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
   bool isloading=false;
   TextEditingController descriptionController = new TextEditingController();
   TextEditingController nameController = new TextEditingController();
-  // TextEditingController priceController = new TextEditingController();
-  VendorAppProductsReq _vendorAppProductsReq=VendorAppProductsReq();
+  TextEditingController priceController = new TextEditingController();
+  DoctorAppRequests doctorAppRequests=DoctorAppRequests();
   fetchdata()async
   {
     setState(() {
       isloading=true;
     });
-    vendor_type_items=await _vendorAppProductsReq.getStoreTypes();
-    vendor_category_items=await _vendorAppProductsReq.getStoreCategories();
-    String typeName=widget.storeOffer.type;
-    String categoryName=widget.storeOffer.category;
-    descriptionController.text=widget.storeOffer.desc;
-    nameController.text=widget.storeOffer.name;
-    // priceController.text=widget.storeOffer.price.toString();
+    vendor_category_items=await doctorAppRequests.getStoreCategories();
+    String categoryName=widget.service.categoryName;
+    descriptionController.text=widget.service.desc;
+    nameController.text=widget.service.name;
+    priceController.text=widget.service.price.toString();
 
     setState(() {
       isloading=false;
@@ -148,7 +147,7 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                               ),
 
                               Spacer(),
-                              Container(height:getProportionateScreenHeight(28),child: AutoSizeText("تعديل العرض ",style: h5_21pt,minFontSize: 8,)),
+                              Container(height:getProportionateScreenHeight(28),child: AutoSizeText("تعديل منتج ",style: h5_21pt,minFontSize: 8,)),
                               Spacer(),
                               SizedBox(
                                 width: getProportionateScreenWidth(24),
@@ -162,10 +161,11 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                     padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(16)),
 
                     // padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(16)),
-                    child:GetBuilder<VendorOffersController>(
-                        init: widget.vendorOffersController,
-                        builder:(controller)=>controller.loading==true||
-                      isloading==true?LoadingScreen():Column(
+                    child:GetBuilder<DoctorController>(
+                      init: widget.doctorController,
+                      builder:(controller)=>controller.isLoading==true||
+                          isloading==true?LoadingScreen():Column(
+
                         children: [
                           Container(
                             height: getProportionateScreenHeight(30),
@@ -176,7 +176,7 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                                   width: getProportionateScreenWidth(180),
                                   height: getProportionateScreenHeight(30),
                                   child: AutoSizeText(
-                                    "تعديل العرض ",
+                                    "تعديل الخدمة ",
                                     style: h5_21pt,
                                   ),
                                 ),
@@ -219,7 +219,7 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                                       height: getProportionateScreenHeight(30),
                                       alignment: Alignment.bottomRight,
                                       child: AutoSizeText(
-                                        "النوع",
+                                        "السعر",
                                         style: body3_18pt,
                                       ),
                                     )),
@@ -242,7 +242,6 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                                         height:
                                         getProportionateScreenHeight(45),
                                         padding: EdgeInsets.only(right: getProportionateScreenWidth(4)),
-
                                         decoration: BoxDecoration(
                                           borderRadius:
                                           BorderRadius.circular(6),
@@ -279,13 +278,13 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                                             onChanged: (category) async{
                                               print("before");
                                               setState(() {
-                                                widget.storeOffer.category=category.name;
-                                                // widget.storeOffer.=category.id;
+                                                widget.service.categoryName=category.name;
+                                                widget.service.categoryId=category.id;
                                               });
                                               print("after");
 
                                             },
-                                            hint: Text(widget.storeOffer.category),
+                                            hint: Text(widget.service.categoryName),
                                             elevation: 8,
                                             style: blackText_14pt,
                                             icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
@@ -301,10 +300,9 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                                     alignment: Alignment.centerRight,
                                     child: Container(
                                         width: getProportionateScreenWidth(156),
-                                        padding: EdgeInsets.only(right: getProportionateScreenWidth(4)),
-
                                         height:
                                         getProportionateScreenHeight(45),
+                                        padding: EdgeInsets.only(right: getProportionateScreenWidth(4)),
                                         decoration: BoxDecoration(
                                           borderRadius:
                                           BorderRadius.circular(6),
@@ -315,47 +313,11 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                                         ),
                                         // padding: EdgeInsets.symmetric(
                                         //     horizontal: 15),
-                                        child: DropdownButtonHideUnderline(
-                                          child: DropdownButton(
-                                            // value: controller.storeInfo.address,
-                                            // value: _value,
-                                            items: vendor_type_items
-                                                .map((ProductType item) {
-                                              return DropdownMenuItem<ProductType>(
-                                                value: item,
-                                                child: Container(
-                                                  width: getProportionateScreenWidth(135),
-                                                  height:
-                                                  getProportionateScreenHeight(30),
-                                                  child: AutoSizeText(
-                                                    item.name,
-                                                    textDirection:
-                                                    TextDirection.rtl,
-                                                    style: blackText_14pt,
-                                                    minFontSize: 8,
-                                                    maxLines: 1,
-                                                  ),
-                                                ),
-                                              );
-                                            }).toList(),
-                                            onChanged: (category) async{
-                                              print("before");
-                                              setState(() {
-                                                widget.storeOffer.type=category.name;
-                                                // widget.storeOffer.typeId=category.id;
-                                              });
-                                              print("after");
-
-                                            },
-                                            hint: Text(widget.storeOffer.type),
-                                            elevation: 8,
-                                            style: blackText_14pt,
-                                            icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
-                                            iconDisabledColor: Colors.black,
-                                            iconEnabledColor: Colors.blue,
-                                            // isExpanded: true,
-                                          ),
-                                        )),
+                                        child:CustomTextField(
+                                          textEditingController: priceController,
+                                          // suffixImage: "assets/images/vendor_app/pen.png",
+                                          textInputType: TextInputType.number,
+                                        ), ),
                                   ),
                                 ),
                                 // Container(
@@ -440,7 +402,7 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                             height: getProportionateScreenHeight(30),
                             alignment: Alignment.centerRight,
                             child: AutoSizeText(
-                              "اسم العرض",
+                              "اسم الخدمة",
                               style: body3_18pt,
                             ),
                           ),
@@ -465,7 +427,7 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                               height: getProportionateScreenHeight(30),
                               // width: getProportionateScreenWidth(150),
                               child: AutoSizeText(
-                                "صورة العرض",
+                                "صورة توضيحية",
                                 style: body3_18pt,
                               ),
                             ),
@@ -479,7 +441,7 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
                                     color: Colors.grey.withOpacity(0.6), width: 1)),
-                            child: widget.storeOffer.image==""||widget.storeOffer.image==null?GestureDetector(
+                            child: widget.service.image==""||widget.service.image==null?GestureDetector(
                               onTap: ()async {
                                 image = await ImagePicker.pickImage(source: ImageSource.gallery);
                                 File imageFile = File(image.path);
@@ -526,7 +488,7 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
 
                                 },
                                 child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),child: changeImage==false?CachedNetworkImage(imageUrl: Api.imagePath+widget.storeOffer.image, ):Image.file(image,fit: BoxFit.cover,))),
+                                    borderRadius: BorderRadius.circular(8),child: changeImage==false?CachedNetworkImage(imageUrl: Api.imagePath+widget.service.image):Image.file(image,fit: BoxFit.cover,))),
                           ),
                           SizedBox(
                             height: getProportionateScreenHeight(30),
@@ -535,7 +497,7 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                             height: getProportionateScreenHeight(30),
                             alignment: Alignment.centerRight,
                             child: AutoSizeText(
-                              "وصف للعرض",
+                              "وصف الخدمة",
                               style: body3_18pt,
                             ),
                           ),
@@ -552,9 +514,9 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                             child:
                             CustomTextField(textEditingController: descriptionController,),
                           ),
-                          // SizedBox(
-                          //   height: getProportionateScreenHeight(25),
-                          // ),
+                          SizedBox(
+                            height: getProportionateScreenHeight(25),
+                          ),
                           // Container(
                           //   height: getProportionateScreenHeight(30),
                           //   alignment: Alignment.centerRight,
@@ -575,13 +537,13 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                           //           color: Colors.grey.withOpacity(0.6), width: 1)),
                           //   child: CustomTextField(
                           //     textEditingController: priceController,
-                          //     suffixImage: "assets/images/vendor_app/pen.png",
+                          //     // suffixImage: "assets/images/vendor_app/pen.png",
                           //     textInputType: TextInputType.number,
                           //   ),
                           // ),
-                          SizedBox(
-                            height: getProportionateScreenHeight(25),
-                          ),
+                          // SizedBox(
+                          //   height: getProportionateScreenHeight(25),
+                          // ),
                           Container(
                             height: getProportionateScreenHeight(60),
                             child: Row(
@@ -590,11 +552,10 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                                 GestureDetector(
                                     onTap: () async {
                                       if(
-                                      nameController.text==""||
-                                      // priceController.text==""||
-                                          descriptionController.text=="")
+                                      // nameController.text==""||
+                                          priceController.text==""||descriptionController.text=="")
                                       {
-                                        CoolAlert.show(context: context, type: CoolAlertType.error,text: "الرجاء ملئ كافة الحقول قبل اضافة العرض",title: "فشلت العملية");
+                                        CoolAlert.show(context: context, type: CoolAlertType.error,text: "الرجاء ملئ كافة الحقول قبل تعديل الخدمة",title: "فشلت العملية");
                                         return;
                                       }
                                       // if(image==null)
@@ -605,13 +566,13 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
 
                                       // widget.storeProduct.id;
                                       // widget.storeProduct.image;
-                                      // widget.storeOffer.price-=int.parse(priceController.text);
-                                      widget.storeOffer.name=nameController.text;
-                                      widget.storeOffer.desc=descriptionController.text;
-                                      await widget.vendorOffersController.editOffer(widget.storeOffer,newImage);
+                                      widget.service.price=priceController.text;
+                                      widget.service.name=nameController.text;
+                                      widget.service.desc=descriptionController.text;
+                                      await widget.doctorController.editService(widget.service,newImage);
 
-                                      // vendorAppTabController.animateTo(2);
-                                      // vendorAppLabelController.changeIndex(2);
+                                      // vendorAppTabController.animateTo(0);
+                                      // vendorAppLabelController.changeIndex(0);
                                     },
                                     child: Container(
                                       width: getProportionateScreenWidth(170),
@@ -627,8 +588,8 @@ class _VendorAppEditOfferState extends State<VendorAppEditOffer> {
                                     )),
                                 GestureDetector(
                                     onTap: (){
-                                      // vendorAppTabController.animateTo(2);
-                                      // vendorAppLabelController.changeIndex(2);
+                                      //   vendorAppTabController.animateTo(0);
+                                      //   vendorAppLabelController.changeIndex(0);
                                       Get.back();                      },
                                     child: Container(
                                       width: getProportionateScreenWidth(170),

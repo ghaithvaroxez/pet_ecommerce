@@ -57,10 +57,15 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Center(
+    return Scaffold(
+        body: Container(
+         height: getProportionateScreenHeight(75),
+          width: getProportionateScreenWidth(75),
+          alignment: Alignment.center,
+          child: Center(
       child: CircularProgressIndicator(),
-    ));
+    ),
+        ));
   }
 }
 
@@ -82,6 +87,7 @@ TextEditingController registerPasswordController = new TextEditingController();
 TextEditingController otpCodeController = new TextEditingController();
 
 String location = "القدس";
+int locationId ;
 
 RegisterController registerController = Get.put(RegisterController());
 
@@ -152,9 +158,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     SizeConfig.init(context);
     return Scaffold(
       body: SafeArea(
-        child: loaddata==true?LoadingScreen():GetBuilder<RegisterController>(
+        child: GetBuilder<RegisterController>(
           init: registerController,
-          builder: (controller) => controller.showLoading
+          builder: (controller) => controller.showLoading||loaddata==true
               ? LoadingScreen()
               : controller.currentState ==
                       MobileVerificationState.SHOW_MOBILE_FORM_STATE
@@ -332,31 +338,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                           Container(
                                                             alignment: Alignment
                                                                 .centerRight,
-                                                            child: Container(
-                                                              height:
-                                                                  getProportionateScreenHeight(
-                                                                      50),
-                                                              width:
-                                                                  getProportionateScreenWidth(
-                                                                      150),
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                  border: Border.all(
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      width:
-                                                                          0.3)),
-                                                              child:
-                                                                  CustomTextField(
-                                                                textEditingController:
-                                                                    registerStableNameController,
-                                                                // hint:,
-                                                                // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                // textInputType: TextInputType.phone,
-                                                                color: true,
+                                                            child: Directionality(
+                                                              textDirection: TextDirection.rtl,
+                                                              child: Container(
+                                                                height:
+                                                                    getProportionateScreenHeight(
+                                                                        50),
+                                                                width:
+                                                                    getProportionateScreenWidth(
+                                                                        150),
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                10),
+                                                                    border: Border.all(
+                                                                        color: Colors
+                                                                            .grey,
+                                                                        width:
+                                                                            0.3)),
+                                                                child:
+                                                                    CustomTextField(
+                                                                  textEditingController:
+                                                                      registerStableNameController,
+                                                                  // hint:,
+                                                                  // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                  // textInputType: TextInputType.phone,
+                                                                  color: true,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -414,31 +423,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                           Container(
                                                             alignment: Alignment
                                                                 .centerRight,
-                                                            child: Container(
-                                                              height:
-                                                                  getProportionateScreenHeight(
-                                                                      50),
-                                                              width:
-                                                                  getProportionateScreenWidth(
-                                                                      150),
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                  border: Border.all(
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      width:
-                                                                          0.3)),
-                                                              child:
-                                                                  CustomTextField(
-                                                                textEditingController:
-                                                                    registerStoreNameController,
-                                                                // hint:,
-                                                                // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                // textInputType: TextInputType.phone,
-                                                                color: true,
+                                                            child:   Directionality(
+                                                              textDirection: TextDirection.rtl,
+                                                              child: Container(
+                                                                height:
+                                                                    getProportionateScreenHeight(
+                                                                        50),
+                                                                width:
+                                                                    getProportionateScreenWidth(
+                                                                        150),
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                10),
+                                                                    border: Border.all(
+                                                                        color: Colors
+                                                                            .grey,
+                                                                        width:
+                                                                            0.3)),
+                                                                child:
+                                                                    CustomTextField(
+                                                                  textEditingController:
+                                                                      registerStoreNameController,
+                                                                  // hint:,
+                                                                  // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                  // textInputType: TextInputType.phone,
+                                                                  color: true,
+                                                                ),
                                                               ),
                                                             ),
                                                           ),
@@ -508,32 +520,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                                 alignment: Alignment
                                                                     .centerLeft,
                                                                 child:
-                                                                    Container(
+                                                                Directionality(
+                                                                  textDirection: TextDirection.rtl,
+                                                                      child: Container(
                                                                   height:
-                                                                      getProportionateScreenHeight(
-                                                                          60),
+                                                                        getProportionateScreenHeight(
+                                                                            60),
                                                                   width:
-                                                                      getProportionateScreenWidth(
-                                                                          150),
+                                                                        getProportionateScreenWidth(
+                                                                            150),
                                                                   decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10),
-                                                                      border: Border.all(
-                                                                          color: Colors
-                                                                              .grey,
-                                                                          width:
-                                                                              0.3)),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                10),
+                                                                        border: Border.all(
+                                                                            color: Colors
+                                                                                .grey,
+                                                                            width:
+                                                                                0.3)),
                                                                   child:
-                                                                      CustomTextField(
-                                                                    textEditingController:
-                                                                        registerLastNameController,
-                                                                    // hint:,
-                                                                    // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                    // textInputType: TextInputType.phone,
-                                                                    color: true,
+                                                                        CustomTextField(
+                                                                      textEditingController:
+                                                                          registerLastNameController,
+                                                                      // hint:,
+                                                                      // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                      // textInputType: TextInputType.phone,
+                                                                      color: true,
                                                                   ),
                                                                 ),
+                                                                    ),
                                                               ),
                                                               SizedBox(
                                                                 height:
@@ -587,30 +602,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                               SizedBox(
                                                                 height: 10,
                                                               ),
-                                                              Container(
-                                                                height:
-                                                                    getProportionateScreenHeight(
-                                                                        60),
-                                                                width:
-                                                                    getProportionateScreenWidth(
-                                                                        150),
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        width:
-                                                                            0.3)),
-                                                                child:
-                                                                    CustomTextField(
-                                                                  textEditingController:
-                                                                      registerFirstNameController,
-                                                                  // hint:,
-                                                                  // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                  // textInputType: TextInputType.phone,
-                                                                  color: true,
+                                                              Directionality(
+                                                                textDirection: TextDirection.rtl,
+                                                                child: Container(
+                                                                  height:
+                                                                      getProportionateScreenHeight(
+                                                                          60),
+                                                                  width:
+                                                                      getProportionateScreenWidth(
+                                                                          150),
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10),
+                                                                      border: Border.all(
+                                                                          color: Colors
+                                                                              .grey,
+                                                                          width:
+                                                                              0.3)),
+                                                                  child:
+                                                                      CustomTextField(
+                                                                    textEditingController:
+                                                                        registerFirstNameController,
+                                                                    // hint:,
+                                                                    // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                    // textInputType: TextInputType.phone,
+                                                                    color: true,
+                                                                  ),
                                                                 ),
                                                               ),
                                                               SizedBox(
@@ -735,20 +753,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   SizedBox(
                                     height: getProportionateScreenHeight(15),
                                   ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 0.3),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: CustomTextField(
-                                      textEditingController:
-                                          registerPasswordController,
-                                      hint: "كلمة السر",
-                                      prefixImage:
-                                          "assets/images/auth/lock_icon.png",
-                                      password: true,
-                                      textInputType: TextInputType.name,
+                                  Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Colors.grey, width: 0.3),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: CustomTextField(
+                                        textEditingController:
+                                            registerPasswordController,
+                                        hint: "كلمة السر",
+                                        prefixImage:
+                                            "assets/images/auth/lock_icon.png",
+                                        password: true,
+                                        textInputType: TextInputType.name,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
@@ -824,7 +845,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             onChanged: (city) async{
                                               print("before");
                                               location=city.name;
-
+locationId=city.id;
                                               print("after");
 
                                             },
@@ -924,7 +945,7 @@ Future<bool> register2() async {
             secondName: registerLastNameController.text,
             mobile: mobile,
             password: registerPasswordController.text,
-            address: location)) {
+            address: locationId)) {
           auth = false;
           // Get.back();
           // CoolAlert.show(
@@ -941,7 +962,7 @@ Future<bool> register2() async {
             secondName: registerLastNameController.text,
             mobile: mobile,
             password: registerPasswordController.text,
-            address: location)) {
+            address: locationId)) {
           // Get.back();
           auth = false;
           customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
@@ -959,7 +980,7 @@ Future<bool> register2() async {
             stable_name: registerStableNameController.text,
             mobile: mobile,
             password: registerPasswordController.text,
-            address: location)) {
+            address: locationId)) {
           // Get.back();
           auth = false;
           customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
@@ -977,7 +998,7 @@ Future<bool> register2() async {
             store_name: registerStoreNameController.text,
             mobile: mobile,
             password: registerPasswordController.text,
-            address: location)) {
+            address: locationId)) {
           // Get.back();
           auth = false;
           customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");

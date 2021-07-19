@@ -12,6 +12,7 @@ import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/gradient.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
 import 'package:pets_ecommerce/screens/vendor_app/controller/products_controller.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/categories.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/constants.dart';
@@ -28,6 +29,8 @@ import 'package:get/get.dart';
 class VendorAppAddProduct extends StatefulWidget {
   @override
   _VendorAppAddProductState createState() => _VendorAppAddProductState();
+  VendorProductsController vendorProductsController;
+  VendorAppAddProduct(this.vendorProductsController);
 }
 
 class _VendorAppAddProductState extends State<VendorAppAddProduct> {
@@ -38,7 +41,7 @@ class _VendorAppAddProductState extends State<VendorAppAddProduct> {
   String categoryName="";
   int typeId;
   int categoryId;
-
+var pen=false.obs;
   List<Category> vendor_category_items = [
 
   ];
@@ -46,6 +49,16 @@ class _VendorAppAddProductState extends State<VendorAppAddProduct> {
   File tmpFile;
   String base64Image;
   String newImage="";
+  getcompress(File imageFile) async
+  {
+    setState(() {
+      isloading=true;
+    });
+    newImage = await compressImage(imageFile);
+    setState(() {
+      isloading=false;
+    });
+  }
   bool changeImage=false;
   Future<String> compressImage(File f) async {
     isloading=true;
@@ -147,9 +160,9 @@ typeId=vendor_type_items[0].id;
                     child: Column(
                       children: [
                       GetBuilder<VendorProductsController>(
-                      init: vendorProductsController,
+                      init: widget.vendorProductsController,
                       builder:(controller)=>controller.loading==true||
-                        isloading==true?Container(alignment:Alignment.center,child: CircularProgressIndicator(),):Column(
+                        isloading==true?LoadingScreen():Column(
                             children: [
                               Container(
                                 height: getProportionateScreenHeight(30),
@@ -169,6 +182,15 @@ typeId=vendor_type_items[0].id;
                                           descriptionController.text="";
                                           priceController.text="";
                                           nameController.text="";
+                                          typeName=vendor_type_items[0].name;
+                                          categoryName=vendor_category_items[0].name;
+                                          typeId=vendor_type_items[0].id;
+                                          categoryId=vendor_category_items[0].id;
+                                          image=null;
+                                          pen.value=false;
+                                          setState(() {
+
+                                          });
                                         },
                                         child: Container(
                                           width: getProportionateScreenWidth(100),
@@ -216,123 +238,131 @@ typeId=vendor_type_items[0].id;
                               Container(
                                 height: getProportionateScreenHeight(60),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      alignment: Alignment.centerRight,
+                                    Expanded(
                                       child: Container(
-                                          width: getProportionateScreenWidth(156),
-                                          height:
-                                          getProportionateScreenHeight(45),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(6),
-                                            border: Border.all(
-                                                width: 1,
-                                                color:
-                                                Colors.grey.withOpacity(0.6)),
-                                          ),
-                                          // padding: EdgeInsets.symmetric(
-                                          //     horizontal: 15),
-                                          child: DropdownButtonHideUnderline(
-                                            child: DropdownButton(
-                                              // value: controller.storeInfo.address,
-                                              // value: _value,
-                                              items: vendor_category_items
-                                                  .map((Category item) {
-                                                return DropdownMenuItem<Category>(
-                                                  value: item,
-                                                  child: Container(
-                                                    width: getProportionateScreenWidth(135),
-                                                    height:
-                                                    getProportionateScreenHeight(30),
-                                                    child: AutoSizeText(
-                                                      item.name,
-                                                      textDirection:
-                                                      TextDirection.rtl,
-                                                      style: blackText_14pt,
-                                                      minFontSize: 8,
-                                                      maxLines: 1,
-                                                    ),
-                                                  ),
-                                                );
-                                              }).toList(),
-                                              onChanged: (category) async{
-                                                print("before");
-                                                setState(() {
-                                                  categoryName=category.name;
-                                                  categoryId=category.id;
-                                                });
-                                                print("after");
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                            width: getProportionateScreenWidth(156),
+                                            height:
+                                            getProportionateScreenHeight(45),
+                                            padding: EdgeInsets.only(right: getProportionateScreenWidth(4)),
 
-                                              },
-                                              hint: Text(categoryName),
-                                              elevation: 8,
-                                              style: blackText_14pt,
-                                              icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
-                                              iconDisabledColor: Colors.black,
-                                              iconEnabledColor: Colors.blue,
-                                              // isExpanded: true,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(6),
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color:
+                                                  Colors.grey.withOpacity(0.6)),
                                             ),
-                                          )),
+                                            // padding: EdgeInsets.symmetric(
+                                            //     horizontal: 15),
+                                            child: DropdownButtonHideUnderline(
+                                              child: DropdownButton(
+                                                // value: controller.storeInfo.address,
+                                                // value: _value,
+                                                items: vendor_category_items
+                                                    .map((Category item) {
+                                                  return DropdownMenuItem<Category>(
+                                                    value: item,
+                                                    child: Container(
+                                                      width: getProportionateScreenWidth(135),
+                                                      height:
+                                                      getProportionateScreenHeight(30),
+                                                      child: AutoSizeText(
+                                                        item.name,
+                                                        textDirection:
+                                                        TextDirection.rtl,
+                                                        style: blackText_14pt,
+                                                        minFontSize: 8,
+                                                        maxLines: 1,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (category) async{
+                                                  print("before");
+                                                  setState(() {
+                                                    categoryName=category.name;
+                                                    categoryId=category.id;
+                                                  });
+                                                  print("after");
+
+                                                },
+                                                hint: Text(categoryName),
+                                                elevation: 8,
+                                                style: blackText_14pt,
+                                                icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
+                                                iconDisabledColor: Colors.black,
+                                                iconEnabledColor: Colors.blue,
+                                                // isExpanded: true,
+                                              ),
+                                            )),
+                                      ),
                                     ),
-                                    Container(
-                                      alignment: Alignment.centerRight,
+                                    Expanded(
                                       child: Container(
-                                          width: getProportionateScreenWidth(156),
-                                          height:
-                                          getProportionateScreenHeight(45),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(6),
-                                            border: Border.all(
-                                                width: 1,
-                                                color:
-                                                Colors.grey.withOpacity(0.6)),
-                                          ),
-                                          // padding: EdgeInsets.symmetric(
-                                          //     horizontal: 15),
-                                          child: DropdownButtonHideUnderline(
-                                            child: DropdownButton(
-                                              // value: controller.storeInfo.address,
-                                              // value: _value,
-                                              items: vendor_type_items
-                                                  .map((ProductType item) {
-                                                return DropdownMenuItem<ProductType>(
-                                                  value: item,
-                                                  child: Container(
-                                                    width: getProportionateScreenWidth(135),
-                                                    height:
-                                                    getProportionateScreenHeight(30),
-                                                    child: AutoSizeText(
-                                                      item.name,
-                                                      textDirection:
-                                                      TextDirection.rtl,
-                                                      style: blackText_14pt,
-                                                      minFontSize: 8,
-                                                      maxLines: 1,
-                                                    ),
-                                                  ),
-                                                );
-                                              }).toList(),
-                                              onChanged: (category) async{
-                                                print("before");
-                                                setState(() {
-                                                  typeName=category.name;
-                                                  typeId=category.id;
-                                                });
-                                                print("after");
-
-                                              },
-                                              hint: Text(typeName),
-                                              elevation: 8,
-                                              style: blackText_14pt,
-                                              icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
-                                              iconDisabledColor: Colors.black,
-                                              iconEnabledColor: Colors.blue,
-                                              // isExpanded: true,
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                          padding: EdgeInsets.only(right: getProportionateScreenWidth(4)),
+                                            width: getProportionateScreenWidth(156),
+                                            height:
+                                            getProportionateScreenHeight(45),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(6),
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color:
+                                                  Colors.grey.withOpacity(0.6)),
                                             ),
-                                          )),
+                                            // padding: EdgeInsets.symmetric(
+                                            //     horizontal: 15),
+                                            child: DropdownButtonHideUnderline(
+                                              child: DropdownButton(
+                                                // value: controller.storeInfo.address,
+                                                // value: _value,
+                                                items: vendor_type_items
+                                                    .map((ProductType item) {
+                                                  return DropdownMenuItem<ProductType>(
+                                                    value: item,
+                                                    child: Container(
+                                                      // padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+                                                      width: getProportionateScreenWidth(135),
+                                                      height:
+                                                      getProportionateScreenHeight(30),
+                                                      child: AutoSizeText(
+                                                        item.name,
+                                                        textDirection:
+                                                        TextDirection.rtl,
+                                                        style: blackText_14pt,
+                                                        minFontSize: 8,
+                                                        maxLines: 1,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (category) async{
+                                                  print("before");
+                                                  setState(() {
+                                                    typeName=category.name;
+                                                    typeId=category.id;
+                                                  });
+                                                  print("after");
+
+                                                },
+                                                hint: Text(typeName),
+                                                elevation: 8,
+                                                style: blackText_14pt,
+                                                icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
+                                                iconDisabledColor: Colors.black,
+                                                iconEnabledColor: Colors.blue,
+                                                // isExpanded: true,
+                                              ),
+                                            )),
+                                      ),
                                     ),
                                     // Container(
                                     //   alignment: Alignment.centerRight,
@@ -460,7 +490,7 @@ typeId=vendor_type_items[0].id;
                                     image = await ImagePicker.pickImage(source: ImageSource.gallery);
                                     File imageFile = File(image.path);
                                     if(image!=null) {
-                                      newImage = await compressImage(imageFile);
+                                  getcompress(imageFile);
                                     }
                                     setState(() {
 
@@ -542,7 +572,7 @@ typeId=vendor_type_items[0].id;
                               SizedBox(
                                 height: getProportionateScreenHeight(25),
                               ),
-                              Container(
+                           Container(
                                 height: getProportionateScreenHeight(65),
                                 width: SizeConfig.screenWidth,
                                 decoration: BoxDecoration(
@@ -551,7 +581,7 @@ typeId=vendor_type_items[0].id;
                                         color: Colors.grey.withOpacity(0.6), width: 1)),
                                 child: CustomTextField(
                                   textEditingController: priceController,
-                                  suffixImage: "assets/images/vendor_app/pen.png",
+                                  // suffixImage: "assets/images/vendor_app/pen.png",
                                   textInputType: TextInputType.number,
                                 ),
                               ),
@@ -579,16 +609,16 @@ typeId=vendor_type_items[0].id;
                                           // widget.storeProduct.id;
                                           // widget.storeProduct.image;
 
-                                          await vendorProductsController.addNewProduct(  category_id:categoryId,
+                                          await widget.vendorProductsController.addNewProduct(  category_id:categoryId,
                                               type_id:typeId,
                                               name_ar:nameController.text,
                                               name_en:nameController.text,
                                               body_ar:descriptionController.text,
                                               body_en:descriptionController.text,
                                               image:newImage,
-                                              price:int.parse(priceController.text));
-                                          vendorAppTabController.animateTo(0);
-                                          vendorAppLabelController.changeIndex(0);
+                                              price:priceController.text);
+                                          // vendorAppTabController.animateTo(0);
+                                          // vendorAppLabelController.changeIndex(0);
                                         },
                                         child: Container(
                                           width: getProportionateScreenWidth(170),
@@ -604,9 +634,9 @@ typeId=vendor_type_items[0].id;
                                         )),
                                     GestureDetector(
                                         onTap: (){
-                                          vendorAppTabController.animateTo(0);
-                                          vendorAppLabelController.changeIndex(0);
-
+                                          // vendorAppTabController.animateTo(0);
+                                          // vendorAppLabelController.changeIndex(0);
+Get.back();
                                         },
                                         child: Container(
                                           width: getProportionateScreenWidth(170),

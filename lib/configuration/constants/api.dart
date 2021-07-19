@@ -24,6 +24,13 @@ class Api {
   static const imagePath="http://pets.sourcecode-ai.com/storage/";
   static const categories="/categories";
   static const types="/productTypes";
+  //doctor_app
+  static const getDoctorId="/doctor";
+  static const getDoctors="/doctors";
+  static const updateUser="/update/user";
+  static const addService="/add/service";
+  static const editServiceById="/edit/service";
+  static const deleteServiceById="/delete/service";
 
   //vendor_app
  static const getStoreId="/store";

@@ -27,6 +27,8 @@ import 'package:image/image.dart' as Im;
 import 'dart:io';
 import 'package:get/get.dart';
 class VendorAppAddOffer extends StatefulWidget {
+  VendorOffersController vendorOffersController;
+  VendorAppAddOffer(this.vendorOffersController);
   @override
   _VendorAppAddOfferState createState() => _VendorAppAddOfferState();
 }
@@ -81,9 +83,19 @@ class _VendorAppAddOfferState extends State<VendorAppAddOffer> {
     print('done');
     return base64Image;
   }
+  getcompress(File imageFile) async
+  {
+    setState(() {
+      isloading=true;
+    });
+    newImage = await compressImage(imageFile);
+    setState(() {
+      isloading=false;
+    });
+  }
   bool isloading=false;
   TextEditingController descriptionController = new TextEditingController();
-  // TextEditingController nameController = new TextEditingController();
+  TextEditingController nameController = new TextEditingController();
   TextEditingController priceController = new TextEditingController();
   VendorAppProductsReq _vendorAppProductsReq=VendorAppProductsReq();
   fetchdata()async
@@ -148,7 +160,7 @@ class _VendorAppAddOfferState extends State<VendorAppAddOffer> {
                     child: Column(
                       children: [
                         GetBuilder<VendorOffersController>(
-                          init: vendorOfferController,
+                          init: widget.vendorOffersController,
                           builder:(controller)=>controller.loading==true||isloading==true?Container(alignment:Alignment.center,child: CircularProgressIndicator(),):Column(
                             children: [
                               Container(
@@ -167,8 +179,15 @@ class _VendorAppAddOfferState extends State<VendorAppAddOffer> {
                                     GestureDetector(
                                         onTap: () {
                                           descriptionController.text="";
-                                          priceController.text="";
-                                          // nameController.text="";
+                                          nameController.text="";
+                                          typeName=vendor_type_items[0].name;
+                                          categoryName=vendor_category_items[0].name;
+                                          typeId=vendor_type_items[0].id;
+                                          categoryId=vendor_category_items[0].id;
+                                          image=null;
+                                          setState(() {
+
+                                          });
                                         },
                                         child: Container(
                                           width: getProportionateScreenWidth(100),
@@ -218,121 +237,129 @@ class _VendorAppAddOfferState extends State<VendorAppAddOffer> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      alignment: Alignment.centerRight,
+                                    Expanded(
                                       child: Container(
-                                          width: getProportionateScreenWidth(156),
-                                          height:
-                                          getProportionateScreenHeight(45),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(6),
-                                            border: Border.all(
-                                                width: 1,
-                                                color:
-                                                Colors.grey.withOpacity(0.6)),
-                                          ),
-                                          // padding: EdgeInsets.symmetric(
-                                          //     horizontal: 15),
-                                          child: DropdownButtonHideUnderline(
-                                            child: DropdownButton(
-                                              // value: controller.storeInfo.address,
-                                              // value: _value,
-                                              items: vendor_category_items
-                                                  .map((Category item) {
-                                                return DropdownMenuItem<Category>(
-                                                  value: item,
-                                                  child: Container(
-                                                    width: getProportionateScreenWidth(135),
-                                                    height:
-                                                    getProportionateScreenHeight(30),
-                                                    child: AutoSizeText(
-                                                      item.name,
-                                                      textDirection:
-                                                      TextDirection.rtl,
-                                                      style: blackText_14pt,
-                                                      minFontSize: 8,
-                                                      maxLines: 1,
-                                                    ),
-                                                  ),
-                                                );
-                                              }).toList(),
-                                              onChanged: (category) async{
-                                                print("before");
-                                                setState(() {
-                                                  categoryName=category.name;
-                                                  categoryId=category.id;
-                                                });
-                                                print("after");
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                            width: getProportionateScreenWidth(156),
+                                            padding: EdgeInsets.only(right: getProportionateScreenWidth(4)),
 
-                                              },
-                                              hint: Text(categoryName),
-                                              elevation: 8,
-                                              style: blackText_14pt,
-                                              icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
-                                              iconDisabledColor: Colors.black,
-                                              iconEnabledColor: Colors.blue,
-                                              // isExpanded: true,
+                                            height:
+                                            getProportionateScreenHeight(45),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(6),
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color:
+                                                  Colors.grey.withOpacity(0.6)),
                                             ),
-                                          )),
+                                            // padding: EdgeInsets.symmetric(
+                                            //     horizontal: 15),
+                                            child: DropdownButtonHideUnderline(
+                                              child: DropdownButton(
+                                                // value: controller.storeInfo.address,
+                                                // value: _value,
+                                                items: vendor_category_items
+                                                    .map((Category item) {
+                                                  return DropdownMenuItem<Category>(
+                                                    value: item,
+                                                    child: Container(
+                                                      width: getProportionateScreenWidth(135),
+                                                      height:
+                                                      getProportionateScreenHeight(30),
+                                                      child: AutoSizeText(
+                                                        item.name,
+                                                        textDirection:
+                                                        TextDirection.rtl,
+                                                        style: blackText_14pt,
+                                                        minFontSize: 8,
+                                                        maxLines: 1,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (category) async{
+                                                  print("before");
+                                                  setState(() {
+                                                    categoryName=category.name;
+                                                    categoryId=category.id;
+                                                  });
+                                                  print("after");
+
+                                                },
+                                                hint: Text(categoryName),
+                                                elevation: 8,
+                                                style: blackText_14pt,
+                                                icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
+                                                iconDisabledColor: Colors.black,
+                                                iconEnabledColor: Colors.blue,
+                                                // isExpanded: true,
+                                              ),
+                                            )),
+                                      ),
                                     ),
-                                    Container(
-                                      alignment: Alignment.centerRight,
+                                    Expanded(
                                       child: Container(
-                                          width: getProportionateScreenWidth(156),
-                                          height:
-                                          getProportionateScreenHeight(45),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(6),
-                                            border: Border.all(
-                                                width: 1,
-                                                color:
-                                                Colors.grey.withOpacity(0.6)),
-                                          ),
-                                          // padding: EdgeInsets.symmetric(
-                                          //     horizontal: 15),
-                                          child: DropdownButtonHideUnderline(
-                                            child: DropdownButton(
-                                              // value: controller.storeInfo.address,
-                                              // value: _value,
-                                              items: vendor_type_items
-                                                  .map((ProductType item) {
-                                                return DropdownMenuItem<ProductType>(
-                                                  value: item,
-                                                  child: Container(
-                                                    width: getProportionateScreenWidth(135),
-                                                    height:
-                                                    getProportionateScreenHeight(30),
-                                                    child: AutoSizeText(
-                                                      item.name,
-                                                      textDirection:
-                                                      TextDirection.rtl,
-                                                      style: blackText_14pt,
-                                                      minFontSize: 8,
-                                                      maxLines: 1,
-                                                    ),
-                                                  ),
-                                                );
-                                              }).toList(),
-                                              onChanged: (category) async{
-                                                print("before");
-                                                setState(() {
-                                                  typeName=category.name;
-                                                  typeId=category.id;
-                                                });
-                                                print("after");
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                            width: getProportionateScreenWidth(156),
+                                            height:
+                                            getProportionateScreenHeight(45),
+                                            padding: EdgeInsets.only(right: getProportionateScreenWidth(4)),
 
-                                              },
-                                              hint: Text(typeName),
-                                              elevation: 8,
-                                              style: blackText_14pt,
-                                              icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
-                                              iconDisabledColor: Colors.black,
-                                              iconEnabledColor: Colors.blue,
-                                              // isExpanded: true,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(6),
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color:
+                                                  Colors.grey.withOpacity(0.6)),
                                             ),
-                                          )),
+                                            // padding: EdgeInsets.symmetric(
+                                            //     horizontal: 15),
+                                            child: DropdownButtonHideUnderline(
+                                              child: DropdownButton(
+                                                // value: controller.storeInfo.address,
+                                                // value: _value,
+                                                items: vendor_type_items
+                                                    .map((ProductType item) {
+                                                  return DropdownMenuItem<ProductType>(
+                                                    value: item,
+                                                    child: Container(
+                                                      width: getProportionateScreenWidth(135),
+                                                      height:
+                                                      getProportionateScreenHeight(30),
+                                                      child: AutoSizeText(
+                                                        item.name,
+                                                        textDirection:
+                                                        TextDirection.rtl,
+                                                        style: blackText_14pt,
+                                                        minFontSize: 8,
+                                                        maxLines: 1,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                                onChanged: (category) async{
+                                                  print("before");
+                                                  setState(() {
+                                                    typeName=category.name;
+                                                    typeId=category.id;
+                                                  });
+                                                  print("after");
+
+                                                },
+                                                hint: Text(typeName),
+                                                elevation: 8,
+                                                style: blackText_14pt,
+                                                icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
+                                                iconDisabledColor: Colors.black,
+                                                iconEnabledColor: Colors.blue,
+                                                // isExpanded: true,
+                                              ),
+                                            )),
+                                      ),
                                     ),
                                     // Container(
                                     //   alignment: Alignment.centerRight,
@@ -412,28 +439,28 @@ class _VendorAppAddOfferState extends State<VendorAppAddOffer> {
                               SizedBox(
                                 height: getProportionateScreenHeight(25),
                               ),
-                              // Container(
-                              //   height: getProportionateScreenHeight(30),
-                              //   alignment: Alignment.centerRight,
-                              //   child: AutoSizeText(
-                              //     "اسم المنتج",
-                              //     style: body3_18pt,
-                              //   ),
-                              // ),
-                              // SizedBox(
-                              //   height: getProportionateScreenHeight(20),
-                              // ),
-                              // Container(
-                              //   height: getProportionateScreenHeight(65),
-                              //   width: SizeConfig.screenWidth,
-                              //   decoration: BoxDecoration(
-                              //       borderRadius: BorderRadius.circular(8),
-                              //       border: Border.all(
-                              //           color: Colors.grey.withOpacity(0.6), width: 1)),
-                              //   child:
-                              //   CustomTextField(textEditingController: nameController),
-                              // ),
-                              // SizedBox(height: getProportionateScreenHeight(25),),
+                              Container(
+                                height: getProportionateScreenHeight(30),
+                                alignment: Alignment.centerRight,
+                                child: AutoSizeText(
+                                  "اسم العرض",
+                                  style: body3_18pt,
+                                ),
+                              ),
+                              SizedBox(
+                                height: getProportionateScreenHeight(20),
+                              ),
+                              Container(
+                                height: getProportionateScreenHeight(65),
+                                width: SizeConfig.screenWidth,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(
+                                        color: Colors.grey.withOpacity(0.6), width: 1)),
+                                child:
+                                CustomTextField(textEditingController: nameController),
+                              ),
+                              SizedBox(height: getProportionateScreenHeight(25),),
                               Container(
                                 height: getProportionateScreenHeight(30),
                                 child: Container(
@@ -460,8 +487,7 @@ class _VendorAppAddOfferState extends State<VendorAppAddOffer> {
                                     image = await ImagePicker.pickImage(source: ImageSource.gallery);
                                     File imageFile = File(image.path);
                                     if(image!=null) {
-                                      newImage = await compressImage(imageFile);
-                                    }
+getcompress(imageFile)         ;                           }
                                     setState(() {
 
                                     });
@@ -566,7 +592,7 @@ class _VendorAppAddOfferState extends State<VendorAppAddOffer> {
                                     GestureDetector(
                                         onTap: () async {
                                           if(
-                                          // nameController.text==""||
+                                          nameController.text==""||
                                           // priceController.text==""||
                                               descriptionController.text=="")
                                           {
@@ -582,17 +608,18 @@ class _VendorAppAddOfferState extends State<VendorAppAddOffer> {
                                           // widget.storeProduct.id;
                                           // widget.storeProduct.image;
 
-                                          await vendorOfferController.addNewOffer(  category_id:categoryId,
+                                          await widget.vendorOffersController.addNewOffer(
+                                            category_id:categoryId,
                                               type_id:typeId,
-                                              // name_ar:nameController.text,
-                                              // name_en:nameController.text,
+                                              name_ar:nameController.text,
+                                              name_en:nameController.text,
                                               desc_ar:descriptionController.text,
                                               desc_en:descriptionController.text,
                                               image:newImage,
                                               // price:int.parse(priceController.text)
                                               );
-                                          vendorAppTabController.animateTo(2);
-                                          vendorAppLabelController.changeIndex(2);
+                                          // vendorAppTabController.animateTo(2);
+                                          // vendorAppLabelController.changeIndex(2);
                                         },
                                         child: Container(
                                           width: getProportionateScreenWidth(170),
@@ -608,9 +635,9 @@ class _VendorAppAddOfferState extends State<VendorAppAddOffer> {
                                         )),
                                     GestureDetector(
                                         onTap: (){
-                                          vendorAppTabController.animateTo(2);
-                                          vendorAppLabelController.changeIndex(2);
-
+                                          // vendorAppTabController.animateTo(2);
+                                          // vendorAppLabelController.changeIndex(2);
+                                          Get.back();
                                         },
                                         child: Container(
                                           width: getProportionateScreenWidth(170),

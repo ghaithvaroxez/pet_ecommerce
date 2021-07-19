@@ -17,6 +17,8 @@ import 'package:pets_ecommerce/screens/vendor_app/model/enums.dart';
 import 'package:pets_ecommerce/screens/vendor_app/view/components/products/add_new_product_screen.dart';
 
 class VendorOffersBodyScreen extends StatefulWidget {
+  VendorOffersController vendorOffersController;
+  VendorOffersBodyScreen (this.vendorOffersController);
   @override
   _VendorOffersBodyScreenState createState() => _VendorOffersBodyScreenState();
 }
@@ -35,7 +37,7 @@ class _VendorOffersBodyScreenState extends State<VendorOffersBodyScreen> {
     return Container(
       padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(26),horizontal: getProportionateScreenWidth(8)),
       child: GetBuilder<VendorOffersController>(
-          init: vendorOfferController,
+          init: widget.vendorOffersController,
           builder: (controller) => controller.loading == true
               ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +69,7 @@ class _VendorOffersBodyScreenState extends State<VendorOffersBodyScreen> {
               },
               edit: () {
                 Get.to(
-                    VendorAppEditOffer(controller.offers[index]));
+                    VendorAppEditOffer(controller.offers[index],widget.vendorOffersController));
               },
             ),
           )

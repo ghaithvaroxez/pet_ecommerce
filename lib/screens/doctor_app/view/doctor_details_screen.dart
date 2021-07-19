@@ -1,16 +1,19 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/gradient.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/doctor_app/controller/doctor_controler.dart';
 import 'package:pets_ecommerce/screens/stores/view/components/orders/orders_body.dart';
 import 'package:pets_ecommerce/screens/widgets/floating_action_button.dart';
 import '../model/constants.dart';
 import 'package:get/get.dart';
 import '../controller/doctor_label_controller.dart';
-import '../controller/doctor_services_controller.dart';
 import '../view/components/about/doctor_about_body.dart';
 import 'components/orders/doctor_orders_body.dart';
 import '../view/components/services/doctor_services_body.dart';
+import 'components/services/add_new_service_screen.dart';
 class DoctorAppDetailsPage extends StatefulWidget {
   @override
   _DoctorAppDetailsPageState createState() => _DoctorAppDetailsPageState();
@@ -18,7 +21,9 @@ class DoctorAppDetailsPage extends StatefulWidget {
 
 class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
     with SingleTickerProviderStateMixin {
-
+  DoctorController customDoctorController=Get.put(DoctorController());
+  TabController doctorAppTabController;
+  DoctorLabelController customDoctorLabelController=Get.put(DoctorLabelController());
 
   @override
   void initState() {
@@ -46,7 +51,8 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
           onTap: (){
             doctorAppTabController.animateTo(0);
             customDoctorLabelController.changeIndex(0);
-            customDoctorServicesController.changeToAddService();
+             Get.to(VendorAppAddService(customDoctorController));
+            // customDoctorServicesController.changeToAddService();
           },
           child: Icon(
             Icons.add,
@@ -64,11 +70,27 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
               right: 0,
               height: getProportionateScreenHeight(300),
               child: Container(
-                child: Image.asset(
-                  "assets/images/doctors/femal_doctor_details_image.png",
-                  fit: BoxFit.fill,
+                child:  GetBuilder<DoctorController>(
+                  init: customDoctorController,
+                  builder: (controller)=>controller.init==false? Image.asset(
+                    "assets/images/doctors/femal_doctor_details_image.png",
+                    fit: BoxFit.fill,
+                  ):controller.doctorModel.doctor.image==null?Image.asset(
+                    "assets/images/doctors/femal_doctor_details_image.png",
+                    fit: BoxFit.fill,
+                  ):CachedNetworkImage(
+                    imageUrl: Api.imagePath+controller.doctorModel.doctor.image,
+                    fit: BoxFit.cover,
+                    progressIndicatorBuilder: (context, url, downloadProgress) =>
+                        Container(alignment:Alignment.center,height:getProportionateScreenHeight(75),width:getProportionateScreenWidth(75),child: CircularProgressIndicator(value: downloadProgress.progress)),
+                    errorWidget: (context, url, error) => Image.asset(
+                      "assets/images/home/shop_image.png",
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                 ),
               ),
+
             ),
 
             Positioned(
@@ -85,40 +107,40 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
             ),
 
 
-            Positioned(
-              top: getProportionateScreenHeight(34),
-              left: getProportionateScreenWidth(24),
-              child: GestureDetector(
-                onTap: (){
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  width: getProportionateScreenWidth(48),
-                  height: getProportionateScreenHeight(48),
-                  decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.8),
-                      shape: BoxShape.circle),
-                  child: Center(
-                    child: Icon(
-                      Icons.arrow_back_ios_outlined,
-                      size: 14,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              top: getProportionateScreenHeight(180),
-              right: getProportionateScreenWidth(10),
-              child: Stack(
-                children: [
-
-                  Image.asset("assets/images/vendor_app/camera.png",    width: getProportionateScreenWidth(52),
-                    height: getProportionateScreenHeight(52),fit: BoxFit.fill,),
-
-                ],
-              ),
-            ),///camera
+            // Positioned(
+            //   top: getProportionateScreenHeight(34),
+            //   left: getProportionateScreenWidth(24),
+            //   child: GestureDetector(
+            //     onTap: (){
+            //       Navigator.pop(context);
+            //     },
+            //     child: Container(
+            //       width: getProportionateScreenWidth(48),
+            //       height: getProportionateScreenHeight(48),
+            //       decoration: BoxDecoration(
+            //           color: Colors.white.withOpacity(0.8),
+            //           shape: BoxShape.circle),
+            //       child: Center(
+            //         child: Icon(
+            //           Icons.arrow_back_ios_outlined,
+            //           size: 14,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // Positioned(
+            //   top: getProportionateScreenHeight(180),
+            //   right: getProportionateScreenWidth(10),
+            //   child: Stack(
+            //     children: [
+            //
+            //       Image.asset("assets/images/vendor_app/camera.png",    width: getProportionateScreenWidth(52),
+            //         height: getProportionateScreenHeight(52),fit: BoxFit.fill,),
+            //
+            //     ],
+            //   ),
+            // ),///camera
 
             Positioned(
               top: getProportionateScreenHeight(250),
@@ -287,8 +309,8 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
                         // AboutStoreBodyScreen(),
                         // OffersBodyScreen(),
                         // OrdersBodyScreen(),
-                        DoctorServicesBodyScreen(),
-                        AboutDoctorBodyScreen(),
+                        DoctorServicesBodyScreen(customDoctorController),
+                        AboutDoctorBodyScreen(customDoctorController),
                         DoctorOrdersBodyScreen(),
 
                         // VendorProductsBodyScreen(),
