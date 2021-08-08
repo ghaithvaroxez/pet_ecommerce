@@ -7,8 +7,8 @@ class FancyFab extends StatefulWidget {
   final Function() onPressed2;
   final String tooltip;
   final IconData icon;
-
-  FancyFab({this.onPressed1,this.onPressed2, this.tooltip, this.icon});
+bool story;
+  FancyFab({this.onPressed1,this.onPressed2, this.tooltip, this.icon,this.story=false});
 
   @override
   _FancyFabState createState() => _FancyFabState();
@@ -98,6 +98,7 @@ class _FancyFabState extends State<FancyFab>
         height: 56,
         width: 56,
         decoration: BoxDecoration(
+
         ),
         // child:
         // FloatingActionButton(
@@ -105,7 +106,7 @@ class _FancyFabState extends State<FancyFab>
           // backgroundColor: Colors.transparent.withOpacity(0),
           // onPressed: null,
           // tooltip: 'Image',
-          child:  Image.asset("assets/images/vendor_app/add_product_icon.png"),
+          child:  Image.asset(widget.story?"assets/images/vendor_app/add_video.png":"assets/images/vendor_app/add_product_icon.png"),
           // child: Icon(Icons.image),
         // ),
       ),
@@ -126,7 +127,7 @@ class _FancyFabState extends State<FancyFab>
           // onPressed: null,
           // tooltip: 'Inbox',
           child: Image.asset(
-            "assets/images/vendor_app/add_offer_icon.png",
+           widget.story?"assets/images/vendor_app/add_photo.png":"assets/images/vendor_app/add_offer_icon.png",
             fit: BoxFit.fill,
           ),
         // ),

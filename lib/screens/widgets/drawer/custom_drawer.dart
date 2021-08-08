@@ -3,9 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:get/get.dart';
+import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
+import 'package:pets_ecommerce/screens/auth/model/user.dart';
+import 'package:pets_ecommerce/screens/auth/view/splash/splash_screen.dart';
 import 'package:pets_ecommerce/screens/corner/view/my_corner_details.dart';
+import 'package:pets_ecommerce/screens/corner/view/select_corner.dart';
+import 'package:pets_ecommerce/screens/doctor_app/view/doctor_details_screen.dart';
+import 'package:pets_ecommerce/screens/my_corner/view/my_corners_list.dart';
+import 'package:pets_ecommerce/screens/vendor_app/view/vendor_details_screen.dart';
+import 'package:pets_ecommerce/services/local_storage_service.dart';
 import 'components/drawer_item.dart';
 import 'package:pets_ecommerce/screens/profile/view/profile_screen.dart';
+import '../../../screens/status/view/my_status_screen.dart';
 class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -71,9 +80,18 @@ class CustomDrawer extends StatelessWidget {
                       CustomeDraweritem(
                         title: "حسابي",
                         img: "assets/images/drawer/drawer_icons/user_icon.png",
-                        onTap: () {
-                          Get.back();
-                          Get.to(ProfileScreen());
+                        onTap: () async{
+
+              UserModel user=await AuthServices.getCurrentUser();
+              Get.back();
+                          if(user.user.role=="user")
+                            Get.to(ProfileScreen());
+                          else if(user.user.role=="provider")
+                            Get.to(VendorDetailsPage());
+                          else if(user.user.role=="doctor")
+                            Get.to(DoctorAppDetailsPage());
+
+
                         },
                       ),
                       SizedBox(
@@ -146,6 +164,7 @@ class CustomDrawer extends StatelessWidget {
                             "assets/images/drawer/drawer_icons/status_icon.png",
                       onTap: () {
                           Get.back();
+                          Get.to(MyStatus());
                         },
                       ),
                       SizedBox(
@@ -158,7 +177,7 @@ class CustomDrawer extends StatelessWidget {
                             "assets/images/drawer/drawer_icons/corner_icon.png",
                       onTap: () {
                           Get.back();
-                          Get.to(MyCornerDetails());
+                          Get.to(MyCornerList());
                         },
                       ),
                       SizedBox(
@@ -182,8 +201,45 @@ class CustomDrawer extends StatelessWidget {
                         title: "تسجيل الخروج",
                         img:
                             "assets/images/drawer/drawer_icons/logout_icon.png",
-                      onTap: () {
-                          Get.back();
+                      onTap: ()async {
+                        showDialog(
+                            context: context,
+                            builder: ((context) => AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5)),
+                              title:  Text(
+                                'هل أنت متأكد ؟',
+                                textDirection: TextDirection.rtl,
+                                style: body3_18pt,
+                              ),
+                              content: Text(
+                                'انت على وشك تسجيل الخروج !',
+                                textDirection: TextDirection.rtl,
+                                style: body1_16pt,
+                              ),
+                              actions: [
+                                TextButton(
+                                  child:  Text(
+                                    'نعم',
+                                  ),
+                                  onPressed: () async{
+                                    // language.changeLanguage();
+                                    Navigator.of(context).pop();
+                                    await  LocalStorageService.prefs.clear();
+                                    Get.offAll(SplashScreen());
+                                    // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text('لا'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            )));
+
                         },
                         isRed: true,
                       ),

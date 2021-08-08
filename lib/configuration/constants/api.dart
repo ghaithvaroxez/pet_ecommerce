@@ -20,6 +20,8 @@ class Api {
   //verifyPhoneAccount
   static const verifyPhoneAccount = "/verify/phone";
 
+  //user_store
+  static const allStores = "/stores/stores";
   //photo
   static const imagePath="http://pets.sourcecode-ai.com/storage/";
   static const categories="/categories";
@@ -40,6 +42,11 @@ class Api {
  static const updateProduct="/edit/product";
  static const addProduct="/add/product";
  static const deleteProduct="/delete/product";
+ static const changeProductStatus="/item/status";
+ static const addPhoto="/add/store/images";
+ static const convertPhotoToStory="/convert";
+ static const getPhotos="/store/images";
+ static const removePhoto="/delete/image";
 
  static const updateOffer="/edit/offer";
  static const addOffer="/add/offer";
@@ -52,4 +59,19 @@ class Api {
   static const updateSocial="/edit/contact";
   static const addSocial="/add/contact";
   static const deleteSocial="/delete/contact";
+
+  //status
+static const myAllStatuses="/myStatusAll";
+static const getStatusId="/status";
+static const allStatuses="/statuses";
+static const deleteStatus="/delete/status";
+static const addStatus="/add/status";
+//corners
+  static const myAllCorners="/myCorners";
+  static const getCornerId="/corner";
+  static const allCorneres="/corners";
+  static const deleteCorner="/delete/corner";
+  static const addCorner="/add/corner";
+  static const editCornerbyId="/edit/corner";
+
 }

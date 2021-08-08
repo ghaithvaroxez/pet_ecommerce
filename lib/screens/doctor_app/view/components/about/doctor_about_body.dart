@@ -258,6 +258,7 @@ class _AboutDoctorBodyScreenState extends State<AboutDoctorBodyScreen> {
                 SizedBox(height: getProportionateScreenHeight(15),),
                 Container(
                   // height: getProportionateScreenHeight(50),
+                  padding: EdgeInsets.fromLTRB(0, 4, 4, 4),
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.grey)),
                   child: Row(
                     children: [

@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/corner/model/corner_model.dart';
 import 'package:pets_ecommerce/screens/doctors/view/doctor_details.dart';
 import 'package:pets_ecommerce/screens/home/view/components/favorite_icon.dart';
 import 'package:pets_ecommerce/screens/home/view/components/open_now_coponent.dart';
@@ -13,11 +15,15 @@ import 'package:pets_ecommerce/screens/stores/view/store_details.dart';
 import '../corner_details.dart';
 
 class VerticalCornerListCard extends StatelessWidget {
+  Corner corner;
+  VerticalCornerListCard(this.corner);
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(CornerDetails());
+        Get.to(CornerDetails(corner,false));
       },
       child: Container(
         height: getProportionateScreenHeight(135),
@@ -50,8 +56,8 @@ class VerticalCornerListCard extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(12),
                       bottomRight: Radius.circular(12)),
-                  child: Image.asset(
-                    "assets/images/home/shop_image.png",
+                  child: Image.network(
+                    Api.imagePath+corner.image,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -71,7 +77,7 @@ class VerticalCornerListCard extends StatelessWidget {
                     height: getProportionateScreenHeight(30),
                     width: getProportionateScreenWidth(150),
                     child: AutoSizeText(
-                      "عنوان الزاوية",
+                      corner.name,
                       textDirection: TextDirection.rtl,
                       style: body3_18pt,
                     ),
@@ -82,7 +88,7 @@ class VerticalCornerListCard extends StatelessWidget {
                     height: getProportionateScreenHeight(20),
                     width: getProportionateScreenWidth(150),
                     child: AutoSizeText(
-                      "اسم المستخدم",
+                        corner.userName!=""? corner.userName: corner.doctorName!=""? corner.doctorName: corner.storeName!=""? corner.storeName:"",
                       textDirection: TextDirection.rtl,
                       style: darkBlueText_11pt,
                     ),
@@ -92,7 +98,7 @@ class VerticalCornerListCard extends StatelessWidget {
                     height: getProportionateScreenHeight(42),
                     width: getProportionateScreenWidth(150),
                     child: AutoSizeText(
-                   "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة،  ",
+                  corner.desc,
                       textDirection: TextDirection.rtl,
                       style: darkGrayText_11pt,
                     ),

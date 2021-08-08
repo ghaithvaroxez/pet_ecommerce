@@ -58,13 +58,30 @@ class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-         height: getProportionateScreenHeight(75),
-          width: getProportionateScreenWidth(75),
-          alignment: Alignment.center,
-          child: Center(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  width: getProportionateScreenWidth(370),
+                  child: Container(
+                   height: getProportionateScreenHeight(75),
+                    width: getProportionateScreenWidth(75),
+                    alignment: Alignment.center,
+                    child: Center(
       child: CircularProgressIndicator(),
     ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ));
   }
 }
@@ -81,6 +98,7 @@ TextEditingController registerStableNameController =
 TextEditingController registerPhoneNumberController =
     new TextEditingController();
 TextEditingController registerCountyController = new TextEditingController();
+String lastSelected="";
 TextEditingController registerNumberController = new TextEditingController();
 
 TextEditingController registerPasswordController = new TextEditingController();
@@ -104,6 +122,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       LocationModel locationModel = await _vendorAppRequests.getLocations();
       addresses=locationModel.cities;
       location=addresses[0].name;
+      locationId=addresses[0].id;
+
+
     }catch(e)
     {
       loaddata=false;
@@ -158,9 +179,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     SizeConfig.init(context);
     return Scaffold(
       body: SafeArea(
-        child: GetBuilder<RegisterController>(
+        child: loaddata==true?LoadingScreen():GetBuilder<RegisterController>(
           init: registerController,
-          builder: (controller) => controller.showLoading||loaddata==true
+          builder: (controller) => controller.showLoading
               ? LoadingScreen()
               : controller.currentState ==
                       MobileVerificationState.SHOW_MOBILE_FORM_STATE
@@ -470,12 +491,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   ? Container(
                                                       width:
                                                           getProportionateScreenWidth(
-                                                              370),
+                                                              390),
                                                       // height: getProportionateScreenHeight(50),
                                                       // alignment: Alignment.centerLeft,
                                                       child: Row(
                                                         // mainAxisAlignment: MainAxisAlignment.center,
                                                         children: [
+                                                          SizedBox(
+                                                            width:
+                                                            getProportionateScreenWidth(
+                                                                20),
+                                                          ),
                                                           Column(
                                                             children: <Widget>[
                                                               Container(
@@ -506,7 +532,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                                       ),
                                                                     ),
                                                                     AutoSizeText(
-                                                                      "اسم الأخير",
+                                                                      "الاسم الأخير",
                                                                       style:
                                                                           body2_14pt,
                                                                     ),
@@ -557,11 +583,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                               ),
                                                             ],
                                                           ),
-                                                          SizedBox(
-                                                            width:
-                                                                getProportionateScreenWidth(
-                                                                    30),
-                                                          ),
+                                                          // SizedBox(
+                                                          //   width:
+                                                          //       getProportionateScreenWidth(
+                                                          //           30),
+                                                          // ),
+                                                          Spacer(),
                                                           Column(
                                                             children: <Widget>[
                                                               Container(
@@ -592,7 +619,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                                       ),
                                                                     ),
                                                                     AutoSizeText(
-                                                                      "اسم الاول",
+                                                                      "الاسم الاول",
                                                                       style:
                                                                           body2_14pt,
                                                                     ),
@@ -638,6 +665,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                               ),
                                                             ],
                                                           ),
+
+                                                          // Spacer(),
+                                                          // Spacer(),
                                                         ],
                                                       ),
                                                     )
@@ -677,6 +707,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         onInit: (value) {
                                           registerCountyController.text =
                                               value.dialCode;
+
                                         },
                                         onChanged: (value) {
                                           print("*********");
@@ -684,17 +715,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           print("*********");
                                           registerCountyController.text =
                                               value.dialCode;
+                                          lastSelected=value.code;
                                         },
                                         // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                                        initialSelection: 'US',
-                                        favorite: [
-                                          '+963',
-                                          'SY',
-                                          '+1',
-                                          'US',
-                                          '+44',
-                                          'UK'
-                                        ],
+                                        initialSelection: lastSelected==""?'US':lastSelected,
                                         // optional. Shows only country name and flag
                                         showCountryOnly: false,
                                         // optional. Shows only country name and flag when popup is closed.
@@ -804,7 +828,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   ),
                                   Container(
                                     alignment: Alignment.centerRight,
-                                    padding: EdgeInsets.only(left: getProportionateScreenWidth(5),right: getProportionateScreenWidth(5)),
+                                    // padding: EdgeInsets.only(left: getProportionateScreenWidth(5),right: getProportionateScreenWidth(5)),
                                     child: Container(
                                         padding: EdgeInsets.only(left: getProportionateScreenWidth(5),right: getProportionateScreenWidth(5)),
                                         width: getProportionateScreenWidth(156),
@@ -865,8 +889,9 @@ locationId=city.id;
                                   AuthButton(
                                     color: true,
                                     title: "متابعة",
-                                    ontap: () {
-                                      register();
+                                    ontap: () async{
+                                     await register();
+                                     // await register2();
                                     },
                                   ),
                                 ],
@@ -917,6 +942,7 @@ locationId=city.id;
       return false;
     }
 
+
     if (await authRequest.isExist(registerPhoneNumberController.text)) {
       CoolAlert.show(
         context: context,
@@ -924,9 +950,66 @@ locationId=city.id;
         text: " رقم الهاتف  موجود مسبقا بالفعل",
       );
       return false;
-    } else {
-      await authRequest.verifyPhoneNumber(registerPhoneNumberController.text);
     }
+    switch (type) {
+      case "مستخدم":
+        {
+          if (registerFirstNameController.text==""||registerLastNameController.text=="") {
+            CoolAlert.show(
+              context: context,
+              type: CoolAlertType.error,
+              text: "الرجاء تعبئة كافة الحقول اولاً",
+            );
+            return false;
+
+          }
+        }
+        break;
+      case "طبيب":
+        {
+          if (registerFirstNameController.text == "" ||
+              registerLastNameController.text == "") {
+            CoolAlert.show(
+              context: context,
+              type: CoolAlertType.error,
+              text: "الرجاء تعبئة كافة الحقول اولاً",
+            );
+            return false;
+
+          }
+          break;
+        }
+      case "اسطبل":
+        {
+          if (registerStableNameController.text == "" ) {
+            CoolAlert.show(
+              context: context,
+              type: CoolAlertType.error,
+              text: "الرجاء تعبئة كافة الحقول اولاً",
+            );
+            return false;
+
+          }
+        }
+        break;
+      case "متجر":
+        {
+          if (registerStoreNameController.text == "" ) {
+            CoolAlert.show(
+              context: context,
+              type: CoolAlertType.error,
+              text: "الرجاء تعبئة كافة الحقول اولاً",
+            );
+            return false;
+
+          }
+        }
+        break;
+    }
+
+      // await register2();
+      await authRequest.verifyPhoneNumber(registerPhoneNumberController.text);
+
   }
 }
 
@@ -947,6 +1030,7 @@ Future<bool> register2() async {
             password: registerPasswordController.text,
             address: locationId)) {
           auth = false;
+          customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
           // Get.back();
           // CoolAlert.show(
           //   type: CoolAlertType.error,
@@ -994,11 +1078,12 @@ Future<bool> register2() async {
       break;
     case "متجر":
       {
-        if (!await authRequest.registerStoreRequest(
+        bool temp=await authRequest.registerStoreRequest(
             store_name: registerStoreNameController.text,
             mobile: mobile,
             password: registerPasswordController.text,
-            address: locationId)) {
+            address: locationId);
+        if (!temp) {
           // Get.back();
           auth = false;
           customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
@@ -1040,5 +1125,5 @@ Future<bool> register2() async {
 }
 
 customDialog(String title) {
-  return Get.dialog(Text(title), barrierColor: Colors.grey.withOpacity(0.6));
+  return Get.rawSnackbar(message: title, backgroundColor: Colors.redAccent);
 }

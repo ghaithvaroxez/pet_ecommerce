@@ -11,6 +11,7 @@ import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
 import 'package:pets_ecommerce/screens/auth/view/splash/splash_screen.dart';
 import 'package:pets_ecommerce/screens/doctors/view/doctor_details.dart';
 import 'package:pets_ecommerce/screens/error/view/error_view.dart';
+import 'package:pets_ecommerce/screens/home/view/home_view.dart';
 import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
 import 'package:pets_ecommerce/screens/vendor_app/view/vendor_details_screen.dart';
 import 'package:pets_ecommerce/screens/doctor_app/view/doctor_details_screen.dart';

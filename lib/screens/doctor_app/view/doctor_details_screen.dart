@@ -14,7 +14,11 @@ import '../view/components/about/doctor_about_body.dart';
 import 'components/orders/doctor_orders_body.dart';
 import '../view/components/services/doctor_services_body.dart';
 import 'components/services/add_new_service_screen.dart';
+import 'package:pets_ecommerce/screens/doctor_app/model/doctor.dart';
+import 'package:http/http.dart' as http;
+
 class DoctorAppDetailsPage extends StatefulWidget {
+
   @override
   _DoctorAppDetailsPageState createState() => _DoctorAppDetailsPageState();
 }

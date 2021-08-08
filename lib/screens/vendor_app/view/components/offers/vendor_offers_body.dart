@@ -71,6 +71,9 @@ class _VendorOffersBodyScreenState extends State<VendorOffersBodyScreen> {
                 Get.to(
                     VendorAppEditOffer(controller.offers[index],widget.vendorOffersController));
               },
+              changeStatus: ()async{
+                controller.changeStatus(controller.offers[index].id);
+              },
             ),
           )
 

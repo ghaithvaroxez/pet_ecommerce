@@ -1,12 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 
+import '../../../model/custoer_store_offer.dart';
 
 
 class StoreOfferCard extends StatelessWidget {
+
+  Offer offer ;
+  StoreOfferCard(this.offer);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,8 +37,8 @@ class StoreOfferCard extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(12),
                       topLeft: Radius.circular(12)),
-                  child: Image.asset(
-                    "assets/images/home/offers_dog.png",
+                  child: Image.network(
+                    Api.imagePath+offer.image,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -63,14 +68,19 @@ class StoreOfferCard extends StatelessWidget {
               child: Container(
 
                 child: Row(
+
                   children: [
-                    Icon(Icons.watch_later,size: 10,color: Colors.white,),
-                    SizedBox(width: 5,),
-                    AutoSizeText(
-                      "منذ ساعة"
-                      ,minFontSize: 8
-                      ,style: blueButton_14pt,
+                    Expanded(
+                   flex: 5,
+                      child: AutoSizeText(
+                        offer.date
+                        ,minFontSize: 8
+                        ,style: blueButton_14pt,
+                        textDirection: TextDirection.rtl,
+                      ),
                     ),
+                    SizedBox(width: 5,),
+                    Expanded(flex: 1,child: Icon(Icons.watch_later,size: 10,color: Colors.white,)),
                   ],
                 ),
               ),
@@ -82,7 +92,7 @@ class StoreOfferCard extends StatelessWidget {
               child: Container(
                 alignment: Alignment.center,
                 height: getProportionateScreenHeight(45),
-                width: getProportionateScreenWidth(162.7),
+                width: getProportionateScreenWidth(162.5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(12),
@@ -95,7 +105,7 @@ class StoreOfferCard extends StatelessWidget {
                   height: getProportionateScreenHeight(45),
                   width: getProportionateScreenWidth(120.7),
                   child: AutoSizeText(
-                    "pets carnival",
+                    offer.name,
                     style: h6_20pt,
                     minFontSize: 8,
                   ),

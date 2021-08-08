@@ -6,7 +6,7 @@ import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
-
+import 'package:get/get.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/constants.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
 import '../../../model/offer.dart';
@@ -15,7 +15,8 @@ class VendorOfferCard extends StatelessWidget {
   Offer offer;
   Function delete;
   Function edit;
-  VendorOfferCard({@required this.offer,@required this.delete,@required this.edit});
+  Function changeStatus;
+  VendorOfferCard({@required this.offer,@required this.delete,@required this.edit,this.changeStatus});
 
   @override
   Widget build(BuildContext context) {
@@ -104,11 +105,33 @@ class VendorOfferCard extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              Expanded(child: Padding(
-                                padding: const EdgeInsets.all(7.0),
-                                child:   Image.asset("assets/images/vendor_app/unupload_icon.png"),
+                              Expanded(child: Container(
+                                decoration: BoxDecoration(      color: offer.visible!="visible"?Colors.black.withOpacity(0.4):Colors.transparent,
+                                  borderRadius: BorderRadius.only(topRight: Radius.circular(12),bottomLeft: Radius.circular(12) ),),
+                                child: GestureDetector(onTap:(){if(offer.visible=="visible")
+                                  changeStatus();
+                                else
+                                {Get.rawSnackbar(
+                                    backgroundColor: Colors.green
+                                        .withOpacity(0.8),
+                                    message:
+                                    "offer already un uploaded");
+                                }}
+                                    ,child: Padding( padding: const EdgeInsets.all(7.0),child: Image.asset("assets/images/vendor_app/unupload_icon.png"),)),
                               )),
-                              Expanded(child: Padding(   padding: const EdgeInsets.all(7.0),child: Image.asset("assets/images/vendor_app/upload_icon.png"))),
+
+
+                              Expanded(child: Container(
+                                decoration: BoxDecoration(      color: offer.visible=="visible"?Colors.black.withOpacity(0.4):Colors.transparent,
+                                  borderRadius: BorderRadius.only(topRight: Radius.circular(12),bottomLeft: Radius.circular(12) ),),
+                                child: GestureDetector(onTap:(){if(offer.visible=="visible"){Get.rawSnackbar(
+                                    backgroundColor: Colors.green
+                                        .withOpacity(0.8),
+                                    message:
+                                    "offer already  uploaded");
+                                }else changeStatus();},
+                                    child: Padding( padding: const EdgeInsets.all(7.0),child:Image.asset("assets/images/vendor_app/upload_icon.png"))),
+                              )),
                               Expanded(child: GestureDetector(  onTap:edit,child: Image.asset("assets/images/vendor_app/pen.png"))),
                               Expanded(child: GestureDetector(onTap:(){
                                 showDialog(

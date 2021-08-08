@@ -15,9 +15,9 @@ class FavoriteOffersBody extends StatelessWidget {
           children: [
             Row(
               children: [
-                StoreOfferCard(),
+                // StoreOfferCard(),
                 SizedBox(width: getProportionateScreenWidth(15),),
-                StoreOfferCard(),
+                // StoreOfferCard(),
               ],
             ),
             SizedBox(height: getProportionateScreenHeight(16),),

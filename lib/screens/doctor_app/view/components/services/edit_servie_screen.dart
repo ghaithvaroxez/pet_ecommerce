@@ -147,7 +147,7 @@ class _VendorAppEditServiceState extends State<VendorAppEditService> {
                               ),
 
                               Spacer(),
-                              Container(height:getProportionateScreenHeight(28),child: AutoSizeText("تعديل منتج ",style: h5_21pt,minFontSize: 8,)),
+                              Container(height:getProportionateScreenHeight(28),child: AutoSizeText("تعديل خدمة ",style: h5_21pt,minFontSize: 8,)),
                               Spacer(),
                               SizedBox(
                                 width: getProportionateScreenWidth(24),
@@ -302,7 +302,7 @@ class _VendorAppEditServiceState extends State<VendorAppEditService> {
                                         width: getProportionateScreenWidth(156),
                                         height:
                                         getProportionateScreenHeight(45),
-                                        padding: EdgeInsets.only(right: getProportionateScreenWidth(4)),
+                                        padding: EdgeInsets.only(right: getProportionateScreenWidth(4),bottom: getProportionateScreenHeight(4)),
                                         decoration: BoxDecoration(
                                           borderRadius:
                                           BorderRadius.circular(6),

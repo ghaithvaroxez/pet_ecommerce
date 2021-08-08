@@ -5,10 +5,12 @@ import '../model/store.dart';
 import '../requests/vendor_app_requests.dart';
 import 'dart:io';
 import 'package:image/image.dart' as Im;
+import 'package:pets_ecommerce/screens/stores/model/custome_store_body.dart';
+
 class VendorInfoController extends GetxController {
-  Store storeInfo;
-  // LocationModel locationModel;
-bool init=false;
+  CustomerStoreBody storeInfo;
+  LocationModel locationModel;
+  bool init=false;
   VendorAppRequests vendorAppRequests = VendorAppRequests();
   bool isLoading = false;
 
@@ -16,7 +18,7 @@ bool init=false;
     setLoading();
     await vendorAppRequests.getModel();
     await getStoreInfo();
-   // locationModel= await vendorAppRequests.getLocations();
+   locationModel= await vendorAppRequests.getLocations();
     init=true;
     removeLoading();
     update();
@@ -160,7 +162,7 @@ bool init=false;
   AddSocial({String link, String type}) async {
     try {
       setLoading();
-      bool k =await vendorAppRequests.addSocial(link: link,type: type,Storeid: storeInfo.id);
+      bool k =await vendorAppRequests.addSocial(link: link,type: type,Storeid: storeInfo.store.id);
       if ( k== true) {
        await getStoreInfo();
         removeLoading();

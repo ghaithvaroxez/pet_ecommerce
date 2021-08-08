@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
@@ -9,13 +11,16 @@ import 'package:pets_ecommerce/screens/home/view/components/open_now_coponent.da
 import 'package:pets_ecommerce/screens/home/view/components/social_media_components.dart';
 import 'package:get/get.dart';
 import 'package:pets_ecommerce/screens/stores/view/store_details.dart';
+import '../../model/all_stores.dart';
 
 class VerticalStoreListCard extends StatelessWidget {
+Store store;
+VerticalStoreListCard({this.store});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(StoreDetailsPage());
+        Get.to(StoreDetailsPage(store));
       },
       child: Container(
         height: getProportionateScreenHeight(135),
@@ -48,8 +53,8 @@ class VerticalStoreListCard extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(12),
                       bottomRight: Radius.circular(12)),
-                  child: Image.asset(
-                    "assets/images/home/shop_image.png",
+                  child: Image.network(
+                   Api.imagePath+store.image,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -57,12 +62,12 @@ class VerticalStoreListCard extends StatelessWidget {
             ),
 
             ///image
-            Positioned(
-                bottom: 0,
-                right: 0,
-                child: OpenNow(
-                  rightBottom: true,
-                )),
+            // Positioned(
+            //     bottom: 0,
+            //     right: 0,
+            //     child: OpenNow(
+            //       rightBottom: true,
+            //     )),
 
             ///open now
             Positioned(
@@ -74,13 +79,16 @@ class VerticalStoreListCard extends StatelessWidget {
                 children: [
                   Container(
                     height: getProportionateScreenHeight(30),
-                    width: getProportionateScreenWidth(150),
+                    width: getProportionateScreenWidth(130),
                     child: AutoSizeText(
-                      "Pets carnival",
-                      style: body3_18pt,
+                     store.name,
+                     style: body3_18pt,
+                      maxLines: 1,
+                      minFontSize: 9,
                     ),
                   ),
 
+                  // store.openFrom!=null&&store.closedAt!=null ?
                   Row(
                     children: [
                       Image.asset(
@@ -91,16 +99,43 @@ class VerticalStoreListCard extends StatelessWidget {
                         width: getProportionateScreenWidth(10),
                       ),
                       Container(
-                        height: getProportionateScreenHeight(20),
                         width: getProportionateScreenWidth(120),
-                        child: AutoSizeText(
-                          "صباحا - 9 مساء",
-                          style: body3_18pt,
-                          minFontSize: 10,
+                        child: Row(
+                          children: [
+                            Container(
+                              height: getProportionateScreenHeight(20),
+                              // width: getProportionateScreenWidth(120),
+                              child: AutoSizeText(
+                                "${store.openFrom} ",textDirection: TextDirection.ltr,
+                                style: body3_18pt,
+                                minFontSize: 10,
+                              ),
+                            ),
+                            Container(
+                              height: getProportionateScreenHeight(20),
+                              // width: getProportionateScreenWidth(120),
+                              child: AutoSizeText(
+                                "-",
+                                style: body3_18pt,
+                                minFontSize: 10,
+                              ),
+                            ),
+                            Container(
+                              height: getProportionateScreenHeight(20),
+                              // width: getProportionateScreenWidth(120),
+                              child: AutoSizeText(
+                                "${store.closedAt} ",textDirection: TextDirection.ltr ,
+                                style: body3_18pt,
+                                minFontSize: 10,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
+                      // :Container(),
+                  // store.district!=null?
                   Row(
                     children: [
                       Image.asset(
@@ -114,19 +149,20 @@ class VerticalStoreListCard extends StatelessWidget {
                         height: getProportionateScreenHeight(18),
                         width: getProportionateScreenWidth(120),
                         child: AutoSizeText(
-                          "فلسطين رام الله ",
+                          store.district,
                           style: body3_18pt,
                           minFontSize: 10,
                         ),
                       ),
                     ],
                   ),
+                      // :Container(),
 
                 ],
               ),
             ),
 
-            Positioned(left: 0, bottom: 0, child: SocialMedia()),
+            Positioned(left: 0, bottom: 0, child: SocialMedia(freez: true,)),
 
             ///social media
             Positioned(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/screens/doctor_app/model/doctor.dart';
 import 'package:pets_ecommerce/screens/doctor_app/requests/doctor_info_requests.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/location_model.dart';
@@ -8,16 +9,16 @@ import 'dart:io';
 import 'package:image/image.dart' as Im;
 class DoctorController extends GetxController {
   DoctorModel doctorModel;
-  // LocationModel locationModel;
+  LocationModel locationModel;
   bool init=false;
   DoctorAppRequests doctorAppRequests = DoctorAppRequests();
   bool isLoading = false;
 
   fetchData() async {
     setLoading();
+    locationModel= await doctorAppRequests.getLocations();
     await doctorAppRequests.getModel();
     await getDoctorInfo();
-    // locationModel= await vendorAppRequests.getLocations();
     init=true;
     removeLoading();
     update();
@@ -265,11 +266,11 @@ update();
           ServiceId: service.id);
       if (k == true) {
         await getDoctorInfo();
-        Get.back();
+        // Get.back();
         removeLoading();
         update();
       } else {
-        Get.back();
+        // Get.back();
         removeLoading();
         update();
         Get.rawSnackbar(
@@ -277,11 +278,11 @@ update();
             backgroundColor: Colors.redAccent);
       }
     }catch(e){
-      Get.back();
+      // Get.back();
       removeLoading();
       update();
       Get.rawSnackbar(
-          message: "can't delete your product now try again later",
+          message: "can't delete your service now try again later",
           backgroundColor: Colors.redAccent);
     }
   }
@@ -295,14 +296,16 @@ update();
       bool k = await doctorAppRequests.UpdateService(
         category_id: service.categoryId,
         // type_id: product.typeId,
-        // name_ar: product.name,
-        // name_en: product.name,
+        name_ar: service.name,
+        name_en: service.name,
         body_ar: service.desc,
         body_en: service.desc,
         serviceId: service.id,
         price: service.price,
         image: newImage == "" ? null : newImage,
       );
+
+      consolePrint(" اسم الخرية "+service.name);
       if (k == true) {
         await getDoctorInfo();
         Get.back();

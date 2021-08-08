@@ -122,7 +122,7 @@ class StoreAndStableCard extends StatelessWidget {
           Positioned(
             bottom: 2,
             left: 2,
-            child: SocialMedia(),
+            child: SocialMedia(freez: true,),
           ),///social media
           Positioned(
               // left: 15,

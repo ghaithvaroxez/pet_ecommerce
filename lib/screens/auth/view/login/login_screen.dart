@@ -253,12 +253,7 @@ login();
 
       }
       else {
-        if(user.user.role=="user")
           Get.offAll(MainScreen());
-        else if(user.user.role=="provider")
-          Get.offAll(VendorDetailsPage());
-        else if(user.user.role=="doctor")
-          Get.offAll(DoctorAppDetailsPage());
       }
     }
     else {

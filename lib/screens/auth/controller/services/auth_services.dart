@@ -6,6 +6,7 @@ import 'package:pets_ecommerce/screens/auth/model/user.dart';
 import 'package:pets_ecommerce/services/local_storage_service.dart';
 
 class AuthServices {
+
   //
   static bool firstTimeOnApp() {
     return LocalStorageService.prefs.getBool(AppStrings.firstTimeOnApp) ?? true;
@@ -87,6 +88,8 @@ class AuthServices {
       return null;
     }
   }
+
+
   static bool isValidPhoneNumber(String string) {
     // Null or empty string is invalid phone number
     if (string == null || string.isEmpty) {
@@ -103,6 +106,7 @@ class AuthServices {
     }
     return true;
   }
+
   static void logout() async {
     await LocalStorageService.prefs.clear();
     await LocalStorageService.prefs.setBool(AppStrings.firstTimeOnApp, false);

@@ -67,6 +67,10 @@ class _VendorProductsBodyScreenState extends State<VendorProductsBodyScreen> {
                           Get.to(
                               VendorAppEditProduct(controller.products[index],widget.vendorProductsController));
                         },
+                        changeStatus:
+                            ()async{
+                          await controller.changeStatus(controller.products[index].id);
+                        },
                       ),
                     )
 

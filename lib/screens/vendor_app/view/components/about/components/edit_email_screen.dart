@@ -46,7 +46,7 @@ class EditEmailScreen extends StatelessWidget {
                 ),
                 SizedBox(height: getProportionateScreenHeight(40),),
                 Container(height:SizeConfig.screenHeight/3,width:SizeConfig.screenWidth,child: Column(children: [
-                  Container(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),alignment:Alignment.centerRight,child: AutoSizeText("اليرد الالكتروني",style: body1_16pt,textDirection: TextDirection.rtl,)),
+                  Container(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),alignment:Alignment.centerRight,child: AutoSizeText("البريد الالكتروني",style: body1_16pt,textDirection: TextDirection.rtl,)),
                   SizedBox(height: getProportionateScreenHeight(10),),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),

@@ -17,11 +17,33 @@ class VendorAppOffersReq extends HttpService {
   // VendorAppProductsReq(){
   //    getmodel();
   // }
+  Future<bool> changeOfferStatus(int offerId) async {
 
+    FormData formData =
+    new FormData.fromMap({
+      "offer_id":offerId,
+
+    });
+
+    try {
+      final apiResult = await postRequest(
+          Api.changeProductStatus, formData,
+          includeHeaders: true);
+      if (apiResult.statusCode == 200)
+      {
+        return true;
+      }
+      else
+        return false;
+    }
+    catch (e) {
+      return false;
+    }
+  }
   Future<List<Offer>> getStoreOffers() async
   {
     final apiResult = await getRequest(
-      Api.getStoreOffers + '/' + vendor.store[0].id.toString(),
+      "/store/offers/all" + '/' + vendor.store[0].id.toString(),
       queryParameters: null,
     );
     return  List<Offer>.from(apiResult.data["offers"].map((x) => Offer.fromJson(x)));

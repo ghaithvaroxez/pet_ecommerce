@@ -14,6 +14,32 @@ class VendorProductsController extends GetxController{
     products=await vendorAppProductsReq.getStoreProducts();
 update();
   }
+  changeStatus(int productId)async{
+    activeLoading();
+
+    try{
+      bool k = await vendorAppProductsReq.changeProductStatus(
+
+      productId);
+      if (k == true) {
+        await getProducts();
+        removeLoading();
+        update();
+      } else {
+        removeLoading();
+        update();
+        Get.rawSnackbar(
+            message: "can't change product status now try again later",
+            backgroundColor: Colors.redAccent);
+      }
+    }catch(e){
+      removeLoading();
+      update();
+      Get.rawSnackbar(
+          message: "can't change product status now try again later",
+          backgroundColor: Colors.redAccent);
+    }
+  }
   @override
   void onInit() async {
     // TODO: implement onInit

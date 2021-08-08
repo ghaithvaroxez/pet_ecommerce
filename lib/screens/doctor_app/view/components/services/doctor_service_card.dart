@@ -103,7 +103,7 @@ class DoctorServiceCard extends StatelessWidget {
                         ),
                         Container(
 
-                          width: getProportionateScreenWidth(160),
+                          width: getProportionateScreenWidth(80),
                           height: getProportionateScreenHeight(39),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(topRight: Radius.circular(12),bottomLeft: Radius.circular(12)  ),
@@ -111,11 +111,11 @@ class DoctorServiceCard extends StatelessWidget {
                           ),
                           child: Row(
                             children: [
-                              Expanded(child: Padding(
-                                padding: const EdgeInsets.all(7.0),
-                                child:   Image.asset("assets/images/vendor_app/unupload_icon.png"),
-                              )),
-                              Expanded(child: Padding(   padding: const EdgeInsets.all(7.0),child: Image.asset("assets/images/vendor_app/upload_icon.png"))),
+                              // Expanded(child: Padding(
+                              //   padding: const EdgeInsets.all(7.0),
+                              //   child:   Image.asset("assets/images/vendor_app/unupload_icon.png"),
+                              // )),
+                              // Expanded(child: Padding(   padding: const EdgeInsets.all(7.0),child: Image.asset("assets/images/vendor_app/upload_icon.png"))),
                               Expanded(child: GestureDetector(  onTap:edit,child: Image.asset("assets/images/vendor_app/pen.png"))),
                               Expanded(child: GestureDetector(onTap:(){
                                 showDialog(

@@ -51,7 +51,7 @@ class CustomerDoctorDetailsLabelController extends GetxController
     servicesStyle=activeTextStyle;
     personalInfoStyle=notActiveTextStyle;
     ordersResponseStyle=notActiveTextStyle;
-
+    changeIndex(0);
     super.onInit();
   }
   void changeIndex(int i)

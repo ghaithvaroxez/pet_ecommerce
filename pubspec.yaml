@@ -6,7 +6,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -23,6 +23,7 @@ dependencies:
   shape_of_view: ^1.0.2
   custom_navigator: ^0.3.0
   share: ^2.0.1
+  video_player:
 #  device_preview:
   shared_preferences: ^0.5.10
   dio: ^3.0.10
@@ -36,6 +37,14 @@ dependencies:
   image_picker: ^0.6.7+17
   lottie:
   path_provider:
+  http:
+  url_launcher: ^5.5.0
+#  flick_video_player: ^0.3.1
+  story_view: ^0.12.8
+#  video_thumbnail: ^0.3.3
+  export_video_frame: ^0.0.1
+  flutter_video_info: ^1.2.0
+  video_thumbnail_generator: ^0.0.8
 
 
 dev_dependencies:

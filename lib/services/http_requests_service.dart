@@ -67,16 +67,23 @@ class HttpService {
 
     //preparing the post options if header is required
     final mOptions = !includeHeaders
-        ? null
+    ?Options(
+      headers: await getHeaders(),
+    )
+        // ? null
         : Options(
             headers: await getHeaders(),
           );
-    consolePrint("+++++++++++++++++++++++++++++++="+"try to post on"+uri+"+++++++++++++++++++++++++++++++=");
-    return dio.get(
-      uri,
-      options: mOptions,
-      queryParameters: queryParameters,
-    );
+    consolePrint("+++++++++++++++++++++++++++++++="+"try to get on"+uri+"+++++++++++++++++++++++++++++++=");
+    try{
+      return dio.get(
+        uri,
+        options: mOptions,
+        queryParameters: queryParameters,
+      );
+    }catch(e){
+      consolePrint(e.toString());
+    }
   }
 
   //for post api calls
@@ -96,6 +103,7 @@ print("+++++++++++++++++++++++++++++++="+"try to post on"+uri+"+++++++++++++++++
           );
 
    try {
+      // consolePrint("post data :"+body);
       return dio.post(
         uri,
         data: body,

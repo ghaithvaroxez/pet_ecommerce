@@ -69,6 +69,7 @@ class DoctorAppRequests extends HttpService {
     int address,
   })
   async {
+
     FormData formData =
     new FormData.fromMap({
       // openAt!=null?? "open_from":openAt,
@@ -353,8 +354,8 @@ class DoctorAppRequests extends HttpService {
       ({
     @required int category_id,
     // @required int type_id,
-    // @required String name_ar,
-    // @required String name_en,
+    @required String name_ar,
+    @required String name_en,
     @required String body_ar,
     @required String body_en,
     @required String image,
@@ -367,8 +368,8 @@ class DoctorAppRequests extends HttpService {
     new FormData.fromMap({
       "category_id":category_id,
       // "type_id":type_id,
-      // "name_ar":name_ar,
-      // "name_en":name_en,
+      "name_ar":name_ar,
+      "name_en":name_en,
       "body_ar":body_ar,
       "body_en":body_en,
       "price":price,

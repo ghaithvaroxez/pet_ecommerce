@@ -8,11 +8,14 @@ String productsImg="assets/images/store/not active/products_icon.png";
 String aboutStoreImg="assets/images/store/not active/about_store_icon.png";
 String offersImg="assets/images/store/not active/offers_icon.png";
 String ordersImg="assets/images/store/not active/orders_icon.png";
+String photosImg="assets/images/vendor_app/not_active_photos.png";
 
 String activeProductsImg="assets/images/store/active/active_products_icon.png";
 String activeAboutStoreImg="assets/images/store/active/active_about_store_icon.png";
 String activeOffersImg="assets/images/store/active/active_offers_icon.png";
 String activeOrdersImg="assets/images/store/active/active_orders_icon.png";
+String activePhotosImg="assets/images/vendor_app/active_photos.png";
+
 
 Color activeBackgroundColor=Colors.white;
 class CustomerLabelController extends GetxController
@@ -24,6 +27,7 @@ activeBackgroundColor,
 storeLabelBackgroundGrey,
 storeLabelBackgroundGrey,
 storeLabelBackgroundGrey,
+storeLabelBackgroundGrey,
   ];
 
 
@@ -31,24 +35,28 @@ storeLabelBackgroundGrey,
   TextStyle aboutStoreStyle;
   TextStyle offersStyle;
   TextStyle ordersStyle;
+  TextStyle photosStyle;
 
   String product;
   String aboutStore;
   String offers;
   String orders;
+  String photos
+  ;
   @override
   void onInit() {
     // TODO: implement onInit
 
-    product=activeProductsImg;
+    product=productsImg;
     aboutStore=aboutStoreImg;
     offers=offersImg;
     orders=ordersImg;
-    productsStyle=activeTextStyle;
+    photos=activePhotosImg;
+    productsStyle=notActiveTextStyle;
     aboutStoreStyle=notActiveTextStyle;
     offersStyle=notActiveTextStyle;
     ordersStyle=notActiveTextStyle;
-
+    photosStyle=activeTextStyle;
     super.onInit();
   }
 void changeIndex(int i)
@@ -59,19 +67,22 @@ void changeIndex(int i)
   switch(index.value)
   {
     case 0:
+    photosStyle= notActiveTextStyle;
+    photos= photosImg;
+      break;
+    case 1:
       productsStyle=notActiveTextStyle;
       product=productsImg;
       break;
-    case 1:
+    case 2:
       aboutStoreStyle=notActiveTextStyle;
       aboutStore=aboutStoreImg;
-
       break;
-    case 2:
+    case 3:
       offersStyle=notActiveTextStyle;
       offers=offersImg;
       break;
-    case 3:
+    case 4:
       ordersStyle=notActiveTextStyle;
       orders=ordersImg;
       break;
@@ -80,18 +91,25 @@ void changeIndex(int i)
   switch(i)
   {
     case 0:
-      productsStyle=activeTextStyle;
-      product=activeProductsImg;
+      photosStyle=activeTextStyle;
+      photos=activePhotosImg;
       break;
     case 1:
-      aboutStoreStyle=activeTextStyle;
-      aboutStore=activeAboutStoreImg;
+      productsStyle=activeTextStyle;
+      product=activeProductsImg;
+
+
       break;
     case 2:
+      aboutStoreStyle=activeTextStyle;
+      aboutStore=activeAboutStoreImg;
+
+      break;
+    case 3:
       offersStyle=activeTextStyle;
       offers=activeOffersImg;
       break;
-    case 3:
+    case 4:
       ordersStyle=activeTextStyle;
       orders=activeOrdersImg;
       break;

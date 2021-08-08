@@ -18,7 +18,12 @@ import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'components/stable_news_card.dart';
 import 'components/store_and_stable_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);

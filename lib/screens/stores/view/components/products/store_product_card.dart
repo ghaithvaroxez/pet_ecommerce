@@ -1,11 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
+import '../../../../vendor_app/model/product.dart';
 
 
 class StoreProductCard extends StatelessWidget {
+  StoreProductCard(this.storeProdcut);
+  StoreProduct storeProdcut;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,6 +26,7 @@ class StoreProductCard extends StatelessWidget {
           Positioned(
               top: getProportionateScreenHeight(120),
               child: Container(
+                padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
                 height: getProportionateScreenHeight(40),
                 width: getProportionateScreenWidth(162.7),
                 decoration: BoxDecoration(
@@ -30,22 +36,32 @@ class StoreProductCard extends StatelessWidget {
                   ),
                   color: Colors.grey.shade200,
                 ),
-                child: Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "قطة منزلية ",
-                      style: body2_14pt,
-                    )),
+                child: AutoSizeText(
+                  storeProdcut.name,
+                  textAlign: TextAlign.center,
+                  style: body2_14pt,
+                  minFontSize: 9,
+                ),
               )),
           Positioned(
-              left: getProportionateScreenWidth(25),
+            left: 0,
+              top: 0,
               child: Container(
-                height: getProportionateScreenHeight(135),
-                width: getProportionateScreenWidth(120),
-                child: Image.asset(
-                  "assets/images/home/cat_1.png",
-                  fit: BoxFit.fill,
+                height: getProportionateScreenHeight(120),
+                width: getProportionateScreenWidth(160),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    topRight: Radius.circular(12),
+                  ),
+                  child: Image.network(Api.imagePath+storeProdcut.image,fit: BoxFit.fill,),
                 ),
+
+                // Image.asset(
+                //   "assets/images/home/cat_1.png",
+                //   fit: BoxFit.fill,
+                // ),
+
               )),
           Positioned(
               left: getProportionateScreenWidth(25),

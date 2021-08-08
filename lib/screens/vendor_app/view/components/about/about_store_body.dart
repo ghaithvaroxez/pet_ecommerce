@@ -46,8 +46,8 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
     "رام الله",
     "القدس",
   ];
-  bool loaddata=false;
-  List<City> addresses=[];
+  // bool loaddata;
+  // List<City> addresses=[];
   // fetchData() async {
   //   loaddata=true;
   //   setState(() {
@@ -61,27 +61,27 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
   //
   //   });
   // }
-  getaddresses() async {
-    loaddata=true;
-    setState(() {
-
-    });
-    try{
-      LocationModel locationModel = await _vendorAppRequests.getLocations();
-      addresses=locationModel.cities;
-    }catch(e)
-    {
-      loaddata=false;
-      setState(() {
-
-      });
-    }
-
-    loaddata=false;
-    setState(() {
-
-    });
-  }
+  // getaddresses() async {
+  //   loaddata=true;
+  //   setState(() {
+  //
+  //   });
+  //   try{
+  //     LocationModel locationModel = await _vendorAppRequests.getLocations();
+  //     addresses=locationModel.cities;
+  //   }catch(e)
+  //   {
+  //     loaddata=false;
+  //     setState(() {
+  //
+  //     });
+  //   }
+  //
+  //   loaddata=false;
+  //   setState(() {
+  //
+  //   });
+  // }
   TextEditingController openAt=TextEditingController();
   TextEditingController closeAt=TextEditingController();
   TextEditingController email=TextEditingController();
@@ -130,16 +130,25 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
   void initState() {
     // TODO: implement init
     super.initState();
-    getaddresses();
+    loaddata=false;
+    // getaddresses();
     // fetchData();
 
   }
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return  GetBuilder<VendorInfoController> (
+    return
+    //   loaddata?Center(child: Container(height: getProportionateScreenHeight(100),width: getProportionateScreenWidth(100),child: Column(
+    //   children: [
+    //     CircularProgressIndicator(),
+    //     SizedBox(height: getProportionateScreenHeight(5),),
+    //     AutoSizeText("Loading addresses.."),
+    //   ],
+    // ),),):
+    GetBuilder<VendorInfoController> (
       init: customVendorInfoController,
-      builder: (controller)=> controller.isLoading==true||loaddata==true?Center(child: Container(height: getProportionateScreenHeight(100),width: getProportionateScreenWidth(100),child: Column(
+      builder: (controller)=> controller.isLoading==true?Center(child: Container(height: getProportionateScreenHeight(100),width: getProportionateScreenWidth(100),child: Column(
         children: [
           CircularProgressIndicator(),
           SizedBox(height: getProportionateScreenHeight(5),),
@@ -162,7 +171,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                 Row(
                   children: [
                     AutoSizeText(
-                      controller.storeInfo.name==null ?"":controller.storeInfo.name,
+                      controller.storeInfo.store.name==null ?"":controller.storeInfo.store.name,
 
                       style: h5_25pt,
                       minFontSize: 16,
@@ -197,7 +206,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                               child: DropdownButton(
                                 // value: controller.storeInfo.address,
                                 // value: _value,
-                                items: addresses
+                                items: controller.locationModel.cities
                                     .map((City item) {
                                   return DropdownMenuItem<City>(
                                     value: item,
@@ -222,7 +231,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                                   print("after");
 
                                 },
-                                hint: Text(controller.storeInfo.district),
+                                hint: Text(controller.storeInfo.store.district),
                                 elevation: 8,
                                 style: blackText_14pt,
                                 icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
@@ -256,11 +265,11 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                       Spacer(),
                       GestureDetector(
                         onTap: (){
-                          if(controller.storeInfo.openFrom!=null&&controller.storeInfo.closedAt!=null) {
+                          if(controller.storeInfo.store.openFrom!=null&&controller.storeInfo.store.closedAt!=null) {
                             openAt.text =
-                                controller.storeInfo.openFrom.toString();
+                                controller.storeInfo.store.openFrom.toString();
                             closeAt.text =
-                                controller.storeInfo.closedAt.toString();
+                                controller.storeInfo.store.closedAt.toString();
                           }
                           Get.to(()=>EditTime(action:()async{print("before apply change");await controller.changeTime(openAt.text,closeAt.text);print("after apply change");},t1:openAt,t2:closeAt));
 
@@ -282,7 +291,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                 SizedBox(
                   height: getProportionateScreenHeight(16),
                 ),
-                controller.storeInfo.openFrom==null&&controller.storeInfo.closedAt==null?
+                controller.storeInfo.store.openFrom==null&&controller.storeInfo.store.closedAt==null?
                 Row(
                   children: [
 
@@ -321,7 +330,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                           Directionality(
                             textDirection: TextDirection.ltr,
                             child: AutoSizeText(
-                              controller.storeInfo.openFrom.toString(),
+                              controller.storeInfo.store.openFrom.toString(),
                               maxLines: 1,
                               style: body1_16pt,
                               minFontSize: 10,
@@ -342,7 +351,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                           Directionality(
                             textDirection: TextDirection.ltr,
                             child: AutoSizeText(
-                              controller.storeInfo.closedAt.toString(),
+                              controller.storeInfo.store.closedAt.toString(),
                               maxLines: 1,
                               style: body1_16pt,
                               minFontSize: 10,
@@ -385,7 +394,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                           SizedBox(width: getProportionateScreenWidth(15),),
                           AutoSizeText("رقم الهاتف الجوال",style: darkGrayText_11pt,)  ,
                           Spacer(),
-                          AutoSizeText(controller.storeInfo.phone,style: darkGrayText_11pt,)  ,
+                          AutoSizeText(controller.storeInfo.store.phone,style: darkGrayText_11pt,)  ,
                           Spacer(),
                         ],
                       ),
@@ -399,20 +408,20 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                           SizedBox(width: getProportionateScreenWidth(15),),
                           AutoSizeText("الايميل  الالكتروني",style: darkGrayText_11pt,)  ,
                           Spacer(),
-                          GestureDetector(onTap:(){},child: Container(alignment:Alignment.center,width:getProportionateScreenWidth(150),child: AutoSizeText(controller.storeInfo.email==null?"":controller.storeInfo.email,style: darkGrayText_11pt,maxLines: 1)))  ,
+                          GestureDetector(onTap:(){},child: Container(alignment:Alignment.center,width:getProportionateScreenWidth(150),child: AutoSizeText(controller.storeInfo.store.email==null?"":controller.storeInfo.store.email,style: darkGrayText_11pt,maxLines: 1)))  ,
                           // Spacer(),
                           SizedBox(width: getProportionateScreenWidth(5),),
                           GestureDetector(
                             onTap: (){
 
 
-                              if(controller.storeInfo.email==null)
+                              if(controller.storeInfo.store.email==null)
                               {
                                 email.text="";
                                  Get.to( ()=>EditEmailScreen(t1: email,title: "اضافة بريد الكتروني",action: (){print("before editing email");controller.changeEmail(email.text);print("after editing email");},));
                               }
                               else {
-                                email.text= controller.storeInfo.email;
+                                email.text= controller.storeInfo.store.email;
                                  Get.to( ()=>EditEmailScreen(t1: email,title: "تعديل البريد الكتروني",action: (){print("before editing email");controller.changeEmail(email.text);print("after editing email");},));
                               }
                             },
@@ -479,8 +488,8 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                     SizedBox(height: getProportionateScreenHeight(15),),
 
 
-                    for(int i=0;i<controller.storeInfo.storeContacts.length;i++)
-                      if(controller.storeInfo.storeContacts[i].type=="facebook")
+                    for(int i=0;i<controller.storeInfo.store.storeContacts.length;i++)
+                      if(controller.storeInfo.store.storeContacts[i].type=="facebook")
                         Column(
                           children: [
                             Container(
@@ -493,24 +502,24 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                                   Spacer(flex:1,),
                                   Expanded(
                                       flex:2,
-                                      child:  AutoSizeText(controller.storeInfo.storeContacts[i].link,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,)
+                                      child:  AutoSizeText(controller.storeInfo.store.storeContacts[i].link,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,)
                                   ),
 
                                   GestureDetector(
                                     onTap: (){
-                                      tempSocialType.text=controller.storeInfo.storeContacts[i].type;
-                                      tempSocialLink.text=controller.storeInfo.storeContacts[i].link;
+                                      tempSocialType.text=controller.storeInfo.store.storeContacts[i].type;
+                                      tempSocialLink.text=controller.storeInfo.store.storeContacts[i].link;
                                        Get.to( ()=>EditSocialScreen(
                                         type: tempSocialType,
                                         link: tempSocialLink,
                                         editAction: ()async{
                                           consolePrint("berfor edit social");
-                                          await controller.changeSocial(type:tempSocialType.text, link:tempSocialLink.text , socialId:controller.storeInfo.storeContacts[i].id);//edit
+                                          await controller.changeSocial(type:tempSocialType.text, link:tempSocialLink.text , socialId:controller.storeInfo.store.storeContacts[i].id);//edit
                                           consolePrint("after edit social");
                                         },
                                         deleteAction: ()async{
                                           consolePrint("berfor edit social");
-                                          await controller.DeleteSocial(controller.storeInfo.storeContacts[i].id);//delete
+                                          await controller.DeleteSocial(controller.storeInfo.store.storeContacts[i].id);//delete
                                           consolePrint("after delete social");
                                         },
                                       ));
@@ -528,8 +537,8 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                             SizedBox(height: getProportionateScreenHeight(5),),
                           ],
                         ),
-                    for(int i=0;i<controller.storeInfo.storeContacts.length;i++)
-                      if(controller.storeInfo.storeContacts[i].type=="instagram")
+                    for(int i=0;i<controller.storeInfo.store.storeContacts.length;i++)
+                      if(controller.storeInfo.store.storeContacts[i].type=="instagram")
                         Column(
                           children: [
                             Container(
@@ -542,24 +551,24 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                                   Spacer(flex:1,),
                                   Expanded(
                                       flex:2,
-                                      child:  AutoSizeText(controller.storeInfo.storeContacts[i].link,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,)
+                                      child:  AutoSizeText(controller.storeInfo.store.storeContacts[i].link,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,)
                                   ),
 
                                   GestureDetector(
                                     onTap: (){
-                                      tempSocialType.text=controller.storeInfo.storeContacts[i].type;
-                                      tempSocialLink.text=controller.storeInfo.storeContacts[i].link;
+                                      tempSocialType.text=controller.storeInfo.store.storeContacts[i].type;
+                                      tempSocialLink.text=controller.storeInfo.store.storeContacts[i].link;
                                        Get.to( ()=>EditSocialScreen(
                                         type: tempSocialType,
                                         link: tempSocialLink,
                                         editAction: ()async{
                                           consolePrint("berfor edit social");
-                                          await controller.changeSocial(type:tempSocialType.text, link:tempSocialLink.text , socialId:controller.storeInfo.storeContacts[i].id);//edit
+                                          await controller.changeSocial(type:tempSocialType.text, link:tempSocialLink.text , socialId:controller.storeInfo.store.storeContacts[i].id);//edit
                                           consolePrint("after edit social");
                                         },
                                         deleteAction: ()async{
                                           consolePrint("berfor edit social");
-                                          await controller.DeleteSocial(controller.storeInfo.storeContacts[i].id);//delete
+                                          await controller.DeleteSocial(controller.storeInfo.store.storeContacts[i].id);//delete
                                           consolePrint("after delete social");
                                         },
                                       ));
@@ -576,8 +585,8 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                             ),
                             SizedBox(height: getProportionateScreenHeight(5),),
                           ],
-                        ), for(int i=0;i<controller.storeInfo.storeContacts.length;i++)
-                      if(controller.storeInfo.storeContacts[i].type=="phone")
+                        ), for(int i=0;i<controller.storeInfo.store.storeContacts.length;i++)
+                      if(controller.storeInfo.store.storeContacts[i].type=="phone")
                         Column(
                           children: [
                             Container(
@@ -590,24 +599,24 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                                   Spacer(flex:1,),
                                   Expanded(
                                       flex:2,
-                                      child:  AutoSizeText(controller.storeInfo.storeContacts[i].link,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,)
+                                      child:  AutoSizeText(controller.storeInfo.store.storeContacts[i].link,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,)
                                   ),
 
                                   GestureDetector(
                                     onTap: (){
-                                      tempSocialType.text=controller.storeInfo.storeContacts[i].type;
-                                      tempSocialLink.text=controller.storeInfo.storeContacts[i].link;
+                                      tempSocialType.text=controller.storeInfo.store.storeContacts[i].type;
+                                      tempSocialLink.text=controller.storeInfo.store.storeContacts[i].link;
                                        Get.to( ()=>EditSocialScreen(
                                         type: tempSocialType,
                                         link: tempSocialLink,
                                         editAction: ()async{
                                           consolePrint("berfor edit social");
-                                          await controller.changeSocial(link:tempSocialLink.text, type:tempSocialType.text , socialId:controller.storeInfo.storeContacts[i].id);//edit
+                                          await controller.changeSocial(link:tempSocialLink.text, type:tempSocialType.text , socialId:controller.storeInfo.store.storeContacts[i].id);//edit
                                           consolePrint("after edit social");
                                         },
                                         deleteAction: ()async{
                                           consolePrint("berfor delete social");
-                                          await controller.DeleteSocial(controller.storeInfo.storeContacts[i].id);//delete
+                                          await controller.DeleteSocial(controller.storeInfo.store.storeContacts[i].id);//delete
                                           consolePrint("after delete social");
                                         },
                                       ));
@@ -645,17 +654,17 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                       child: Row(
                         children: [
 
-                          Container(width: getProportionateScreenWidth(250),child: AutoSizeText(controller.storeInfo.info==null?"اضف وصف للمتجر":controller.storeInfo.info,style: darkGrayText_14pt,)),
+                          Container(width: getProportionateScreenWidth(250),child: AutoSizeText(controller.storeInfo.store.info==null?"اضف وصف للمتجر":controller.storeInfo.store.info,style: darkGrayText_14pt,)),
                           Spacer(),
                           GestureDetector(
                             onTap: (){
-                              if(controller.storeInfo.info==null)
+                              if(controller.storeInfo.store.info==null)
                               {
                                 info.text="";
                                  Get.to( ()=>EditInfoScreen(t1: info,title: "اضافة وصف للمتجر",action: (){print("before editing info");controller.changeInfo(info.text);print("after editing info");},));
                               }
                               else {
-                                info.text= controller.storeInfo.info;
+                                info.text= controller.storeInfo.store.info;
                                  Get.to( ()=>EditInfoScreen(t1: info,title: "تعديل وصف المتجر",action: (){print("before editing info");controller.changeInfo(info.text);print("after editing info");},));
                               }
 
@@ -693,7 +702,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                                 controller.changeImage(temp);
                               }
                             },
-                      child: controller.storeInfo.image==null||controller.storeInfo.image==""?Center(
+                      child: controller.storeInfo.store.image==null||controller.storeInfo.store.image==""?Center(
                           child: Container(
                             height: getProportionateScreenHeight(75),
                             width: getProportionateScreenWidth(125),
@@ -711,7 +720,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                             ),
                           )):Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),border: Border.all(color: borderColor,width: 1,)),child: ClipRRect(borderRadius: BorderRadius.circular(12),
                         child: CachedNetworkImage(
-                          imageUrl: Api.imagePath+controller.storeInfo.image,
+                          imageUrl: Api.imagePath+controller.storeInfo.store.image,
                           progressIndicatorBuilder: (context, url, downloadProgress) =>
                               CircularProgressIndicator(value: downloadProgress.progress),
                           errorWidget: (context, url, error) => Icon(Icons.error),

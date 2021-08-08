@@ -1,23 +1,75 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
+import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
 import 'package:pets_ecommerce/screens/home/view/components/search_bar_component.dart';
 import 'package:pets_ecommerce/screens/stores/view/components/vertical_store_list_card.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
+import '../model/all_stores.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+class SelectStoreView extends StatefulWidget {
+  @override
+  _SelectStoreViewState createState() => _SelectStoreViewState();
+}
 
-class SelectStoreView extends StatelessWidget {
+class _SelectStoreViewState extends State<SelectStoreView> {
+bool loading =false;
+AllStores Stores;
+bool failed=false;
+fetchData()async
+{
+  loading=true;
+  setState(() {
+
+  });
+
+var url=Uri.parse("http://pets.sourcecode-ai.com/api/stores/stores");
+consolePrint("before print");
+final h=await HttpService().getHeaders();
+  final apiResult=await http.get(url,headers: h);
+  consolePrint("after print");
+
+  if(apiResult.statusCode==200)
+  {
+    Stores =allStoresFromJson(apiResult.body);
+  }
+  else {
+  failed=true;
+   }
+    loading=false;
+  setState(() {
+
+  });
+
+}
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  fetchData();
+  }
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return failed?Column(mainAxisSize: MainAxisSize.max,children: [
+      Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
+    ],):loading?LoadingScreen():Container(
         margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
         child: ListView.builder(
             // physics: NeverScrollableScrollPhysics(),
-            itemCount: 20,
+            itemCount: Stores.stores.length,
             itemBuilder: (context, index) => index == 0
                 ? Column(
                     children: [
                       SearchBar(),
-                      VerticalStoreListCard()],
+                      VerticalStoreListCard(store:Stores.stores[index])],
                   )
-                : VerticalStoreListCard()));
+                : VerticalStoreListCard(store:Stores.stores[index])));
   }
 }
+

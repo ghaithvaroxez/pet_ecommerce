@@ -1,15 +1,22 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
+import 'package:pets_ecommerce/screens/doctor_app/model/doctor.dart';
 import 'package:pets_ecommerce/screens/doctors/controllers/customer_doctor_label_controller.dart';
 
 import 'components/orders_response/orders_response_body.dart';
 import 'components/personal_info/personal_info_body.dart';
 import 'components/services/services_body.dart';
-
+import 'package:http/http.dart' as http;
 class DoctorDetailsPage extends StatefulWidget {
+  int id;
+  DoctorDetailsPage(this.id);
+
   @override
   _DoctorDetailsPageState createState() => _DoctorDetailsPageState();
 }
@@ -18,11 +25,36 @@ class DoctorDetailsPage extends StatefulWidget {
 
 class _DoctorDetailsPageState extends State<DoctorDetailsPage>
     with SingleTickerProviderStateMixin {
+  bool loading =true;
+  bool error =false;
+  DoctorModel doctorModel;
+  fetchdata()
+  async {
+    loading=true;
+   setState(() {
+
+   });
+
+    final apiResult = await http.get(
+      Api.baseUrl+Api.getDoctorId + '/' + widget.id.toString(),
+    );
+consolePrint("after get ");
+    if(apiResult.statusCode==200)
+      doctorModel= doctorModelFromJson(apiResult.body);
+
+    else error=true;
+
+    loading=false;
+    setState(() {
+
+    });
+  }
   TabController _tabController;
   CustomerDoctorDetailsLabelController _customerDoctorDetailsLabelController =
   Get.put(CustomerDoctorDetailsLabelController());
   @override
   void initState() {
+    fetchdata();
     // TODO: implement initState
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
@@ -36,7 +68,8 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage>
     SizeConfig.init(context);
     return Scaffold(
       body: SafeArea(
-        child: Stack(
+        child: loading?LoadingScreen()
+            :Stack(
           children: [
             Positioned(
                 top: 0,
@@ -44,10 +77,10 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage>
                 right: 0,
                 height: getProportionateScreenHeight(400),
                 child: Container(
-                  child: Image.asset(
+                  child: doctorModel.doctor.image==null?Image.asset(
                     "assets/images/doctors/femal_doctor_details_image.png",
                     fit: BoxFit.fill,
-                  ),
+                  ):Image.network(Api.imagePath+doctorModel.doctor.image,fit: BoxFit.cover,),
                 )),
             Positioned(
                 top: 0,
@@ -72,7 +105,8 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage>
                   height: getProportionateScreenHeight(48),
                   decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.6),
-                      shape: BoxShape.circle),
+                      shape: BoxShape.circle
+                  ),
                   child: Center(
                     child: Icon(
                       Icons.arrow_back_ios_outlined,
@@ -124,8 +158,10 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage>
                       alignment: Alignment.centerRight,
                       height: getProportionateScreenHeight(30),
                       width: getProportionateScreenWidth(200),
-                      child: AutoSizeText(
-                        "د.منى الأحمد",
+                      child:
+
+                      AutoSizeText(
+                        doctorModel.doctor.firstName+" "+doctorModel.doctor.lastName,
                         textDirection: TextDirection.rtl,
                         style: blueButton_25pt,
                       ),
@@ -144,7 +180,7 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage>
                             height: getProportionateScreenHeight(20),
                             width: getProportionateScreenWidth(200),
                             child: AutoSizeText(
-                              "فلسطين رام الله ",
+                              doctorModel.doctor.address,
                               style: blueButton_14pt,
                               minFontSize: 10,
                               maxLines: 1,
@@ -168,7 +204,7 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage>
                           height: getProportionateScreenHeight(20),
                           width: getProportionateScreenWidth(200),
                           child: AutoSizeText(
-                            "خريجة طب بيطري متخصصة في معالجة القطط ",
+                            doctorModel.doctor.info,
                             style: blueButton_14pt,
                             minFontSize: 10,
                             maxLines: 1,
@@ -347,8 +383,9 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage>
                     child: TabBarView(
                       controller: _tabController,
                       children: [
-                        DoctorServicesBody(),
-                        DoctorPersonalInfoBody(),
+
+                        DoctorServicesBody(doctorModel.doctor.doctorServices),
+                        DoctorPersonalInfoBody(doctorModel.doctor),
                         DoctorOrdersResponseBody(),
                       ],
                     ),

@@ -3,6 +3,7 @@
 //     final storeProduct = storeProductFromJson(jsonString);
 
 import 'dart:convert';
+// import 'foo.dart';
 
 StoreProduct storeProductFromJson(String str) => StoreProduct.fromJson(json.decode(str));
 
@@ -23,7 +24,8 @@ class StoreProduct {
     this.typeName,
     this.storeId,
     this.storeName,
-    this.date
+    this.date,
+    this.visible
   });
 
   int id;
@@ -40,6 +42,7 @@ class StoreProduct {
   int storeId;
   String storeName;
   String date;
+  String visible;
 
   factory StoreProduct.fromJson(Map<String, dynamic> json) => StoreProduct(
     id: json["id"],
@@ -56,6 +59,7 @@ class StoreProduct {
     storeId: json["store_id"],
     storeName: json["store_name"],
     date: json["date"],
+    visible:json["visible"],
   );
 
   Map<String, dynamic> toJson() => {

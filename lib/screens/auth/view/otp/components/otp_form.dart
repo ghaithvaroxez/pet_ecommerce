@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
@@ -82,12 +83,15 @@ class _OtpFormState extends State<OtpForm> {
                 child: TextFormField(
                   controller: otpCodeController1,
                   autofocus: true,
-                  obscureText: true,
+
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
-                  maxLength: 1,
+                  inputFormatters:[
+                    LengthLimitingTextInputFormatter(1),
+                  ],
+
                   onChanged: (value) {
                     nextField(value, pin2FocusNode);
                   },
@@ -98,12 +102,14 @@ class _OtpFormState extends State<OtpForm> {
                 child: TextFormField(
                     controller: otpCodeController2,
                   focusNode: pin2FocusNode,
-                  obscureText: true,
+
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
-                  maxLength: 1,
+              inputFormatters:[
+    LengthLimitingTextInputFormatter(1),
+    ],
                   onChanged: (value)
                     {
                       nextField(value, pin3FocusNode);
@@ -115,12 +121,14 @@ class _OtpFormState extends State<OtpForm> {
                 child: TextFormField(
                     controller: otpCodeController3,
                   focusNode: pin3FocusNode,
-                  obscureText: true,
+
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
-                    maxLength: 1,
+                inputFormatters:[
+    LengthLimitingTextInputFormatter(1),
+    ],
                     onChanged: (value)
                     {
                       nextField(value, pin4FocusNode);
@@ -134,12 +142,14 @@ class _OtpFormState extends State<OtpForm> {
                 child: TextFormField(
                     controller: otpCodeController4,
                   focusNode: pin4FocusNode,
-                  obscureText: true,
+
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
-                    maxLength: 1,
+                inputFormatters:[
+    LengthLimitingTextInputFormatter(1),
+    ],
                     onChanged: (value)
                     {
                       nextField(value, pin5FocusNode);
@@ -153,12 +163,13 @@ class _OtpFormState extends State<OtpForm> {
                 child: TextFormField(
                     controller: otpCodeController5,
                   focusNode: pin5FocusNode,
-                  obscureText: true,
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
-                    maxLength: 1,
+                inputFormatters:[
+    LengthLimitingTextInputFormatter(1),
+    ],
                     onChanged: (value)
                     {
                       nextField(value, pin6FocusNode);
@@ -174,12 +185,14 @@ class _OtpFormState extends State<OtpForm> {
                 child: TextFormField(
                   controller: otpCodeController6,
                   focusNode: pin6FocusNode,
-                  obscureText: true,
+
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   decoration: otpInputDecoration,
-                  maxLength: 1,
+              inputFormatters:[
+    LengthLimitingTextInputFormatter(1),
+    ],
                   onChanged: (value) {
                     if (value.length == 1) {
                       otpCodeController.text=otpCodeController1.text+otpCodeController2.text+otpCodeController3.text+otpCodeController4.text+otpCodeController5.text+otpCodeController6.text;

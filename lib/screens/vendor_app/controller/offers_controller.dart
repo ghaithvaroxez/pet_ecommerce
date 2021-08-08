@@ -37,6 +37,36 @@ class VendorOffersController extends GetxController{
     await vendorAppOffersReq.getmodel();
     await  getOffer();
   }
+  changeStatus(int offerId)async{
+    activeLoading();
+
+    try{
+      bool k = await vendorAppOffersReq.changeOfferStatus(
+
+          offerId);
+      if (k == true) {
+        await getOffer();
+        removeLoading();
+        update();
+      }
+      else
+        {
+        removeLoading();
+        update();
+        Get.rawSnackbar(
+            message: "can't change product status now try again later",
+            backgroundColor: Colors.redAccent);
+      }
+    }catch(e){
+
+      removeLoading();
+      update();
+      Get.rawSnackbar(
+          message: "can't change product status now try again later",
+          backgroundColor: Colors.redAccent);
+
+    }
+  }
   addNewOffer(
       {@required int category_id,
         @required int type_id,

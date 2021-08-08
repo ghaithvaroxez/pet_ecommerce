@@ -19,6 +19,7 @@ import 'package:pets_ecommerce/screens/widgets/floating_action_button.dart';
 import 'components/about/about_store_body.dart';
 import 'components/offers/vendor_offers_body.dart';
 import 'components/orders/orders_body.dart';
+import 'components/photos/photos_body.dart';
 import 'components/products/add_new_product_screen.dart';
 
 
@@ -77,11 +78,11 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
                     builder: (controller)=>controller.init==false? Image.asset(
                       "assets/images/home/shop_image.png",
                       fit: BoxFit.fill,
-                    ):controller.storeInfo.image==null?Image.asset(
+                    ):controller.storeInfo.store.image==null?Image.asset(
                       "assets/images/home/shop_image.png",
                       fit: BoxFit.fill,
                     ):CachedNetworkImage(
-                      imageUrl: Api.imagePath+controller.storeInfo.image,
+                      imageUrl: Api.imagePath+controller.storeInfo.store.image,
                       fit: BoxFit.cover,
                       progressIndicatorBuilder: (context, url, downloadProgress) =>
                           Container(alignment:Alignment.center,height:getProportionateScreenHeight(75),width:getProportionateScreenWidth(75),child: CircularProgressIndicator(value: downloadProgress.progress)),
@@ -401,7 +402,7 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
                         AboutStoreBodyScreen(),
                         VendorOffersBodyScreen(vendorOffersController),
                         OrdersBodyScreen(),
-                        Container(),
+                        VendorPhotosBody(),
                       ],
                     ),
                   ),

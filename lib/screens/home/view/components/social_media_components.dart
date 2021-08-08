@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'package:get/get.dart';
+
 
 class SocialMedia extends StatelessWidget {
+  String wa;
+  String fb;
+  String ins;
+bool freez=false;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -20,19 +28,42 @@ class SocialMedia extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Image.asset("assets/images/home/whatsapp.png"),
+              freez?Image.asset("assets/images/home/whatsapp.png"):GestureDetector(onTap: () async {
+                // await FlutterLaunch.launchWathsApp(phone: wa,);
+                var whatsappUrl ="whatsapp://send?phone=$wa";
+                await canLaunch(whatsappUrl)? launch(whatsappUrl)
+                    :
+                Get.rawSnackbar(message: "عذرا لا يوجد رابط !",);
+              },child: Image.asset("assets/images/home/whatsapp.png")),
               SizedBox(
                 width: 5,
               ),
-              Image.asset("assets/images/home/facebook.png"),
+              freez?Image.asset("assets/images/home/facebook.png"):   GestureDetector(onTap: ()async {
+
+      if (await canLaunch(fb)) {
+        await launch(fb);
+      } else {
+       Get.rawSnackbar(message: "عذرا لا يوجد رابط !",);
+      }
+    },child: Image.asset("assets/images/home/facebook.png")),
               SizedBox(
                 width: 5,
               ),
-              Image.asset("assets/images/home/instagram.png"),
+              freez?Image.asset("assets/images/home/instagram.png"):   GestureDetector(onTap: ()async{
+
+                if (await canLaunch(ins)) {
+                await launch(ins);
+                } else {
+                Get.rawSnackbar(message: "عذرا لا يوجد رابط !",);
+                }
+
+              },child: Image.asset("assets/images/home/instagram.png")),
             ],
           ),
         ),
       ],
     );
   }
+
+  SocialMedia({this.wa, this.fb, this.ins,this.freez=false});
 }

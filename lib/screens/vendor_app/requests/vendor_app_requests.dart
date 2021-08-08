@@ -8,7 +8,7 @@ import 'package:pets_ecommerce/screens/auth/model/user.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/location_model.dart';
 import 'package:pets_ecommerce/services/http_requests_service.dart';
 import '../model/store.dart';
-
+import 'package:pets_ecommerce/screens/stores/model/custome_store_body.dart';
 class VendorAppRequests extends HttpService {
   UserModel vendor;
 
@@ -17,14 +17,14 @@ class VendorAppRequests extends HttpService {
     consolePrint(vendor.store[0].id.toString());
   }
 
-  Future<Store> getStoreInfo() async
+  Future<CustomerStoreBody> getStoreInfo() async
   {
     consolePrint("id:" + vendor.store[0].id.toString());
     final apiResult = await getRequest(
       Api.getStoreBodyId + '/' + vendor.store[0].id.toString(),
       queryParameters: null,
     );
-    return StoreModel.fromJson(apiResult.data).store;
+    return CustomerStoreBody.fromJson(apiResult.data);
     // StoreModel storeModel= storeModelFromJson(apiResult.data["store"]);
     //
     // return storeModel.store;

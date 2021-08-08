@@ -9,8 +9,9 @@ import 'package:pets_ecommerce/screens/auth/model/user.dart';
 import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
 import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
 import 'package:pets_ecommerce/services/http_requests_service.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 class AuthRequest extends HttpService {
   // Future<ApiResponse> resetPasswordRequest({
   //   @required String phone,
@@ -72,30 +73,44 @@ AuthRequest(){
     @required String password,
     @required int address,
   }) async {
-    final apiResult = await postRequest(
-      Api.registerStore,
-      {
-        "store_name": store_name,
-        // "last_name":secondName,
-        "phone": mobile,
-        "password": password,
-        "district_id": address,
-      },
-    );
-    if (apiResult.statusCode == 200)
-    // {
-    //   UserModel userModel =
-    //       await loginRequest(mobile: mobile, password: password);
-    //   if (userModel.error == false) {
-    //     AuthServices.saveUser(userModel.toJson());
-    //     return true;
-    //   } else
-    //     return false;
-    // }
-    //
-      return true;
-    else
+    dio.FormData data=dio.FormData.fromMap( {
+      "store_name": store_name,
+      // "last_name":secondName,
+      "phone": mobile,
+      "password": password,
+      "district_id": address,
+    },);
+consolePrint("store_name"+ store_name+
+  // "last_name":secondName,
+  "phone"+ mobile+
+  "password"+ password+
+  "district_id"+ address.toString());
+   try {
+     consolePrint("brfore controller request");
+      final apiResult = await postRequest(
+        Api.registerStore,
+   data,
+      );
+    consolePrint("after controller request");
+    consolePrint(apiResult.statusCode.toString());
+      if (apiResult.statusCode == 200)
+        // {
+        //   UserModel userModel =
+        //       await loginRequest(mobile: mobile, password: password);
+        //   if (userModel.error == false) {
+        //     AuthServices.saveUser(userModel.toJson());
+        //     return true;
+        //   } else
+        //     da false;
+        // }
+        //
+        return true;
+      else
+        return false;
+    }catch(e)
+    {
       return false;
+    }
   }
 
   Future<bool> registerStableRequest({
@@ -105,15 +120,16 @@ AuthRequest(){
     @required String password,
     @required int address,
   }) async {
+    dio.FormData data=dio.FormData.fromMap({
+      "store_name": stable_name,
+      // "last_name":secondName,
+      "phone": mobile,
+      "password": password,
+      "district_id": address,
+    });
     final apiResult = await postRequest(
       Api.registerStable,
-      {
-        "store_name": stable_name,
-        // "last_name":secondName,
-        "phone": mobile,
-        "password": password,
-        "district_id": address,
-      },
+      data
     );
     if (apiResult.statusCode == 200)
     // {
@@ -137,15 +153,17 @@ AuthRequest(){
     @required String password,
     @required int address,
   }) async {
+    dio.FormData data=dio.FormData.fromMap( {
+      "first_name": firstName,
+      "last_name": secondName,
+      "mobile": mobile,
+      "password": password,
+      "district_id": address,
+    },);
+
     final apiResult = await postRequest(
       Api.registerDoctor,
-      {
-        "first_name": firstName,
-        "last_name": secondName,
-        "mobile": mobile,
-        "password": password,
-        "district_id": address,
-      },
+      data,
     );
 
     if (apiResult.statusCode == 200)
@@ -208,6 +226,7 @@ consolePrint("saving user");
     await loginRequest(mobile: mobile, password: password);
     if (userModel.error == false) {
       AuthServices.saveUser(userModel.toJson());
+      AuthServices.isAuthenticated();
       return true;
     } else
       return false;
@@ -246,6 +265,7 @@ consolePrint("saving user");
 Future<bool> isExist(String mobile)async
 {
   consolePrint(mobile);
+  mobile="00"+mobile.substring(1);
   final apiResult = await postRequest(
     Api.mobileExist,
     {
@@ -284,7 +304,8 @@ consolePrint("verify done");
     },
     verificationFailed: (FirebaseAuthException verificationFailed) async {
       registerController.changeLoading(false);
-      Get.snackbar("OOPS!!!", "verification failed:"+verificationFailed.message,duration: five_sec);
+      // Get.snackbar("OOPS!!!", "verification failed:"+verificationFailed.message,duration: five_sec);
+      Get.rawSnackbar(message:"حدثت مشكلة اثناء التحقق من الرقم الرجاء المحاولة مجددا ",duration: five_sec);
 
       consolePrint("verification failed:"+verificationFailed.message);
       // setState(() {
@@ -299,7 +320,7 @@ consolePrint("verify done");
       // Get.to(MainScreen());
       phoneVerificationId=verificationId;
       consolePrint("code sent :\n verification id is"+verificationId);
-      Get.snackbar("done", "we sent message to "+phone,duration: five_sec);
+      Get.rawSnackbar(message: "تم ارسال رسالة الى الرقم "+phone,duration: five_sec);
       // setState(() {
       //   showLoading = false;
       //   currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
@@ -310,7 +331,7 @@ consolePrint("verify done");
   );
 }on FirebaseAuthException catch (e) {
 consolePrint("firebase exception"+e.message);
-Get.snackbar("failed", e.message,duration: five_sec);
+Get.rawSnackbar(message: "حدثت مشكلة اثناء التحقق من الرقم  الرجاء المحاولة لاحقا ",duration: five_sec);
 
   // _scaffoldKey.currentState
   //     .showSnackBar(SnackBar(content: Text(e.message)));
@@ -335,7 +356,7 @@ try{
       //signInWithPhoneAuthCredential(phoneAuthCredential);
     },
     verificationFailed: (verificationFailed) async {
-      Get.snackbar("OOPS!!!", "verification failed:"+verificationFailed.message,duration: five_sec);
+      Get.rawSnackbar(message: "فشلت العملية الرجاء المحاولة مجدداً ",duration: five_sec);
       registerController.changeLoading(false);
       registerController.changeToRegister();
       consolePrint("verification failed:"+verificationFailed.message);
@@ -350,7 +371,7 @@ try{
       // registerController.changeState();
       phoneVerificationId=verificationId;
       consolePrint("code sent :\n verification id is"+verificationId);
-      Get.snackbar("done", "we sent message to "+phone,duration: five_sec);
+      Get.rawSnackbar(message: "لقد قمنا بارسال العملية الى الرقم"+phone,duration: five_sec);
       // setState(() {
       //   showLoading = false;
       //   currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
@@ -364,8 +385,8 @@ try{
   );
 }catch (e) {
   registerController.changeLoading(false);
-Get.snackbar("failed", e.message,duration: five_sec);
-
+Get.rawSnackbar(message:"حدث امر ما الرجاء المحاولة مجدداً",duration: five_sec);
+consolePrint("error :"+e.message);
   // _scaffoldKey.currentState
   //     .showSnackBar(SnackBar(content: Text(e.message)));
 }
@@ -395,16 +416,25 @@ Get.snackbar("failed", e.message,duration: five_sec);
 
         consolePrint("phone verified successfully");
         // Get.snackbar("Success", "Donnnnnnnnnnnnnnnnnnnnnnnnnnnnne!",duration: five_sec);
-bool k=await register2();
+          try  {
+          bool k = await register2();
+
+          consolePrint("backeend register "+k.toString());
+        }catch(e)
+    {
+      registerController.changeLoading(false);
+      consolePrint("backend register failed "+e.toString());
+    }
         registerController.changeLoading(false);
-        consolePrint("backeend register "+k.toString());
+        // consolePrint("backeend register "+k.toString());
 
         // Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
       }
       else {
         registerController.changeLoading(false);
+        consolePrint("failed to sign in with google");
         // registerController.changeToRegister();
-        Get.snackbar("Failed", "You have entered wrong code try again ",
+        Get.rawSnackbar(message:"لقد قمت بادخال كود خاطئ الرجاء المحاولة لاحقا ",
             duration: five_sec);
       };
 
@@ -414,7 +444,8 @@ bool k=await register2();
       // });
       registerController.changeLoading(false);
       registerController.changeToRegister();
-      Get.snackbar("failed", e.message,duration: five_sec);
+      Get.rawSnackbar(message:"فشلت العملية الرجاء المحاولة مجدداً",duration: five_sec);
+      consolePrint(" firebase error :"+e.message);
       // _scaffoldKey.currentState
       //     .showSnackBar(SnackBar(content: Text(e.message)));
     }

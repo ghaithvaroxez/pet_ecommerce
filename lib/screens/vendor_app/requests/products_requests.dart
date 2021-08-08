@@ -19,19 +19,47 @@ getmodel()async{
 
   Future<List<StoreProduct>> getStoreProducts() async
   {
+    consolePrint("get all products for store");
     final apiResult = await getRequest(
-      Api.getStoreId + '/' + vendor.store[0].id.toString(),
+   "/store/products/all" + '/' + vendor.store[0].id.toString(),
       queryParameters: null,
     );
-    return  List<StoreProduct>.from(apiResult.data["store"]["store_products"].map((x) => StoreProduct.fromJson(x)));
+    consolePrint("befor convert data");
+    var list=  List<StoreProduct>.from(apiResult.data["store"]["store_products"].map((x) => StoreProduct.fromJson(x)));
+   consolePrint("after convert data");
+consolePrint(apiResult.data.toString());
+consolePrint(list.toString());
+return list;
     // StoreModel storeModel= storeModelFromJson(apiResult.data["store"]);
     //
     // return storeModel.store;
   }
 
+  Future<bool> changeProductStatus(int productId) async {
+
+    FormData formData =
+    new FormData.fromMap({
+      "product_id":productId,
+
+    });
+
+    try {
+      final apiResult = await postRequest(
+          Api.changeProductStatus, formData,
+          includeHeaders: true);
+      if (apiResult.statusCode == 200)
+       {
+          return true;
+        }
+        else
+          return false;
+    }
+    catch (e) {
+      return false;
+    }
+  }
   Future<List<Category>> getStoreCategories() async
   {
-
     final apiResult = await getRequest(
       Api.categories,
       queryParameters: null,

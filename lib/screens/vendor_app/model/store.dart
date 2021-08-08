@@ -68,7 +68,7 @@ class Store {
     closedAt: json["closed_at"],
     info: json["info"],
     favourites: json["favourites"],
-    storeContacts: List<StoreContact>.from(json["store_contacts"].map((x) => StoreContact.fromJson(x))),
+    storeContacts: null?null:List<StoreContact>.from(json["store_contacts"].map((x) => StoreContact.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {

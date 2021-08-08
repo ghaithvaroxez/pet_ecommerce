@@ -1,12 +1,17 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/doctor_app/model/doctor.dart';
 import 'package:pets_ecommerce/screens/home/view/components/favorite_icon.dart';
 
 
 class DoctorServicesCard extends StatelessWidget {
+  DoctorService doctorService;
+  DoctorServicesCard(this.doctorService);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,8 +35,8 @@ class DoctorServicesCard extends StatelessWidget {
                     topRight: Radius.circular(12),
                     topLeft: Radius.circular(12),
                   ),
-                  child: Image.asset(
-                    "assets/images/doctors/doctor_services_cat.png",
+                  child: Image.network(
+                    Api.imagePath+ doctorService.image,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -50,8 +55,10 @@ class DoctorServicesCard extends StatelessWidget {
                 ),
                 child: Container(
                     alignment: Alignment.center,
-                    child: Text(
-                      "فحص شامل للقطط",
+                    height: getProportionateScreenHeight(30),
+                    width: getProportionateScreenWidth(150.7),
+                    child: AutoSizeText(
+                      doctorService.name,
                       style: body2_14pt,
                     )),
               )),
