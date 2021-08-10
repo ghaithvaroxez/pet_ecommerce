@@ -5,12 +5,14 @@ import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/home/view/components/favorite_icon.dart';
 import '../../../../vendor_app/model/product.dart';
 
 
 class StoreProductCard extends StatelessWidget {
-  StoreProductCard(this.storeProdcut);
+  StoreProductCard(this.storeProdcut,this.fav);
   StoreProduct storeProdcut;
+  Function fav;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,19 +65,13 @@ class StoreProductCard extends StatelessWidget {
                 // ),
 
               )),
-          Positioned(
-              left: getProportionateScreenWidth(25),
-              top: getProportionateScreenHeight(8),
-              child: Container(
-                height: getProportionateScreenHeight(14),
-                width: getProportionateScreenWidth(15),
-                child: IconButton(
-                  icon: Icon(
-                    CupertinoIcons.heart,
-                    size: 22,
-                  ),
-                ),
-              ))
+                Positioned(
+                // width: getProportionateScreenWidth(15),
+                // height: getProportionateScreenHeight(15),
+                left:getProportionateScreenWidth(15),
+    top: getProportionateScreenHeight(15),
+    child: FavoriteIcon(fav: fav,s: storeProdcut.favStatus,),
+    )
         ],
       ),
     );

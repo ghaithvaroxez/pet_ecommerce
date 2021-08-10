@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:pets_ecommerce/screens/widgets/drawer/custom_drawer.dart';
 import 'package:video_player/video_player.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -157,7 +158,7 @@ class _MyStatusState extends State<MyStatus> {
   }
 
   _uploadVideo() async {
-    video = await ImagePicker.pickVideo(source: ImageSource.gallery,maxDuration: Duration(seconds: 30));
+    video = await ImagePicker.pickVideo(source: ImageSource.gallery);
     File videoFile = File(video.path);
    // List<File> images= await exportImage(videoFile.path, 10, 10);
    // await getcompress(images[5]);
@@ -199,6 +200,7 @@ class _MyStatusState extends State<MyStatus> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      endDrawer: CustomDrawer(),
       floatingActionButton: FancyFab(
         onPressed1: () async {
           await _uploadVideo();
@@ -208,223 +210,228 @@ class _MyStatusState extends State<MyStatus> {
         },
         story: true,
       ),
-      body: SafeArea(
-          child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Column(
-          children: [
-            Container(
-              child: Material(
-                elevation: 5,
-                color: Colors.white,
-                child: Container(
-                    width: SizeConfig.screenWidth,
-                    height: getProportionateScreenHeight(95),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: getProportionateScreenWidth(24),
-                        ),
-                        GestureDetector(
-                          // onTap: open_drawer,
-                          child: CircleAvatar(
+      body:  Builder(
+        builder: ((context)=>
+     SafeArea(
+            child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Column(
+            children: [
+              Container(
+                child: Material(
+                  elevation: 5,
+                  color: Colors.white,
+                  child: Container(
+                      width: SizeConfig.screenWidth,
+                      height: getProportionateScreenHeight(95),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: getProportionateScreenWidth(24),
+                          ),
+                          GestureDetector(
+                            onTap: (){ Scaffold.of(context).openEndDrawer();},
+
+                            // onTap: open_drawer,
+                            child: CircleAvatar(
+                              radius: 24,
+                              backgroundColor: Colors.grey.shade50,
+                              child: Image.asset(
+                                "assets/images/home/menu_icon.png",
+                                height: 24,
+                                width: 20,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Container(
+                              height: getProportionateScreenHeight(28),
+                              width: getProportionateScreenWidth(75),
+                              child: AutoSizeText(
+                                "حالتي",
+                                style: h5_21pt,
+                                minFontSize: 8,
+                              )),
+                          Spacer(),
+                          CircleAvatar(
                             radius: 24,
                             backgroundColor: Colors.grey.shade50,
                             child: Image.asset(
-                              "assets/images/home/menu_icon.png",
+                              "assets/images/home/notification_icon.png",
                               height: 24,
                               width: 20,
                             ),
                           ),
-                        ),
-                        Spacer(),
-                        Container(
-                            height: getProportionateScreenHeight(28),
-                            width: getProportionateScreenWidth(75),
-                            child: AutoSizeText(
-                              "حالتي",
-                              style: h5_21pt,
-                              minFontSize: 8,
-                            )),
-                        Spacer(),
-                        CircleAvatar(
-                          radius: 24,
-                          backgroundColor: Colors.grey.shade50,
-                          child: Image.asset(
-                            "assets/images/home/notification_icon.png",
-                            height: 24,
-                            width: 20,
+                          SizedBox(
+                            width: getProportionateScreenWidth(24),
                           ),
-                        ),
-                        SizedBox(
-                          width: getProportionateScreenWidth(24),
+                        ],
+                      )),
+                ),
+              ),
+
+              ///appBar
+
+              GetBuilder<StatusController>(
+                init: statusController,
+                builder: (controller) => controller.loading
+                ? Expanded(child: LoadingScreen())
+                : Column(
+                  children: [
+                    Container(margin:EdgeInsets.symmetric(vertical: 16,horizontal:
+                    16),alignment: Alignment.centerRight,child: AutoSizeText("الصور ",style: body3_21pt,),),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row (
+                      children: [
+                        ...List<Widget>.generate(
+                          controller.status.length,
+                              (index) => controller.status[index].type ==
+                              "image"
+                              ? GestureDetector(
+                                onTap: (){
+                                  Get.to(VideoApp(controller.status[index], index));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  child: StatusImage(controller.status[index].image,()async{  await controller
+                                  .deleteStatus(
+                                  controller
+                                      .status[
+                                  index]
+                                      .id);}),
+                                ),
+                              ):Container(height: 0,width: 0,),
                         ),
                       ],
-                    )),
-              ),
-            ),
-
-            ///appBar
-
-            GetBuilder<StatusController>(
-              init: statusController,
-              builder: (controller) => controller.loading
-              ? Expanded(child: LoadingScreen())
-              : Column(
-                children: [
-                  Container(margin:EdgeInsets.symmetric(vertical: 16,horizontal:
-                  16),alignment: Alignment.centerRight,child: AutoSizeText("الصور ",style: body3_21pt,),),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row (
-                    children: [
-                      ...List<Widget>.generate(
-                        controller.status.length,
-                            (index) => controller.status[index].type ==
-                            "image"
-                            ? GestureDetector(
-                              onTap: (){
-                                Get.to(VideoApp(controller.status[index], index));
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: StatusImage(controller.status[index].image,()async{  await controller
-                                .deleteStatus(
-                                controller
-                                    .status[
-                                index]
-                                    .id);}),
-                              ),
-                            ):Container(height: 0,width: 0,),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-                  Container(margin:EdgeInsets.symmetric(vertical: 16,horizontal:
-                  16),alignment: Alignment.centerRight,child: AutoSizeText("الفيديوهات ",style: body3_21pt,),),
-                SingleChildScrollView(
-                  scrollDirection:Axis.horizontal,
-                  child: Row (
-                    children: [
-                      ...List<Widget>.generate(
-                        controller.status.length,
-                            (index) => controller.status[index].type !=
-                            "image"
-                            ? GestureDetector(
-                              onTap: (){
-                                Get.to(VideoApp(controller.status[index], index));
-                              },
-                              child: Container(
-                                height: getProportionateScreenHeight(160),
-                                width: getProportionateScreenWidth(220),
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child:
-                                      Stack(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: ThumbnailImage(
-                                          videoUrl:
-                                          Api.imagePath+controller.status[index].image,
-                                          height: getProportionateScreenHeight(160),
-                                          width: getProportionateScreenWidth(220),
-                                          fit: BoxFit.fill,
+                    Container(margin:EdgeInsets.symmetric(vertical: 16,horizontal:
+                    16),alignment: Alignment.centerRight,child: AutoSizeText("الفيديوهات ",style: body3_21pt,),),
+                  SingleChildScrollView(
+                    scrollDirection:Axis.horizontal,
+                    child: Row (
+                      children: [
+                        ...List<Widget>.generate(
+                          controller.status.length,
+                              (index) => controller.status[index].type !=
+                              "image"
+                              ? GestureDetector(
+                                onTap: (){
+                                  Get.to(VideoApp(controller.status[index], index));
+                                },
+                                child: Container(
+                                  height: getProportionateScreenHeight(160),
+                                  width: getProportionateScreenWidth(220),
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                  child:
+                                        Stack(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: ThumbnailImage(
+                                            videoUrl:
+                                            Api.imagePath+controller.status[index].image,
+                                            height: getProportionateScreenHeight(160),
+                                            width: getProportionateScreenWidth(220),
+                                            fit: BoxFit.fill,
+                                          ),
                                         ),
-                                      ),
-                                      // height: getProportionateScreenHeight(120),
-                                      // width: getProportionateScreenWidth(180),
+                                        // height: getProportionateScreenHeight(120),
+                                        // width: getProportionateScreenWidth(180),
 // color: Colors.grey,
 //                                       child:
   //                                     VideoPlayer(vcontroller
   // ),
-                                      // child: Image.network(Api.imagePath +
-                                      //     controller.status[index].image),
-                                    ),
-                                    Positioned(
-                                        left: getProportionateScreenWidth(8),
-                                        top: getProportionateScreenHeight(8),
-                                        child: Container(
-                                            height:
-                                                getProportionateScreenHeight(35),
-                                            width: getProportionateScreenWidth(35),
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.white),
-                                            child: GestureDetector(
-                                                onTap: () {
-                                                  showDialog(
-                                                      context: context,
-                                                      builder: ((context) =>
-                                                          AlertDialog(
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                                5)),
-                                                            title: Text(
-                                                              'هل أنت متأكد ؟',
-                                                              textDirection:
-                                                                  TextDirection.rtl,
-                                                              style: body3_18pt,
-                                                            ),
-                                                            content: Text(
-                                                              'انت على وشك حذف هذه الصوة !',
-                                                              textDirection:
-                                                                  TextDirection.rtl,
-                                                              style: body1_16pt,
-                                                            ),
-                                                            actions: [
-                                                              TextButton(
-                                                                child: Text(
-                                                                  'نعم',
-                                                                ),
-                                                                onPressed:
-                                                                    () async {
-                                                                  // language.changeLanguage();
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                  await controller
-                                                                      .deleteStatus(
-                                                                          controller
-                                                                              .status[
-                                                                                  index]
-                                                                              .id);
-                                                                  // Navigator.popUntil(context, ModalRoute.withName('/'));
-                                                                },
+                                        // child: Image.network(Api.imagePath +
+                                        //     controller.status[index].image),
+                                      ),
+                                      Positioned(
+                                          left: getProportionateScreenWidth(8),
+                                          top: getProportionateScreenHeight(8),
+                                          child: Container(
+                                              height:
+                                                  getProportionateScreenHeight(35),
+                                              width: getProportionateScreenWidth(35),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.white),
+                                              child: GestureDetector(
+                                                  onTap: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: ((context) =>
+                                                            AlertDialog(
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius
+                                                                              .circular(
+                                                                                  5)),
+                                                              title: Text(
+                                                                'هل أنت متأكد ؟',
+                                                                textDirection:
+                                                                    TextDirection.rtl,
+                                                                style: body3_18pt,
                                                               ),
-                                                              TextButton(
-                                                                child: Text('لا'),
-                                                                onPressed: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                              )
-                                                            ],
-                                                          )));
-                                                },
-                                                child: Image.asset(
-                                                  "assets/images/vendor_app/trash.png",
-                                                  fit: BoxFit.fill,
-                                                ))))
-                                  ],
-                                ),
+                                                              content: Text(
+                                                                'انت على وشك حذف هذه الصوة !',
+                                                                textDirection:
+                                                                    TextDirection.rtl,
+                                                                style: body1_16pt,
+                                                              ),
+                                                              actions: [
+                                                                TextButton(
+                                                                  child: Text(
+                                                                    'نعم',
+                                                                  ),
+                                                                  onPressed:
+                                                                      () async {
+                                                                    // language.changeLanguage();
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                    await controller
+                                                                        .deleteStatus(
+                                                                            controller
+                                                                                .status[
+                                                                                    index]
+                                                                                .id);
+                                                                    // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                                                  },
+                                                                ),
+                                                                TextButton(
+                                                                  child: Text('لا'),
+                                                                  onPressed: () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                )
+                                                              ],
+                                                            )));
+                                                  },
+                                                  child: Image.asset(
+                                                    "assets/images/vendor_app/trash.png",
+                                                    fit: BoxFit.fill,
+                                                  ))))
+                                    ],
+                                  ),
 
-                              ),
-                            ):Container(height: 0,width: 0,),
-                      ),
-                    ],
+                                ),
+                              ):Container(height: 0,width: 0,),
+                        ),
+                      ],
+                    ),
                   ),
+                  ],
                 ),
-                ],
-              ),
-            )
-          ],
-        ),
-      )),
+              )
+            ],
+          ),
+        ),))
+      ),
     );
   }
 }

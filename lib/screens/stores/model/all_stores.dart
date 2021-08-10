@@ -37,9 +37,11 @@ class Store {
     this.info,
     this.favourites,
     this.storeContacts,
+    this.favStatus
   });
 
   int id;
+  bool favStatus;
   String name;
   String image;
   String email;
@@ -63,6 +65,7 @@ class Store {
     info: json["info"],
     favourites: json["favourites"],
     storeContacts: List<StoreContact>.from(json["store_contacts"].map((x) => StoreContact.fromJson(x))),
+    favStatus: json["fav_status"]==null?false:json["fav_status"],
   );
 
   Map<String, dynamic> toJson() => {

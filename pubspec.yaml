@@ -45,6 +45,7 @@ dependencies:
   export_video_frame: ^0.0.1
   flutter_video_info: ^1.2.0
   video_thumbnail_generator: ^0.0.8
+  flutter_swiper: ^1.1.6
 
 
 dev_dependencies:

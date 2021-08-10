@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
@@ -49,6 +51,32 @@ class _SelectDoctorViewState extends State<SelectDoctorView> {
     });
 
   }
+
+  Future<bool> addToFavorite(int doctorId) async {
+    consolePrint("store id"+doctorId.toString());
+    var url=Uri.parse("http://pets.sourcecode-ai.com/api/addToFavourite/$doctorId/doctor");
+    consolePrint("before add to favorite print");
+    final h=await HttpService().getHeaders();
+    final apiResult=await http.post(url,headers: h);
+    consolePrint("after add to favorite print");
+
+    if(apiResult.statusCode==200)
+    {
+      consolePrint("statusCode==200");
+      var j=jsonDecode(apiResult.body);
+      if(j["favourites"]!=null) {
+        consolePrint("fav != null");
+        return true;
+      } else {
+        consolePrint("fav = null");
+        return false;
+      }
+    }
+    else {
+      consolePrint("statusCode!=200");
+      return false ;
+    }
+  }
   @override
   void initState() {
     // TODO: implement initState
@@ -67,7 +95,13 @@ class _SelectDoctorViewState extends State<SelectDoctorView> {
         // physics: NeverScrollableScrollPhysics(),
           itemCount: doctors.doctors.length,itemBuilder:(context,index)=>index==0?Column(children: [
             SearchBar(),
-            VerticalDoctorListCard(doctors.doctors[index])],):VerticalDoctorListCard(doctors.doctors[index]) ));
+            VerticalDoctorListCard(doctors.doctors[index],()async{
+              bool k=await addToFavorite(doctors.doctors[index].id);
+              return k;
+            })],):VerticalDoctorListCard(doctors.doctors[index],()async{
+            bool k=await addToFavorite(doctors.doctors[index].id);
+            return k;
+          } )));
 
   }
 }

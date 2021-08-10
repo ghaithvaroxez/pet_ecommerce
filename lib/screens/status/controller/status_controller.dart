@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/screens/home/view/home_view.dart';
 import '../model/status_model.dart';
 import '../requests/status_requests.dart';
 // import 'package:video_thumbnail/video_thumbnail.dart';
@@ -89,6 +90,7 @@ class StatusController extends GetxController{
           image);
       if (k == true) {
         await getStatuses();
+        await statusController.init();
         // Get.back();
         removeLoading();
       } else {
@@ -112,6 +114,7 @@ class StatusController extends GetxController{
 addNewVideo(
       {@required String videoPath})async
   {
+    try{
     activeLoading();
 
     final videoInfo = FlutterVideoInfo();
@@ -119,6 +122,8 @@ addNewVideo(
     String videoFilePath = videoPath;
     var info = await videoInfo.getVideoInfo(videoFilePath);
     consolePrint("video: length "+info.duration.toString());
+    int len=(info.duration/1000).round();
+    consolePrint("len:"+len.toString());
 if(info.filesize>92440960)//41943040//102440960
   {
     Get.rawSnackbar(
@@ -127,9 +132,9 @@ if(info.filesize>92440960)//41943040//102440960
     removeLoading();
 return;
   }
-    try{
+
       bool k = await statusRequests.addVideo(
-          videoPath,info.duration);
+          videoPath,len);
       if (k == true) {
         await getStatuses();
         // Get.back();

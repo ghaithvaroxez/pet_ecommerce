@@ -58,11 +58,11 @@ class _VideoAppState extends State<VideoApp> {
                         widget.status.type == "image"
                             ? StoryItem.pageImage(
                                 url: Api.imagePath + widget.status.image,
-                                duration: Duration(seconds: int.parse(widget.status.duration)),
+                                duration: Duration(seconds: widget.status.duration),
                                 controller: storyController)
                             : StoryItem.pageVideo(
                                 Api.imagePath + widget.status.image,
-                            duration: Duration(seconds: int.parse(widget.status.duration)),
+                            duration: Duration(seconds: widget.status.duration),
                                 controller: storyController),
 
             ]

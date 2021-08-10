@@ -41,7 +41,8 @@ class _CustomerPhotosBodyState extends State<CustomerPhotosBody> {
     var url=Uri.parse("http://pets.sourcecode-ai.com/api/store/images/${widget.id.toString()}");
     String token=await AuthServices.getAuthToken();
     consolePrint(token)
-;    final apiResult =await http.get(url,headers: {"Authorization": "Bearer $token",});
+;
+    final apiResult =await http.get(url,headers: {"Authorization": "Bearer $token",});
     consolePrint("status code :" +apiResult.statusCode.toString());
     consolePrint("id :" +widget.id.toString());
 

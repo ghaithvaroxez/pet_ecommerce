@@ -8,6 +8,7 @@ import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
 import 'package:pets_ecommerce/screens/doctor_app/model/doctor.dart';
 import 'package:pets_ecommerce/screens/doctors/controllers/customer_doctor_label_controller.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
 
 import 'components/orders_response/orders_response_body.dart';
 import 'components/personal_info/personal_info_body.dart';
@@ -25,7 +26,7 @@ class DoctorDetailsPage extends StatefulWidget {
 
 class _DoctorDetailsPageState extends State<DoctorDetailsPage>
     with SingleTickerProviderStateMixin {
-  bool loading =true;
+  bool loading =false;
   bool error =false;
   DoctorModel doctorModel;
   fetchdata()
@@ -34,10 +35,11 @@ class _DoctorDetailsPageState extends State<DoctorDetailsPage>
    setState(() {
 
    });
-
+    consolePrint("befor get ");
+    final h=await HttpService().getHeaders();
     final apiResult = await http.get(
-      Api.baseUrl+Api.getDoctorId + '/' + widget.id.toString(),
-    );
+      Api.baseUrl+Api.getDoctorId + '/' + widget.id.toString()
+    ,headers: h);
 consolePrint("after get ");
     if(apiResult.statusCode==200)
       doctorModel= doctorModelFromJson(apiResult.body);

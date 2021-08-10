@@ -19,7 +19,37 @@ class PBody extends StatefulWidget {
 
 class _PBodyState extends State<PBody> {
 
+  Future<bool> addToFavorite(int productId) async {
+   try {
+      consolePrint("product id" + productId.toString());
+      var url = Uri.parse(
+          "http://pets.sourcecode-ai.com/api/addToFavourite/$productId/product");
+      consolePrint("before add to favorite print");
+      consolePrint("try to post on " + url.path);
 
+      final h = await HttpService().getHeaders();
+      final apiResult = await http.post(url, headers: h);
+      consolePrint("after add to favorite print");
+
+      if (apiResult.statusCode == 200) {
+        consolePrint("statusCode==200");
+        var j = jsonDecode(apiResult.body);
+        if (j["favourites"] != null) {
+          consolePrint("fav != null");
+          return true;
+        } else {
+          consolePrint("fav = null");
+          return false;
+        }
+      } else {
+        consolePrint("statusCode!=200");
+        return false;
+      }
+    }catch(e){
+    consolePrint(e.toString());
+    return false;
+    }
+  }
 
   List<StoreProduct> products=[];
   bool loading =true;
@@ -79,7 +109,12 @@ class _PBodyState extends State<PBody> {
     (index)=>index%2==0?Container(
     margin: EdgeInsets.symmetric(vertical: 10),
 
-    child:  StoreProductCard(products[index]),
+    child:  StoreProductCard(products[index],()async{
+      bool k=await addToFavorite(products[index].id);
+      if(k==true)
+        return true;
+      else return false;
+    }),
     ):Container(height: 0,),
 
     ),
@@ -93,7 +128,12 @@ class _PBodyState extends State<PBody> {
     (index)=>index%2==1?Container(
     margin: EdgeInsets.symmetric(vertical: 10),
 
-    child:  StoreProductCard(products[index]),
+    child:  StoreProductCard(products[index],()async{
+    bool k=await addToFavorite(products[index].id);
+    if(k==true)
+    return true;
+    else return false;
+    }),
     ):Container(height: 0,),
 
     ),

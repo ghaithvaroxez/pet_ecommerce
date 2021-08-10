@@ -25,7 +25,8 @@ class StoreProduct {
     this.storeId,
     this.storeName,
     this.date,
-    this.visible
+    this.visible,
+    this.favStatus
   });
 
   int id;
@@ -43,7 +44,7 @@ class StoreProduct {
   String storeName;
   String date;
   String visible;
-
+  bool favStatus;
   factory StoreProduct.fromJson(Map<String, dynamic> json) => StoreProduct(
     id: json["id"],
     name: json["name"],
@@ -60,6 +61,7 @@ class StoreProduct {
     storeName: json["store_name"],
     date: json["date"],
     visible:json["visible"],
+    favStatus: json["fav_status"]
   );
 
   Map<String, dynamic> toJson() => {

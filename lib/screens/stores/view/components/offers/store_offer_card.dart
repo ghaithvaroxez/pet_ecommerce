@@ -4,6 +4,7 @@ import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/home/view/components/favorite_icon.dart';
 
 import '../../../model/custoer_store_offer.dart';
 
@@ -11,7 +12,8 @@ import '../../../model/custoer_store_offer.dart';
 class StoreOfferCard extends StatelessWidget {
 
   Offer offer ;
-  StoreOfferCard(this.offer);
+  Function fav;
+  StoreOfferCard(this.offer,this.fav);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -111,6 +113,14 @@ class StoreOfferCard extends StatelessWidget {
                   ),
                 ),
               )),///grey footer
+          Positioned(
+            // width: getProportionateScreenWidth(15),
+            // height: getProportionateScreenHeight(15),
+            left:getProportionateScreenWidth(15),
+            top: getProportionateScreenHeight(15),
+            child: FavoriteIcon(fav: fav,s: offer.favStatus,),
+          )
+
         ],
       ),
 

@@ -40,14 +40,14 @@ class StatusAll {
   String image;
   String type;
   String thumb;
-String duration;
+int duration;
   factory StatusAll.fromJson(Map<String, dynamic> json) => StatusAll(
     id: json["id"],
     storeId: json["store_id"],
     userId: json["user_id"],
     image: json["image"],
     type: json["type"],
-    duration: json["duration"],
+    duration: json["duration"]==""?15:json["duration"],
   );
 
   Map<String, dynamic> toJson() => {

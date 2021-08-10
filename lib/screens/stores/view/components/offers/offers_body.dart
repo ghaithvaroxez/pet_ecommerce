@@ -1,7 +1,10 @@
 
 
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
 import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets_ecommerce/lib/screens/stores/view/components/products/store_product_card.dart';
@@ -45,6 +48,45 @@ bool error=false;
 
 
   }
+
+
+  Future<bool> addToFavorite(int offerId) async {
+   try {
+      consolePrint("product id" + offerId.toString());
+      var url = Uri.parse(
+          "http://pets.sourcecode-ai.com/api/addToFavourite/$offerId/offer");
+      consolePrint("before add to favorite print");
+      consolePrint("try to post on " + url.path);
+
+      final h = await HttpService().getHeaders();
+      var apiResult;
+      try {
+        apiResult = await http.post(url, headers: h);
+      } catch (e) {
+        consolePrint(e.toString());
+        return false;
+      }
+      consolePrint("after add to favorite print");
+
+      if (apiResult.statusCode == 200) {
+        consolePrint("statusCode==200");
+        var j = jsonDecode(apiResult.body);
+        if (j["favourites"] != null) {
+          consolePrint("fav != null");
+          return true;
+        } else {
+          consolePrint("fav = null");
+          return false;
+        }
+      } else {
+        consolePrint("statusCode!=200");
+        return false;
+      }
+    }catch(e){
+    consolePrint(e.toString());
+    return false;
+    }
+  }
 @override
   void initState() {
     // TODO: implement initState
@@ -73,7 +115,9 @@ bool error=false;
                         (index)=>index%2==0?Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
 
-                      child:         StoreOfferCard(customerStoreOffers.offers[index]),
+                      child:         StoreOfferCard(customerStoreOffers.offers[index],()async{
+
+                      }),
                     ):Container(height: 0,),
 
                   ),
@@ -87,7 +131,10 @@ bool error=false;
                         (index)=>index%2==1?Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
 
-                          child:         StoreOfferCard(customerStoreOffers.offers[index]),
+                          child:         StoreOfferCard(customerStoreOffers.offers[index],()async{
+                            bool k=await addToFavorite(customerStoreOffers.offers[index].id);
+                            return k;
+                          }),
                     ):Container(height: 0,),
 
                   ),

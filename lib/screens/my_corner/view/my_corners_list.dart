@@ -18,6 +18,7 @@ import '../controller/my_corners_controller.dart';
 import 'package:get/get.dart';
 import './components/my_corner_vertical_card.dart';
 import '../view/add_corner_screen.dart';
+import 'package:pets_ecommerce/screens/widgets/drawer/custom_drawer.dart';
 class MyCornerList extends StatefulWidget {
   @override
   _MyCornerListState createState() => _MyCornerListState();
@@ -39,6 +40,7 @@ class _MyCornerListState extends State<MyCornerList> {
       // error?Container(height: getProportionateScreenHeight(400),width: getProportionateScreenWidth(400),
       // child: Center(child: AutoSizeText("عذراً لقد حدثت مشكلة الرجاء المحاولة لاحقاً"),),):loading?LoadingScreen():
      Scaffold(
+       endDrawer: CustomDrawer(),
        floatingActionButton: Container(
          width: 56,
          height: 56,
@@ -57,82 +59,87 @@ onTap: (){
            ),
          ),
        ),
-       body: SafeArea(
-         child: Column(
-           children: [
-             Directionality(
-               textDirection: TextDirection.rtl,
-               child: Container(
-                 child: Material(
-                   elevation: 5,
-                   color: Colors.white,
-                   child: Container(
-                       width: SizeConfig.screenWidth,
-                       height: getProportionateScreenHeight(95),
-                       child: Row(
-                         children: [
-                           SizedBox(
-                             width: getProportionateScreenWidth(24),
-                           ),
-                           GestureDetector(
-                             // onTap: open_drawer,
-                             child: CircleAvatar(
+       body: Builder(
+         builder: ((context)=> SafeArea(
+           child: Column(
+             children: [
+               Directionality(
+                 textDirection: TextDirection.rtl,
+                 child: Container(
+                   child: Material(
+                     elevation: 5,
+                     color: Colors.white,
+                     child: Container(
+                         width: SizeConfig.screenWidth,
+                         height: getProportionateScreenHeight(95),
+                         child: Row(
+                           children: [
+                             SizedBox(
+                               width: getProportionateScreenWidth(24),
+                             ),
+                             GestureDetector(
+                               onTap: (){ Scaffold.of(context).openEndDrawer();},
+                               child: CircleAvatar(
+                                 radius: 24,
+                                 backgroundColor: Colors.grey.shade50,
+                                 child: Image.asset(
+                                   "assets/images/home/menu_icon.png",
+                                   height: 24,
+                                   width: 20,
+                                 ),
+                               ),
+                             ),
+                             Spacer(),
+                             Container(
+                                 height: getProportionateScreenHeight(28),
+                                 width: getProportionateScreenWidth(75),
+                                 child: AutoSizeText(
+                                   "زاويتي",
+                                   style: h5_21pt,
+                                   minFontSize: 8,
+                                 )),
+                             Spacer(),
+                             CircleAvatar(
                                radius: 24,
                                backgroundColor: Colors.grey.shade50,
                                child: Image.asset(
-                                 "assets/images/home/menu_icon.png",
+                                 "assets/images/home/notification_icon.png",
                                  height: 24,
                                  width: 20,
                                ),
                              ),
-                           ),
-                           Spacer(),
-                           Container(
-                               height: getProportionateScreenHeight(28),
-                               width: getProportionateScreenWidth(75),
-                               child: AutoSizeText(
-                                 "زاويتي",
-                                 style: h5_21pt,
-                                 minFontSize: 8,
-                               )),
-                           Spacer(),
-                           CircleAvatar(
-                             radius: 24,
-                             backgroundColor: Colors.grey.shade50,
-                             child: Image.asset(
-                               "assets/images/home/notification_icon.png",
-                               height: 24,
-                               width: 20,
+                             SizedBox(
+                               width: getProportionateScreenWidth(24),
                              ),
-                           ),
-                           SizedBox(
-                             width: getProportionateScreenWidth(24),
-                           ),
-                         ],
+                           ],
+                         )),
+                   ),
+                 ),
+               ),
+               ///appBAr
+               ///
+               Container(
+                 child: GetBuilder<MyCornersListController>(
+                   init: cornerController,
+                   builder:(controller)=> controller.loading?Container(height:getProportionateScreenHeight(500),child: LoadingScreen()):Expanded(
+                     // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
+                       child: Container(
+                         padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(16),vertical: getProportionateScreenHeight(16)),
+                         child: ListView.builder(
+                           // physics: NeverScrollableScrollPhysics(),
+                             itemCount: controller.corners.length,
+                             itemBuilder: (context, index) =>
+                                 MyCornerVerticalCard(controller.corners[index],()async{await controller.deleteCorner(cornerController.corners[index].id);})),
                        )),
                  ),
                ),
-             ),
-             ///appBAr
-             ///
-           Container(
-             child: GetBuilder<MyCornersListController>(
-             init: cornerController,
-             builder:(controller)=> controller.loading?Container(height:getProportionateScreenHeight(500),child: LoadingScreen()):Expanded(
-                 // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
-                 child: Container(
-                   padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(16),vertical: getProportionateScreenHeight(16)),
-                   child: ListView.builder(
-                     // physics: NeverScrollableScrollPhysics(),
-                       itemCount: controller.corners.length,
-                       itemBuilder: (context, index) =>
-                           MyCornerVerticalCard(controller.corners[index],()async{await controller.deleteCorner(cornerController.corners[index].id);})),
-                 )),
-         ),
+             ],
            ),
-           ],
-         ),
-       ),
+         )),
+       )
+
+
+
      );
   }
 }

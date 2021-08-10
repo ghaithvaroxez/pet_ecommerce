@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/constants/api.dart';
@@ -48,6 +50,38 @@ final h=await HttpService().getHeaders();
   });
 
 }
+
+Future<bool> addToFavorite(int storeId) async {
+  try{
+      consolePrint("store id" + storeId.toString());
+      var url = Uri.parse(
+          "http://pets.sourcecode-ai.com/api/addToFavourite/$storeId/store/Store");
+      consolePrint("before add to favorite print");
+      final h = await HttpService().getHeaders();
+      final apiResult = await http.post(url, headers: h);
+      consolePrint("after add to favorite print");
+
+      if (apiResult.statusCode == 200) {
+        consolePrint("statusCode==200");
+        var j = jsonDecode(apiResult.body);
+        if (j["favourites"] != null) {
+          consolePrint("fav != null");
+          return true;
+        } else {
+          consolePrint("fav = null");
+          return false;
+        }
+      } else {
+        consolePrint("statusCode!=200");
+        return false;
+      }
+    }catch(e){
+    consolePrint(e.toString());
+    return false;
+  }
+  }
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -67,9 +101,15 @@ final h=await HttpService().getHeaders();
                 ? Column(
                     children: [
                       SearchBar(),
-                      VerticalStoreListCard(store:Stores.stores[index])],
+                      VerticalStoreListCard(store:Stores.stores[index],addToFav: ()async{
+                        bool k=  await addToFavorite(Stores.stores[index].id);
+                        return k;
+                      },)],
                   )
-                : VerticalStoreListCard(store:Stores.stores[index])));
+                : VerticalStoreListCard(store:Stores.stores[index],addToFav: ()async{
+            bool k=  await addToFavorite(Stores.stores[index].id);
+            return k;
+            },)));
   }
 }
 

@@ -206,8 +206,9 @@ consolePrint("store_name"+ store_name+
         apiResult.data["status"] != false
     ) {
 consolePrint("saving user");
-    AuthServices.saveUser(apiResult.data);
-      return UserModel.fromJson(apiResult.data);
+UserModel userModel =UserModel.fromJson(apiResult.data);
+   if(userModel.user.approve!="pending") AuthServices.saveUser(apiResult.data);
+      return userModel;
     }
     // else if(apiResult.statusCode == 200 ){ }
     else {

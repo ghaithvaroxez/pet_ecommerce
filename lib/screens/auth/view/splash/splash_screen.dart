@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // AuthServices.getCurrentUser();
     Duration duration = Duration(seconds: 2);
     Future.delayed(duration).then((value) =>
-    // AuthServices.authenticated()?Get.to(MainScreen()):
+    AuthServices.authenticated()?Get.to(MainScreen()):
     Get.to(LoginOrRegister()));
     // TODO: implement initState
     super.initState();

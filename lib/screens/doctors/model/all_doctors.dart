@@ -38,6 +38,7 @@ class Doctor {
     this.closedAt,
     this.doctorContacts,
     this.doctorServices,
+    this.favStatus
   });
 
   int id;
@@ -52,7 +53,7 @@ class Doctor {
   String closedAt;
   List<DoctorContact> doctorContacts;
   List<DoctorService> doctorServices;
-
+bool favStatus;
   factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
     id: json["id"],
     firstName: json["first_name"],
@@ -64,8 +65,9 @@ class Doctor {
     image: json["image"],
     openFrom: json["open_from"],
     closedAt: json["closed_at"],
-    doctorContacts: List<DoctorContact>.from(json["doctor_contacts"].map((x) => DoctorContact.fromJson(x))),
-    doctorServices: List<DoctorService>.from(json["doctor_services"].map((x) => DoctorService.fromJson(x))),
+    doctorContacts:json["doctor_contacts"]==null?[]: List<DoctorContact>.from(json["doctor_contacts"].map((x) => DoctorContact.fromJson(x))),
+    doctorServices:json["doctor_services"]==null?[]: List<DoctorService>.from(json["doctor_services"].map((x) => DoctorService.fromJson(x))),
+ favStatus: json["fav_status"]==null?false:json["fav_status"]
   );
 
   Map<String, dynamic> toJson() => {

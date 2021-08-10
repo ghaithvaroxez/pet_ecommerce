@@ -73,5 +73,21 @@ static const addStatus="/add/status";
   static const deleteCorner="/delete/corner";
   static const addCorner="/add/corner";
   static const editCornerbyId="/edit/corner";
+//favorites
+  static const getProductFav="/myFavourites/items";
+  static const getOffersFav="/myFavourites/offers";
+  static const getStoresFav="/myFavourites/stores";
+  static const getSievesFav="/myFavourites/sieves";
+  static const getBarnsFav="/myFavourites/barns";
+  static const getDoctorFav="/myFavourites/doctors";
+
+
+  static const addToFav="/addToFavourite";
+  static const addProductFav="/product";
+  static const addOffersFav="/offer";
+  static const addStoresFav="/store";
+  static const addSievesFav="/sieve";
+  static const addBarnsFav="/barn";
+  static const addDoctorFav="/doctor";
 
 }

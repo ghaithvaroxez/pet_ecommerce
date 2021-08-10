@@ -144,7 +144,8 @@ class _CornerDetailsState extends State<CornerDetails> {
                   height: getProportionateScreenHeight(35),
                   width: getProportionateScreenWidth(150),
 
-                  child: AutoSizeText("احمد العمودي",style: blueButton_25pt,),
+                  child: AutoSizeText(                        widget.corner.userName!=""? widget.corner.userName: widget.corner.doctorName!=""? widget.corner.doctorName: widget.corner.storeName!=""? widget.corner.storeName:""
+                    ,style: blueButton_25pt,),
 
                 )),
 

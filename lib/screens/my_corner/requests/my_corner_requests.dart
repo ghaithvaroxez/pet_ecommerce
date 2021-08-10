@@ -6,6 +6,7 @@ import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
 import 'package:pets_ecommerce/screens/auth/model/user.dart';
 import 'package:pets_ecommerce/screens/corner/model/corner_model.dart';
+import 'package:pets_ecommerce/screens/home/view/home_view.dart';
 import 'package:pets_ecommerce/services/http_requests_service.dart';
 import 'package:dio/dio.dart';
 class MyCornersRequests extends HttpService {
@@ -341,6 +342,7 @@ cornersModel=CornersModel.fromJson(apiResult.data);
 
   Future<bool> subPhotoToStory(int id) async
   {
+    consolePrint("transfer image "+id.toString());
     FormData formData;
     if (vendor.store.length == 1){
       formData = new FormData.fromMap({
@@ -348,6 +350,7 @@ cornersModel=CornersModel.fromJson(apiResult.data);
         "store_id": vendor.store[0].id.toString(),
       });
     }
+    else
     {
       formData = new FormData.fromMap({
         // "images_count":"1",
@@ -364,6 +367,8 @@ cornersModel=CornersModel.fromJson(apiResult.data);
       consolePrint(apiResult.statusCode .toString());
       if (apiResult.statusCode == 200)
       {
+
+        await statusController.init();
         return true;
       }
       else

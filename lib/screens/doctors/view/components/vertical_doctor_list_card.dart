@@ -12,7 +12,8 @@ import 'package:pets_ecommerce/screens/home/view/components/social_media_compone
 import '../../model/all_doctors.dart';
 class VerticalDoctorListCard extends StatelessWidget {
   Doctor doctor;
-  VerticalDoctorListCard(this.doctor);
+  Function fav;
+  VerticalDoctorListCard(this.doctor,this.fav);
 
   @override
   Widget build(BuildContext context) {
@@ -157,9 +158,11 @@ class VerticalDoctorListCard extends StatelessWidget {
 
             ///social media
             Positioned(
-              left: 25,
-              top: 8,
-              child: FavoriteIcon(),
+              // width: getProportionateScreenWidth(15),
+              // height: getProportionateScreenHeight(15),
+              left:getProportionateScreenWidth(15),
+              top: getProportionateScreenHeight(15),
+              child: FavoriteIcon(fav: fav,s: doctor.favStatus,),
             ),
           ],
         ),

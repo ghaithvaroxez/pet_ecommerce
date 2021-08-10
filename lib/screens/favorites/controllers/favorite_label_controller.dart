@@ -19,12 +19,14 @@ String storesImg="assets/images/favorite/notActive/store_icon.png";
 String doctorsImg="assets/images/favorite/notActive/doctor_icon.png";
 String stablesImg="assets/images/favorite/notActive/stable_icon.png";
 String offersImg="assets/images/favorite/notActive/offers_icon.png";
+String sievesImg="assets/images/favorite/notActive/offers_icon.png";
 
 String activeProductsImg="assets/images/favorite/active/active_products_icon.png";
 String activeStoresImg="assets/images/favorite/active/active_store_icon.png";
 String activeDoctorsImg="assets/images/favorite/active/active_doctor_icon.png";
 String activeStablesImg="assets/images/favorite/active/active_stable_icon.png";
 String activeOffersImg="assets/images/favorite/active/active_offers_icon.png";
+String activeSievesImg="assets/images/favorite/active/active_offers_icon.png";
 
 Color activeBackgroundColor=Colors.white;
 
@@ -32,8 +34,8 @@ String productsBackground="assets/images/favorite/offers_image.png";
 String storesBackground="assets/images/favorite/stores_image.png";
 String doctorsBackground="assets/images/favorite/offers_image.png";
 String stablesBackground="assets/images/favorite/stable_image.png";
-// String offersBackground="assets/images/favorite/offers_image.png";
-String offersBackground="assets/images/favorite/products_image.png";
+String offersBackground="assets/images/favorite/offers_image.png";
+String sievesBackground="assets/images/favorite/products_image.png";
 
 
 class FavoriteLabelController extends GetxController
@@ -42,6 +44,7 @@ class FavoriteLabelController extends GetxController
 
   List<Color> backgroundColors=[
     activeBackgroundColor,
+    storeLabelBackgroundGrey,
     storeLabelBackgroundGrey,
     storeLabelBackgroundGrey,
     storeLabelBackgroundGrey,
@@ -55,12 +58,14 @@ class FavoriteLabelController extends GetxController
   TextStyle doctorsStyle;
   TextStyle stablesStyle;
   TextStyle offersStyle;
+  TextStyle sievesStyle;
 
   String products;
   String stores;
   String doctors;
   String stables;
   String offers;
+  String sieves;
 
   String background;
   @override
@@ -72,14 +77,16 @@ class FavoriteLabelController extends GetxController
     doctors=doctorsImg;
     stables=stablesImg;
     offers=offersImg;
+    sieves=sievesImg;
 
     background=productsBackground;
 
     productsStyle=activeTextStyle;
     storesStyle=notActiveTextStyle;
     doctorsStyle=notActiveTextStyle;
+    offersStyle=notActiveTextStyle;
     stablesStyle=notActiveTextStyle;
-    stablesStyle=notActiveTextStyle;
+    sievesStyle=notActiveTextStyle;
     super.onInit();
   }
 
@@ -111,6 +118,11 @@ class FavoriteLabelController extends GetxController
         break;
 
         case 4:
+          sievesStyle=notActiveTextStyle;
+          sieves=sievesImg;
+        break;
+
+        case 5:
         offersStyle=notActiveTextStyle;
         offers=offersImg;
         break;
@@ -138,7 +150,14 @@ class FavoriteLabelController extends GetxController
         stables=activeStablesImg;
         background=stablesBackground;
         break;
+
         case 4:
+          sievesStyle=activeTextStyle;
+          sieves=activeSievesImg;
+        background=sievesBackground;
+        break;
+
+        case 5:
         offersStyle=activeTextStyle;
         offers=activeOffersImg;
         background=offersBackground;

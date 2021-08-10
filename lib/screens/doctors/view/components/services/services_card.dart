@@ -62,10 +62,7 @@ class DoctorServicesCard extends StatelessWidget {
                       style: body2_14pt,
                     )),
               )),
-          Positioned(
-              left: getProportionateScreenWidth(25),
-              top: getProportionateScreenHeight(8),
-              child: FavoriteIcon())
+
         ],
       ),
     );

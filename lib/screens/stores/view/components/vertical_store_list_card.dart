@@ -15,7 +15,8 @@ import '../../model/all_stores.dart';
 
 class VerticalStoreListCard extends StatelessWidget {
 Store store;
-VerticalStoreListCard({this.store});
+Function addToFav;
+VerticalStoreListCard({this.store,this.addToFav});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -77,15 +78,21 @@ VerticalStoreListCard({this.store});
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: getProportionateScreenHeight(30),
-                    width: getProportionateScreenWidth(130),
-                    child: AutoSizeText(
-                     store.name,
-                     style: body3_18pt,
-                      maxLines: 1,
-                      minFontSize: 9,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: getProportionateScreenHeight(30),
+                        width: getProportionateScreenWidth(115),
+                        child: AutoSizeText(
+                         store.name,
+                         style: body3_18pt,
+                          maxLines: 1,
+                          minFontSize: 9,
+                        ),
+                      ),
+                   
+                    ],
                   ),
 
                   // store.openFrom!=null&&store.closedAt!=null ?
@@ -166,9 +173,11 @@ VerticalStoreListCard({this.store});
 
             ///social media
             Positioned(
-              left: 25,
-              top: 8,
-              child: FavoriteIcon(),
+              // width: getProportionateScreenWidth(15),
+              // height: getProportionateScreenHeight(15),
+              left:getProportionateScreenWidth(15),
+              top: getProportionateScreenHeight(15),
+              child: FavoriteIcon(fav: addToFav,s: store.favStatus,),
             ),
           ],
         ),

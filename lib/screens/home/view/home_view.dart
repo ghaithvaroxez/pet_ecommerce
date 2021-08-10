@@ -1,8 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:get/get.dart';
+import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
+// import 'package:pets_ecommerce/screens/home/controller/home_controller.dart';
+// import 'package:pets_ecommerce/screens/home/controller/home_controller.dart';
+// import 'package:pets_ecommerce/screens/home/controller/home_controller.dart';
 import 'package:pets_ecommerce/screens/home/model/constants.dart';
 import 'package:pets_ecommerce/screens/home/view/components/category_item.dart';
 import 'package:pets_ecommerce/screens/home/view/components/category_selected_item.dart';
@@ -10,20 +18,28 @@ import 'package:pets_ecommerce/screens/home/view/components/doctor_card.dart';
 import 'package:pets_ecommerce/screens/home/view/components/offer_card.dart';
 import 'package:pets_ecommerce/screens/home/view/components/product_card.dart';
 import 'package:pets_ecommerce/screens/home/view/components/selected_product_card.dart';
+import 'package:pets_ecommerce/screens/status/controller/status_controller.dart';
+import 'package:pets_ecommerce/screens/status/model/status_model.dart';
 import 'package:pets_ecommerce/screens/widgets/custom_app_bar.dart';
+import 'package:video_thumbnail_generator/video_thumbnail_generator.dart';
 import 'components/search_bar_component.dart';
+import 'components/status_view.dart';
 import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets_ecommerce/lib/screens/widgets/navigation_bar/custom_navigation_bar.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 
 import 'components/stable_news_card.dart';
 import 'components/store_and_stable_card.dart';
+// import '../controller/home_controller.dart';
+
+
 
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
-
+StatusController statusController=Get.put(StatusController());
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -146,57 +162,87 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 // SizedBox(height: 45,),
           ///product_listView
+
+          //                   width: getProportionateScreenWidth(345),
+          //                   height: getProportionateScreenHeight(233),
+          //                   decoration: BoxDecoration(
+          //                     color: Colors.grey,
+          //                     borderRadius: BorderRadius.circular(5),
+          //                   ),
+
           Container(
-            // margin: EdgeInsets.symmetric(vertical: 15),
-            child: Stack(
-              children: [
-                Container(
+            width: getProportionateScreenWidth(345),
+      height: getProportionateScreenHeight(233),
+            child: GetBuilder<StatusController>(
+              init: statusController,
+              builder:(controller)=> controller.loading?Container(width:getProportionateScreenWidth(35),height:getProportionateScreenHeight(35),child: CircularProgressIndicator()):Container(
+                // margin: EdgeInsets.symmetric(vertical: 15),
+                child:
+                controller.status.length != 0
+                    ?Center(
+                child: Container(
+                                    width: getProportionateScreenWidth(345),
+                                    height: getProportionateScreenHeight(233),
+                alignment: Alignment.center,
                   margin: EdgeInsets.symmetric(
                       horizontal: 24, vertical: 20),
-                  width: getProportionateScreenWidth(345),
-                  height: getProportionateScreenHeight(233),
                   decoration: BoxDecoration(
-                    color: Colors.grey,
+                    // color: Colors.grey,
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  child: Image.asset(
-                    "assets/images/home/hours.png",
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: 24, vertical: 20),
+                child:
+              Container(
                   width: getProportionateScreenWidth(345),
-                  height: getProportionateScreenHeight(233),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-                Container(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 20),
-                    width: getProportionateScreenWidth(345),
-                    height: getProportionateScreenHeight(233),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          CupertinoIcons.play_arrow_solid,
-                          size: 50,
-                          color: Colors.white,
-                        ),
-                        Text(
-                          "خيل عربي اصيل ",
-                          style: whiteText_18pt,
-                        ),
-                      ],
-                    )),
-              ],
+                height: getProportionateScreenHeight(233),
+
+                child: Swiper(
+                        autoplay: true,
+                        autoplayDelay: 5000,
+                        autoplayDisableOnInteraction: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                              onTap: (){
+                                consolePrint(index.toString());
+                                Get.to(StatusView(controller.status,index));},
+                            child: _buildSwiperList(controller.status[index],index
+                               ),
+                          );
+                        },
+                        itemCount: controller.status.length,
+                        // pagination: new SwiperPagination(),
+                        duration: 3000,
+                        // control: new SwiperControl(color: Colors.grey),
+                      ),
+                    )
+                    ,
+
+
+//               Swiper(
+//                 itemBuilder: (BuildContext context, int index) {
+//                   return GestureDetector(onTap: (){Get.to(StatusView(controller.status,index));},child: _buildSwiperList(controller.status[index],index));
+//                 },
+// page
+//                 itemWidth: getProportionateScreenWidth(345),
+//                 itemHeight: getProportionateScreenHeight(233),
+//                 itemCount: controller.status.length,
+//                 duration: 3000,
+//
+//                 layout: SwiperLayout.CUSTOM,
+//                 autoplay: true,
+//
+//                 pagination: SwiperPagination(),
+//                 customLayoutOption:
+//                 new CustomLayoutOption(startIndex: -1, stateCount: 3)
+//                     .addRotate([-45.0 / 180, 0.0, 45.0 / 180]).addTranslate([
+//                   new Offset(-340.0, -40.0),
+//                   new Offset(0.0, 0.0),
+//                   new Offset(340.0, -40.0)
+//                 ]),
+//                 // control:SwiperControl(),
+//               ),
+              ),
+    ): Container()
+              ),
             ),
           ),
 
@@ -332,6 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: getProportionateScreenHeight(25),
                 ),
+
                 Container(
                   height: getProportionateScreenHeight(225),
                   child: ListView.builder(
@@ -453,4 +500,88 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+// Widget _buildSwiperList(StatusAll item, int index) {
+//   return Container(
+//     margin: EdgeInsets.only(left: 15, right: 15),
+//     child: ClipRRect(
+//       borderRadius: BorderRadius.all(Radius.circular(8)),
+//       child: item.type=="image"?Image.network(
+//         Api.imagePath+item.image,
+//         fit: BoxFit.fill,
+//       ):ClipRRect(
+//         borderRadius: BorderRadius.circular(8),
+//         child: ThumbnailImage(
+//           videoUrl:
+//           Api.imagePath+item.image,
+//           height: getProportionateScreenHeight(160),
+//           width: getProportionateScreenWidth(220),
+//           fit: BoxFit.fill,
+//         ),
+//       ),
+//     ),
+//   );
+// }
+
+Widget _buildSwiperList(StatusAll item, int index) {
+  return
+    Container(
+      width: getProportionateScreenWidth(345),
+      height: getProportionateScreenHeight(233),
+      margin: EdgeInsets.only(left: 15, right: 15),
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+        child: item.type=="image"?CachedNetworkImage(
+          placeholder: (context,s)=>Container(alignment: Alignment.center,height:getProportionateScreenHeight(25),width:getProportionateScreenWidth(25),child: Text(
+            "loading...",
+            style: TextStyle(
+                color: Color(0xFF2EA5C3).withOpacity(0.6), fontSize: 22),
+          ),),
+         imageUrl: Api.imagePath+item.image,
+          fit: BoxFit.fill,
+          errorWidget: (context, url, error) => Center(
+            child: Text(
+              "Pets",
+              style: TextStyle(
+                  color: Color(0xFF2EA5C3).withOpacity(0.6), fontSize: 22),
+            ),
+          ),
+        ):ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: ThumbnailImage(
+            videoUrl:
+            Api.imagePath+item.image,
+            height: getProportionateScreenHeight(160),
+            width: getProportionateScreenWidth(220),
+            fit: BoxFit.fill,
+            errorBuilder:(context, url, error) => Center(
+              child: Text(
+                "Pets",
+                style: TextStyle(
+                    color: Color(0xFF2EA5C3).withOpacity(0.6), fontSize: 22),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+
+  //   Container(
+  //   // height: height,
+  //   //margin: EdgeInsets.only(top: 2),
+  //   child: CachedNetworkImage(
+  //     /// fit: comany_list?BoxFit.cover:BoxFit.fill,
+  //     fit: comany_list?BoxFit.fill:BoxFit.fill,
+  //     imageUrl: "http://vindorlist.sourcecode-ai.com/storage/$image",
+  //     // placeholder: (context, url) => Center(child: Lottie.asset('assets/anm1.json'),),
+  //     errorWidget: (context, url, error) => Center(
+  //       child: Text(
+  //         "Logo",
+  //         style: TextStyle(
+  //             color: Color(0xFF2EA5C3).withOpacity(0.6), fontSize: 22),
+  //       ),
+  //     ),
+  //   ),
+  // );
 }

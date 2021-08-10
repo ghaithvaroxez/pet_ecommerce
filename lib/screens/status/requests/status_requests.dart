@@ -94,7 +94,7 @@ class StatusRequests extends HttpService {
 
   }
 
-  Future<bool> addVideo(String videoPath,double length) async
+  Future<bool> addVideo(String videoPath,int length) async
   {
 
     if(vendor.store.length==1)
@@ -104,7 +104,7 @@ class StatusRequests extends HttpService {
     "store_id": vendor.store[0].id.toString(),
     "file":await MultipartFile.fromFile(videoPath,filename: videoPath.split('/').last),
     // "thum":"/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2MBERISGBUYLxoaL2NCOEJjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY//AABEIAl8EOAMBEQACEQEDEQH/xAGiAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgsQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+gEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoLEQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AOJoAWgAoAWgBtAC0AFAC0AFAC0AFAC0AFACigAoAWgBaACgB8Qy4oA6XTF2wk+wpAaA6UAFMAoAKACgBaACgAoAKACgAxQAGgZUvW/dmpZcDDqTsWwUgCgAoAKACgAoAWgAoAKBhQAYoAXFAwoAKAFFABQAUAFABQAUAFABigAoAWgAoAKACgAoAKACgAoAKQBQAUwEoAMUAFABQ"
-  "duration":length/1000
+  "duration":length
   });
 
   try {
@@ -134,7 +134,7 @@ class StatusRequests extends HttpService {
         // "store_id": vendor.store[0].id.toString(),
         "file":await MultipartFile.fromFile(videoPath,filename: "dp"),
         // "thum":image
-        "duration":length/1000
+        "duration":length
       });
 
       try {
