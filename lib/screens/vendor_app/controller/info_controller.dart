@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/location_model.dart';
 import '../model/store.dart';
 import '../requests/vendor_app_requests.dart';
@@ -35,6 +36,29 @@ class VendorInfoController extends GetxController {
     storeInfo = await vendorAppRequests
         .getStoreInfo();
   }
+setLatLong(double lat,double long)
+async{
+  try {
+    setLoading();
+    bool k =await vendorAppRequests.setLatLong(lat: lat,long: long);
+    if ( k== true) {
+      await getStoreInfo();
+      removeLoading();
+    } else {
+      removeLoading();
+      Get.rawSnackbar(
+          message: "error can't set your location now try again later !!",
+          backgroundColor: Colors.redAccent);
+    }
+  } catch (e) {
+    removeLoading();
+    Get.rawSnackbar(
+        message: "error can't set your location now try again later !!",
+        backgroundColor: Colors.redAccent);
+    consolePrint(e.toString());
+  }
+  update();
+}
 
   changeLocation(int value) async {
     try {

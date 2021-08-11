@@ -246,7 +246,7 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
                   ),
                   SizedBox(height: getProportionateScreenHeight(20),),
                   Container(
-                    height: getProportionateScreenHeight(48),
+                    height: getProportionateScreenHeight(75),
                     width: getProportionateScreenWidth(345),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
@@ -257,7 +257,7 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
                   ),
                   SizedBox(height: getProportionateScreenHeight(10),),
                   Container(
-                    height: getProportionateScreenHeight(83),
+                    height: getProportionateScreenHeight(85),
                     width: getProportionateScreenWidth(345),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),

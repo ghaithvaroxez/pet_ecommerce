@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
@@ -60,7 +61,7 @@ class _SelectCornerViewState extends State<SelectCornerView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: error?Container(height: getProportionateScreenHeight(400),width: getProportionateScreenWidth(400),
-        child: Center(child: AutoSizeText("عذراً لقد حدثت مشكلة الرجاء المحاولة لاحقاً"),),):loading?LoadingScreen():
+        child: Center(child: AutoSizeText("عذراً لقد حدثت مشكلة الرجاء المحاولة لاحقاً",style: body3_18pt,),),):loading?LoadingScreen():
       Container(
           margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
           child: ListView.builder(

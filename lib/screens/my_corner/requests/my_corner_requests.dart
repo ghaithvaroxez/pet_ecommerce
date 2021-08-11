@@ -56,11 +56,11 @@ cornersModel=CornersModel.fromJson(apiResult.data);
 
     else {
       final apiResult = await getRequest(
-        Api.myAllStatuses,
+        Api.myAllCorners,
         queryParameters: null,
         includeHeaders: true,
       );
-      cornersModel=cornersModelFromJson(apiResult.data);
+      cornersModel=CornersModel.fromJson(apiResult.data);
 
     }
 
@@ -111,7 +111,7 @@ cornersModel=CornersModel.fromJson(apiResult.data);
 
       try {
         final apiResult = await postRequest(
-            Api.addStatus,
+            Api.addCorner,
             formData,
             includeHeaders: true);
         if (apiResult.statusCode == 200)

@@ -20,7 +20,7 @@ class AppStrings {
   //DONT'T TOUCH
   // static const String notificationChannel = "2021";
 
-  //START DON'T TOUNCH
+  // DON'T TOUNCH Ya habab
   //for app usage
   static String firstTimeOnApp = "first_time";
   static String authenticated = "authenticated";
@@ -32,7 +32,8 @@ class AppStrings {
   static String appCurrency = "currency";
   static String appColors = "colors";
   static String appRemoteSettings = "appRemoteSettings";
-  //END DON'T TOUNCH
+  static String googleMapApiKey = "AIzaSyDVHXZ7DdC2phLuH-HWiQ8X1J6PeOPEfrU";
+  //END DON'T TOUNCH Ya habab
 
   //
   //Change to your app store id

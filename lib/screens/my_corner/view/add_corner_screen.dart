@@ -260,7 +260,7 @@ class _AddCornerScreenState extends State<AddCornerScreen> {
                     ),
                     SizedBox(height: getProportionateScreenHeight(20),),
                     Container(
-                      height: getProportionateScreenHeight(48),
+                      height: getProportionateScreenHeight(75),
                       width: getProportionateScreenWidth(345),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
@@ -268,17 +268,32 @@ class _AddCornerScreenState extends State<AddCornerScreen> {
                               color: Colors.grey.withOpacity(0.6), width: 1)),
                       child:
                       CustomTextField(textEditingController: nameController,hint: "اكتب عنوان الزاوية هنا",),
+                   // Padding(
+                   //   padding: EdgeInsets.symmetric(horizontal: 4),
+                   //   child: TextField(
+                   //
+                   //     controller: nameController,
+                   //     maxLines: 1,
+                   //     decoration: InputDecoration(
+                   //
+                   //       hintText: "اكتب عنوان الزاوية هنا",
+                   //       border: InputBorder.none,
+                   //       hintStyle: grayText_14pt,
+                   //
+                   //     ),
+                   //   ),
+                   // )
                     ),
                     SizedBox(height: getProportionateScreenHeight(10),),
                     Container(
-                      height: getProportionateScreenHeight(83),
+                      height: getProportionateScreenHeight(85),
                       width: getProportionateScreenWidth(345),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
                               color: Colors.grey.withOpacity(0.6), width: 1)),
                       child:
-                      CustomTextField(textEditingController: descriptionController,hint: "اكتب وصف الزاوية هنا",),
+                      CustomTextField(textEditingController: descriptionController,hint: "اكتب وصف الزاوية هنا",multiLine: true,textInputType: TextInputType.multiline,),
                     ),
 SizedBox(height: getProportionateScreenHeight(40),),
                     Container(

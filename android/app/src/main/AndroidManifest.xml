@@ -7,6 +7,8 @@
         android:label="pets"
         android:icon="@mipmap/ic_launcher"
        android:usesCleartextTraffic="true">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDVHXZ7DdC2phLuH-HWiQ8X1J6PeOPEfrU"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

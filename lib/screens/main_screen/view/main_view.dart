@@ -47,7 +47,7 @@ with SingleTickerProviderStateMixin {
 //       );
 //   },
 // ),
-    endDrawer:CustomDrawer(),
+    endDrawer:CustomDrawer(home: true,),
       body:   Builder(
        builder: ((context) =>Directionality(
           textDirection: TextDirection.rtl,

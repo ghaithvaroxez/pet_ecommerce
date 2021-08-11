@@ -27,31 +27,33 @@ class _CornerDetailsState extends State<CornerDetails> {
   bool error=false;
   CornersModel cornersModel;
   fetchData()async{
-
+consolePrint(widget.corner.userId.toString());
+consolePrint(widget.corner.storeId.toString());
     consolePrint("fetch data");
     loading=true;
     setState(() {
 
     });
     try {
-      UserModel userModel= await AuthServices.getCurrentUser();
-
+      // UserModel userModel= await AuthServices.getCurrentUser();
       consolePrint("before corners requests");
       var url;
-      if(userModel.store.length==0){
+      if(widget.corner.storeId!=-1){
          url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/myCorners",
+          "http://pets.sourcecode-ai.com/api/corners?store_id=${widget.corner.storeId}",
         );
       }
       else {
          url = Uri.parse(
-        "http://pets.sourcecode-ai.com/api/myCorners?store_id=${userModel.store[0].id.toString()}",
+        "http://pets.sourcecode-ai.com/api/corners?doctor_id=${widget.corner.userId}",
       );
 
       }
+      consolePrint("try to get from $url");
       final apiResult =
       await http.get(url,headers: await HttpService().getHeaders());
       consolePrint("corners statusCode"+apiResult.statusCode.toString());
+      consolePrint("corners body"+apiResult.body.toString());
       if (apiResult.statusCode == 200) {
         cornersModel = cornersModelFromJson(apiResult.body);
      consolePrint(cornersModel.toString());
@@ -145,7 +147,7 @@ class _CornerDetailsState extends State<CornerDetails> {
                   width: getProportionateScreenWidth(150),
 
                   child: AutoSizeText(                        widget.corner.userName!=""? widget.corner.userName: widget.corner.doctorName!=""? widget.corner.doctorName: widget.corner.storeName!=""? widget.corner.storeName:""
-                    ,style: blueButton_25pt,),
+                    ,style: blueButton_25pt,textDirection: TextDirection.rtl,),
 
                 )),
 
@@ -188,7 +190,7 @@ class _CornerDetailsState extends State<CornerDetails> {
                         ),
                       ),
                       SizedBox(height: getProportionateScreenHeight(20),),
-                      widget.end?Container(width: 0,height: 0,):
+                      widget.end||cornersModel.corners.length==0?Container(width: 0,height: 0,):
                       Column(
                         children: [
                           Container(

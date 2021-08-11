@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
@@ -95,6 +96,12 @@ consolePrint(apiResult.body);
     return failed?Column(mainAxisSize: MainAxisSize.max,children: [
       Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
     ],):loading?LoadingScreen():
+        doctors.length==0? Container(
+          height: getProportionateScreenHeight(400),
+          width: getProportionateScreenWidth(350),
+          alignment: Alignment.center,
+          child: AutoSizeText("لا يوجد عناصر في المفضلة",style: body3_18pt,),
+        ):
     Container(
       padding: EdgeInsets.symmetric(
           horizontal: getProportionateScreenWidth(16),

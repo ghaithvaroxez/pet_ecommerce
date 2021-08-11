@@ -41,7 +41,7 @@ class Corner {
   int id;
   int storeId;
   String storeName;
-  String userId;
+  int userId;
   String userName;
   String doctorName;
   String name;
@@ -51,9 +51,9 @@ class Corner {
 
   factory Corner.fromJson(Map<String, dynamic> json) => Corner(
     id: json["id"],
-    storeId: json["store_id"],
+    storeId: json["store_id"]==""?-1:json["store_id"],
     storeName: json["store_name"],
-    userId: json["user_id"],
+    userId: json["user_id"]==""?-1:json["user_id"],
     userName: json["user_name"],
     doctorName: json["doctor_name"],
     name: json["name"],

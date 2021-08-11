@@ -17,6 +17,8 @@ import 'components/drawer_item.dart';
 import 'package:pets_ecommerce/screens/profile/view/profile_screen.dart';
 import '../../../screens/status/view/my_status_screen.dart';
 class CustomDrawer extends StatelessWidget {
+  bool home;
+  CustomDrawer({this.home = false});
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -86,11 +88,11 @@ class CustomDrawer extends StatelessWidget {
               UserModel user=await AuthServices.getCurrentUser();
               Get.back();
                           if(user.user.role=="user")
-                            Get.to(ProfileScreen());
+                            home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ProfileScreen())):Get.to(ProfileScreen());
                           else if(user.user.role=="provider")
-                            Get.to(VendorDetailsPage());
+                            home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => VendorDetailsPage())) :Get.to(VendorDetailsPage());
                           else if(user.user.role=="doctor")
-                            Get.to(DoctorAppDetailsPage());
+                            home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => DoctorAppDetailsPage())) : Get.to(DoctorAppDetailsPage());
 
 
                         },
@@ -117,7 +119,7 @@ class CustomDrawer extends StatelessWidget {
                             "assets/images/drawer/drawer_icons/favorite_icon.png",
                       onTap: () {
                         Get.back();
-                        Get.to(FavoriteView());
+                        home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => FavoriteView())) :  Get.to(FavoriteView());
 
                         },
                       ),
@@ -167,7 +169,7 @@ class CustomDrawer extends StatelessWidget {
                             "assets/images/drawer/drawer_icons/status_icon.png",
                       onTap: () {
                           Get.back();
-                          Get.to(MyStatus());
+                          home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MyStatus())) : Get.to(MyStatus());
                         },
                       ),
                       SizedBox(
@@ -180,7 +182,7 @@ class CustomDrawer extends StatelessWidget {
                             "assets/images/drawer/drawer_icons/corner_icon.png",
                       onTap: () {
                           Get.back();
-                          Get.to(MyCornerList());
+                          home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MyCornerList())) : Get.to(MyCornerList());
                         },
                       ),
                       SizedBox(

@@ -169,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //                     color: Colors.grey,
           //                     borderRadius: BorderRadius.circular(5),
           //                   ),
-
+SizedBox(height: getProportionateScreenHeight(20),),
           Container(
             width: getProportionateScreenWidth(345),
       height: getProportionateScreenHeight(233),
@@ -184,8 +184,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: getProportionateScreenWidth(345),
                                     height: getProportionateScreenHeight(233),
                 alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(
-                      horizontal: 24, vertical: 20),
+                  // margin: EdgeInsets.symmetric(
+                  //     horizontal: 0, vertical: getProportionateScreenHeight(10)),
                   decoration: BoxDecoration(
                     // color: Colors.grey,
                     borderRadius: BorderRadius.circular(5),
@@ -247,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           ///video player
-
+SizedBox(height: getProportionateScreenHeight(25),),
           Container(
             alignment: Alignment.bottomLeft,
             height: getProportionateScreenHeight(275),
@@ -528,7 +528,7 @@ Widget _buildSwiperList(StatusAll item, int index) {
     Container(
       width: getProportionateScreenWidth(345),
       height: getProportionateScreenHeight(233),
-      margin: EdgeInsets.only(left: 15, right: 15),
+      margin: EdgeInsets.only(left: getProportionateScreenWidth(5), right: getProportionateScreenWidth(5)),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(8)),
         child: item.type=="image"?CachedNetworkImage(

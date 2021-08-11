@@ -36,10 +36,11 @@ try{
   setLoading();
   bool k=await myCornersRequests.addCorner(cornerImage, name, desc, subImages);
   if(k){
+    Get.back();
     Get.rawSnackbar(message: "لقد تم اضافة زاويتك بنجاح ",backgroundColor: Colors.green);
   await getCorners();
 
-    Get.back();
+
   removeLoading();
   }
   else{

@@ -42,6 +42,7 @@ class ReviewCad extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: getProportionateScreenHeight(5),),
                     Container(
                       height: getProportionateScreenHeight(30),
                       width: getProportionateScreenWidth(200),
@@ -52,7 +53,7 @@ class ReviewCad extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      height: getProportionateScreenHeight(50),
+                      height: getProportionateScreenHeight(45),
                       width: getProportionateScreenWidth(200),
                       child: AutoSizeText(
                         "نص التقييم هنا",
@@ -64,7 +65,7 @@ class ReviewCad extends StatelessWidget {
                 ),
               )),
           Positioned(
-              left: getProportionateScreenWidth(5),
+              left: getProportionateScreenWidth(8),
               top: getProportionateScreenHeight(10),
               child: Container(
                 child: Row(

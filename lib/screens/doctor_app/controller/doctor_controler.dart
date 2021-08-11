@@ -79,7 +79,29 @@ update();
 
   }
 
-
+  setLatLong(double lat,double long)
+  async{
+    try {
+      setLoading();
+      bool k =await doctorAppRequests.setLatLong(lat: lat,long: long);
+      if ( k== true) {
+        await getDoctorInfo();
+        removeLoading();
+      } else {
+        removeLoading();
+        Get.rawSnackbar(
+            message: "error can't set your location now try again later !!",
+            backgroundColor: Colors.redAccent);
+      }
+    } catch (e) {
+      removeLoading();
+      Get.rawSnackbar(
+          message: "error can't set your location now try again later !!",
+          backgroundColor: Colors.redAccent);
+      consolePrint(e.toString());
+    }
+    update();
+  }
   changeTime(String t1,String t2) async {
     try {
       setLoading();

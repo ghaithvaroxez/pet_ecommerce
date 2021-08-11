@@ -80,6 +80,7 @@ class VerticalCornerListCard extends StatelessWidget {
                       corner.name,
                       textDirection: TextDirection.rtl,
                       style: body3_18pt,
+                      maxLines: 1,
                     ),
                   ),
                   SizedBox(height: getProportionateScreenHeight(5),),

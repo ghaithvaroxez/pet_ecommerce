@@ -4,12 +4,15 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_map_location_picker/google_map_location_picker.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/gradient.dart';
+import 'package:pets_ecommerce/configuration/constants/strings.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
@@ -242,7 +245,23 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                             )),
                       ),
                       Spacer(),
-                      Container(height: getProportionateScreenHeight(30),width: getProportionateScreenWidth(30),child: Image.asset("assets/images/home/location_icon.png"),),
+                      GestureDetector( onTap: ()async{
+
+                        LocationResult locationResult = await showLocationPicker(
+                          context,
+                          AppStrings.googleMapApiKey,
+                          myLocationButtonEnabled: true,
+                          initialCenter: LatLng(33.509606, 36.277816),
+                          layersButtonEnabled: true,
+                        );
+
+                        consolePrint("Address"+locationResult.address);
+                        consolePrint("longitude"+locationResult.latLng.longitude.toString());
+                        consolePrint("latitude"+locationResult.latLng.latitude.toString());
+                        consolePrint("Address"+locationResult.placeId);
+                        await controller.setLatLong(locationResult.latLng.latitude, locationResult.latLng.longitude);
+                        // consolePrint("Address"+locationResult.address);
+                      }, child: Container(height: getProportionateScreenHeight(30),width: getProportionateScreenWidth(30),child: Image.asset("assets/images/home/location_icon.png"),)),
 
                     ],
                   ),

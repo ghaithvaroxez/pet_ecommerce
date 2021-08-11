@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pets_ecommerce/configuration/constants/api.dart';
@@ -97,7 +98,12 @@ class _FavoriteStoresBodyState extends State<FavoriteStoresBody> {
   Widget build(BuildContext context) {
     return failed?Column(mainAxisSize: MainAxisSize.max,children: [
       Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
-    ],):loading?LoadingScreen():Container(
+    ],):loading?LoadingScreen(): Stores.myFavourites.length==0?Container(
+      height: getProportionateScreenHeight(400),
+      width: getProportionateScreenWidth(350),
+      alignment: Alignment.center,
+      child: AutoSizeText("لا يوجد عناصر في المفضلة",style: body3_18pt,),
+    ):Container(
         // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
       padding: EdgeInsets.only(top: getProportionateScreenHeight(25)),
         child: ListView.builder(

@@ -145,6 +145,43 @@ async {
   }
 }
 
+Future<bool> setLatLong({
+  // int openAt,
+  // int closeAt,
+  // String img,
+  double lat,
+  double long,
+  // String address,
+})
+async {
+  FormData formData =
+  new FormData.fromMap({
+    // openAt!=null?? "open_from":openAt,
+    // closeAt!=null?? "closed_at":closeAt,
+    // img!=null??  "image":
+    // await MultipartFile.fromFile(img),
+    // "email": email,
+    // "address":address,
+     "longitude":long,
+     "latitude":lat,
+
+  });
+
+  try {
+    final apiResult = await postRequest(
+        Api.updateStore, formData, includeHeaders: true);
+    if (apiResult.statusCode == 200)
+      if (apiResult.data["status"] == true) {
+        return true;
+      }
+      else
+        return false;
+  }
+  catch (e) {
+    return false;
+  }
+}
+
 Future<bool> updateImage({
   // int openAt,
   // int closeAt,

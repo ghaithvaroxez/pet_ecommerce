@@ -483,7 +483,7 @@ class _FavoriteViewState extends State<FavoriteView>
                         FavoriteStoresBody(),
                         FavoriteDoctorsBody(),
                         FavoriteStablesBody(),
-                        FavoriteOffersBody(),
+                        FavoriteStablesBody(),
                         FavoriteOffersBody(),
                       ],
                     ),

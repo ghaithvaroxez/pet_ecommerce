@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
@@ -107,7 +108,12 @@ class _FavoriteOffersBodyState extends State<FavoriteOffersBody> {
       margin: EdgeInsets.symmetric(
           horizontal: getProportionateScreenWidth(24),
           vertical: getProportionateScreenHeight(26)),
-      child:
+      child:offers.length==0? Container(
+        height: getProportionateScreenHeight(400),
+        width: getProportionateScreenWidth(350),
+        alignment: Alignment.center,
+        child: AutoSizeText("لا يوجد عناصر في المفضلة",style: body3_18pt,),
+      ):
       SingleChildScrollView(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
