@@ -10,6 +10,7 @@ import 'package:pets_ecommerce/screens/corner/view/my_corner_details.dart';
 import 'package:pets_ecommerce/screens/corner/view/select_corner.dart';
 import 'package:pets_ecommerce/screens/doctor_app/view/doctor_details_screen.dart';
 import 'package:pets_ecommerce/screens/favorites/views/favorite_view.dart';
+import 'package:pets_ecommerce/screens/maps/view/map_screen.dart';
 import 'package:pets_ecommerce/screens/my_corner/view/my_corners_list.dart';
 import 'package:pets_ecommerce/screens/vendor_app/view/vendor_details_screen.dart';
 import 'package:pets_ecommerce/services/local_storage_service.dart';
@@ -133,6 +134,7 @@ class CustomDrawer extends StatelessWidget {
                             "assets/images/drawer/drawer_icons/location_icon.png",
                       onTap: () {
                           Get.back();
+                          // Get.to(()=>MapScreen());
                         },
                       ),
                       SizedBox(

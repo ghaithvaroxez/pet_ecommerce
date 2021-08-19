@@ -1,4 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/home/model/constants.dart';
@@ -6,9 +8,10 @@ import 'package:pets_ecommerce/screens/home/model/constants.dart';
 
 class CategorySelectedItem extends StatelessWidget {
 
-  final int index;
+String name;
+String image;
 
-  const CategorySelectedItem({Key key, this.index}) : super(key: key);
+   CategorySelectedItem({Key key, this.name,this.image}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,16 +25,17 @@ class CategorySelectedItem extends StatelessWidget {
             CircleAvatar(
               radius:
                getProportionateScreenHeight(24) ,
+              backgroundImage: NetworkImage( Api.imagePath+image),
               backgroundColor:
               Colors.white70,
-              child: Image.asset(
-                  images[index]
-              ),
+              // child: Image.network(
+              //    Api.imagePath+image
+              // ),
             ),
             SizedBox(
               width: getProportionateScreenWidth(5),
             ),
-            Text(names[index],
+            AutoSizeText(name,
                 style: body1_16pt),
           ],
         ),

@@ -18,7 +18,7 @@ class AuthServices {
 
   //
   static bool authenticated() {
-    return LocalStorageService.prefs.getBool(AppStrings.authenticated) ?? false;
+    return LocalStorageService.prefs.getBool(AppStrings.authenticated)==true?true : false;
   }
 
   static Future<bool> isAuthenticated() {

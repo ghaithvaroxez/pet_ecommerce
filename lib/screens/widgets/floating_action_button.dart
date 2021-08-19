@@ -90,15 +90,16 @@ class _FancyFabState extends State<FancyFab>
     //   backgroundColor: Colors.transparent,
     //   backgroundImage:  AssetImage("assets/images/vendor_app/add_product_icon.png"),
     // );
-    return GestureDetector(
-      onTap: (){widget.onPressed1();animate();},
+    return TextButton(
+      onPressed: (){widget.onPressed1();animate();},
 
 
       child: Container(
-        height: 56,
-        width: 56,
-        decoration: BoxDecoration(
 
+        height: 48,
+        width: 48,
+        decoration: BoxDecoration(
+          // color: Colors.redAccent,
         ),
         // child:
         // FloatingActionButton(
@@ -106,7 +107,7 @@ class _FancyFabState extends State<FancyFab>
           // backgroundColor: Colors.transparent.withOpacity(0),
           // onPressed: null,
           // tooltip: 'Image',
-          child:  Image.asset(widget.story?"assets/images/vendor_app/add_video.png":"assets/images/vendor_app/add_product_icon.png"),
+          child:  Image.asset(widget.story?"assets/images/vendor_app/add_video.png":"assets/images/vendor_app/add_product_icon.png",fit: BoxFit.fill,),
           // child: Icon(Icons.image),
         // ),
       ),
@@ -119,8 +120,8 @@ class _FancyFabState extends State<FancyFab>
 
 
       child: Container(
-        width: 56,
-        height: 56,
+        width: 48,
+        height: 48,
         // child: FloatingActionButton(
 
           // backgroundColor: Colors.transparent,
@@ -136,22 +137,38 @@ class _FancyFabState extends State<FancyFab>
   }
 
   Widget toggle() {
-    return Container(
-      width: 45,
-      height: 45,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(50),
-gradient: blueGradient
-      ),
-      child: GestureDetector(
-
-        onTap: animate,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
+    return
+        GestureDetector(
+          onTap: animate,
+          child: Container(
+        decoration: BoxDecoration(
+          color: Color(0xFF49C3EA),
+          shape: BoxShape.circle
         ),
-      ),
-    );
+          width: 52,
+          height: 52,
+
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),);
+      // Container(
+//       width: 45,
+//       height: 45,
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(50),
+// gradient: blueGradient
+//       ),
+//       child: GestureDetector(
+//
+//         onTap: animate,
+//         child: Icon(
+//           Icons.add,
+//           color: Colors.white,
+//         ),
+//       ),
+//     );
   }
 
   @override

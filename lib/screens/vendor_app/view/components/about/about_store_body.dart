@@ -32,7 +32,11 @@ import 'package:pets_ecommerce/screens/stores/view/components/about/review_card.
 import 'package:get/get.dart';
 import 'package:pets_ecommerce/screens/vendor_app/controller/info_controller.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
+
+import 'components/add_time_screen.dart';
 class AboutStoreBodyScreen extends StatefulWidget {
+  VendorInfoController customVendorInfoController;
+  AboutStoreBodyScreen(this.customVendorInfoController);
   @override
   _AboutStoreBodyScreenState createState() => _AboutStoreBodyScreenState();
 }
@@ -91,6 +95,9 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
   TextEditingController info=TextEditingController();
   TextEditingController tempSocialLink=TextEditingController();
   TextEditingController tempSocialType=TextEditingController();
+ TextEditingController tempFromTime=TextEditingController();
+  TextEditingController tempToTime=TextEditingController();
+  TextEditingController vacation=TextEditingController();
   VendorAppRequests _vendorAppRequests=VendorAppRequests();
   File tmpFile;
   String base64Image;
@@ -150,7 +157,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
     //   ],
     // ),),):
     GetBuilder<VendorInfoController> (
-      init: customVendorInfoController,
+      init: widget.customVendorInfoController,
       builder: (controller)=> controller.isLoading==true?Center(child: Container(height: getProportionateScreenHeight(100),width: getProportionateScreenWidth(100),child: Column(
         children: [
           CircularProgressIndicator(),
@@ -282,26 +289,23 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                         maxLines: 1,
                       ),
                       Spacer(),
-                      GestureDetector(
+                      controller.storeInfo.store.storeWorksDays.length<7?GestureDetector(
                         onTap: (){
-                          if(controller.storeInfo.store.openFrom!=null&&controller.storeInfo.store.closedAt!=null) {
-                            openAt.text =
-                                controller.storeInfo.store.openFrom.toString();
-                            closeAt.text =
-                                controller.storeInfo.store.closedAt.toString();
-                          }
-                          Get.to(()=>EditTime(action:()async{print("before apply change");await controller.changeTime(openAt.text,closeAt.text);print("after apply change");},t1:openAt,t2:closeAt));
+openAt.text="";
+closeAt.text="";
+                          Get.to(()=>AddTimeScreen(
+                            t1:openAt,t2:closeAt,storeWorksDay: controller.storeInfo.store.storeWorksDays==null?[]:controller.storeInfo.store.storeWorksDays,controller: widget.customVendorInfoController,));
 
                         },
                         child: Container(
                           child: AutoSizeText(
-                            "تعديل",
+                            "اضافة",
                             minFontSize: 14,
                             style: darkGrayText_14pt_underlined,
                             maxLines: 1,
                           ),
                         ),
-                      ),
+                      ):Container(width: 0,height: 0,),
                     ],
                   ),
                 ),
@@ -310,7 +314,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                 SizedBox(
                   height: getProportionateScreenHeight(16),
                 ),
-                controller.storeInfo.store.openFrom==null&&controller.storeInfo.store.closedAt==null?
+                controller.storeInfo.store.storeWorksDays==null||controller.storeInfo.store.storeWorksDays==[]?
                 Row(
                   children: [
 
@@ -335,52 +339,66 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
                       ),
                     ),
                   ],
-                ):Column(
-                    children:[
-                      Row(
-                        children: [
-                          AutoSizeText(
-                            "يفتح في تمام الساعة",
-                            maxLines: 1,
-                            style: darkGrayText_14pt,
-                            minFontSize: 10,
-                          ),
-                          Spacer(),
-                          Directionality(
-                            textDirection: TextDirection.ltr,
-                            child: AutoSizeText(
-                              controller.storeInfo.store.openFrom.toString(),
-                              maxLines: 1,
-                              style: body1_16pt,
-                              minFontSize: 10,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: getProportionateScreenHeight(5),),
-                      Row(
-                        children: [
-                          AutoSizeText(
-                            "يغلق في تمام الساعة",
-                            maxLines: 1,
-                            style: darkGrayText_14pt,
-                            minFontSize: 10,
-                          ),
-                          Spacer(),
-                          Directionality(
-                            textDirection: TextDirection.ltr,
-                            child: AutoSizeText(
-                              controller.storeInfo.store.closedAt.toString(),
-                              maxLines: 1,
-                              style: body1_16pt,
-                              minFontSize: 10,
-                            ),
-                          ),
-                        ],
-                      ),
+                ):
+Column(
+  children: [
+    ...List<Widget>.generate(
+      controller.storeInfo.store.storeWorksDays.length,
+   (index)=>Container(
+     margin: EdgeInsets.symmetric(vertical: 3),
+     height: getProportionateScreenHeight(50),
+     decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.grey)),
+     child: Row(
+       children: [
+         SizedBox(width: getProportionateScreenWidth(15),),
+         Expanded(flex:2,child: AutoSizeText(controller.storeInfo.store.storeWorksDays[index].day,style: darkGrayText_11pt,maxLines: 1,))  ,
+         Spacer(flex:1,),
+         Expanded(
+             flex:2,
+             child:  Row(
+               children: [
+                 AutoSizeText(controller.storeInfo.store.storeWorksDays[index].from,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,textDirection: TextDirection.ltr,),
+                 AutoSizeText("-",style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,textDirection: TextDirection.rtl,),
+                 AutoSizeText(controller.storeInfo.store.storeWorksDays[index].to,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,textDirection: TextDirection.ltr,),
+               ],
+             )
+         ),
 
-                    ]
-                ),
+         GestureDetector(
+           onTap: (){
+             tempFromTime.text=controller.storeInfo.store.storeWorksDays[index].from;
+             tempToTime.text=controller.storeInfo.store.storeWorksDays[index].to;
+             Get.to( EditTimeScreen(
+               t1: tempFromTime,
+               t2: tempToTime,
+               v: vacation,
+               editAction: ()async{
+                 consolePrint("berfor edit time");
+                 await controller.editTime(controller.storeInfo.store.storeWorksDays[index].id,tempFromTime.text, tempToTime.text , vacation.text==""?false:true);//edit
+                 consolePrint("after edit time");
+               },
+               deleteAction: ()async{
+                 consolePrint("berfor edit social");
+                 await controller.deleteTime(controller.storeInfo.store.storeWorksDays[index].id);//delete
+                 consolePrint("after delete social");
+               },
+             ));
+           },
+           child: Container(
+             alignment: Alignment.center,
+             height: getProportionateScreenHeight(30),
+             width: getProportionateScreenWidth(30),
+             child: Image.asset("assets/images/vendor_app/pen.png"),
+           ),
+         ),
+
+       ],
+     ),
+   ),
+    ),
+  ],
+),
+
                 SizedBox(
                   height: getProportionateScreenHeight(15),
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pets_ecommerce/screens/home/view/home_view.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/categories.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/enums.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
@@ -45,7 +46,9 @@ class VendorOffersController extends GetxController{
 
           offerId);
       if (k == true) {
+
         await getOffer();
+        await homeController.getHome();
         removeLoading();
         update();
       }
@@ -92,6 +95,7 @@ class VendorOffersController extends GetxController{
          );
       if (k == true) {
         await getOffer();
+        await homeController.getHome();
         Get.back();
         removeLoading();
       } else {
@@ -129,6 +133,7 @@ class VendorOffersController extends GetxController{
           offerId: offer.id);
       if (k == true) {
         await getOffer();
+        await homeController.getHome();
         Get.back();
         removeLoading();
         update();
@@ -179,6 +184,7 @@ for(int i=0;i<vendor_type_items.length;i++)
       );
       if (k == true) {
         await getOffer();
+        await homeController.getHome();
         Get.back();
         removeLoading();
         update();

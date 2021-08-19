@@ -47,7 +47,7 @@ int duration;
     userId: json["user_id"],
     image: json["image"],
     type: json["type"],
-    duration: json["duration"]==""?15:json["duration"],
+    duration: json["duration"]==""||json["duration"]==null?15:json["duration"],
   );
 
   Map<String, dynamic> toJson() => {

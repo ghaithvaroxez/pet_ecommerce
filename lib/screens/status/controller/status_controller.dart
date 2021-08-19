@@ -90,7 +90,8 @@ class StatusController extends GetxController{
           image);
       if (k == true) {
         await getStatuses();
-        await statusController.init();
+        // await statusController.init();
+        await homeController.getHome();
         // Get.back();
         removeLoading();
       } else {
@@ -137,6 +138,7 @@ return;
           videoPath,len);
       if (k == true) {
         await getStatuses();
+        await homeController.getHome();
         // Get.back();
         removeLoading();
       } else {
@@ -175,6 +177,7 @@ return;
 
       if (k == true) {
         await getStatuses();
+        await homeController.getHome();
         // Get.back();
         removeLoading();
         update();

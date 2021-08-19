@@ -7,8 +7,8 @@ import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/home/view/components/favorite_icon.dart';
 
 import '../../../model/custoer_store_offer.dart';
-
-
+import 'package:get/get.dart';
+import '../offers/offers_details_screen.dart';
 class StoreOfferCard extends StatelessWidget {
 
   Offer offer ;
@@ -16,114 +16,120 @@ class StoreOfferCard extends StatelessWidget {
   StoreOfferCard(this.offer,this.fav);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // margin: EdgeInsets.symmetric(horizontal: 6,vertical: 20),
-      width: getProportionateScreenWidth(163),
-      height: getProportionateScreenHeight(187),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(width: 0.3, color: borderColor),
-          color: Colors.white),
-      child: Stack(
-        children: [
-          Positioned(
-            // left: 15,
-            //   bottom: getProportionateScreenHeight(45),
-            top: 0,
-              child: Container(
-                height: getProportionateScreenHeight(149),
-                width: getProportionateScreenWidth(162.7
+    return GestureDetector(
+      onTap: (){
+       Get.to (OfferDetailsPage(offer));
+      },
+
+      child: Container(
+        // margin: EdgeInsets.symmetric(horizontal: 6,vertical: 20),
+        width: getProportionateScreenWidth(163),
+        height: getProportionateScreenHeight(187),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(width: 0.3, color: borderColor),
+            color: Colors.white),
+        child: Stack(
+          children: [
+            Positioned(
+              // left: 15,
+              //   bottom: getProportionateScreenHeight(45),
+              top: 0,
+                child: Container(
+                  height: getProportionateScreenHeight(149),
+                  width: getProportionateScreenWidth(162.7
+                  ),
+                  decoration: BoxDecoration(),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(12),
+                        topLeft: Radius.circular(12)),
+                    child: Image.network(
+                      Api.imagePath+offer.image,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                 ),
-                decoration: BoxDecoration(),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      topLeft: Radius.circular(12)),
-                  child: Image.network(
-                    Api.imagePath+offer.image,
-                    fit: BoxFit.fill,
+            ),///photo
+
+            Positioned(
+              right: 0,
+              bottom: getProportionateScreenHeight(45),
+              width: getProportionateScreenWidth(85),
+              height: getProportionateScreenHeight(27),
+              child: Container(
+                padding: EdgeInsets.all(getProportionateScreenHeight(6)),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors:
+                      [
+
+                        Colors.grey.withOpacity(0.2),
+                        Colors.grey.withOpacity(0.6),
+                        // Colors.white,
+                        Colors.grey,
+                      ]
+                  ),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
+                ),
+                child: Container(
+
+                  child: Row(
+
+                    children: [
+                      Expanded(
+                     flex: 5,
+                        child: AutoSizeText(
+                          offer.date
+                          ,minFontSize: 8
+                          ,style: blueButton_14pt,
+                          textDirection: TextDirection.rtl,
+                        ),
+                      ),
+                      SizedBox(width: 5,),
+                      Expanded(flex: 1,child: Icon(Icons.watch_later,size: 10,color: Colors.white,)),
+                    ],
                   ),
                 ),
               ),
-          ),///photo
-
-          Positioned(
-            right: 0,
-            bottom: getProportionateScreenHeight(45),
-            width: getProportionateScreenWidth(85),
-            height: getProportionateScreenHeight(27),
-            child: Container(
-              padding: EdgeInsets.all(getProportionateScreenHeight(6)),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors:
-                    [
-
-                      Colors.grey.withOpacity(0.2),
-                      Colors.grey.withOpacity(0.6),
-                      // Colors.white,
-                      Colors.grey,
-                    ]
-                ),
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
-              ),
-              child: Container(
-
-                child: Row(
-
-                  children: [
-                    Expanded(
-                   flex: 5,
-                      child: AutoSizeText(
-                        offer.date
-                        ,minFontSize: 8
-                        ,style: blueButton_14pt,
-                        textDirection: TextDirection.rtl,
-                      ),
-                    ),
-                    SizedBox(width: 5,),
-                    Expanded(flex: 1,child: Icon(Icons.watch_later,size: 10,color: Colors.white,)),
-                  ],
-                ),
-              ),
-            ),
-          ),///opens now
-          Positioned(
-              top: getProportionateScreenHeight(142),
-             // bottom: getProportionateScreenHeight(0),
-              child: Container(
-                alignment: Alignment.center,
-                height: getProportionateScreenHeight(45),
-                width: getProportionateScreenWidth(162.5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(12),
-                      bottomLeft: Radius.circular(12)),
-                  color: Colors.white,
-                  // color: Colors.red,
-                ),
-                child:  Container(
+            ),///opens now
+            Positioned(
+                top: getProportionateScreenHeight(142),
+               // bottom: getProportionateScreenHeight(0),
+                child: Container(
                   alignment: Alignment.center,
                   height: getProportionateScreenHeight(45),
-                  width: getProportionateScreenWidth(120.7),
-                  child: AutoSizeText(
-                    offer.name,
-                    style: h6_20pt,
-                    minFontSize: 8,
+                  width: getProportionateScreenWidth(162.5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(12),
+                        bottomLeft: Radius.circular(12)),
+                    color: Colors.white,
+                    // color: Colors.red,
                   ),
-                ),
-              )),///grey footer
-          Positioned(
-            // width: getProportionateScreenWidth(15),
-            // height: getProportionateScreenHeight(15),
-            left:getProportionateScreenWidth(15),
-            top: getProportionateScreenHeight(15),
-            child: FavoriteIcon(fav: fav,s: offer.favStatus,),
-          )
+                  child:  Container(
+                    alignment: Alignment.center,
+                    height: getProportionateScreenHeight(45),
+                    width: getProportionateScreenWidth(120.7),
+                    child: AutoSizeText(
+                      offer.name,
+                      style: h6_20pt,
+                      minFontSize: 8,
+                    ),
+                  ),
+                )),///grey footer
+            Positioned(
+              // width: getProportionateScreenWidth(15),
+              // height: getProportionateScreenHeight(15),
+              left:getProportionateScreenWidth(15),
+              top: getProportionateScreenHeight(15),
+              child: FavoriteIcon(fav: fav,s: offer.favStatus,),
+            )
 
-        ],
+          ],
+        ),
+
       ),
-
     );
   }
 }

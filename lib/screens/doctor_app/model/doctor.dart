@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:pets_ecommerce/screens/vendor_app/model/store.dart';
+
 DoctorModel doctorModelFromJson(String str) => DoctorModel.fromJson(json.decode(str));
 
 String doctorModelToJson(DoctorModel data) => json.encode(data.toJson());
@@ -37,7 +39,8 @@ class Doctor {
     this.image,
     this.openFrom,
     this.info,
-    this.closeAt
+    this.closeAt,
+    this.doctorWorkDays
   });
 
   int id;
@@ -52,6 +55,7 @@ class Doctor {
 String openFrom;
 String closeAt;
 String info;
+List<StoreWorksDay> doctorWorkDays;
   factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
     id: json["id"],
     firstName: json["first_name"],
@@ -65,6 +69,7 @@ String info;
     info: json["info"],
     doctorContacts: List<DoctorContact>.from(json["doctor_contacts"].map((x) => DoctorContact.fromJson(x))),
     doctorServices: List<DoctorService>.from(json["doctor_services"].map((x) => DoctorService.fromJson(x))),
+    doctorWorkDays:List<StoreWorksDay>.from(json["doctor_works_days"].map((x) => StoreWorksDay.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {

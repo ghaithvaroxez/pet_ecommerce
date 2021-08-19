@@ -150,11 +150,11 @@ class VerticalDoctorListCard extends StatelessWidget {
               ),
             ),
 
-            Positioned(left: 0, bottom: 0, child: Stack(
-              children: [
-                GestureDetector(child: SocialMedia(freez: true,)),
-              ],
-            )),
+            Positioned(
+              bottom: getProportionateScreenHeight(4),
+              left: getProportionateScreenWidth(4),
+              child: SocialMedia(freez: true,),
+            ),///social media
 
             ///social media
             Positioned(

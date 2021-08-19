@@ -10,6 +10,7 @@ class SocialMedia extends StatelessWidget {
   String fb;
   String ins;
 bool freez=false;
+bool e;
   @override
   Widget build(BuildContext context) {
     return Row(

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,6 +53,7 @@ consolePrint("after get ");
 
     });
   }
+
   TabController _tabController;
   CustomerDoctorDetailsLabelController _customerDoctorDetailsLabelController =
   Get.put(CustomerDoctorDetailsLabelController());
@@ -63,6 +66,8 @@ consolePrint("after get ");
     _tabController.addListener(() {
       _customerDoctorDetailsLabelController.changeIndex(_tabController.index);
     });
+    _tabController.animateTo(1);
+    _customerDoctorDetailsLabelController.changeIndex(1);
   }
 
   @override

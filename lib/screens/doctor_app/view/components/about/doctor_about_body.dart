@@ -27,12 +27,13 @@ import '../about/components/edit_social.dart';
 import '../about/components/add_social_screen.dart';
 import 'dart:math' as Math;
 import 'package:image/image.dart' as Im;
-
+import './components/doctor_add_time_screen.dart';
 import 'package:pets_ecommerce/screens/home/view/components/social_media_components.dart';
 import 'package:pets_ecommerce/screens/stores/view/components/about/review_card.dart';
 import 'package:get/get.dart';
 import 'package:pets_ecommerce/screens/vendor_app/controller/info_controller.dart';
 import 'package:pets_ecommerce/screens/widgets/text_field.dart';
+import './components/doctor_edit_time_screen.dart';
 class AboutDoctorBodyScreen extends StatefulWidget {
   DoctorController doctorController;
   AboutDoctorBodyScreen(this.doctorController);
@@ -87,6 +88,9 @@ class _AboutDoctorBodyScreenState extends State<AboutDoctorBodyScreen> {
   TextEditingController tempSocialLink=TextEditingController();
   TextEditingController tempSocialType=TextEditingController();
   VendorAppRequests _vendorAppRequests=VendorAppRequests();
+  TextEditingController tempFromTime=TextEditingController();
+  TextEditingController vacation=TextEditingController();
+  TextEditingController tempToTime=TextEditingController();
   File tmpFile;
   String base64Image;
   Future<String> compressImage(File f) async {
@@ -322,26 +326,23 @@ class _AboutDoctorBodyScreenState extends State<AboutDoctorBodyScreen> {
                         maxLines: 1,
                       ),
                       Spacer(),
-                      GestureDetector(
+                      controller.doctorModel.doctor.doctorWorkDays.length<7?GestureDetector(
                         onTap: (){
-                          if(controller.doctorModel.doctor.openFrom!=null&&controller.doctorModel.doctor.closeAt!=null) {
-                            openAt.text =
-                                controller.doctorModel.doctor.openFrom.toString();
-                            closeAt.text =
-                                controller.doctorModel.doctor.closeAt.toString();
-                          }
-                          Get.to(()=>EditTime(action:()async{print("before apply change");await controller.changeTime(openAt.text,closeAt.text);print("after apply change");},t1:openAt,t2:closeAt));
+                          openAt.text="";
+                          closeAt.text="";
+                          Get.to(()=>DoctorAddTimeScreen(
+                            t1:openAt,t2:closeAt,storeWorksDay: controller.doctorModel.doctor.doctorWorkDays==null?[]:controller.doctorModel.doctor.doctorWorkDays,controller: widget.doctorController,));
 
                         },
                         child: Container(
                           child: AutoSizeText(
-                            "تعديل",
+                            "اضافة",
                             minFontSize: 14,
                             style: darkGrayText_14pt_underlined,
                             maxLines: 1,
                           ),
                         ),
-                      ),
+                      ):Container(width: 0,height: 0,),
                     ],
                   ),
                 ),
@@ -350,7 +351,7 @@ class _AboutDoctorBodyScreenState extends State<AboutDoctorBodyScreen> {
                 SizedBox(
                   height: getProportionateScreenHeight(16),
                 ),
-                controller.doctorModel.doctor.openFrom==null&&controller.doctorModel.doctor.closeAt==null?
+                controller.doctorModel.doctor.doctorWorkDays==null||controller.doctorModel.doctor.doctorWorkDays==[]?
                 Row(
                   children: [
 
@@ -375,52 +376,181 @@ class _AboutDoctorBodyScreenState extends State<AboutDoctorBodyScreen> {
                       ),
                     ),
                   ],
-                ):Column(
-                    children:[
-                      Row(
-                        children: [
-                          AutoSizeText(
-                            "يفتح في تمام الساعة",
-                            maxLines: 1,
-                            style: darkGrayText_14pt,
-                            minFontSize: 10,
-                          ),
-                          Spacer(),
-                          Directionality(
-                            textDirection: TextDirection.ltr,
-                            child: AutoSizeText(
-                              controller.doctorModel.doctor.openFrom.toString(),
-                              maxLines: 1,
-                              style: body1_16pt,
-                              minFontSize: 10,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: getProportionateScreenHeight(5),),
-                      Row(
-                        children: [
-                          AutoSizeText(
-                            "يغلق في تمام الساعة",
-                            maxLines: 1,
-                            style: darkGrayText_14pt,
-                            minFontSize: 10,
-                          ),
-                          Spacer(),
-                          Directionality(
-                            textDirection: TextDirection.ltr,
-                            child: AutoSizeText(
-                              controller.doctorModel.doctor.closeAt.toString(),
-                              maxLines: 1,
-                              style: body1_16pt,
-                              minFontSize: 10,
-                            ),
-                          ),
-                        ],
-                      ),
+                ):
+                Column(
+                  children: [
+                    ...List<Widget>.generate(
+                      controller.doctorModel.doctor.doctorWorkDays.length,
+                          (index)=>Container(
 
-                    ]
+                              margin: EdgeInsets.symmetric(vertical: 3),
+                        height: getProportionateScreenHeight(50),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.grey)),
+                        child: Row(
+                          children: [
+                            SizedBox(width: getProportionateScreenWidth(15),),
+                            Expanded(flex:2,child: AutoSizeText(controller.doctorModel.doctor.doctorWorkDays[index].day,style: darkGrayText_11pt,maxLines: 1,))  ,
+                            Spacer(flex:1,),
+                            Expanded(
+                                flex:2,
+                                child:  Row(
+                                  children: [
+                                    AutoSizeText(controller.doctorModel.doctor.doctorWorkDays[index].from,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,
+                                      textDirection: TextDirection.ltr,
+                                    ),
+                                    AutoSizeText("-",style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,textDirection: TextDirection.rtl,),
+                                    AutoSizeText(controller.doctorModel.doctor.doctorWorkDays[index].to,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,textDirection: TextDirection.ltr,),
+                                  ],
+                                )
+                            ),
+
+                            GestureDetector(
+                              onTap: (){
+                                tempFromTime.text=controller.doctorModel.doctor.doctorWorkDays[index].from;
+                                tempToTime.text=controller.doctorModel.doctor.doctorWorkDays[index].to;
+                                Get.to( DoctorEditTimeScreen(
+                                  t1: tempFromTime,
+                                  t2: tempToTime,
+                                  v: vacation,
+                                  editAction: ()async{
+                                    consolePrint("berfor edit time");
+                                    await controller.editTime(controller.doctorModel.doctor.doctorWorkDays[index].id,tempFromTime.text, tempToTime.text , vacation.text==""?false:true);//edit
+                                    consolePrint("after edit time");
+                                  },
+                                  deleteAction: ()async{
+                                    consolePrint("berfor delete time");
+                                    await controller.deleteTime(controller.doctorModel.doctor.doctorWorkDays[index].id);//delete
+                                    consolePrint("after delete time");
+                                  },
+                                ));
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: getProportionateScreenHeight(30),
+                                width: getProportionateScreenWidth(30),
+                                child: Image.asset("assets/images/vendor_app/pen.png"),
+                              ),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+
+                // Container(
+                //   height: getProportionateScreenHeight(30),
+                //   alignment: Alignment.centerRight,
+                //   child: Row(
+                //     children: [
+                //       AutoSizeText(
+                //         "مواعيد العمل",
+                //         minFontSize: 14,
+                //         style: body3_18pt,
+                //         maxLines: 1,
+                //       ),
+                //       Spacer(),
+                //       GestureDetector(
+                //         onTap: (){
+                //           if(controller.doctorModel.doctor.openFrom!=null&&controller.doctorModel.doctor.closeAt!=null) {
+                //             openAt.text =
+                //                 controller.doctorModel.doctor.openFrom.toString();
+                //             closeAt.text =
+                //                 controller.doctorModel.doctor.closeAt.toString();
+                //           }
+                //           Get.to(()=>EditTime(action:()async{print("before apply change");await controller.changeTime(openAt.text,closeAt.text);print("after apply change");},t1:openAt,t2:closeAt));
+                //
+                //         },
+                //         child: Container(
+                //           child: AutoSizeText(
+                //             "تعديل",
+                //             minFontSize: 14,
+                //             style: darkGrayText_14pt_underlined,
+                //             maxLines: 1,
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                //
+                // ///مواعيد العمل
+                // SizedBox(
+                //   height: getProportionateScreenHeight(16),
+                // ),
+                // controller.doctorModel.doctor.openFrom==null&&controller.doctorModel.doctor.closeAt==null?
+                // Row(
+                //   children: [
+                //
+                //
+                //     Container(
+                //       height: getProportionateScreenHeight(20),
+                //       alignment: Alignment.bottomCenter,
+                //       child: AutoSizeText(
+                //         "اضف  مواعيد العمل لديك",
+                //         maxLines: 1,
+                //         style: darkGrayText_14pt,
+                //         minFontSize: 10,
+                //       ),
+                //     ),
+                //     Spacer(),
+                //     Container(
+                //       height: getProportionateScreenHeight(30),
+                //       width: getProportionateScreenWidth(30),
+                //       child: Image.asset(
+                //         "assets/images/vendor_app/clender.png",
+                //         height: getProportionateScreenHeight(12),
+                //       ),
+                //     ),
+                //   ],
+                // ):
+                // Column(
+                //     children:[
+                //       Row(
+                //         children: [
+                //           AutoSizeText(
+                //             "يفتح في تمام الساعة",
+                //             maxLines: 1,
+                //             style: darkGrayText_14pt,
+                //             minFontSize: 10,
+                //           ),
+                //           Spacer(),
+                //           Directionality(
+                //             textDirection: TextDirection.ltr,
+                //             child: AutoSizeText(
+                //               controller.doctorModel.doctor.openFrom.toString(),
+                //               maxLines: 1,
+                //               style: body1_16pt,
+                //               minFontSize: 10,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //       SizedBox(height: getProportionateScreenHeight(5),),
+                //       Row(
+                //         children: [
+                //           AutoSizeText(
+                //             "يغلق في تمام الساعة",
+                //             maxLines: 1,
+                //             style: darkGrayText_14pt,
+                //             minFontSize: 10,
+                //           ),
+                //           Spacer(),
+                //           Directionality(
+                //             textDirection: TextDirection.ltr,
+                //             child: AutoSizeText(
+                //               controller.doctorModel.doctor.closeAt.toString(),
+                //               maxLines: 1,
+                //               style: body1_16pt,
+                //               minFontSize: 10,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //
+                //     ]
+                // ),
                 SizedBox(
                   height: getProportionateScreenHeight(15),
                 ),

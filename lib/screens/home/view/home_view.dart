@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +15,20 @@ import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
 // import 'package:pets_ecommerce/screens/home/controller/home_controller.dart';
 // import 'package:pets_ecommerce/screens/home/controller/home_controller.dart';
 import 'package:pets_ecommerce/screens/home/model/constants.dart';
+import 'package:pets_ecommerce/screens/home/model/home_model.dart';
+import 'package:pets_ecommerce/screens/home/view/components/all_offers_screen.dart';
+import 'package:pets_ecommerce/screens/home/view/components/all_products_screen.dart';
 import 'package:pets_ecommerce/screens/home/view/components/category_item.dart';
 import 'package:pets_ecommerce/screens/home/view/components/category_selected_item.dart';
 import 'package:pets_ecommerce/screens/home/view/components/doctor_card.dart';
 import 'package:pets_ecommerce/screens/home/view/components/offer_card.dart';
 import 'package:pets_ecommerce/screens/home/view/components/product_card.dart';
 import 'package:pets_ecommerce/screens/home/view/components/selected_product_card.dart';
+import 'package:pets_ecommerce/screens/main_screen/model/main_screen_model.dart';
 import 'package:pets_ecommerce/screens/status/controller/status_controller.dart';
 import 'package:pets_ecommerce/screens/status/model/status_model.dart';
 import 'package:pets_ecommerce/screens/widgets/custom_app_bar.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
 import 'package:video_thumbnail_generator/video_thumbnail_generator.dart';
 import 'components/search_bar_component.dart';
 import 'components/status_view.dart';
@@ -30,191 +38,476 @@ import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'components/stable_news_card.dart';
 import 'components/store_and_stable_card.dart';
 // import '../controller/home_controller.dart';
+import 'package:http/http.dart' as http;
+import '../controller/home_controller.dart';
 
-
-
+import '../../stores/view/select_barn.dart';
+import '../../stores/view/select_sieve.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 StatusController statusController=Get.put(StatusController());
+HomeController  homeController=Get.put(HomeController());
 class _HomeScreenState extends State<HomeScreen> {
 
+  // HomeModel homeModel;
+  //
+  // bool loading =true;
+  // bool error=false;
+
+  // fetchData()async
+  // {
+  //   consolePrint("fetch data");
+  //   loading=true;
+  //   setState(() {
+  //
+  //   });
+  //
+  //   var url=Uri.parse("http://pets.sourcecode-ai.com/api/home");
+  //   final h=await HttpService().getHeaders();
+  //   final apiResult =await http.get(url,headers: h);
+  //   if(apiResult.statusCode==200)
+  //   {
+  //  homeModel=homeModelFromJson(apiResult.body);
+  //   }
+  //   else
+  //   {
+  //     error=true;
+  //   }
+  //
+  //   loading=false;
+  //   setState(() {
+  //
+  //   });
+  //
+  //
+  // }
+
+  Future<bool> addStoreToFavorite(int storeId) async {
+    try{
+      consolePrint("store id" + storeId.toString());
+      var url = Uri.parse(
+          "http://pets.sourcecode-ai.com/api/addToFavourite/$storeId/store/Store");
+      consolePrint("before add to favorite print");
+      final h = await HttpService().getHeaders();
+      final apiResult = await http.post(url, headers: h);
+      consolePrint("after add to favorite print");
+
+      if (apiResult.statusCode == 200) {
+        consolePrint("statusCode==200");
+        var j = jsonDecode(apiResult.body);
+        if (j["favourites"] != null) {
+          consolePrint("fav != null");
+          return true;
+        } else {
+          consolePrint("fav = null");
+          return false;
+        }
+      } else {
+        consolePrint("statusCode!=200");
+        return false;
+      }
+    }catch(e){
+      consolePrint(e.toString());
+      return false;
+    }
+  }
+
+
+  Future<bool> addBarnToFavorite(int storeId) async {
+    try{
+      consolePrint("store id" + storeId.toString());
+      var url = Uri.parse(
+          "http://pets.sourcecode-ai.com/api/addToFavourite/$storeId/store/barn");
+      consolePrint("before add to favorite print");
+      final h = await HttpService().getHeaders();
+      final apiResult = await http.post(url, headers: h);
+      consolePrint("after add to favorite print");
+
+      if (apiResult.statusCode == 200) {
+        consolePrint("statusCode==200");
+        var j = jsonDecode(apiResult.body);
+        if (j["favourites"] != null) {
+          consolePrint("fav != null");
+          return true;
+        } else {
+          consolePrint("fav = null");
+          return false;
+        }
+      } else {
+        consolePrint("statusCode!=200");
+        return false;
+      }
+    }catch(e){
+      consolePrint(e.toString());
+      return false;
+    }
+  }
+
+
+  Future<bool> addSieveToFavorite(int storeId) async {
+    try{
+      consolePrint("store id" + storeId.toString());
+      var url = Uri.parse(
+          "http://pets.sourcecode-ai.com/api/addToFavourite/$storeId/store/sieve");
+      consolePrint("before add to favorite print");
+      final h = await HttpService().getHeaders();
+      final apiResult = await http.post(url, headers: h);
+      consolePrint("after add to favorite print");
+
+      if (apiResult.statusCode == 200) {
+        consolePrint("statusCode==200");
+        var j = jsonDecode(apiResult.body);
+        if (j["favourites"] != null) {
+          consolePrint("fav != null");
+          return true;
+        } else {
+          consolePrint("fav = null");
+          return false;
+        }
+      } else {
+        consolePrint("statusCode!=200");
+        return false;
+      }
+    }catch(e){
+      consolePrint(e.toString());
+      return false;
+    }
+  }
+
+
+  Future<bool> addProductToFavorite(int productId) async {
+    try {
+      consolePrint("product id" + productId.toString());
+      var url = Uri.parse(
+          "http://pets.sourcecode-ai.com/api/addToFavourite/$productId/product");
+      consolePrint("before add to favorite print");
+      consolePrint("try to post on " + url.path);
+
+      final h = await HttpService().getHeaders();
+      final apiResult = await http.post(url, headers: h);
+      consolePrint("after add to favorite print");
+
+      if (apiResult.statusCode == 200) {
+        consolePrint("statusCode==200");
+        var j = jsonDecode(apiResult.body);
+        if (j["favourites"] != null) {
+          consolePrint("fav != null");
+          return true;
+        } else {
+          consolePrint("fav = null");
+          return false;
+        }
+      } else {
+        consolePrint("statusCode!=200");
+        return false;
+      }
+    }catch(e){
+      consolePrint(e.toString());
+      return false;
+    }
+  }
+
+
+  Future<bool> addOfferToFavorite(int offerId) async {
+    try {
+      consolePrint("product id" + offerId.toString());
+      var url = Uri.parse(
+          "http://pets.sourcecode-ai.com/api/addToFavourite/$offerId/offer");
+      consolePrint("before add to favorite print");
+      consolePrint("try to post on " + url.path);
+
+      final h = await HttpService().getHeaders();
+      var apiResult;
+      try {
+        apiResult = await http.post(url, headers: h);
+      } catch (e) {
+        consolePrint(e.toString());
+        return false;
+      }
+      consolePrint("after add to favorite print");
+
+      if (apiResult.statusCode == 200) {
+        consolePrint("statusCode==200");
+        var j = jsonDecode(apiResult.body);
+        if (j["favourites"] != null) {
+          consolePrint("fav != null");
+          return true;
+        } else {
+          consolePrint("fav = null");
+          return false;
+        }
+      } else {
+        consolePrint("statusCode!=200");
+        return false;
+      }
+    }catch(e){
+      consolePrint(e.toString());
+      return false;
+    }
+  }
+
+  Future<bool> addDoctorToFavorite(int doctorId) async {
+    consolePrint("store id"+doctorId.toString());
+    var url=Uri.parse("http://pets.sourcecode-ai.com/api/addToFavourite/$doctorId/doctor");
+    consolePrint("before add to favorite print");
+    final h=await HttpService().getHeaders();
+    final apiResult=await http.post(url,headers: h);
+    consolePrint("after add to favorite print");
+
+    if(apiResult.statusCode==200)
+    {
+      consolePrint("statusCode==200");
+      var j=jsonDecode(apiResult.body);
+      if(j["favourites"]!=null) {
+        consolePrint("fav != null");
+        return true;
+      } else {
+        consolePrint("fav = null");
+        return false;
+      }
+    }
+    else {
+      consolePrint("statusCode!=200");
+      return false ;
+    }
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    homeController.getHome();
+    // fetchData();
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return SafeArea(
-      child:ListView(
-        children: [
+      child:GetBuilder<HomeController>(
+        init: homeController,
+     builder:(controller)=> controller.loading?LoadingScreen():controller.error?Container(height:getProportionateScreenHeight(500),width:getProportionateScreenWidth(370),child: Container(alignment:Alignment.center,child: AutoSizeText("حدثت مشكلة الرجاء المحاولة لاحقا",style: body3_18pt,)),):ListView(
+          children: [
 
-          SearchBar(),
-
-          ///searchbar
-          Container(
-            height: getProportionateScreenHeight(55),
-            width: SizeConfig.screenWidth,
-            child: ListView.builder(
-                itemCount: names.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Stack(
-                    children: [
-                      Container(
-                        width: index == 0
-                            ? getProportionateScreenWidth(119)
-                            : getProportionateScreenWidth(109),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(28),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade200,
-                              offset: Offset(0.0, .5), //(x,y)
-                              blurRadius: 8.0,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: getProportionateScreenWidth(10),
-                            vertical: index == 0 ? 0 : getProportionateScreenHeight(5)),
-                        // height: index==0?getProportionateScreenHeight(55):getProportionateScreenHeight(45),
-                        width: index == 0
-                            ? getProportionateScreenWidth(119)
-                            : getProportionateScreenWidth(109),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(28),
-                          color: index == 0
-                              ? Color(0xFFE4F2F6)
-                              : Colors.white70,
-                          // border: Border.all(width: index==0?0.2:0)
-                        ),
-
-                        child: index == 0
-                            ? CategorySelectedItem(
-                          index: 0,
-                        )
-                            : CategoryItem(index),
-                      ),
-                    ],
-                  );
-                }),
-          ),
-
-          ///list_view_horizantal
-
-          Container(
-            margin: EdgeInsets.symmetric(
-              vertical: 25,
-            ),
-            height: getProportionateScreenHeight(200),
-            width: SizeConfig.screenWidth,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage("assets/images/home/kids.png"),
-                )),
-          ),
-
-          ///kids_photo
-
-          Container(
-            // alignment: Alignment.bottomLeft,
-            height: getProportionateScreenHeight(250),
-            width: getProportionateScreenWidth(370),
-
-            // color: Colors.red,
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 25,
-                    ),
-                    Text(
-                      "السلع",
-                      style: body3_18pt,
-                    ),
-                    Spacer(),
-                    Text(
-                      "عرض المزيد",
-                      style: body2_14pt,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                    height: getProportionateScreenHeight(150),
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: productsImages.length,
-                        itemBuilder: (context, index) => index == 0
-                            ? SelectedProductCard()
-                            : SelectedProductCard())),
-              ],
-            ),
-          ),
-// SizedBox(height: 45,),
-          ///product_listView
-
-          //                   width: getProportionateScreenWidth(345),
-          //                   height: getProportionateScreenHeight(233),
-          //                   decoration: BoxDecoration(
-          //                     color: Colors.grey,
-          //                     borderRadius: BorderRadius.circular(5),
-          //                   ),
-SizedBox(height: getProportionateScreenHeight(20),),
-          Container(
-            width: getProportionateScreenWidth(345),
-      height: getProportionateScreenHeight(233),
-            child: GetBuilder<StatusController>(
-              init: statusController,
-              builder:(controller)=> controller.loading?Container(width:getProportionateScreenWidth(35),height:getProportionateScreenHeight(35),child: CircularProgressIndicator()):Container(
-                // margin: EdgeInsets.symmetric(vertical: 15),
-                child:
-                controller.status.length != 0
-                    ?Center(
-                child: Container(
-                                    width: getProportionateScreenWidth(345),
-                                    height: getProportionateScreenHeight(233),
-                alignment: Alignment.center,
-                  // margin: EdgeInsets.symmetric(
-                  //     horizontal: 0, vertical: getProportionateScreenHeight(10)),
-                  decoration: BoxDecoration(
-                    // color: Colors.grey,
-                    borderRadius: BorderRadius.circular(5),
+            SearchBar(),
+SizedBox(height: getProportionateScreenHeight(8),),
+            Container(
+              height: getProportionateScreenHeight(25),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: getProportionateScreenWidth(25),
                   ),
-                child:
-              Container(
-                  width: getProportionateScreenWidth(345),
-                height: getProportionateScreenHeight(233),
+                  Text(
+                    "الأصناف",
+                    style: body3_18pt,
+                  ),
+                  Spacer(),
+                  Text(
+                    "عرض المزيد",
+                    style: body2_14pt,
+                  ),
+                  SizedBox(
+                    width: getProportionateScreenWidth(10),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: getProportionateScreenHeight(20),
+            ),
+            ///searchbar
+            Container(
+              height: getProportionateScreenHeight(55),
+              width: SizeConfig.screenWidth,
+              child: controller.homeModel.categories.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):ListView.builder(
+                  itemCount: controller.homeModel.categories.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Stack(
+                      children: [
+                        Container(
+                          width: index == 0
+                              ? getProportionateScreenWidth(119)
+                              : getProportionateScreenWidth(109),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(28),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade200,
+                                offset: Offset(0.0, .5), //(x,y)
+                                blurRadius: 8.0,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: getProportionateScreenWidth(10),
+                              vertical: index == 0 ? 0 : getProportionateScreenHeight(5)),
+                          // height: index==0?getProportionateScreenHeight(55):getProportionateScreenHeight(45),
+                          width: index == 0
+                              ? getProportionateScreenWidth(119)
+                              : getProportionateScreenWidth(109),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(28),
+                            color: index == 0
+                                ? Color(0xFFE4F2F6)
+                                : Colors.white70,
+                            // border: Border.all(width: index==0?0.2:0)
+                          ),
 
-                child: Swiper(
-                        autoplay: true,
-                        autoplayDelay: 5000,
-                        autoplayDisableOnInteraction: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                              onTap: (){
-                                consolePrint(index.toString());
-                                Get.to(StatusView(controller.status,index));},
-                            child: _buildSwiperList(controller.status[index],index
-                               ),
-                          );
-                        },
-                        itemCount: controller.status.length,
-                        // pagination: new SwiperPagination(),
-                        duration: 3000,
-                        // control: new SwiperControl(color: Colors.grey),
+                          child: index == 0
+                              ? CategorySelectedItem(
+                            name: controller.homeModel.categories[index].name,
+                            image: controller.homeModel.categories[index].image,
+                          )
+                              : CategoryItem(    name: controller.homeModel.categories[index].name,
+                            image: controller.homeModel.categories[index].image,),
+                        ),
+                      ],
+                    );
+                  }),
+            ),
+
+            ///list_view_horizantal
+
+            Container(
+              margin: EdgeInsets.symmetric(
+                vertical: 25,
+              ),
+              height: getProportionateScreenHeight(200),
+              width: SizeConfig.screenWidth,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  ),
+              child: Swiper(
+                autoplay: true,
+                autoplayDelay: 5000,
+                autoplayDisableOnInteraction: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(2)),
+                    child: ClipRRect(borderRadius:BorderRadius.circular(12),child: Image.network(Api.imagePath+controller.homeModel.slides[index].image,fit: BoxFit.fill,)),
+                  );
+                },
+                itemCount: controller.homeModel.slides.length,
+                // pagination: new SwiperPagination(),
+                duration: 3000,
+                // control: new SwiperControl(color: Colors.grey),
+              ),
+            ),
+
+            ///kids_photo
+
+            Container(
+              // alignment: Alignment.bottomLeft,
+              height: getProportionateScreenHeight(250),
+              width: getProportionateScreenWidth(370),
+
+              // color: Colors.red,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 25,
                       ),
-                    )
-                    ,
+                      Text(
+                        "السلع",
+                        style: body3_18pt,
+                      ),
+                      Spacer(),
+                      GestureDetector(
+                        onTap: (){
+                          Get.to(AllProductsScreen());
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),
+                          child: Text(
+                            "عرض المزيد",
+                            style: body2_14pt,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                      height: getProportionateScreenHeight(150),
+                      child: controller.homeModel.products.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: controller.homeModel.products.length,
+                          itemBuilder: (context, index) =>
+                               HomeStoreProductCard(controller.homeModel.products[index],()async{
+                                 bool k=
+                                 await addProductToFavorite(controller.homeModel.products[index].id);
+setState(() {
+  if(k) controller.homeModel.products[index].favStatus=(!controller.homeModel.products[index].favStatus);});
+
+                                 return k;
+                               })
+                              )),
+                ],
+              ),
+            ),
+// SizedBox(height: 45,),
+            ///product_listView
+
+            //                   width: getProportionateScreenWidth(345),
+            //                   height: getProportionateScreenHeight(233),
+            //                   decoration: BoxDecoration(
+            //                     color: Colors.grey,
+            //                     borderRadius: BorderRadius.circular(5),
+            //                   ),
+SizedBox(height: getProportionateScreenHeight(20),),
+            Container(
+                width: getProportionateScreenWidth(345),
+                height: getProportionateScreenHeight(233),
+              // margin: EdgeInsets.symmetric(vertical: 15),
+              child:
+              controller.homeModel.status.length != 0
+                  ?Center(
+              child: Container(
+                                  width: getProportionateScreenWidth(345),
+                                  height: getProportionateScreenHeight(233),
+              alignment: Alignment.center,
+                // margin: EdgeInsets.symmetric(
+                //     horizontal: 0, vertical: getProportionateScreenHeight(10)),
+                decoration: BoxDecoration(
+                  // color: Colors.grey,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              child:
+            Container(
+                width: getProportionateScreenWidth(345),
+              height: getProportionateScreenHeight(233),
+
+              child: Swiper(
+                      autoplay: true,
+                      autoplayDelay: 5000,
+                      autoplayDisableOnInteraction: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                            onTap: (){
+                              consolePrint(index.toString());
+                              Get.to(StatusView(controller.homeModel.status,index));},
+                          child: _buildSwiperList(controller.homeModel.status[index],index
+                             ),
+                        );
+                      },
+                      itemCount: controller.homeModel.status.length,
+                      // pagination: new SwiperPagination(),
+                      duration: 3000,
+                      // control: new SwiperControl(color: Colors.grey),
+                    ),
+                  )
+                  ,
 
 
 //               Swiper(
@@ -240,263 +533,344 @@ SizedBox(height: getProportionateScreenHeight(20),),
 //                 ]),
 //                 // control:SwiperControl(),
 //               ),
-              ),
-    ): Container()
-              ),
             ),
-          ),
+    ): Center(child: AutoSizeText("لا يوجد حالات لعرضها حالياً",style: body1_16pt,),)
+            ),
 
-          ///video player
+
+            ///video player
 SizedBox(height: getProportionateScreenHeight(25),),
-          Container(
-            alignment: Alignment.bottomLeft,
-            height: getProportionateScreenHeight(275),
-            width: getProportionateScreenWidth(370),
-            // color: Colors.red,
-            child: Column(
-              children: [
-                Container(
-                  height: getProportionateScreenHeight(25),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: getProportionateScreenWidth(25),
-                      ),
-                      Text(
-                        "المتاجر",
-                        style: body3_18pt,
-                      ),
-                      Spacer(),
-                      Text(
-                        "عرض المزيد",
-                        style: body2_14pt,
-                      ),
-                      SizedBox(
-                        width: getProportionateScreenWidth(10),
-                      )
-                    ],
+            Container(
+              alignment: Alignment.bottomLeft,
+              height: getProportionateScreenHeight(275),
+              width: getProportionateScreenWidth(370),
+              // color: Colors.red,
+              child: Column(
+                children: [
+                  Container(
+                    height: getProportionateScreenHeight(25),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: getProportionateScreenWidth(25),
+                        ),
+                        Text(
+                          "المتاجر",
+                          style: body3_18pt,
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: (){
+                            bottomTabController.animateTo(3, curve: Curves.bounceIn);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(3)),
+                            child: Text(
+                              "عرض المزيد",
+                              style: body2_14pt,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: getProportionateScreenWidth(10),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: getProportionateScreenHeight(20),
-                ),
-                Container(
-                  height: getProportionateScreenHeight(220),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: productsImages.length,
-                    itemBuilder: (context, index) =>
-                        StoreAndStableCard(),
+                  SizedBox(
+                    height: getProportionateScreenHeight(20),
                   ),
-                ),
-              ],
+                  Container(
+                    height: getProportionateScreenHeight(220),
+                    child:controller.homeModel.stores.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),): ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: controller.homeModel.stores.length,
+                      itemBuilder: (context, index) =>
+                          StoreAndStableCard(controller.homeModel.stores[index],()async{
+                            bool k=
+                            await addStoreToFavorite(controller.homeModel.stores[index].id);
+                            setState(() {
+
+                              if(k) controller.homeModel.stores[index].favStatus=(!controller.homeModel.stores[index].favStatus);
+                            });
+
+                            return k;
+                          }),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
 
-          ///shops
-          // SizedBox(
-          //   height: getProportionateScreenHeight(20),
-          // ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 25),
-            alignment: Alignment.bottomLeft,
-            height: getProportionateScreenHeight(275),
-            width: getProportionateScreenWidth(370),
-            // color: Colors.red,
-            child: Column(
-              children: [
-                Container(
-                  height: getProportionateScreenHeight(25),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 25,
-                      ),
-                      Text(
-                        "الأطباء البيطريين",
-                        style: body3_18pt,
-                      ),
-                      Spacer(),
-                      Text(
-                        "عرض المزيد",
-                        style: body2_14pt,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      )
-                    ],
+            ///shops
+            // SizedBox(
+            //   height: getProportionateScreenHeight(20),
+            // ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 25),
+              alignment: Alignment.bottomLeft,
+              height: getProportionateScreenHeight(275),
+              width: getProportionateScreenWidth(370),
+              // color: Colors.red,
+              child: Column(
+                children: [
+                  Container(
+                    height: getProportionateScreenHeight(25),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 25,
+                        ),
+                        Text(
+                          "الأطباء البيطريين",
+                          style: body3_18pt,
+                        ),
+                        Spacer(),
+                    GestureDetector(
+                      onTap: (){
+                        bottomTabController.animateTo(1, curve: Curves.bounceIn);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(3)),
+                          child: Text(
+                            "عرض المزيد",
+                            style: body2_14pt,
+                          ),
+                        ),
+                    ),
+                        SizedBox(
+                          width: 10,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: getProportionateScreenHeight(20),
-                ),
-                Container(
-                    height: getProportionateScreenHeight(230),
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: productsImages.length,
-                        itemBuilder: (context, index) =>
-                            DoctorCard())),
-              ],
+                  SizedBox(
+                    height: getProportionateScreenHeight(20),
+                  ),
+                  Container(
+                      height: getProportionateScreenHeight(230),
+                      child: controller.homeModel.doctors.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: controller.homeModel.doctors.length,
+                          itemBuilder: (context, index) =>
+                              DoctorCard(controller.homeModel.doctors[index],()async{
+                                bool k=
+                                await addDoctorToFavorite(controller.homeModel.doctors[index].id);
+                                setState(() {
+
+                                  if(k) controller.homeModel.doctors[index].favStatus=(!controller.homeModel.doctors[index].favStatus);
+                                });
+                                return k;
+                              }))),
+                ],
+              ),
             ),
-          ),
 
-          ///doctors
-          // SizedBox(
-          //   height: 20,
-          // ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(25)),
-            alignment: Alignment.bottomLeft,
-            height: getProportionateScreenHeight(275),
-            width: getProportionateScreenWidth(370),
-            // color: Colors.red,
-            child: Column(
-              children: [
-                Container(
-                  height: getProportionateScreenHeight(25),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 25,
-                      ),
-                      Text(
-                        "العروض",
-                        style: body3_18pt,
-                      ),
-                      Spacer(),
-                      Text(
-                        "عرض المزيد",
-                        style: body2_14pt,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      )
-                    ],
+            ///doctors
+            // SizedBox(
+            //   height: 20,
+            // ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(25)),
+              alignment: Alignment.bottomLeft,
+              height: getProportionateScreenHeight(275),
+              width: getProportionateScreenWidth(370),
+              // color: Colors.red,
+              child: Column(
+                children: [
+                  Container(
+                    height: getProportionateScreenHeight(25),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 25,
+                        ),
+                        Text(
+                          "العروض",
+                          style: body3_18pt,
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: (){
+                            Get.to(AllOffersScreen());
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),
+                            child: Text(
+                              "عرض المزيد",
+                              style: body2_14pt,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: getProportionateScreenHeight(25),
-                ),
+                  SizedBox(
+                    height: getProportionateScreenHeight(25),
+                  ),
 
-                Container(
-                  height: getProportionateScreenHeight(225),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: productsImages.length,
-                    itemBuilder: (context, index) => OfferCard(),
+                  Container(
+                    height: getProportionateScreenHeight(225),
+                    child: controller.homeModel.offers.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: controller.homeModel.offers.length,
+                      itemBuilder: (context, index) => OfferCard(controller.homeModel.offers[index],()async{
+                        bool k=
+                        await addOfferToFavorite(controller.homeModel.offers[index].id);
+                        setState(() {
+
+                          if(k) controller.homeModel.offers[index].favStatus=(!controller.homeModel.offers[index].favStatus);
+                        });
+                        return k;
+                      }),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
 
-          ///offers
-          // SizedBox(
-          //   height: 50,
-          // ),
-          Container(
-            alignment: Alignment.bottomLeft,
-            height: getProportionateScreenHeight(275),
-            width: getProportionateScreenWidth(370),
-            margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(15)),
-            // color: Colors.red,
-            child: Column(
-              children: [
-                Container(
-                  height: getProportionateScreenHeight(25),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: getProportionateScreenWidth(25),
-                      ),
-                      Text(
-                        "الاسطبلات",
-                        style: body3_18pt,
-                      ),
-                      Spacer(),
-                      Text(
-                        "عرض المزيد",
-                        style: body2_14pt,
-                      ),
-                      SizedBox(
-                        width: getProportionateScreenWidth(10),
-                      )
-                    ],
+            ///offers
+            // SizedBox(
+            //   height: 50,
+            // ),
+            Container(
+              alignment: Alignment.bottomLeft,
+              height: getProportionateScreenHeight(275),
+              width: getProportionateScreenWidth(370),
+              margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(15)),
+              // color: Colors.red,
+              child: Column(
+                children: [
+                  Container(
+                    height: getProportionateScreenHeight(25),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: getProportionateScreenWidth(25),
+                        ),
+                        Text(
+                          "الاسطبلات",
+                          style: body3_18pt,
+                        ),
+                        Spacer(),
+  GestureDetector(
+    onTap: (){
+      Get.to(SelectBarnView());
+    },
+    child: Container(
+      padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),
+                            child: Text(
+                              "عرض المزيد",
+                              style: body2_14pt,
+                            ),
+                          ),
+  ),
+                        SizedBox(
+                          width: getProportionateScreenWidth(10),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: getProportionateScreenHeight(20),
-                ),
-                Container(
-                  height: getProportionateScreenHeight(220),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: productsImages.length,
-                    itemBuilder: (context, index) =>
-                        StoreAndStableCard(),
+                  SizedBox(
+                    height: getProportionateScreenHeight(20),
                   ),
-                ),
-              ],
+                  Container(
+                    height: getProportionateScreenHeight(220),
+                    child: controller.homeModel.barns.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: controller.homeModel.barns.length,
+                      itemBuilder: (context, index) =>
+                          StoreAndStableCard( controller.homeModel.barns[index],()async{
+                            bool k=
+                            await addBarnToFavorite(controller.homeModel.barns[index].id);
+                            setState(() {
+
+                              if(k) controller.homeModel.barns[index].favStatus=(!controller.homeModel.barns[index].favStatus);
+                            });
+                            return k;
+                          }),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
 
-          ///stables
-          // SizedBox(
-          //   height: 20,
-          // ),
-          Container(
-            alignment: Alignment.bottomLeft,
-            height: getProportionateScreenHeight(275),
-            width: getProportionateScreenWidth(370),
-            margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(15)),
+            ///stables
+            // SizedBox(
+            //   height: 20,
+            // ),
+            Container(
+              alignment: Alignment.bottomLeft,
+              height: getProportionateScreenHeight(275),
+              width: getProportionateScreenWidth(370),
+              margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(15)),
 
-            // color: Colors.red,
-            child: Column(
-              children: [
-                Container(
-                  height: getProportionateScreenHeight(25),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: getProportionateScreenWidth(25),
-                      ),
-                      Text(
-                        "المناحل",
-                        style: body3_18pt,
-                      ),
-                      Spacer(),
-                      Text(
-                        "عرض المزيد",
-                        style: body2_14pt,
-                      ),
-                      SizedBox(
-                        width: getProportionateScreenWidth(10),
-                      )
-                    ],
+              // color: Colors.red,
+              child: Column(
+                children: [
+                  Container(
+                    height: getProportionateScreenHeight(25),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: getProportionateScreenWidth(25),
+                        ),
+                        Text(
+                          "المناحل",
+                          style: body3_18pt,
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: (){
+                            Get.to(SelectSieveView());
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),
+                            child: Text(
+                              "عرض المزيد",
+                              style: body2_14pt,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: getProportionateScreenWidth(10),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: getProportionateScreenHeight(20),
-                ),
-                Container(
-                  height: getProportionateScreenHeight(220),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: productsImages.length,
-                    itemBuilder: (context, index) =>
-                        StoreAndStableCard(),
+                  SizedBox(
+                    height: getProportionateScreenHeight(20),
                   ),
-                ),
-              ],
+                  Container(
+                    height: getProportionateScreenHeight(220),
+                    child: controller.homeModel.sieves.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: controller.homeModel.sieves.length,
+                      itemBuilder: (context, index) =>
+                          StoreAndStableCard(controller.homeModel.sieves[index],()async{
+                            bool k=
+                            await addSieveToFavorite(controller.homeModel.sieves[index].id);
+                            setState(() {
+
+                              if(k) controller.homeModel.sieves[index].favStatus=(!controller.homeModel.sieves[index].favStatus);
+                            });
+                            return k;
+                          }),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
 
-          ///stables
-          SizedBox(
-            height: getProportionateScreenHeight(100),
-          ),
-        ],
+            ///stables
+            SizedBox(
+              height: getProportionateScreenHeight(40),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
@@ -14,6 +16,7 @@ import 'package:pets_ecommerce/services/http_requests_service.dart';
 import '../../../../loading_screen.dart';
 import '../photos/photo_card.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/image_model.dart' as im;
+import '../photos/photos_view.dart';
 class CustomerPhotosBody extends StatefulWidget {
   int id;
   CustomerPhotosBody(this.id);
@@ -82,8 +85,12 @@ class _CustomerPhotosBodyState extends State<CustomerPhotosBody> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return loading?LoadingScreen():
-
+    return loading?LoadingScreen():images.length==0
+?Container(
+      width: getProportionateScreenWidth(390),
+      height: getProportionateScreenHeight(350),
+      child: Center(child: AutoSizeText("لا يوجد عناصر حاليا",style: body1_16pt,)),
+    ):
       Container(
         padding: EdgeInsets.symmetric(
             horizontal: getProportionateScreenWidth(16),
@@ -96,11 +103,16 @@ class _CustomerPhotosBodyState extends State<CustomerPhotosBody> {
                 children: [
                   ...List<Widget>.generate(
                     images.length,
-                        (index)=>index%2==0?Container(
+                        (index)=>index%2==0?GestureDetector(
+                          onTap: (){
+                            Get.to(()=>StorePhotosView(images,index));
+                          },
+                          child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
 
                       child:  StoreImageCard(images[index]),
-                    ):Container(height: 0,),
+                    ),
+                        ):Container(height: 0,),
 
                   ),
                 ],
@@ -110,11 +122,16 @@ class _CustomerPhotosBodyState extends State<CustomerPhotosBody> {
                 children: [
                   ...List<Widget>.generate(
                     images.length,
-                        (index)=>index%2==1?Container(
+                        (index)=>index%2==1?GestureDetector(
+                          onTap: (){
+                            Get.to(()=>StorePhotosView(images,index));
+                          },
+                          child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
 
                       child:    StoreImageCard(images[index]),
-                    ):Container(height: 0,),
+                    ),
+                        ):Container(height: 0,),
 
                   ),
                 ],

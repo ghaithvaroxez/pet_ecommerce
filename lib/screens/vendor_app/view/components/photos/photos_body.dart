@@ -19,6 +19,7 @@ import 'dart:math' as Math;
 import 'package:image/image.dart' as Im;
 import 'dart:io';
 import 'package:pets_ecommerce/screens/vendor_app/model/image_model.dart' as im;
+import 'package:pets_ecommerce/screens/stores/view/components/photos/photos_view.dart';
 class VendorPhotosBody extends StatefulWidget {
   // int id;
   // VendorPhotosBody(this.id);
@@ -148,16 +149,21 @@ loading?LoadingScreen():
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 10),
 
-                            child:    VendorAppImageCard(controller.images[index],()async{await controller.deletePhoto(controller.images[index].id);}),
-                          ),
+                            child:    VendorAppImageCard((){
+                              Get.to(()=>StorePhotosView(controller.images,index));
 
+                            },controller.images[index],()async{await controller.deletePhoto(controller.images[index].id);}),
+                          ),
 
 
 
                         ],):Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
 
-                      child:  VendorAppImageCard(controller.images[index],()async{await controller.deletePhoto(controller.images[index].id);}),
+                      child:  VendorAppImageCard((){
+                        Get.to(()=>StorePhotosView(controller.images,index));
+
+                      },controller.images[index],()async{await controller.deletePhoto(controller.images[index].id);}),
                     ):Container(height: 0,),
 
                   ),
@@ -209,13 +215,19 @@ loading?LoadingScreen():
                           Container(
                             margin: EdgeInsets.symmetric(vertical: 10),
 
-                            child:    VendorAppImageCard(controller.images[index],()async{await controller.deletePhoto(controller.images[index].id);}),
+                            child:    VendorAppImageCard((){
+                              Get.to(()=>StorePhotosView(controller.images,index));
+
+                            },controller.images[index],()async{await controller.deletePhoto(controller.images[index].id);}),
                           ),
 
                         ],):Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
 
-                      child:    VendorAppImageCard(controller.images[index],()async{await controller.deletePhoto(controller.images[index].id);}),
+                      child:    VendorAppImageCard((){
+                        Get.to(()=>StorePhotosView(controller.images,index));
+
+                      },controller.images[index],()async{await controller.deletePhoto(controller.images[index].id);}),
                     ):Container(height: 0,),
 
                   ),

@@ -10,6 +10,7 @@ import 'package:pets_ecommerce/screens/widgets/drawer/custom_drawer.dart';
 
 import 'components/doctors_body.dart';
 import 'components/offers_body.dart';
+import 'components/sieves_body.dart';
 import 'components/stables_body.dart';
 import 'components/stores_body.dart';
 
@@ -483,7 +484,7 @@ class _FavoriteViewState extends State<FavoriteView>
                         FavoriteStoresBody(),
                         FavoriteDoctorsBody(),
                         FavoriteStablesBody(),
-                        FavoriteStablesBody(),
+                        FavoriteSiviesBody(),
                         FavoriteOffersBody(),
                       ],
                     ),

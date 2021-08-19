@@ -169,7 +169,7 @@ VerticalStoreListCard({this.store,this.addToFav});
               ),
             ),
 
-            Positioned(left: 0, bottom: 0, child: SocialMedia(freez: true,)),
+            Positioned(left: getProportionateScreenWidth(4), bottom: getProportionateScreenHeight(4), child: SocialMedia(freez: true,)),
 
             ///social media
             Positioned(

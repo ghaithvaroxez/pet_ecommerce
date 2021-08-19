@@ -122,6 +122,72 @@ update();
 
   }
 
+
+  addTime(int id,String t1,String t2,bool vacation) async {
+    try {
+      setLoading();
+      bool k =await doctorAppRequests.addOpenAtCloseAt(id:id,openAt: t1,closeAt: t2,
+        // vacation: vacation?"vacation":""
+      );
+      if ( k== true) {
+        await getDoctorInfo();
+        removeLoading();
+      } else {
+        removeLoading();
+        Get.rawSnackbar(
+            message: "error can't update doctor work Times now try again later !!",
+            backgroundColor: Colors.redAccent);
+      }
+    } catch (e) {
+      consolePrint(e.toString());
+      removeLoading();
+    }
+    update();
+
+  }
+
+  editTime(int id,String t1,String t2,bool vacation) async {
+    try {
+      setLoading();
+      consolePrint("id:"+id.toString());
+      consolePrint("from:"+t1.toString());
+      consolePrint("to:"+t2.toString());
+      bool k =await doctorAppRequests.editOpenAtCloseAt(id:id,openAt: t1,closeAt: t2,vacation: vacation?"vacation":"b");
+      if ( k== true) {
+        await getDoctorInfo();
+        removeLoading();
+      } else {
+        removeLoading();
+        Get.rawSnackbar(
+            message: "error can't doctor work Times now try again later !!",
+            backgroundColor: Colors.redAccent);
+      }
+    } catch (e) {
+      removeLoading();
+    }
+    update();
+
+  }
+  deleteTime(int id) async {
+    try {
+      setLoading();
+      bool k =await doctorAppRequests.deleteOpenAtCloseAt(id:id,);
+      if ( k== true) {
+        await getDoctorInfo();
+        removeLoading();
+      } else {
+        removeLoading();
+        Get.rawSnackbar(
+            message: "error can't update store Times now try again later !!",
+            backgroundColor: Colors.redAccent);
+      }
+    } catch (e) {
+      removeLoading();
+    }
+    update();
+
+  }
+
   changeEmail(String email) async {
     try {
       setLoading();

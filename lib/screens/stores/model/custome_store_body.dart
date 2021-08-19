@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:pets_ecommerce/screens/vendor_app/model/store.dart';
+
 CustomerStoreBody customerStoreBodyFromJson(String str) => CustomerStoreBody.fromJson(json.decode(str));
 
 String customerStoreBodyToJson(CustomerStoreBody data) => json.encode(data.toJson());
@@ -34,11 +36,12 @@ class Store {
     this.district,
     this.longitude,
     this.latitude,
-    this.openFrom,
-    this.closedAt,
+    // this.openFrom,
+    // this.closedAt,
     this.info,
     this.favourites,
     this.storeContacts,
+    this.storeWorksDays
   });
 
   int id;
@@ -49,11 +52,12 @@ class Store {
   String district;
   String longitude;
   String latitude;
-  String openFrom;
-  String closedAt;
+  // String openFrom;
+  // String closedAt;
   String info;
   int favourites;
   List<StoreContact> storeContacts;
+  List<StoreWorksDay> storeWorksDays;
 
   factory Store.fromJson(Map<String, dynamic> json) => Store(
     id: json["id"],
@@ -64,11 +68,13 @@ class Store {
     district: json["district"],
     longitude: json["longitude"],
     latitude: json["latitude"],
-    openFrom: json["open_from"],
-    closedAt: json["closed_at"],
+    // openFrom: json["open_from"],
+    // closedAt: json["closed_at"],
     info: json["info"],
     favourites: json["favourites"],
     storeContacts: List<StoreContact>.from(json["store_contacts"].map((x) => StoreContact.fromJson(x))),
+    storeWorksDays:List<StoreWorksDay>.from(json["store_works_days"].map((x) => StoreWorksDay.fromJson(x))),
+
   );
 
   Map<String, dynamic> toJson() => {
@@ -80,8 +86,8 @@ class Store {
     "district": district,
     "longitude": longitude,
     "latitude": latitude,
-    "open_from": openFrom,
-    "closed_at": closedAt,
+    // "open_from": openFrom,
+    // "closed_at": closedAt,
     "info": info,
     "favourites": favourites,
     "store_contacts": List<dynamic>.from(storeContacts.map((x) => x.toJson())),

@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
@@ -98,8 +99,12 @@ bool error=false;
     SizeConfig.init(context);
     return  error?Container(
       margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
-      child: AutoSizeText("عذرا حدثت مشكلة الرجاء المحاولة مجددا"),
-    ):loading?LoadingScreen():Container(
+      child: AutoSizeText("عذرا حدثت مشكلة الرجاء المحاولة مجددا",style: body1_16pt,),
+    ):loading?LoadingScreen():customerStoreOffers.offers.length==0?Container(
+      width: getProportionateScreenWidth(390),
+      height: getProportionateScreenHeight(350),
+      child: Center(child: AutoSizeText("لا يوجد عناصر حاليا",style: body1_16pt,)),
+    ):Container(
         margin: EdgeInsets.symmetric(
             horizontal: getProportionateScreenWidth(24),
             vertical: getProportionateScreenHeight(26)),

@@ -13,6 +13,8 @@ import 'package:pets_ecommerce/services/http_requests_service.dart';
 
 import '../../loading_screen.dart';
 import 'package:get/get.dart';
+import 'package:pets_ecommerce/screens/my_corner/view/components/corner_images_view.dart';
+
 class CornerDetails extends StatefulWidget {
   bool end;
   Corner corner;
@@ -185,7 +187,10 @@ consolePrint(widget.corner.storeId.toString());
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: widget.corner.images.length,
-                            itemBuilder: (context,index)=>Padding(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),child: Container(width: getProportionateScreenWidth(105),decoration:BoxDecoration(boxShadow: shadow),child: ClipRRect( borderRadius:BorderRadius.circular(8),child: Image.network(Api.imagePath+widget.corner.images[index].path,fit: BoxFit.fill,)),)),
+                            itemBuilder: (context,index)=>Padding(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),child: GestureDetector(onTap:(){
+                              Get.to(()=>CornerPhotosView(widget.corner.images,index));
+
+                            },child: Container(width: getProportionateScreenWidth(105),decoration:BoxDecoration(boxShadow: shadow),child: ClipRRect( borderRadius:BorderRadius.circular(8),child: Image.network(Api.imagePath+widget.corner.images[index].path,fit: BoxFit.fill,)),))),
                           ),
                         ),
                       ),

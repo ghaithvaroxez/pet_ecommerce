@@ -100,7 +100,7 @@ class _FavoriteProductsBodyState extends State<FavoriteProductsBody> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return error?Column(mainAxisSize: MainAxisSize.max,children: [
-      Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
+      Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
     ],):loading?LoadingScreen():products.length==0?Container(
       height: getProportionateScreenHeight(400),
       width: getProportionateScreenWidth(350),

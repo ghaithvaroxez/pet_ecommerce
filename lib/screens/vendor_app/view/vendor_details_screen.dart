@@ -31,6 +31,9 @@ class VendorDetailsPage extends StatefulWidget {
 
 class _VendorDetailsPageState extends State<VendorDetailsPage>
     with SingleTickerProviderStateMixin {
+  VendorInfoController customVendorInfoController =
+  Get.put(VendorInfoController());
+
   bool isloading=false;
   VendorAppProductsReq _vendorAppProductsReq=VendorAppProductsReq();
   VendorOffersController vendorOffersController =Get.put(VendorOffersController());
@@ -399,7 +402,7 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
                         // OffersBodyScreen(),
                         // OrdersBodyScreen(),
                         VendorProductsBodyScreen(vendorProductsController),
-                        AboutStoreBodyScreen(),
+                        AboutStoreBodyScreen(customVendorInfoController),
                         VendorOffersBodyScreen(vendorOffersController),
                         OrdersBodyScreen(),
                         VendorPhotosBody(),

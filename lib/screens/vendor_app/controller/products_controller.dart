@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pets_ecommerce/screens/home/view/home_view.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/enums.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
 import 'package:pets_ecommerce/screens/vendor_app/requests/products_requests.dart';
@@ -23,6 +24,7 @@ update();
       productId);
       if (k == true) {
         await getProducts();
+        await homeController.getHome();
         removeLoading();
         update();
       } else {
@@ -74,6 +76,7 @@ update();
           price: price);
       if (k == true) {
         await getProducts();
+        await homeController.getHome();
         Get.back();
         removeLoading();
       } else {
@@ -111,6 +114,7 @@ async {
           productId: product.id);
       if (k == true) {
         await getProducts();
+        await homeController.getHome();
         Get.back();
         removeLoading();
         update();
@@ -151,6 +155,7 @@ async {
       );
       if (k == true) {
         await getProducts();
+        await homeController.getHome();
         Get.back();
         removeLoading();
         update();

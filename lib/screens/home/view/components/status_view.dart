@@ -48,11 +48,15 @@ if(widget.status.length>1)
       home: Scaffold(
         body:
         StoryView(
+progressPosition: ProgressPosition.top,
             controller: storyController,
             onComplete: () { Navigator.pop(context);},
             onVerticalSwipeComplete: (direction) {
               if (direction == Direction.down) {
-                Navigator.pop(context);
+             storyController.previous();
+              }
+              if (direction == Direction.up) {
+             storyController.next();
               }
             },
             storyItems:

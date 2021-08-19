@@ -78,6 +78,8 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
     _tabController.addListener(() {
       _customerLabelController.changeIndex(_tabController.index);
     });
+    _tabController.animateTo(2);
+    _customerLabelController.changeIndex(2);
   }
 
 

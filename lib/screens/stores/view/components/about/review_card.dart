@@ -6,9 +6,15 @@ import 'package:pets_ecommerce/configuration/size_config.dart';
 
 
 class ReviewCad extends StatelessWidget {
+  String comment;
+  String name;
+  int rate;
+  String imagePath;
+  ReviewCad(this.comment, this.name, this.rate,this.imagePath);
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(5)),
       width: getProportionateScreenWidth(345),
       height: getProportionateScreenHeight(85),
       decoration: BoxDecoration(
@@ -29,7 +35,7 @@ class ReviewCad extends StatelessWidget {
                   topLeft: Radius.circular(12),
                   bottomLeft: Radius.circular(12),
                 ),
-                child: Image.asset("assets/images/store/woman.png"),
+                child: Image.network(imagePath==null?"":imagePath,fit: BoxFit.fill,),
               ),
             ),
           ),
@@ -47,7 +53,7 @@ class ReviewCad extends StatelessWidget {
                       height: getProportionateScreenHeight(30),
                       width: getProportionateScreenWidth(200),
                       child: AutoSizeText(
-                        "سميرة علي",
+                        name==null?"":name,
                         style: body2_14pt,
                         textDirection: TextDirection.rtl,
                       ),
@@ -55,10 +61,11 @@ class ReviewCad extends StatelessWidget {
                     Container(
                       height: getProportionateScreenHeight(45),
                       width: getProportionateScreenWidth(200),
-                      child: AutoSizeText(
-                        "نص التقييم هنا",
+                      child:comment==null?Container(height: 0,width: 0,): AutoSizeText(
+                        comment,
                         style: darkGrayText_11pt,
                         textDirection: TextDirection.rtl,
+                        maxLines: 2,
                       ),
                     ),
                   ],
@@ -70,7 +77,7 @@ class ReviewCad extends StatelessWidget {
               child: Container(
                 child: Row(
                   children: [
-                    AutoSizeText("5",style: darkGrayText_11pt,minFontSize: 8,),
+                    AutoSizeText(rate.toString(),style: darkGrayText_11pt,minFontSize: 8,),
 
 
                     SizedBox(width: getProportionateScreenWidth(2),),

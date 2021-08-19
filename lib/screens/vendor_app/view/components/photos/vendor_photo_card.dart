@@ -10,9 +10,10 @@ import 'package:pets_ecommerce/screens/vendor_app/model/image_model.dart' as im;
 
 
 class VendorAppImageCard extends StatelessWidget {
-  VendorAppImageCard(this.image,this.delete);
+  VendorAppImageCard(this.view,this.image,this.delete,);
   im.Image image;
   Function delete;
+  Function view;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,24 +49,27 @@ class VendorAppImageCard extends StatelessWidget {
           Positioned(
               left: 0,
               top: 0,
-              child: Container(
-                height: getProportionateScreenHeight(160),
-                width: getProportionateScreenWidth(162.7),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
-                    bottomRight: Radius.circular(12),
-                    bottomLeft: Radius.circular(12),
+              child: GestureDetector(
+                onTap:view,
+                child: Container(
+                  height: getProportionateScreenHeight(160),
+                  width: getProportionateScreenWidth(162.7),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                      bottomRight: Radius.circular(12),
+                      bottomLeft: Radius.circular(12),
+                    ),
+                    child: Image.network(Api.imagePath+image.path,fit: BoxFit.fill,),
                   ),
-                  child: Image.network(Api.imagePath+image.path,fit: BoxFit.fill,),
+
+                  // Image.asset(
+                  //   "assets/images/home/cat_1.png",
+                  //   fit: BoxFit.fill,
+                  // ),
+
                 ),
-
-                // Image.asset(
-                //   "assets/images/home/cat_1.png",
-                //   fit: BoxFit.fill,
-                // ),
-
               )
           ),
 

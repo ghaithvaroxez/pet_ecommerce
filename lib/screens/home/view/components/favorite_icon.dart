@@ -50,7 +50,7 @@ class _FavoriteIconState extends State<FavoriteIcon> {
         // width: getProportionateScreenWidth(15),
         child:widget.s?Icon(
            favorite,
-            color: Colors.lightBlueAccent,
+            color: Colors.lightBlueAccent.withOpacity(0.8),
             // size: 22,
 
         ):Icon(

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/stores/view/components/products/store_product_card.dart';
@@ -94,7 +96,11 @@ class _PBodyState extends State<PBody> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return loading?LoadingScreen():Container(
+    return loading?LoadingScreen():products.length==0?Container(
+      width: getProportionateScreenWidth(390),
+      height: getProportionateScreenHeight(350),
+      child: Center(child: AutoSizeText("لا يوجد عناصر حاليا",style: body1_16pt,)),
+    ):Container(
         padding: EdgeInsets.symmetric(
         horizontal: getProportionateScreenWidth(16),
     vertical: getProportionateScreenHeight(8)),

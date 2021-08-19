@@ -33,12 +33,17 @@ class Api {
   static const addService="/add/service";
   static const editServiceById="/edit/service";
   static const deleteServiceById="/delete/service";
+  static const addDoctorReview="/rate";
+  static const getDoctorReview="/rates?doctor_id=";
+  static const getStoreReview="/rates?store_id=";
 
   //vendor_app
  static const getStoreId="/store";
  static const getStoreOffers="/offers/store";
  static const getStoreBodyId="/about/store";
  static const updateStore="/update/store";
+ static const updateWorkTime="/edit/day";
+ static const deleteWorkTime="/delete/day";
  static const updateProduct="/edit/product";
  static const addProduct="/add/product";
  static const deleteProduct="/delete/product";
@@ -54,6 +59,9 @@ class Api {
 
 //locations
   static const getLocations="/districts";
+
+//home
+  static const home="/home";
 
   //contact
   static const updateSocial="/edit/contact";
@@ -89,5 +97,7 @@ static const addStatus="/add/status";
   static const addSievesFav="/sieve";
   static const addBarnsFav="/barn";
   static const addDoctorFav="/doctor";
+
+
 
 }

@@ -19,6 +19,7 @@ TextStyle body2_14pt=GoogleFonts.tajawal(fontSize: 14,color: Color(0xFF1B4754));
 TextStyle body2_14pt_underlined=GoogleFonts.tajawal(fontSize: 14,color: Color(0xFF1B4754),decoration: TextDecoration.underline);
 TextStyle whiteButton_14pt=GoogleFonts.tajawal(fontSize: 14,color: Color(0xFF348BA7));
 TextStyle blueButton_14pt=GoogleFonts.tajawal(fontSize:14,color: Color(0xFFFFFFFF),fontWeight: FontWeight.bold);
+TextStyle blueButton_21pt=GoogleFonts.tajawal(fontSize:21,color: Color(0xFFFFFFFF),fontWeight: FontWeight.bold);
 TextStyle blueButton_25pt=GoogleFonts.tajawal(fontSize:25,color: Color(0xFFFFFFFF),fontWeight: FontWeight.bold);
 TextStyle teal_25pt=GoogleFonts.tajawal(fontSize:25,color: Color(0xFF1B4754),fontWeight: FontWeight.bold);
 TextStyle grayText_14pt=GoogleFonts.tajawal(fontSize: 14,color: Color(0xFF1B4754).withOpacity(0.31),);

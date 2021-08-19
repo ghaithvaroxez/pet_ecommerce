@@ -37,7 +37,9 @@ class Store {
     this.info,
     this.favourites,
     this.storeContacts,
-    this.favStatus
+    this.favStatus,
+    this.long,
+    this.lat
   });
 
   int id;
@@ -52,6 +54,9 @@ class Store {
   String info;
   int favourites;
   List<StoreContact> storeContacts;
+  double lat;
+  double long ;
+
 
   factory Store.fromJson(Map<String, dynamic> json) => Store(
     id: json["id"],
@@ -66,6 +71,8 @@ class Store {
     favourites: json["favourites"],
     storeContacts: List<StoreContact>.from(json["store_contacts"].map((x) => StoreContact.fromJson(x))),
     favStatus: json["fav_status"]==null?false:json["fav_status"],
+    // lat:json["latitude"]==-1?-1.0,
+    // long:json["long"]
   );
 
   Map<String, dynamic> toJson() => {

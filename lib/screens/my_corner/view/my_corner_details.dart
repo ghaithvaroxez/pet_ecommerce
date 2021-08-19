@@ -24,7 +24,7 @@ import 'dart:math' as Math;
 import 'package:image/image.dart' as Im;
 
 import 'edit_corner_screen.dart';
-
+import './components/corner_images_view.dart';
 class MyCornerDetails extends StatefulWidget {
   Corner corner;
 
@@ -359,7 +359,11 @@ class _MyCornerDetailsState extends State<MyCornerDetails> {
                                             children: [
 
 
-                                              Container(width: getProportionateScreenWidth(105),height: 130,decoration:BoxDecoration(boxShadow: shadow),child: ClipRRect( borderRadius:BorderRadius.circular(8),child: Image.network(Api.imagePath+controller.currentCorner.images[index].path,fit: BoxFit.fill,)),),
+                                              GestureDetector(onTap:(){
+
+                                                  Get.to(()=>CornerPhotosView(controller.currentCorner.images,index));
+
+                                              },child: Container(width: getProportionateScreenWidth(105),height: 130,decoration:BoxDecoration(boxShadow: shadow),child: ClipRRect( borderRadius:BorderRadius.circular(8),child: Image.network(Api.imagePath+controller.currentCorner.images[index].path,fit: BoxFit.fill,)),)),
                                               Positioned(
                                                   left: getProportionateScreenWidth(
                                                       8),
