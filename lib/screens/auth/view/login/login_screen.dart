@@ -253,7 +253,9 @@ login();
 
       }
       else {
-          Get.offAll(MainScreen());
+        Duration duration = Duration(seconds: 1);
+        Future.delayed(duration).then((value) =>
+          Get.offAll(MainScreen()));
       }
     }
     else {

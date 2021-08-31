@@ -219,7 +219,8 @@ consolePrint(widget.corner.storeId.toString());
                                 cornersModel.corners[index].id!=widget.corner.id?
                                 GestureDetector(onTap:(){
                                   consolePrint("pressed !!!!!!");
-                                  Get.to(()=>CornerDetails(cornersModel.corners[index],true));
+                                  consolePrint("inside button !!!!!!");
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CornerDetails(cornersModel.corners[index],true)));
                                 },child: Container(width: getProportionateScreenWidth(105),child: Padding(padding: EdgeInsets.symmetric(horizontal: 5), child: Container(width: getProportionateScreenWidth(103),height: getProportionateScreenHeight(127),child: ClipRRect(borderRadius:BorderRadius.circular(8),child: Image.network(Api.imagePath+cornersModel.corners[index].image,fit: BoxFit.fill,)),))
                                 // Image.network(cornersModel.corners[index].image,fit: BoxFit.fill,),
                                 ))

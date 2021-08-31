@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
@@ -33,7 +34,7 @@ class _SelectDoctorViewState extends State<SelectDoctorView> {
 
     });
 
-    var url=Uri.parse("http://pets.sourcecode-ai.com/api/doctors");
+    var url=Uri.parse("${Api.baseUrl}/doctors");
     consolePrint("before print");
     final apiResult=await http.get(url,headers: await HttpService().getHeaders());
     consolePrint("after print");
@@ -54,7 +55,7 @@ class _SelectDoctorViewState extends State<SelectDoctorView> {
 
   Future<bool> addToFavorite(int doctorId) async {
     consolePrint("store id"+doctorId.toString());
-    var url=Uri.parse("http://pets.sourcecode-ai.com/api/addToFavourite/$doctorId/doctor");
+    var url=Uri.parse("${Api.baseUrl}/addToFavourite/$doctorId/doctor");
     consolePrint("before add to favorite print");
     final h=await HttpService().getHeaders();
     final apiResult=await http.post(url,headers: h);
@@ -91,17 +92,22 @@ class _SelectDoctorViewState extends State<SelectDoctorView> {
       ],):loading?LoadingScreen():
       Container(
           margin:  EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
-          child: ListView.builder(
+          child: RefreshIndicator(
+            onRefresh: ()async{
+             await fetchData();
+            },
+            child: ListView.builder(
         // physics: NeverScrollableScrollPhysics(),
-          itemCount: doctors.doctors.length,itemBuilder:(context,index)=>index==0?Column(children: [
-            SearchBar(),
-            VerticalDoctorListCard(doctors.doctors[index],()async{
+            itemCount: doctors.doctors.length,itemBuilder:(context,index)=>index==0?Column(children: [
+              SearchBar(),
+              VerticalDoctorListCard(doctors.doctors[index],()async{
+                bool k=await addToFavorite(doctors.doctors[index].id);
+                return k;
+              })],):VerticalDoctorListCard(doctors.doctors[index],()async{
               bool k=await addToFavorite(doctors.doctors[index].id);
               return k;
-            })],):VerticalDoctorListCard(doctors.doctors[index],()async{
-            bool k=await addToFavorite(doctors.doctors[index].id);
-            return k;
-          } )));
+            } )),
+          ));
 
   }
 }

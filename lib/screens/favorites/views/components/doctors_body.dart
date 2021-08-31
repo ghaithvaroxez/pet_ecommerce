@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
@@ -29,7 +30,7 @@ class _FavoriteDoctorsBodyState extends State<FavoriteDoctorsBody> {
     setState(() {
     });
 
-    var url=Uri.parse("http://pets.sourcecode-ai.com/api/myFavourites/doctors");
+    var url=Uri.parse("${Api.baseUrl}/myFavourites/doctors");
     consolePrint("before print");
     final apiResult=await http.get(url,headers: await HttpService().getHeaders());
     consolePrint("after print");
@@ -53,7 +54,7 @@ consolePrint(apiResult.body);
    try {
       consolePrint("store id" + doctorId.toString());
       var url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/addToFavourite/$doctorId/doctor");
+          "${Api.baseUrl}/addToFavourite/$doctorId/doctor");
       consolePrint("before add to favorite print");
       final h = await HttpService().getHeaders();
       final apiResult = await http.post(url, headers: h);

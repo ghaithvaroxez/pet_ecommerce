@@ -42,7 +42,7 @@ dependencies:
   http:
   url_launcher: ^5.5.0
 #  flick_video_player: ^0.3.1
-  story_view: ^0.12.8
+  #story_view: ^0.12.8
 #  video_thumbnail: ^0.3.3
   export_video_frame: ^0.0.1
   flutter_video_info: ^1.2.0
@@ -55,9 +55,10 @@ dependencies:
   custom_info_window:
 #  bitmap: ^0.1.2
   clippy_flutter: ^1.1.1
-#  rating_dialog: ^2.0.1
+  rating_dialog: ^2.0.1
   geolocator: ^6.1.4
-
+  easy_localization:
+  syncfusion_flutter_sliders:
 
 dependency_overrides:
   intl: ^0.17.0

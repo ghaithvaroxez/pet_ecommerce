@@ -49,7 +49,7 @@ class Api {
  static const deleteProduct="/delete/product";
  static const changeProductStatus="/item/status";
  static const addPhoto="/add/store/images";
- static const convertPhotoToStory="/convert";
+
  static const getPhotos="/store/images";
  static const removePhoto="/delete/image";
 
@@ -59,7 +59,7 @@ class Api {
 
 //locations
   static const getLocations="/districts";
-
+  static const convertPhotoToStory="/convert";
 //home
   static const home="/home";
 
@@ -97,6 +97,25 @@ static const addStatus="/add/status";
   static const addSievesFav="/sieve";
   static const addBarnsFav="/barn";
   static const addDoctorFav="/doctor";
+
+//oreder
+
+  static const addOrder="/add/order";
+  static const deleteOrderId="/delete/order";
+  static const updateOrderId="/update/order";
+  static const addOrderAnswer="/answer/order";
+  static const getOrderId="/show/order";
+  static const orders="/show/orders";
+  static const myOrders="/show/my/orders/sent";
+  static const myAnswers="/show/my/answers";
+
+
+  //search
+static const searchOffers="/search/offers?name=";
+static const searchStores="/search/stores?name=";
+static const searchDoctors="/get/search/doctors?name=";
+static const searchProducts="/search/products?name=";
+static const searchCategory="/search/cats?name=";
 
 
 

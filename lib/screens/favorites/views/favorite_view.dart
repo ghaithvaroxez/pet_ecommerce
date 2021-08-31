@@ -39,7 +39,7 @@ class _FavoriteViewState extends State<FavoriteView>
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
-      endDrawer: CustomDrawer(),
+      endDrawer: CustomDrawer(home: false,),
       body:  Builder(
         builder: ((context)=>
     SafeArea(

@@ -33,7 +33,7 @@ class _FavoriteStoresBodyState extends State<FavoriteStoresBody> {
     });
     try{
       var url =
-          Uri.parse("http://pets.sourcecode-ai.com/api/myFavourites/stores");
+          Uri.parse("${Api.baseUrl}/myFavourites/stores");
       consolePrint("before print");
       final h = await HttpService().getHeaders();
       consolePrint("try to get " + url.path);
@@ -60,7 +60,7 @@ class _FavoriteStoresBodyState extends State<FavoriteStoresBody> {
     try{
       consolePrint("store id" + storeId.toString());
       var url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/addToFavourite/$storeId/store/store");
+          "${Api.baseUrl}/addToFavourite/$storeId/store/store");
       consolePrint("before add to favorite print");
       final h = await HttpService().getHeaders();
       final apiResult = await http.post(url, headers: h);

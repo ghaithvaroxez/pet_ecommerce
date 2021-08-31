@@ -37,7 +37,7 @@ class MyStatus extends StatefulWidget {
 }
 
 class _MyStatusState extends State<MyStatus> {
-  var image;
+  File image;
   // FlickManager flickManager;
 
   var video;
@@ -133,19 +133,23 @@ class _MyStatusState extends State<MyStatus> {
   }
   _uploadPhoto() async {
     try {
-      image = await ImagePicker.pickImage(source: ImageSource.gallery);
-      File imageFile = File(image.path);
+      image=null;
+      image = await ImagePicker.pickImage(source: ImageSource.gallery,);
+
 
       if (image != null) {
+        File imageFile = File(image.path);
         await getcompress(imageFile);
-      } else {
-        consolePrint("image is null");
-      }
+
       setState(() {});
       if (newImage != null || newImage != "")
         await statusController.addNewImage(image: newImage);
       else
         consolePrint("error loading image");
+
+      } else {
+        consolePrint("image is null");
+      }
     } catch (e) {
       consolePrint(e.toString());
       Get.rawSnackbar(
@@ -158,14 +162,17 @@ class _MyStatusState extends State<MyStatus> {
   }
 
   _uploadVideo() async {
+    video=null;
     video = await ImagePicker.pickVideo(source: ImageSource.gallery);
-    File videoFile = File(video.path);
+
    // List<File> images= await exportImage(videoFile.path, 10, 10);
    // await getcompress(images[5]);
     try{
       setState(() {});
-    if (videoFile!=null)
-      await statusController.addNewVideo(videoPath: videoFile.path);
+    if (video!=null) {
+      File videoFile = File(video.path);
+        await statusController.addNewVideo(videoPath: videoFile.path);
+      }
       // await statusController.addNewImage(image: newImage);
     else
       consolePrint("error loading video");

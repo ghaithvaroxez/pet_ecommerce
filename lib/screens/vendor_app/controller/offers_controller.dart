@@ -134,11 +134,11 @@ class VendorOffersController extends GetxController{
       if (k == true) {
         await getOffer();
         await homeController.getHome();
-        Get.back();
+
         removeLoading();
         update();
       } else {
-        Get.back();
+
         removeLoading();
         update();
         Get.rawSnackbar(
@@ -146,13 +146,14 @@ class VendorOffersController extends GetxController{
             backgroundColor: Colors.redAccent);
       }
     }catch(e){
-      Get.back();
+      // Get.back();
       removeLoading();
       update();
       Get.rawSnackbar(
           message: "can't delete your product now try again later",
           backgroundColor: Colors.redAccent);
     }
+    // Get.back();
   }
 
 

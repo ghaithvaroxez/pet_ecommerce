@@ -39,9 +39,10 @@ class Store {
     this.storeContacts,
     this.favStatus,
     this.long,
-    this.lat
+    this.lat,
+    this.error=false,
   });
-
+bool error;
   int id;
   bool favStatus;
   String name;
@@ -71,8 +72,8 @@ class Store {
     favourites: json["favourites"],
     storeContacts: List<StoreContact>.from(json["store_contacts"].map((x) => StoreContact.fromJson(x))),
     favStatus: json["fav_status"]==null?false:json["fav_status"],
-    // lat:json["latitude"]==-1?-1.0,
-    // long:json["long"]
+    lat:json["latitude"]==-1?-1.01:json["latitude"],
+    long:json["longitude"]==-1?-1.01:json["longitude"]
   );
 
   Map<String, dynamic> toJson() => {

@@ -7,13 +7,13 @@ import 'package:pets_ecommerce/screens/main_screen/model/main_screen_model.dart'
 String productsImg="assets/images/store/not active/products_icon.png";
 String aboutStoreImg="assets/images/store/not active/about_store_icon.png";
 String offersImg="assets/images/store/not active/offers_icon.png";
-String ordersImg="assets/images/store/not active/orders_icon.png";
+// String ordersImg="assets/images/store/not active/orders_icon.png";
 String photosImg="assets/images/vendor_app/not_active_photos.png";
 
 String activeProductsImg="assets/images/store/active/active_products_icon.png";
 String activeAboutStoreImg="assets/images/store/active/active_about_store_icon.png";
 String activeOffersImg="assets/images/store/active/active_offers_icon.png";
-String activeOrdersImg="assets/images/store/active/active_orders_icon.png";
+// String activeOrdersImg="assets/images/store/active/active_orders_icon.png";
 String activePhotosImg="assets/images/vendor_app/active_photos.png";
 
 
@@ -27,20 +27,20 @@ activeBackgroundColor,
 storeLabelBackgroundGrey,
 storeLabelBackgroundGrey,
 storeLabelBackgroundGrey,
-storeLabelBackgroundGrey,
+// storeLabelBackgroundGrey,
   ];
 
 
   TextStyle productsStyle;
   TextStyle aboutStoreStyle;
   TextStyle offersStyle;
-  TextStyle ordersStyle;
+  // TextStyle ordersStyle;
   TextStyle photosStyle;
 
   String product;
   String aboutStore;
   String offers;
-  String orders;
+  // String orders;
   String photos
   ;
   @override
@@ -50,12 +50,12 @@ storeLabelBackgroundGrey,
     product=productsImg;
     aboutStore=aboutStoreImg;
     offers=offersImg;
-    orders=ordersImg;
+    // orders=ordersImg;
     photos=activePhotosImg;
     productsStyle=notActiveTextStyle;
     aboutStoreStyle=notActiveTextStyle;
     offersStyle=notActiveTextStyle;
-    ordersStyle=notActiveTextStyle;
+    // ordersStyle=notActiveTextStyle;
     photosStyle=activeTextStyle;
     super.onInit();
   }
@@ -82,10 +82,10 @@ void changeIndex(int i)
       offersStyle=notActiveTextStyle;
       offers=offersImg;
       break;
-    case 4:
-      ordersStyle=notActiveTextStyle;
-      orders=ordersImg;
-      break;
+    // case 4:
+    //   ordersStyle=notActiveTextStyle;
+    //   orders=ordersImg;
+    //   break;
   }
 
   switch(i)
@@ -109,10 +109,10 @@ void changeIndex(int i)
       offersStyle=activeTextStyle;
       offers=activeOffersImg;
       break;
-    case 4:
-      ordersStyle=activeTextStyle;
-      orders=activeOrdersImg;
-      break;
+    // case 4:
+    //   ordersStyle=activeTextStyle;
+    //   orders=activeOrdersImg;
+    //   break;
   }
 
   index.value=i;

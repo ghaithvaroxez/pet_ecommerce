@@ -13,11 +13,11 @@ import 'package:pets_ecommerce/screens/main_screen/model/main_screen_model.dart'
 * */
 String servicesImg="assets/images/doctors/not_active/services.png";
 String personalInfoImg="assets/images/doctors/not_active/personal_info.png";
-String ordersResponseImg="assets/images/doctors/not_active/orders.png";
+// String ordersResponseImg="assets/images/doctors/not_active/orders.png";
 
 String activeServicesImg="assets/images/doctors/active/active_services.png";
 String activePersonalInfoImg="assets/images/doctors/active/active_personal_info.png";
-String activeOrdersResponseImg="assets/images/doctors/active/active_orders.png";
+// String activeOrdersResponseImg="assets/images/doctors/active/active_orders.png";
 
 Color activeBackgroundColor=Colors.white;
 
@@ -29,28 +29,28 @@ class CustomerDoctorDetailsLabelController extends GetxController
   List<Color> backgroundColors=[
     activeBackgroundColor,
     storeLabelBackgroundGrey,
-    storeLabelBackgroundGrey,
+    // storeLabelBackgroundGrey,
   ];
 
 
   TextStyle servicesStyle;
 
   TextStyle personalInfoStyle;
-  TextStyle ordersResponseStyle;
+  // TextStyle ordersResponseStyle;
 
   String services;
   String personalInfo;
-  String ordersResponse;
+  // String ordersResponse;
   @override
   void onInit() {
     // TODO: implement onInit
 
     services=activeServicesImg;
     personalInfo=personalInfoImg;
-    ordersResponse=ordersResponseImg;
+    // ordersResponse=ordersResponseImg;
     servicesStyle=activeTextStyle;
     personalInfoStyle=notActiveTextStyle;
-    ordersResponseStyle=notActiveTextStyle;
+    // ordersResponseStyle=notActiveTextStyle;
     changeIndex(0);
     super.onInit();
   }
@@ -70,10 +70,10 @@ class CustomerDoctorDetailsLabelController extends GetxController
         personalInfo=personalInfoImg;
 
         break;
-      case 2:
-        ordersResponseStyle=notActiveTextStyle;
-        ordersResponse=ordersResponseImg;
-        break;
+      // case 2:
+      //   ordersResponseStyle=notActiveTextStyle;
+      //   ordersResponse=ordersResponseImg;
+      //   break;
     }
 
     switch(i)
@@ -86,10 +86,10 @@ class CustomerDoctorDetailsLabelController extends GetxController
         personalInfoStyle=activeTextStyle;
         personalInfo=activePersonalInfoImg;
         break;
-      case 2:
-        ordersResponseStyle=activeTextStyle;
-        ordersResponse=activeOrdersResponseImg;
-        break;
+      // case 2:
+      //   ordersResponseStyle=activeTextStyle;
+      //   ordersResponse=activeOrdersResponseImg;
+      //   break;
     }
 
     index.value=i;

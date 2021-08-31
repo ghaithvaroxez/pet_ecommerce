@@ -29,17 +29,6 @@ class RegisterScreen extends StatefulWidget {
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-List<String> location_items = [
-  "القدس",
-  "رام الله",
-  "القدس",
-  "رام الله",
-  "القدس",
-  "رام الله",
-  "القدس",
-  "رام الله",
-  "القدس",
-];
 List<City> addresses=[];
 bool loaddata=false;
 
@@ -70,6 +59,7 @@ class LoadingScreen extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   width: getProportionateScreenWidth(370),
+                  // height: getProportionateScreenHeight(400),
                   child: Container(
                    height: getProportionateScreenHeight(75),
                     width: getProportionateScreenWidth(75),

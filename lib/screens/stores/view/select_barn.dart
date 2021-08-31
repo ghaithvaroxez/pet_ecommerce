@@ -33,7 +33,7 @@ class _SelectBarnViewState extends State<SelectBarnView> {
 
     });
 
-    var url=Uri.parse("http://pets.sourcecode-ai.com/api/stores/barns");
+    var url=Uri.parse("${Api.baseUrl}/stores/barns");
     consolePrint("before print");
     final h=await HttpService().getHeaders();
     final apiResult=await http.get(url,headers: h);
@@ -59,7 +59,7 @@ class _SelectBarnViewState extends State<SelectBarnView> {
     try{
       consolePrint("store id" + storeId.toString());
       var url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/addToFavourite/$storeId/store/Store");
+          "${Api.baseUrl}/addToFavourite/$storeId/store/Store");
       consolePrint("before add to favorite print");
       final h = await HttpService().getHeaders();
       final apiResult = await http.post(url, headers: h);

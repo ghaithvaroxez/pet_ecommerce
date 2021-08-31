@@ -40,9 +40,11 @@ class Doctor {
     this.doctorServices,
     this.favStatus,
     this.long,
-    this.lat
+    this.lat,
+    this.error=false,
   });
 
+  bool error;
   int id;
   String firstName;
   String lastName;
@@ -73,8 +75,8 @@ bool favStatus;
     doctorContacts:json["doctor_contacts"]==null?[]: List<DoctorContact>.from(json["doctor_contacts"].map((x) => DoctorContact.fromJson(x))),
     doctorServices:json["doctor_services"]==null?[]: List<DoctorService>.from(json["doctor_services"].map((x) => DoctorService.fromJson(x))),
  favStatus: json["fav_status"]==null?false:json["fav_status"],
-    // long: json["longitude"],
-    // lat: json["latitude"],
+    long: json["longitude"]==-1?-1.01:json["longitude"],
+    lat: json["latitude"]==-1?-1.01:json["latitude"],
   );
 
   Map<String, dynamic> toJson() => {

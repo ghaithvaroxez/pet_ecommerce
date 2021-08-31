@@ -28,9 +28,10 @@ class Category {
   Category({
     this.id,
     this.name,
-    this.image
+    this.image,
+    this.error=false
   });
-
+bool error;
   int id;
   String name;
   String image;

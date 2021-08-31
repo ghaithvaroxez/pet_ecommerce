@@ -33,7 +33,7 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
   void initState() {
     // TODO: implement initState
     super.initState();
-    doctorAppTabController = TabController(length: 3, vsync: this);
+    doctorAppTabController = TabController(length: 2, vsync: this);
     doctorAppTabController.addListener(() {
       customDoctorLabelController.changeIndex(doctorAppTabController.index);
     });
@@ -215,6 +215,7 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
                                   top: getProportionateScreenHeight(12)),
                               decoration: BoxDecoration(
                                 color: controller.backgroundColors[1],
+                                borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -247,50 +248,50 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
                       ///about store
 
 
-                      Expanded(
-                        child: GetBuilder<DoctorLabelController>(
-                          init:  customDoctorLabelController,
-                          builder: (controller) => GestureDetector(
-                            onTap: () {
-                              doctorAppTabController.animateTo(2);
-                              controller.changeIndex(2);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                  top: getProportionateScreenHeight(12)),
-                              // padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(5)),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(12)),
-                                color: controller.backgroundColors[2],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: getProportionateScreenHeight(18),
-                                    width: getProportionateScreenWidth(18),
-                                    child: Image.asset(
-                                      controller.orders,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    height: getProportionateScreenHeight(20),
-                                    width: getProportionateScreenWidth(80),
-                                    child: AutoSizeText(
-                                      "ردود الطلبات",
-                                      style: controller.ordersStyle,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Expanded(
+                      //   child: GetBuilder<DoctorLabelController>(
+                      //     init:  customDoctorLabelController,
+                      //     builder: (controller) => GestureDetector(
+                      //       onTap: () {
+                      //         doctorAppTabController.animateTo(2);
+                      //         controller.changeIndex(2);
+                      //       },
+                      //       child: Container(
+                      //         padding: EdgeInsets.only(
+                      //             top: getProportionateScreenHeight(12)),
+                      //         // padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(5)),
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.only(
+                      //               topLeft: Radius.circular(12)),
+                      //           color: controller.backgroundColors[2],
+                      //         ),
+                      //         child: Column(
+                      //           crossAxisAlignment: CrossAxisAlignment.center,
+                      //           children: [
+                      //             Container(
+                      //               height: getProportionateScreenHeight(18),
+                      //               width: getProportionateScreenWidth(18),
+                      //               child: Image.asset(
+                      //                 controller.orders,
+                      //                 fit: BoxFit.fill,
+                      //               ),
+                      //             ),
+                      //             Container(
+                      //               alignment: Alignment.center,
+                      //               height: getProportionateScreenHeight(20),
+                      //               width: getProportionateScreenWidth(80),
+                      //               child: AutoSizeText(
+                      //                 "ردود الطلبات",
+                      //                 style: controller.ordersStyle,
+                      //                 minFontSize: 8,
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
 
                       ///photos
                     ],
@@ -315,7 +316,7 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
                         // OrdersBodyScreen(),
                         DoctorServicesBodyScreen(customDoctorController),
                         AboutDoctorBodyScreen(customDoctorController),
-                        DoctorOrdersBodyScreen(),
+                        // DoctorOrdersBodyScreen(),
 
                         // VendorProductsBodyScreen(),
                         // AboutStoreBodyScreen(),

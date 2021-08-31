@@ -27,8 +27,10 @@ class StoreProduct {
     this.date,
     this.visible,
     this.favStatus
-  });
+  ,this.error=false,
 
+  });
+bool error;
   int id;
   String name;
   String body;
@@ -45,6 +47,8 @@ class StoreProduct {
   String date;
   String visible;
   bool favStatus;
+
+
   factory StoreProduct.fromJson(Map<String, dynamic> json) => StoreProduct(
     id: json["id"],
     name: json["name"],

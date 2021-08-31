@@ -33,7 +33,7 @@ class _SelectSieveViewState extends State<SelectSieveView> {
 
     });
 
-    var url=Uri.parse("http://pets.sourcecode-ai.com/api/stores/sieves");
+    var url=Uri.parse("${Api.baseUrl}/stores/sieves");
     consolePrint("before print");
     final h=await HttpService().getHeaders();
     final apiResult=await http.get(url,headers: h);
@@ -59,7 +59,7 @@ class _SelectSieveViewState extends State<SelectSieveView> {
     try{
       consolePrint("store id" + storeId.toString());
       var url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/addToFavourite/$storeId/store/sieves");
+          "${Api.baseUrl}/addToFavourite/$storeId/store/sieves");
       consolePrint("before add to favorite print");
       final h = await HttpService().getHeaders();
       final apiResult = await http.post(url, headers: h);

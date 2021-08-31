@@ -6,12 +6,14 @@ import 'package:get/get.dart';
 import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
 import 'package:pets_ecommerce/screens/auth/model/user.dart';
 import 'package:pets_ecommerce/screens/auth/view/splash/splash_screen.dart';
+import 'package:pets_ecommerce/screens/categories/view/categories_screen.dart';
 import 'package:pets_ecommerce/screens/corner/view/my_corner_details.dart';
 import 'package:pets_ecommerce/screens/corner/view/select_corner.dart';
 import 'package:pets_ecommerce/screens/doctor_app/view/doctor_details_screen.dart';
 import 'package:pets_ecommerce/screens/favorites/views/favorite_view.dart';
 import 'package:pets_ecommerce/screens/maps/view/map_screen.dart';
 import 'package:pets_ecommerce/screens/my_corner/view/my_corners_list.dart';
+import 'package:pets_ecommerce/screens/my_orders/view/orders_main_screen.dart';
 import 'package:pets_ecommerce/screens/vendor_app/view/vendor_details_screen.dart';
 import 'package:pets_ecommerce/services/local_storage_service.dart';
 import 'components/drawer_item.dart';
@@ -73,7 +75,7 @@ class CustomDrawer extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(10),
+              height:getProportionateScreenHeight(8),
             ),
             Expanded(
               child: Directionality(
@@ -87,19 +89,24 @@ class CustomDrawer extends StatelessWidget {
                         onTap: () async{
 
               UserModel user=await AuthServices.getCurrentUser();
-              Get.back();
+             Navigator.of(context).pop();
+              if( home!=true) Navigator.of(context).pop();
                           if(user.user.role=="user")
-                            home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ProfileScreen())):Get.to(ProfileScreen());
+                            // home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ProfileScreen())):
+
+                            Get.to(ProfileScreen());
                           else if(user.user.role=="provider")
-                            home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => VendorDetailsPage())) :Get.to(VendorDetailsPage());
+                            // home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => VendorDetailsPage())) :
+                            Get.to(VendorDetailsPage());
                           else if(user.user.role=="doctor")
-                            home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => DoctorAppDetailsPage())) : Get.to(DoctorAppDetailsPage());
+                            // home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => DoctorAppDetailsPage())) :
+                            Get.to(DoctorAppDetailsPage());
 
 
                         },
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(10),
+                        height:getProportionateScreenHeight(8),
                       ),
                       //categories
                       CustomeDraweritem(
@@ -107,11 +114,13 @@ class CustomDrawer extends StatelessWidget {
                         img:
                             "assets/images/drawer/drawer_icons/category_icon.png",
                       onTap: () {
-                          Get.back();
+                         Navigator.of(context).pop();
+                         if( home!=true) Navigator.of(context).pop();
+                          Get.to(CategoriesScreen());
                         },
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(10),
+                        height:getProportionateScreenHeight(8),
                       ),
                       //favorite
                       CustomeDraweritem(
@@ -119,13 +128,14 @@ class CustomDrawer extends StatelessWidget {
                         img:
                             "assets/images/drawer/drawer_icons/favorite_icon.png",
                       onTap: () {
-                        Get.back();
-                        home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => FavoriteView())) :  Get.to(FavoriteView());
+                       Navigator.of(context).pop();
+                       if( home!=true) Navigator.of(context).pop();
+                          Get.to(FavoriteView());
 
                         },
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(10),
+                        height:getProportionateScreenHeight(8),
                       ),
                       //map
                       CustomeDraweritem(
@@ -133,23 +143,24 @@ class CustomDrawer extends StatelessWidget {
                         img:
                             "assets/images/drawer/drawer_icons/location_icon.png",
                       onTap: () {
-                          Get.back();
-                          // Get.to(()=>MapScreen());
+                         Navigator.of(context).pop();
+                         if( home!=true) Navigator.of(context).pop();
+                          Get.to(()=>MapScreen());
                         },
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(10),
+                        height:getProportionateScreenHeight(8),
                       ),
                       //money
                       CustomeDraweritem(
                         title: "تسديد الاشتراك",
                         img: "assets/images/drawer/drawer_icons/money_icon.png",
                       onTap: () {
-                          Get.back();
+                         Navigator.of(context).pop();
                         },
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(10),
+                        height:getProportionateScreenHeight(8),
                       ),
                       //my_baqa
                       CustomeDraweritem(
@@ -157,12 +168,12 @@ class CustomDrawer extends StatelessWidget {
                         img:
                             "assets/images/drawer/drawer_icons/my_baqa_icon.png",
                       onTap: () {
-                          Get.back();
+                         Navigator.of(context).pop();
                         },
                         isExpanded: true,
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(10),
+                        height:getProportionateScreenHeight(8),
                       ),
                       //my_status
                       CustomeDraweritem(
@@ -170,12 +181,13 @@ class CustomDrawer extends StatelessWidget {
                         img:
                             "assets/images/drawer/drawer_icons/status_icon.png",
                       onTap: () {
-                          Get.back();
-                          home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MyStatus())) : Get.to(MyStatus());
+                         Navigator.of(context).pop();
+                         if( home!=true) Navigator.of(context).pop();
+                         Get.to(MyStatus());
                         },
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(10),
+                        height:getProportionateScreenHeight(8),
                       ),
                       //my_corner
                       CustomeDraweritem(
@@ -183,12 +195,27 @@ class CustomDrawer extends StatelessWidget {
                         img:
                             "assets/images/drawer/drawer_icons/corner_icon.png",
                       onTap: () {
-                          Get.back();
-                          home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MyCornerList())) : Get.to(MyCornerList());
+                          Navigator.of(context).pop();
+                         if( home!=true) Navigator.of(context).pop();
+                          Get.to(MyCornerList());
                         },
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(10),
+                        height:getProportionateScreenHeight(8),
+                      ),
+                      CustomeDraweritem(
+                        title: "طلباتي",
+                        img:
+                        "assets/images/drawer/drawer_icons/drawer_order.png",
+                      onTap: () {
+                         Navigator.of(context).pop();
+                         if(home!=true)Get.back();
+                         Get.to(OrdersMainScreen());
+                          // home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MyCornerList())) : Get.to(MyCornerList());
+                        },
+                      ),
+                      SizedBox(
+                        height:getProportionateScreenHeight(8),
                       ),
                       //setting
                       CustomeDraweritem(
@@ -196,11 +223,11 @@ class CustomDrawer extends StatelessWidget {
                         img:
                             "assets/images/drawer/drawer_icons/setting_icon.png",
                       onTap: () {
-                          Get.back();
+                         Navigator.of(context).pop();
                         },
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(10),
+                        height:getProportionateScreenHeight(8),
                       ),
                       //user
                       Spacer(),
@@ -251,7 +278,7 @@ class CustomDrawer extends StatelessWidget {
                         isRed: true,
                       ),
                       SizedBox(
-                        height: getProportionateScreenHeight(10),
+                        height:getProportionateScreenHeight(8),
                       ),
                     ],
                   )),

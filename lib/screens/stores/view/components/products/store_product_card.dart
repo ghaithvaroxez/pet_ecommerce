@@ -42,11 +42,16 @@ class StoreProductCard extends StatelessWidget {
                     ),
                     color: Colors.grey.shade200,
                   ),
-                  child: AutoSizeText(
-                    storeProdcut.name,
-                    textAlign: TextAlign.center,
-                    style: body2_14pt,
-                    minFontSize: 9,
+                  child: Container(
+                    height: getProportionateScreenHeight(30),
+                    width: getProportionateScreenWidth(150.7),
+                    alignment: Alignment.center,
+                    child: AutoSizeText(
+                      storeProdcut.name,
+                      textAlign: TextAlign.center,
+                      style: body2_14pt,
+                      minFontSize: 9,
+                    ),
                   ),
                 )),
             Positioned(

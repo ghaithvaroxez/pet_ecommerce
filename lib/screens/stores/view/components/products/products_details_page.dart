@@ -6,7 +6,9 @@ import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
 
+import 'package:get/get.dart';
 
+import '../../store_details_id.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   StoreProduct storeProdcut;
@@ -151,14 +153,45 @@ Positioned(top:0,left:0,child: Container(
 
                   child: Column(
                     children: [
-                    SizedBox(height: getProportionateScreenHeight(10),),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: AutoSizeText("الوصف",style: body3_18pt,),
-                    ),
-                      SizedBox(height: getProportionateScreenHeight(35),),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(4)),
+                        alignment: Alignment.centerRight,
+                        child: Column(
+                          children: [
+                            SizedBox(height: getProportionateScreenHeight(15),),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              // color: Colors.yellow,
+                              height: getProportionateScreenHeight(30),
+                              width: getProportionateScreenWidth(390),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  GestureDetector(onTap:(){
+                                    Get.to(StoreDetailsById(storeProdcut.storeId));
+                                  },child: AutoSizeText(storeProdcut.storeName,style: darkGrayText_18pt_underlined,)),
+
+                                  SizedBox(width: getProportionateScreenWidth(25),),
+
+                                  Container(child: AutoSizeText("اسم المتجر",style: body3_18pt,)),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: getProportionateScreenHeight(15),),
+                            Row(
+                              children: [
+                                Spacer(),
+                                Container(alignment:Alignment.centerRight,child: AutoSizeText("الوصف",style: body3_18pt,)),
+                                SizedBox(width: getProportionateScreenWidth(5),),
+
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: getProportionateScreenHeight(25),),
+                      Container(
+                        width: getProportionateScreenWidth(340),
+                        // padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(4)),
                         alignment: Alignment.centerRight,
                         child: AutoSizeText(storeProdcut.body,style: darkGrayText_16pt,),
                       ),

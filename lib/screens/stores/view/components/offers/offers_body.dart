@@ -109,39 +109,46 @@ bool error=false;
             horizontal: getProportionateScreenWidth(24),
             vertical: getProportionateScreenHeight(26)),
         child:
-        SingleChildScrollView(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        RefreshIndicator(
+          onRefresh: ()async{
+            await fetchData();
+          },
+          child: ListView(
             children: [
-              Column(
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ...List<Widget>.generate(
-                    customerStoreOffers.offers.length,
-                        (index)=>index%2==0?Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-
-                      child:         StoreOfferCard(customerStoreOffers.offers[index],()async{
-
-                      }),
-                    ):Container(height: 0,),
-
-                  ),
-                ],
-              ),
-              Spacer(),
-              Column(
-                children: [
-                  ...List<Widget>.generate(
-                    customerStoreOffers.offers.length,
-                        (index)=>index%2==1?Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
+                  Column(
+                    children: [
+                      ...List<Widget>.generate(
+                        customerStoreOffers.offers.length,
+                            (index)=>index%2==0?Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
 
                           child:         StoreOfferCard(customerStoreOffers.offers[index],()async{
-                            bool k=await addToFavorite(customerStoreOffers.offers[index].id);
-                            return k;
-                          }),
-                    ):Container(height: 0,),
 
+                          }),
+                        ):Container(height: 0,),
+
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  Column(
+                    children: [
+                      ...List<Widget>.generate(
+                        customerStoreOffers.offers.length,
+                            (index)=>index%2==1?Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+
+                              child:         StoreOfferCard(customerStoreOffers.offers[index],()async{
+                                bool k=await addToFavorite(customerStoreOffers.offers[index].id);
+                                return k;
+                              }),
+                        ):Container(height: 0,),
+
+                      ),
+                    ],
                   ),
                 ],
               ),

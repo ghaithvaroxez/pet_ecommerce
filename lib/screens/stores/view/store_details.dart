@@ -45,7 +45,7 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
   //
   //   });
   //
-  //   var url=Uri.parse("http://pets.sourcecode-ai.com/api/store/${widget.id}");
+  //   var url=Uri.parse("${Api.baseUrl}/store/${widget.id}");
   //   final apiResult=await http.get(url);
   //   if(apiResult.statusCode==200)
   //     {
@@ -74,7 +74,7 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
     // TODO: implement initState
     // getData();
     super.initState();
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener(() {
       _customerLabelController.changeIndex(_tabController.index);
     });
@@ -429,6 +429,9 @@ crossAxisAlignment: CrossAxisAlignment.end,
                                 top: getProportionateScreenHeight(12)),
                             decoration: BoxDecoration(
                               color: controller.backgroundColors[3],
+                              borderRadius: BorderRadius.only(
+                                topRight:Radius.circular(12)
+                              ),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -460,50 +463,50 @@ crossAxisAlignment: CrossAxisAlignment.end,
 
                     ///offers
 
-                    Expanded(
-                      child: GetBuilder<CustomerLabelController>(
-                        // init: _customerLabelController,
-                        builder: (controller) => GestureDetector(
-                          onTap: () {
-                            _tabController.animateTo(4);
-                            controller.changeIndex(4);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.only(
-                                top: getProportionateScreenHeight(12)),
-                            // padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(5)),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(12)),
-                              color: controller.backgroundColors[4],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: getProportionateScreenHeight(18),
-                                  width: getProportionateScreenWidth(18),
-                                  child: Image.asset(
-                                    controller.orders,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  height: getProportionateScreenHeight(20),
-                                  width: getProportionateScreenWidth(80),
-                                  child: AutoSizeText(
-                                    "ردود الطلبات",
-                                    style: controller.ordersStyle,
-                                    minFontSize: 8,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Expanded(
+                    //   child: GetBuilder<CustomerLabelController>(
+                    //     // init: _customerLabelController,
+                    //     builder: (controller) => GestureDetector(
+                    //       onTap: () {
+                    //         _tabController.animateTo(4);
+                    //         controller.changeIndex(4);
+                    //       },
+                    //       child: Container(
+                    //         padding: EdgeInsets.only(
+                    //             top: getProportionateScreenHeight(12)),
+                    //         // padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(5)),
+                    //         decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.only(
+                    //               topRight: Radius.circular(12)),
+                    //           color: controller.backgroundColors[4],
+                    //         ),
+                    //         child: Column(
+                    //           crossAxisAlignment: CrossAxisAlignment.center,
+                    //           children: [
+                    //             Container(
+                    //               height: getProportionateScreenHeight(18),
+                    //               width: getProportionateScreenWidth(18),
+                    //               child: Image.asset(
+                    //                 controller.orders,
+                    //                 fit: BoxFit.fill,
+                    //               ),
+                    //             ),
+                    //             Container(
+                    //               alignment: Alignment.center,
+                    //               height: getProportionateScreenHeight(20),
+                    //               width: getProportionateScreenWidth(80),
+                    //               child: AutoSizeText(
+                    //                 "ردود الطلبات",
+                    //                 style: controller.ordersStyle,
+                    //                 minFontSize: 8,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
 
                     ///orders
                   ],
@@ -523,7 +526,7 @@ crossAxisAlignment: CrossAxisAlignment.end,
                       PBody(widget.storeModel.id),
                       AboutStoreBodyScreen(widget.storeModel.id),
                       OffersBodyScreen(widget.storeModel.id),
-                      OrdersBodyScreen(),
+                      // OrdersBodyScreen(),
 
                     ],
                   ),

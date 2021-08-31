@@ -53,12 +53,12 @@ class _MyCornerDetailsState extends State<MyCornerDetails> {
   //     var url;
   //     if(userModel.store.length==0){
   //       url = Uri.parse(
-  //         "http://pets.sourcecode-ai.com/api/myCorners",
+  //         "${Api.baseUrl}/myCorners",
   //       );
   //     }
   //     else {
   //       url = Uri.parse(
-  //         "http://pets.sourcecode-ai.com/api/myCorners?store_id=${userModel.store[0].id.toString()}",
+  //         "${Api.baseUrl}/myCorners?store_id=${userModel.store[0].id.toString()}",
   //       );
   //
   //     }

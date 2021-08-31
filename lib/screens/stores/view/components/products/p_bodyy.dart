@@ -104,49 +104,57 @@ class _PBodyState extends State<PBody> {
         padding: EdgeInsets.symmetric(
         horizontal: getProportionateScreenWidth(16),
     vertical: getProportionateScreenHeight(8)),
-    child:  SingleChildScrollView(
-    child: Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-    Column(
-    children: [
-    ...List<Widget>.generate(
-    products.length,
-    (index)=>index%2==0?Container(
-    margin: EdgeInsets.symmetric(vertical: 10),
+    child:  RefreshIndicator(
+      onRefresh: ()async{
+        await fetchData();
+      },
+      child: ListView(
+      children:[
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              children: [
+                ...List<Widget>.generate(
+                  products.length,
+                      (index)=>index%2==0?Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
 
-    child:  StoreProductCard(products[index],()async{
-      bool k=await addToFavorite(products[index].id);
-      if(k==true)
-        return true;
-      else return false;
-    }),
-    ):Container(height: 0,),
+                    child:  StoreProductCard(products[index],()async{
+                      bool k=await addToFavorite(products[index].id);
+                      if(k==true)
+                        return true;
+                      else return false;
+                    }),
+                  ):Container(height: 0,),
 
-    ),
-    ],
-    ),
-    Spacer(),
-    Column(
-    children: [
-    ...List<Widget>.generate(
-    products.length,
-    (index)=>index%2==1?Container(
-    margin: EdgeInsets.symmetric(vertical: 10),
+                ),
+              ],
+            ),
+            Spacer(),
+            Column(
+              children: [
+                ...List<Widget>.generate(
+                  products.length,
+                      (index)=>index%2==1?Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
 
-    child:  StoreProductCard(products[index],()async{
-    bool k=await addToFavorite(products[index].id);
-    if(k==true)
-    return true;
-    else return false;
-    }),
-    ):Container(height: 0,),
+                    child:  StoreProductCard(products[index],()async{
+                      bool k=await addToFavorite(products[index].id);
+                      if(k==true)
+                        return true;
+                      else return false;
+                    }),
+                  ):Container(height: 0,),
 
-    ),
-    ],
-    ),
-    ],
-    ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ]
+
+      ),
     ),
     );
   }

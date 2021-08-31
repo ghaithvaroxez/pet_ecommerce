@@ -125,11 +125,16 @@ onTap: (){
                      // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
                        child: Container(
                          padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(16),vertical: getProportionateScreenHeight(16)),
-                         child: ListView.builder(
-                           // physics: NeverScrollableScrollPhysics(),
-                             itemCount: controller.corners.length,
-                             itemBuilder: (context, index) =>
-                                 MyCornerVerticalCard(controller.corners[index],()async{await controller.deleteCorner(cornerController.corners[index].id);})),
+                         child: controller.corners.length==0?Container(height: getProportionateScreenHeight(400),width: getProportionateScreenWidth(350),alignment: Alignment.center,child: Center(child: AutoSizeText("لا يوجد عناصر حاليا",style: body3_18pt,),),):RefreshIndicator(
+                           onRefresh: ()async{
+                             await controller.getCorners();
+                           },
+                           child: ListView.builder(
+                             // physics: NeverScrollableScrollPhysics(),
+                               itemCount: controller.corners.length,
+                               itemBuilder: (context, index) =>
+                                   MyCornerVerticalCard(controller.corners[index],()async{await controller.deleteCorner(cornerController.corners[index].id);})),
+                         ),
                        )),
                  ),
                ),

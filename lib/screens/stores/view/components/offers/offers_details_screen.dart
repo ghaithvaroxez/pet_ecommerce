@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:pets_ecommerce/configuration/constants/api.dart';
@@ -6,7 +7,9 @@ import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
 import 'package:pets_ecommerce/screens/stores/model/custoer_store_offer.dart';
+import 'package:get/get.dart';
 
+import '../../store_details_id.dart';
 
 class OfferDetailsPage extends StatelessWidget {
   Offer offer;
@@ -148,18 +151,56 @@ class OfferDetailsPage extends StatelessWidget {
               ),
               child: SingleChildScrollView(
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(8),horizontal: getProportionateScreenWidth(20)),
-
+                  margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(8),horizontal: getProportionateScreenWidth(20)),
+// color: Colors.green,
                   child: Column(
                     children: [
                       SizedBox(height: getProportionateScreenHeight(10),),
+
+
+
+                      // SizedBox(height: getProportionateScreenHeight(15),),
+
+                      SizedBox(height: getProportionateScreenHeight(10),),
+
                       Container(
                         alignment: Alignment.centerRight,
-                        child: AutoSizeText("الوصف",style: body3_18pt,),
+                        child: Column(
+                          children: [
+                            Container(
+                              alignment: Alignment.centerRight,
+                              // color: Colors.yellow,
+                              height: getProportionateScreenHeight(30),
+                              width: getProportionateScreenWidth(390),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  GestureDetector(onTap:(){
+                        Get.to(StoreDetailsById(offer.storeId));
+                        },child: AutoSizeText(offer.storeName,style: darkGrayText_18pt_underlined,)),
+
+                                  SizedBox(width: getProportionateScreenWidth(25),),
+
+                                  Container(child: AutoSizeText("اسم المتجر",style: body3_18pt,)),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: getProportionateScreenHeight(15),),
+                            Row(
+                              children: [
+Spacer(),
+                                Container(alignment:Alignment.centerRight,child: AutoSizeText("الوصف",style: body3_18pt,)),
+                                SizedBox(width: getProportionateScreenWidth(5),),
+
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBox(height: getProportionateScreenHeight(35),),
+                      SizedBox(height: getProportionateScreenHeight(25),),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(4)),
+                        width: getProportionateScreenWidth(340),
+                        // padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(4)),
                         alignment: Alignment.centerRight,
                         child: AutoSizeText(offer.desc,style: darkGrayText_16pt,),
                       ),

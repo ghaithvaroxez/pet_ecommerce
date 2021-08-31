@@ -40,7 +40,9 @@ class Doctor {
     this.openFrom,
     this.info,
     this.closeAt,
-    this.doctorWorkDays
+    this.doctorWorkDays,
+    this.long,
+    this.lat
   });
 
   int id;
@@ -56,6 +58,9 @@ String openFrom;
 String closeAt;
 String info;
 List<StoreWorksDay> doctorWorkDays;
+double long;
+double lat;
+
   factory Doctor.fromJson(Map<String, dynamic> json) => Doctor(
     id: json["id"],
     firstName: json["first_name"],
@@ -70,6 +75,8 @@ List<StoreWorksDay> doctorWorkDays;
     doctorContacts: List<DoctorContact>.from(json["doctor_contacts"].map((x) => DoctorContact.fromJson(x))),
     doctorServices: List<DoctorService>.from(json["doctor_services"].map((x) => DoctorService.fromJson(x))),
     doctorWorkDays:List<StoreWorksDay>.from(json["doctor_works_days"].map((x) => StoreWorksDay.fromJson(x))),
+    long: json["longitude"]==-1?-1.01:json["longitude"],
+    lat: json["latitude"]==-1?-1.01:json["latitude"],
   );
 
   Map<String, dynamic> toJson() => {

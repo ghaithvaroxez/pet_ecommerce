@@ -18,10 +18,16 @@ class _SplashScreenState extends State<SplashScreen> {
     LocalStorageService.getPrefs();
     // AuthServices.getCurrentUser();
     Duration duration = Duration(seconds: 2);
-    Future.delayed(duration).then((value) =>
-    AuthServices.authenticated()?    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MainScreen())):
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginOrRegister())));
-    // TODO: implement initState
+    Future.delayed(duration).then((value){
+       bool k= AuthServices.authenticated();
+
+
+            k?
+        Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (BuildContext context) => MainScreen())) :
+    Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (BuildContext context) => LoginOrRegister()));});
+  // TODO: implement initState
     super.initState();
   }
 

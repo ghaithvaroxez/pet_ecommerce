@@ -115,11 +115,11 @@ async {
       if (k == true) {
         await getProducts();
         await homeController.getHome();
-        Get.back();
+        // Get.back();
         removeLoading();
         update();
       } else {
-        Get.back();
+        // Get.back();
         removeLoading();
         update();
         Get.rawSnackbar(
@@ -127,8 +127,8 @@ async {
             backgroundColor: Colors.redAccent);
       }
     }catch(e){
-    Get.back();
-    removeLoading();
+    // Get.back();
+  removeLoading();
     update();
     Get.rawSnackbar(
         message: "can't delete your product now try again later",

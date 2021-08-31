@@ -36,9 +36,10 @@ class Offer {
     this.image,
     this.date,
     this.favStatus,
-    this.visible
+    this.visible,
+    this.error=false
   });
-
+bool error;
   int id;
   int storeId;
   String storeName;

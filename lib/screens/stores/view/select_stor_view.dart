@@ -31,7 +31,7 @@ fetchData()async
 
   });
 
-var url=Uri.parse("http://pets.sourcecode-ai.com/api/stores/stores");
+var url=Uri.parse("${Api.baseUrl}/stores/stores");
 consolePrint("before print");
 final h=await HttpService().getHeaders();
   final apiResult=await http.get(url,headers: h);
@@ -55,7 +55,7 @@ Future<bool> addToFavorite(int storeId) async {
   try{
       consolePrint("store id" + storeId.toString());
       var url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/addToFavourite/$storeId/store/Store");
+          "${Api.baseUrl}/addToFavourite/$storeId/store/Store");
       consolePrint("before add to favorite print");
       final h = await HttpService().getHeaders();
       final apiResult = await http.post(url, headers: h);
@@ -94,22 +94,27 @@ Future<bool> addToFavorite(int storeId) async {
       Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
     ],):loading?LoadingScreen():Container(
         margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
-        child: ListView.builder(
-            // physics: NeverScrollableScrollPhysics(),
-            itemCount: Stores.stores.length,
-            itemBuilder: (context, index) => index == 0
-                ? Column(
-                    children: [
-                      SearchBar(),
-                      VerticalStoreListCard(store:Stores.stores[index],addToFav: ()async{
-                        bool k=  await addToFavorite(Stores.stores[index].id);
-                        return k;
-                      },)],
-                  )
-                : VerticalStoreListCard(store:Stores.stores[index],addToFav: ()async{
-            bool k=  await addToFavorite(Stores.stores[index].id);
-            return k;
-            },)));
+        child:RefreshIndicator(
+          onRefresh: ()async{
+            await fetchData();
+          },
+          child: ListView.builder(
+              // physics: NeverScrollableScrollPhysics(),
+              itemCount: Stores.stores.length,
+              itemBuilder: (context, index) => index == 0
+                  ? Column(
+                      children: [
+                        SearchBar(),
+                        VerticalStoreListCard(store:Stores.stores[index],addToFav: ()async{
+                          bool k=  await addToFavorite(Stores.stores[index].id);
+                          return k;
+                        },)],
+                    )
+                  : VerticalStoreListCard(store:Stores.stores[index],addToFav: ()async{
+              bool k=  await addToFavorite(Stores.stores[index].id);
+              return k;
+              },)),
+        ));
   }
 }
 

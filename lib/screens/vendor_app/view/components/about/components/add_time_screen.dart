@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/gradient.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
@@ -46,7 +47,7 @@ class _AddTimeScreenState extends State<AddTimeScreen> {
 
     });
    try {
-      var url = Uri.parse("http://pets.sourcecode-ai.com/api/days");
+      var url = Uri.parse("${Api.baseUrl}/days");
       consolePrint("before print");
       final h = await HttpService().getHeaders();
       final apiResult = await http.get(url, headers: h);

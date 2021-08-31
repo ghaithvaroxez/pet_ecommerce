@@ -7,13 +7,13 @@ import 'package:pets_ecommerce/screens/main_screen/model/main_screen_model.dart'
 String productsImg="assets/images/store/not active/products_icon.png";
 String aboutStoreImg="assets/images/store/not active/about_store_icon.png";
 String offersImg="assets/images/store/not active/offers_icon.png";
-String ordersImg="assets/images/store/not active/orders_icon.png";
+// String ordersImg="assets/images/store/not active/orders_icon.png";
 String photosImg="assets/images/vendor_app/not_active_photos.png";
 
 String activeProductsImg="assets/images/store/active/active_products_icon.png";
 String activeAboutStoreImg="assets/images/store/active/active_about_store_icon.png";
 String activeOffersImg="assets/images/store/active/active_offers_icon.png";
-String activeOrdersImg="assets/images/store/active/active_orders_icon.png";
+// String activeOrdersImg="assets/images/store/active/active_orders_icon.png";
 String activePhotosImg="assets/images/vendor_app/active_photos.png";
 
 Color activeBackgroundColor=Colors.white;
@@ -25,7 +25,7 @@ class VendorLabelController extends GetxController
     activeBackgroundColor,
     storeLabelBackgroundGrey,
     storeLabelBackgroundGrey,
-    storeLabelBackgroundGrey,
+    // storeLabelBackgroundGrey,
     storeLabelBackgroundGrey,
   ];
 
@@ -33,13 +33,13 @@ class VendorLabelController extends GetxController
   TextStyle productsStyle;
   TextStyle aboutStoreStyle;
   TextStyle offersStyle;
-  TextStyle ordersStyle;
+  // TextStyle ordersStyle;
   TextStyle photosStyle;
 
   String product;
   String aboutStore;
   String offers;
-  String orders;
+  // String orders;
   String photos;
   @override
   void onInit() {
@@ -48,12 +48,12 @@ class VendorLabelController extends GetxController
     product=activeProductsImg;
     aboutStore=aboutStoreImg;
     offers=offersImg;
-    orders=ordersImg;
+    // orders=ordersImg;
     photos=photosImg;
     productsStyle=activeTextStyle;
     aboutStoreStyle=notActiveTextStyle;
     offersStyle=notActiveTextStyle;
-    ordersStyle=notActiveTextStyle;
+    // ordersStyle=notActiveTextStyle;
     photosStyle=notActiveTextStyle;
 
     super.onInit();
@@ -78,11 +78,11 @@ class VendorLabelController extends GetxController
         offersStyle=notActiveTextStyle;
         offers=offersImg;
         break;
-      case 3:
-        ordersStyle=notActiveTextStyle;
-        orders=ordersImg;
-        break;
-        case 4:
+      // case 3:
+      //   ordersStyle=notActiveTextStyle;
+      //   orders=ordersImg;
+      //   break;
+        case 3:
         photosStyle=notActiveTextStyle;
         photos=photosImg;
         break;
@@ -102,11 +102,11 @@ class VendorLabelController extends GetxController
         offersStyle=activeTextStyle;
         offers=activeOffersImg;
         break;
-      case 3:
-        ordersStyle=activeTextStyle;
-        orders=activeOrdersImg;
-        break;
-        case 4:
+      // case 3:
+      //   ordersStyle=activeTextStyle;
+      //   orders=activeOrdersImg;
+      //   break;
+        case 3:
         photosStyle=activeTextStyle;
         photos=activePhotosImg;
         break;

@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
@@ -31,25 +32,29 @@ class _FavoriteOffersBodyState extends State<FavoriteOffersBody> {
     setState(() {
 
     });
-    var url=Uri.parse("http://pets.sourcecode-ai.com/api/myFavourites/offers");
-    final h=await HttpService().getHeaders();
-    consolePrint("try to get  offdmbpfb  lvlfdbfl,lmgk mfv , fv,; bbfd");
-    final apiResult =await http.get(url,headers: h);
-    if(apiResult.statusCode==200)
-    {
-      var j=jsonDecode(apiResult.body);
-      offers= List<Offer>.from(j["my Favourites"].map((x) => Offer.fromJson(x)));
+    try{
+      var url =
+          Uri.parse("${Api.baseUrl}/myFavourites/offers");
+      final h = await HttpService().getHeaders();
+      consolePrint("try to get  offdmbpfb  lvlfdbfl,lmgk mfv , fv,; bbfd");
+      final apiResult = await http.get(url, headers: h);
+      consolePrint(apiResult.statusCode.toString());
+      consolePrint(apiResult.body.toString());
+      if (apiResult.statusCode == 200) {
+        var j = jsonDecode(apiResult.body);
+        offers =
+            List<Offer>.from(j["my Favourites"].map((x) => Offer.fromJson(x)));
+      } else {
+        error = true;
+      }
+
+      loading = false;
+      setState(() {});
+    }catch(e){
+      consolePrint(e.toString());
+      loading = false;
+      setState(() {});
     }
-    else
-    {
-      error=true;
-    }
-
-    loading=false;
-    setState(() {
-
-    });
-
 
   }
 
@@ -58,7 +63,7 @@ class _FavoriteOffersBodyState extends State<FavoriteOffersBody> {
    try {
       consolePrint("offer id" + offerId.toString());
       var url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/addToFavourite/$offerId/offer");
+          "${Api.baseUrl}/addToFavourite/$offerId/offer");
       consolePrint("before add to favorite print");
       consolePrint("try to post on " + url.path);
 
@@ -101,9 +106,11 @@ class _FavoriteOffersBodyState extends State<FavoriteOffersBody> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return  error?Container(
-      margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
-      child: AutoSizeText("عذرا حدثت مشكلة الرجاء المحاولة مجددا"),
+    return  error? Container(
+      height: getProportionateScreenHeight(400),
+      width: getProportionateScreenWidth(350),
+      alignment: Alignment.center,
+      child: AutoSizeText("عذرا حدثت مشكلة الرجاء المحاولة مجددا",style: body3_18pt,),
     ):loading?LoadingScreen():Container(
       margin: EdgeInsets.symmetric(
           horizontal: getProportionateScreenWidth(24),

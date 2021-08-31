@@ -44,7 +44,7 @@ class _VendorPhotosBodyState extends State<VendorPhotosBody> {
   //
   //   });
   //
-  //   var url=Uri.parse("http://pets.sourcecode-ai.com/api/store/images/${widget.id}");
+  //   var url=Uri.parse("${Api.baseUrl}/store/images/${widget.id}");
   //   final apiResult =await http.get(url);
   //   if(apiResult.statusCode==200)
   //   {

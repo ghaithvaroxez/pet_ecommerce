@@ -44,7 +44,7 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
   void initState() {
     // TODO: implement initState
     super.initState();
-    vendorAppTabController = TabController(length: 5, vsync: this);
+    vendorAppTabController = TabController(length: 4, vsync: this);
     vendorAppTabController.addListener(() {
       vendorAppLabelController.changeIndex(vendorAppTabController.index);
     });
@@ -291,47 +291,47 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
                       ),
 
                       ///offers
-                Expanded(
-                        child: GetBuilder<VendorLabelController>(
-                          init:  vendorAppLabelController,
-                          builder: (controller) => GestureDetector(
-                            onTap: () {
-                              vendorAppTabController.animateTo(3);
-                              controller.changeIndex(3);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                  top: getProportionateScreenHeight(12)),
-                              decoration: BoxDecoration(
-                                color: controller.backgroundColors[3],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: getProportionateScreenHeight(18),
-                                    width: getProportionateScreenWidth(18),
-                                    child: Image.asset(
-                                      controller.orders,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    height: getProportionateScreenHeight(20),
-                                    width: getProportionateScreenWidth(80),
-                                    child: AutoSizeText(
-                                      "ردود الطلبات",
-                                      style: controller.ordersStyle,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                // Expanded(
+                //         child: GetBuilder<VendorLabelController>(
+                //           init:  vendorAppLabelController,
+                //           builder: (controller) => GestureDetector(
+                //             onTap: () {
+                //               vendorAppTabController.animateTo(3);
+                //               controller.changeIndex(3);
+                //             },
+                //             child: Container(
+                //               padding: EdgeInsets.only(
+                //                   top: getProportionateScreenHeight(12)),
+                //               decoration: BoxDecoration(
+                //                 color: controller.backgroundColors[3],
+                //               ),
+                //               child: Column(
+                //                 crossAxisAlignment: CrossAxisAlignment.center,
+                //                 children: [
+                //                   Container(
+                //                     height: getProportionateScreenHeight(18),
+                //                     width: getProportionateScreenWidth(18),
+                //                     child: Image.asset(
+                //                       controller.orders,
+                //                       fit: BoxFit.fill,
+                //                     ),
+                //                   ),
+                //                   Container(
+                //                     alignment: Alignment.center,
+                //                     height: getProportionateScreenHeight(20),
+                //                     width: getProportionateScreenWidth(80),
+                //                     child: AutoSizeText(
+                //                       "ردود الطلبات",
+                //                       style: controller.ordersStyle,
+                //                       minFontSize: 8,
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //       ),
 
                       ///orders
 
@@ -340,8 +340,10 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
                           init:  vendorAppLabelController,
                           builder: (controller) => GestureDetector(
                             onTap: () {
-                              vendorAppTabController.animateTo(4);
-                              controller.changeIndex(4);
+                              // vendorAppTabController.animateTo(4);
+                              // controller.changeIndex(4);
+                              vendorAppTabController.animateTo(3);
+                              controller.changeIndex(3);
                             },
                             child: Container(
                               padding: EdgeInsets.only(
@@ -350,7 +352,7 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(12)),
-                                color: controller.backgroundColors[4],
+                                color: controller.backgroundColors[3],
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -404,7 +406,7 @@ class _VendorDetailsPageState extends State<VendorDetailsPage>
                         VendorProductsBodyScreen(vendorProductsController),
                         AboutStoreBodyScreen(customVendorInfoController),
                         VendorOffersBodyScreen(vendorOffersController),
-                        OrdersBodyScreen(),
+                        // OrdersBodyScreen(),
                         VendorPhotosBody(),
                       ],
                     ),

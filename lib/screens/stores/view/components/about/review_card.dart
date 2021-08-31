@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/colors.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
@@ -32,10 +33,10 @@ class ReviewCad extends StatelessWidget {
               width: getProportionateScreenWidth(70),
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
                 ),
-                child: Image.network(imagePath==null?"":imagePath,fit: BoxFit.fill,),
+                child: Image.network(imagePath==null?"":Api.imagePath+imagePath,fit: BoxFit.fill,),
               ),
             ),
           ),

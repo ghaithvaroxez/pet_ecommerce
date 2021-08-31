@@ -62,7 +62,7 @@ consolePrint("after get ");
     fetchdata();
     // TODO: implement initState
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       _customerDoctorDetailsLabelController.changeIndex(_tabController.index);
     });
@@ -298,7 +298,7 @@ consolePrint("after get ");
                               padding: EdgeInsets.only(
                                   top: getProportionateScreenHeight(12)),
                               decoration: BoxDecoration(
-
+borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
                                 color: controller.backgroundColors[1],
                               ),
                               child: Column(
@@ -331,48 +331,48 @@ consolePrint("after get ");
 
                       ///about store
 
-                      Expanded(
-                        child: GetBuilder<CustomerDoctorDetailsLabelController>(
-                          init: _customerDoctorDetailsLabelController,
-                          builder: (controller) => GestureDetector(
-                            onTap: () {
-                              _tabController.animateTo(2);
-                              controller.changeIndex(2);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                  top: getProportionateScreenHeight(12)),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
-                                color: controller.backgroundColors[2],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: getProportionateScreenHeight(18),
-                                    width: getProportionateScreenWidth(18),
-                                    child: Image.asset(
-                                      controller.ordersResponse,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    height: getProportionateScreenHeight(20),
-                                    width: getProportionateScreenWidth(80),
-                                    child: AutoSizeText(
-                                      "ردود الطلبات",
-                                      style: controller.ordersResponseStyle,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Expanded(
+                      //   child: GetBuilder<CustomerDoctorDetailsLabelController>(
+                      //     init: _customerDoctorDetailsLabelController,
+                      //     builder: (controller) => GestureDetector(
+                      //       onTap: () {
+                      //         _tabController.animateTo(2);
+                      //         controller.changeIndex(2);
+                      //       },
+                      //       child: Container(
+                      //         padding: EdgeInsets.only(
+                      //             top: getProportionateScreenHeight(12)),
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
+                      //           color: controller.backgroundColors[2],
+                      //         ),
+                      //         child: Column(
+                      //           crossAxisAlignment: CrossAxisAlignment.center,
+                      //           children: [
+                      //             Container(
+                      //               height: getProportionateScreenHeight(18),
+                      //               width: getProportionateScreenWidth(18),
+                      //               child: Image.asset(
+                      //                 controller.ordersResponse,
+                      //                 fit: BoxFit.fill,
+                      //               ),
+                      //             ),
+                      //             Container(
+                      //               alignment: Alignment.center,
+                      //               height: getProportionateScreenHeight(20),
+                      //               width: getProportionateScreenWidth(80),
+                      //               child: AutoSizeText(
+                      //                 "ردود الطلبات",
+                      //                 style: controller.ordersResponseStyle,
+                      //                 minFontSize: 8,
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       ///orders
                     ],
                   ),
@@ -393,7 +393,7 @@ consolePrint("after get ");
 
                         DoctorServicesBody(doctorModel.doctor.doctorServices),
                         DoctorPersonalInfoBody(doctorModel.doctor),
-                        DoctorOrdersResponseBody(),
+                        // DoctorOrdersResponseBody(),
                       ],
                     ),
                   ),

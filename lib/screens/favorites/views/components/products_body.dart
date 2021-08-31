@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
 import 'package:pets_ecommerce/configuration/constants/text_style.dart';
 import 'package:pets_ecommerce/configuration/printer.dart';
 import 'package:pets_ecommerce/configuration/size_config.dart';
@@ -25,7 +26,7 @@ class _FavoriteProductsBodyState extends State<FavoriteProductsBody> {
     try{
       consolePrint("product id" + productId.toString());
       var url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/addToFavourite/$productId/product");
+          "${Api.baseUrl}/addToFavourite/$productId/product");
       consolePrint("before add to favorite print");
       consolePrint("try to post on " + url.path);
 
@@ -67,7 +68,7 @@ class _FavoriteProductsBodyState extends State<FavoriteProductsBody> {
 
     try{
       var url =
-          Uri.parse("http://pets.sourcecode-ai.com/api/myFavourites/items");
+          Uri.parse("${Api.baseUrl}/myFavourites/items");
       final h = await HttpService().getHeaders();
       final apiResult = await http.get(url, headers: h);
       if (apiResult.statusCode == 200) {
