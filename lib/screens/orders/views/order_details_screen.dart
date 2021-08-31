@@ -42,7 +42,7 @@ setState(() {
 });
     try{
       var url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/delete/answer/${answerId.toString()}");
+          "${Api.baseUrl}/delete/answer/${answerId.toString()}");
       consolePrint("before add answer print");
       consolePrint("try to post on " + url.path);
 
@@ -52,7 +52,8 @@ setState(() {
       //   "answer":answer
       // }
       );
-      consolePrint("after add to favorite print");
+      consolePrint("delete answer body "+apiResult.body);
+
 
       if (apiResult.statusCode == 200) {
         consolePrint("statusCode==200");
@@ -83,7 +84,7 @@ setState(() {
     try{
       // consolePrint("product id" + productId.toString());
       var url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/answer/order/${order.id.toString()}");
+          "${Api.baseUrl}/answer/order/${order.id.toString()}");
       consolePrint("before add answer print");
       consolePrint("try to post on " + url.path);
 
@@ -127,7 +128,7 @@ setState(() {
 
     try {
       var url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/show/order/${widget.id}");
+          "${Api.baseUrl}/show/order/${widget.id}");
       consolePrint(url.path);
       final h = await HttpService().getHeaders();
       final apiResult = await http.get(url, headers: h);
