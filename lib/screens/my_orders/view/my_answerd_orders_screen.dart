@@ -146,7 +146,7 @@ consolePrint("statusCode:"+apiResult.statusCode.toString());
                           child:   Container(
                             width: getProportionateScreenWidth(345),
                             height: getProportionateScreenHeight(110),
-                            margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(10)),
+                            margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(10),horizontal: getProportionateScreenWidth(22.5)),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
                                 color: Color(0xFFF9F9F9),

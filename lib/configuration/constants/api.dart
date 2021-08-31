@@ -1,7 +1,7 @@
 class Api {
 
   static String get baseUrl {
-    return "http://pets.sourcecode-ai.com/api";
+    return "http://pets.ahmadajory.com/api";
   }
 
   //registration

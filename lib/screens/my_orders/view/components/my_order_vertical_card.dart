@@ -23,10 +23,11 @@ class MyVerticalOrderListCard extends StatelessWidget {
           Get.to(MyOrderDetailsScreen(order.id));
         },
         child: Container(
+
           alignment: Alignment.center,
           width: getProportionateScreenWidth(345),
           height: getProportionateScreenHeight(134),
-          margin: EdgeInsets.only(bottom: getProportionateScreenHeight(8),top: getProportionateScreenHeight(8)),
+          margin: EdgeInsets.only(bottom: getProportionateScreenHeight(8),top: getProportionateScreenHeight(8),left: getProportionateScreenWidth(22.5), right: getProportionateScreenWidth(22.5)),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: Colors.white,
@@ -51,7 +52,10 @@ class MyVerticalOrderListCard extends StatelessWidget {
                       bottomRight: Radius.circular(12),
                     ),
                     child: Image.network(
+                      
                       Api.imagePath+order.image,
+                      height:getProportionateScreenHeight(134) ,
+                      width: getProportionateScreenWidth(105),
                       fit: BoxFit.fill,
                     ),
                   ),
