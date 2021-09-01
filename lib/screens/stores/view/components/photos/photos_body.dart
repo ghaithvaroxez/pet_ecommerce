@@ -3,19 +3,19 @@ import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/configuration/constants/text_style.dart';
-import 'package:pets_ecommerce/configuration/printer.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
-import 'package:pets_ecommerce/screens/stores/view/components/products/store_product_card.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/printer.dart';
+import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/auth/controller/services/auth_services.dart';
+import 'package:pets/screens/stores/view/components/products/store_product_card.dart';
+import 'package:pets/screens/vendor_app/model/product.dart';
 import 'package:http/http.dart' as http;
-import 'package:pets_ecommerce/screens/vendor_app/controller/photos_controler.dart';
-import 'package:pets_ecommerce/services/http_requests_service.dart';
+import 'package:pets/screens/vendor_app/controller/photos_controler.dart';
+import 'package:pets/services/http_requests_service.dart';
 
 import '../../../../loading_screen.dart';
 import '../photos/photo_card.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/image_model.dart' as im;
+import 'package:pets/screens/vendor_app/model/image_model.dart' as im;
 import '../photos/photos_view.dart';
 class CustomerPhotosBody extends StatefulWidget {
   int id;

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/configuration/printer.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/location_model.dart';
+import 'package:pets/configuration/printer.dart';
+import 'package:pets/screens/vendor_app/model/location_model.dart';
 import '../model/store.dart';
 import '../requests/vendor_app_requests.dart';
 import 'dart:io';
 import 'package:image/image.dart' as Im;
-import 'package:pets_ecommerce/screens/stores/model/custome_store_body.dart';
+import 'package:pets/screens/stores/model/custome_store_body.dart';
 
 class VendorInfoController extends GetxController {
   CustomerStoreBody storeInfo;

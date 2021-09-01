@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/constants/colors.dart';
-import 'package:pets_ecommerce/configuration/constants/text_style.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets/configuration/constants/colors.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/size_config.dart';
 
-import 'package:pets_ecommerce/screens/home/view/components/favorite_icon.dart';
+import 'package:pets/screens/home/view/components/favorite_icon.dart';
 
 class ProductCard extends StatelessWidget {
   @override

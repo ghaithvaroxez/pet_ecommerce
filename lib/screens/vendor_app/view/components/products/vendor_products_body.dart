@@ -1,16 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/constants/text_style.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/vendor_app/controller/products_controller.dart';
-import 'package:pets_ecommerce/screens/vendor_app/controller/vendor_label_controller.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/constants.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/vendor_app/controller/products_controller.dart';
+import 'package:pets/screens/vendor_app/controller/vendor_label_controller.dart';
+import 'package:pets/screens/vendor_app/model/constants.dart';
 import 'edit_product_screen.dart';
-import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets_ecommerce/lib/screens/stores/view/components/products/store_product_card.dart';
-import 'package:pets_ecommerce/screens/vendor_app/view/components/products/vendor_product_card.dart';
+import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets/lib/screens/stores/view/components/products/store_product_card.dart';
+import 'package:pets/screens/vendor_app/view/components/products/vendor_product_card.dart';
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/enums.dart';
-import 'package:pets_ecommerce/screens/vendor_app/view/components/products/add_new_product_screen.dart';
+import 'package:pets/screens/vendor_app/model/enums.dart';
+import 'package:pets/screens/vendor_app/view/components/products/add_new_product_screen.dart';
 
 class VendorProductsBodyScreen extends StatefulWidget {
   VendorProductsController vendorProductsController;

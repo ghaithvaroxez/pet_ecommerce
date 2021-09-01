@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/configuration/printer.dart';
-import 'package:pets_ecommerce/screens/home/model/home_model.dart';
-import 'package:pets_ecommerce/screens/home/requests/home_requests.dart';
+import 'package:pets/configuration/printer.dart';
+import 'package:pets/screens/home/model/home_model.dart';
+import 'package:pets/screens/home/requests/home_requests.dart';
 
 class HomeController extends GetxController{
 bool loading=false;

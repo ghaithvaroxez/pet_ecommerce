@@ -15,18 +15,25 @@ class UserModel {
     this.user,
     this.token,
     this.store,
+    this.error=false,
+    this.storeName,
+    this.storeImage,
   });
 
   User user;
-  bool error=false;
+  bool error;
   String token;
   String fcmToken;
   List<StoreId> store;
+  List<StoreName> storeName;
+  List<StoreImage> storeImage;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
     user: User.fromJson(json["user"]),
     token: json["token"],
     store: List<StoreId>.from(json["store"].map((x) => StoreId.fromJson(x))),
+    storeName: List<StoreName>.from(json["store_name"].map((x) => StoreName.fromJson(x))),
+    storeImage: List<StoreImage>.from(json["store_image"].map((x) => StoreImage.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -36,7 +43,37 @@ class UserModel {
     "store": List<dynamic>.from(store.map((x) => x.toJson())),
   };
 }
+class StoreImage {
+  StoreImage({
+    this.image,
+  });
 
+  String image;
+
+  factory StoreImage.fromJson(Map<String, dynamic> json) => StoreImage(
+    image: json["image"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "image": image,
+  };
+}
+
+class StoreName {
+  StoreName({
+    this.name,
+  });
+
+  String name;
+
+  factory StoreName.fromJson(Map<String, dynamic> json) => StoreName(
+    name: json["name"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
+  };
+}
 class StoreId {
   StoreId({
     this.id,

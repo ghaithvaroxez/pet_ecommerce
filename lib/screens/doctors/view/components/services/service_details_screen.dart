@@ -1,12 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:pets_ecommerce/configuration/constants/api.dart';
-import 'package:pets_ecommerce/configuration/constants/text_style.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/doctor_app/model/doctor.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
-// import 'package:pets_ecommerce/screens/stores/model/custoer_store_offer.dart';
+import 'package:pets/configuration/constants/api.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/doctor_app/model/doctor.dart';
+import 'package:pets/screens/vendor_app/model/product.dart';
+// import 'package:pets/screens/stores/model/custoer_store_offer.dart';
 
 
 class DoctorServiceDetailsPage extends StatelessWidget {

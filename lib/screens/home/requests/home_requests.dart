@@ -1,9 +1,9 @@
-import 'package:pets_ecommerce/configuration/constants/api.dart';
-import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
-import 'package:pets_ecommerce/screens/auth/model/user.dart';
-import 'package:pets_ecommerce/screens/home/model/home_model.dart';
-import 'package:pets_ecommerce/screens/status/model/status_model.dart';
-import 'package:pets_ecommerce/services/http_requests_service.dart';
+import 'package:pets/configuration/constants/api.dart';
+import 'package:pets/screens/auth/controller/services/auth_services.dart';
+import 'package:pets/screens/auth/model/user.dart';
+import 'package:pets/screens/home/model/home_model.dart';
+import 'package:pets/screens/status/model/status_model.dart';
+import 'package:pets/services/http_requests_service.dart';
 
 class HomeRequests extends HttpService{
   UserModel user ;

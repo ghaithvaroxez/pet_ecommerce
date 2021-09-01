@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:pets_ecommerce/services/local_storage_service.dart';
+import 'package:pets/services/local_storage_service.dart';
 
 class AppStrings {
   //
@@ -33,6 +33,8 @@ class AppStrings {
   static String appColors = "colors";
   static String appRemoteSettings = "appRemoteSettings";
   static String googleMapApiKey = "AIzaSyDVHXZ7DdC2phLuH-HWiQ8X1J6PeOPEfrU";
+  static String name = "pname";
+  static String image = "pimage";
   //END DON'T TOUNCH Ya habab
 
   //

@@ -1,25 +1,25 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/constants/gradient.dart';
-import 'package:pets_ecommerce/configuration/constants/text_style.dart';
-import 'package:pets_ecommerce/configuration/printer.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
-import 'package:pets_ecommerce/screens/auth/model/user.dart';
-import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
-import 'package:pets_ecommerce/screens/corner/model/corner_model.dart';
-import 'package:pets_ecommerce/screens/home/view/components/search_bar_component.dart';
-import 'package:pets_ecommerce/screens/my_corner/view/my_corners_list.dart';
-import 'package:pets_ecommerce/screens/my_orders/controller/my_orders_controller.dart';
-import 'package:pets_ecommerce/screens/stores/view/components/vertical_store_list_card.dart';
-import 'package:pets_ecommerce/screens/widgets/text_field.dart';
-import 'package:pets_ecommerce/screens/corner/view/components/vertical_corner_card.dart';
+import 'package:pets/configuration/constants/gradient.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/printer.dart';
+import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/auth/controller/services/auth_services.dart';
+import 'package:pets/screens/auth/model/user.dart';
+import 'package:pets/screens/auth/view/register/register_screen.dart';
+import 'package:pets/screens/corner/model/corner_model.dart';
+import 'package:pets/screens/home/view/components/search_bar_component.dart';
+import 'package:pets/screens/my_corner/view/my_corners_list.dart';
+import 'package:pets/screens/my_orders/controller/my_orders_controller.dart';
+import 'package:pets/screens/stores/view/components/vertical_store_list_card.dart';
+import 'package:pets/screens/widgets/text_field.dart';
+import 'package:pets/screens/corner/view/components/vertical_corner_card.dart';
 import 'package:http/http.dart' as http;
-import 'package:pets_ecommerce/services/http_requests_service.dart';
+import 'package:pets/services/http_requests_service.dart';
 
 import 'package:get/get.dart';
 
-import 'package:pets_ecommerce/screens/widgets/drawer/custom_drawer.dart';
+import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
 
 import 'add_order_screen.dart';
 import 'components/my_order_vertical_card.dart';

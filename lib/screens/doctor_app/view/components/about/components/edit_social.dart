@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/constants/colors.dart';
-import 'package:pets_ecommerce/configuration/constants/gradient.dart';
-import 'package:pets_ecommerce/configuration/constants/text_style.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets/configuration/constants/colors.dart';
+import 'package:pets/configuration/constants/gradient.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/size_config.dart';
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/screens/widgets/text_field.dart';
+import 'package:pets/screens/widgets/text_field.dart';
 
 List<String> types=[
   "فيسبوك",

@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 
 
-import 'package:pets_ecommerce/configuration/constants/api.dart';
-import 'package:pets_ecommerce/configuration/printer.dart';
-import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
+import 'package:pets/configuration/constants/api.dart';
+import 'package:pets/configuration/printer.dart';
+import 'package:pets/screens/auth/controller/services/auth_services.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

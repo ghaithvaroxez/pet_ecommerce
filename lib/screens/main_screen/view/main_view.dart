@@ -1,24 +1,24 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/constants/text_style.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/corner/view/select_corner.dart';
-import 'package:pets_ecommerce/screens/search/view/components/filter_custom_bottom_sheet.dart';
-import 'package:pets_ecommerce/screens/doctors/view/select_doctor_view.dart';
-import 'package:pets_ecommerce/screens/filter/view/filtter_bottom_sheet.dart';
-import 'package:pets_ecommerce/screens/home/view/home_view.dart';
-import 'package:pets_ecommerce/screens/main_screen/controller/title_controller.dart';
-import 'package:pets_ecommerce/screens/main_screen/model/main_screen_model.dart';
-import 'package:pets_ecommerce/screens/stores/view/select_stor_view.dart';
-import 'package:pets_ecommerce/screens/widgets/custom_app_bar.dart';
-import 'package:pets_ecommerce/screens/widgets/drawer/components/drawer_item.dart';
-import 'package:pets_ecommerce/screens/widgets/drawer/custom_drawer.dart';
-import 'package:pets_ecommerce/screens/widgets/navigation_bar/custom_bottom_bar.dart';
-import 'package:pets_ecommerce/screens/widgets/text_field.dart';
-import 'package:pets_ecommerce/screens/main_screen/controller/title_controller.dart';
-import 'package:pets_ecommerce/screens/orders/views/select_order_view.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/corner/view/select_corner.dart';
+import 'package:pets/screens/search/view/components/filter_custom_bottom_sheet.dart';
+import 'package:pets/screens/doctors/view/select_doctor_view.dart';
+import 'package:pets/screens/filter/view/filtter_bottom_sheet.dart';
+import 'package:pets/screens/home/view/home_view.dart';
+import 'package:pets/screens/main_screen/controller/title_controller.dart';
+import 'package:pets/screens/main_screen/model/main_screen_model.dart';
+import 'package:pets/screens/stores/view/select_stor_view.dart';
+import 'package:pets/screens/widgets/custom_app_bar.dart';
+import 'package:pets/screens/widgets/drawer/components/drawer_item.dart';
+import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
+import 'package:pets/screens/widgets/navigation_bar/custom_bottom_bar.dart';
+import 'package:pets/screens/widgets/text_field.dart';
+import 'package:pets/screens/main_screen/controller/title_controller.dart';
+import 'package:pets/screens/orders/views/select_order_view.dart';
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/screens/profile/view/profile_screen.dart';
+import 'package:pets/screens/profile/view/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   @override

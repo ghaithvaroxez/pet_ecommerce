@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-import 'package:pets_ecommerce/screens/status/model/status_model.dart';
-import 'package:pets_ecommerce/screens/stores/model/all_stores.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/categories.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
+import 'package:pets/screens/status/model/status_model.dart';
+import 'package:pets/screens/stores/model/all_stores.dart';
+import 'package:pets/screens/vendor_app/model/categories.dart';
+import 'package:pets/screens/vendor_app/model/product.dart';
 import '../../doctors/model/all_doctors.dart';
-import 'package:pets_ecommerce/screens/stores/model/custoer_store_offer.dart';
+import 'package:pets/screens/stores/model/custoer_store_offer.dart';
 HomeModel homeModelFromJson(String str) => HomeModel.fromJson(json.decode(str));
 
 String homeModelToJson(HomeModel data) => json.encode(data.toJson());

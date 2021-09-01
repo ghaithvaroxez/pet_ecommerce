@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/configuration/printer.dart';
-import 'package:pets_ecommerce/screens/corner/model/corner_model.dart';
-import 'package:pets_ecommerce/screens/my_corner/view/my_corners_list.dart';
+import 'package:pets/configuration/printer.dart';
+import 'package:pets/screens/corner/model/corner_model.dart';
+import 'package:pets/screens/my_corner/view/my_corners_list.dart';
 
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/screens/my_orders/requests/my_orders_requests.dart';
-import 'package:pets_ecommerce/screens/my_orders/view/my_orders_list.dart';
-import 'package:pets_ecommerce/screens/orders/model/all_orders_model.dart';
-import 'package:pets_ecommerce/screens/orders/views/select_order_view.dart';
+import 'package:pets/screens/my_orders/requests/my_orders_requests.dart';
+import 'package:pets/screens/my_orders/view/my_orders_list.dart';
+import 'package:pets/screens/orders/model/all_orders_model.dart';
+import 'package:pets/screens/orders/views/select_order_view.dart';
 class MyOrdersDetailsController extends GetxController{
   bool loading =false;
   MyOrdersRequests myOrdersRequests=MyOrdersRequests();

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pets_ecommerce/configuration/constants/colors.dart';
-import 'package:pets_ecommerce/configuration/printer.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/auth/view/components/auth_button.dart';
-import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
+import 'package:pets/configuration/constants/colors.dart';
+import 'package:pets/configuration/printer.dart';
+import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/auth/view/components/auth_button.dart';
+import 'package:pets/screens/auth/view/register/register_screen.dart';
 import 'default_button.dart';
 
 

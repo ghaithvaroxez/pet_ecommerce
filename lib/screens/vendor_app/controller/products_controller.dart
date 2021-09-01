@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/screens/home/view/home_view.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/enums.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
-import 'package:pets_ecommerce/screens/vendor_app/requests/products_requests.dart';
+import 'package:pets/screens/home/view/home_view.dart';
+import 'package:pets/screens/vendor_app/model/enums.dart';
+import 'package:pets/screens/vendor_app/model/product.dart';
+import 'package:pets/screens/vendor_app/requests/products_requests.dart';
 class VendorProductsController extends GetxController{
 
   List<StoreProduct> products=[

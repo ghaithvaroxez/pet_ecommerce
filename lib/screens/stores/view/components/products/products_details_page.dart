@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:pets_ecommerce/configuration/constants/api.dart';
-import 'package:pets_ecommerce/configuration/constants/text_style.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
+import 'package:pets/configuration/constants/api.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/vendor_app/model/product.dart';
 
 import 'package:get/get.dart';
 
@@ -12,7 +12,8 @@ import '../../store_details_id.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   StoreProduct storeProdcut;
-  ProductDetailsPage(this.storeProdcut);
+  bool store;
+  ProductDetailsPage(this.storeProdcut,this.store);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,7 +154,7 @@ Positioned(top:0,left:0,child: Container(
 
                   child: Column(
                     children: [
-                      Container(
+                     store?Container(height: 0,width: 0,): Container(
                         alignment: Alignment.centerRight,
                         child: Column(
                           children: [
