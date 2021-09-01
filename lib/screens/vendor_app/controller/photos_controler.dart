@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/screens/vendor_app/model/enums.dart';
-import 'package:pets/screens/vendor_app/model/product.dart';
-import 'package:pets/screens/vendor_app/requests/photos_requests.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/enums.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
+import 'package:pets_ecommerce/screens/vendor_app/requests/photos_requests.dart';
 import '../model/image_model.dart' as im;
 class VendorPhotosController extends GetxController{
 

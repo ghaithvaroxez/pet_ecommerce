@@ -5,37 +5,37 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/configuration/size_config.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:get/get.dart';
-import 'package:pets/screens/auth/view/register/register_screen.dart';
-import 'package:pets/screens/categories/view/categories_screen.dart';
-import 'package:pets/screens/categories/view/catgory_stores.dart';
-// import 'package:pets/screens/home/controller/home_controller.dart';
-// import 'package:pets/screens/home/controller/home_controller.dart';
-// import 'package:pets/screens/home/controller/home_controller.dart';
-import 'package:pets/screens/home/model/constants.dart';
-import 'package:pets/screens/home/model/home_model.dart';
-import 'package:pets/screens/home/view/components/all_offers_screen.dart';
-import 'package:pets/screens/home/view/components/all_products_screen.dart';
-import 'package:pets/screens/home/view/components/category_item.dart';
-import 'package:pets/screens/home/view/components/category_selected_item.dart';
-import 'package:pets/screens/home/view/components/doctor_card.dart';
-import 'package:pets/screens/home/view/components/offer_card.dart';
-import 'package:pets/screens/home/view/components/product_card.dart';
-import 'package:pets/screens/home/view/components/selected_product_card.dart';
-import 'package:pets/screens/main_screen/model/main_screen_model.dart';
-import 'package:pets/screens/status/controller/status_controller.dart';
-import 'package:pets/screens/status/model/status_model.dart';
-import 'package:pets/screens/widgets/custom_app_bar.dart';
-import 'package:pets/services/http_requests_service.dart';
+import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
+import 'package:pets_ecommerce/screens/categories/view/categories_screen.dart';
+import 'package:pets_ecommerce/screens/categories/view/catgory_stores.dart';
+// import 'package:pets_ecommerce/screens/home/controller/home_controller.dart';
+// import 'package:pets_ecommerce/screens/home/controller/home_controller.dart';
+// import 'package:pets_ecommerce/screens/home/controller/home_controller.dart';
+import 'package:pets_ecommerce/screens/home/model/constants.dart';
+import 'package:pets_ecommerce/screens/home/model/home_model.dart';
+import 'package:pets_ecommerce/screens/home/view/components/all_offers_screen.dart';
+import 'package:pets_ecommerce/screens/home/view/components/all_products_screen.dart';
+import 'package:pets_ecommerce/screens/home/view/components/category_item.dart';
+import 'package:pets_ecommerce/screens/home/view/components/category_selected_item.dart';
+import 'package:pets_ecommerce/screens/home/view/components/doctor_card.dart';
+import 'package:pets_ecommerce/screens/home/view/components/offer_card.dart';
+import 'package:pets_ecommerce/screens/home/view/components/product_card.dart';
+import 'package:pets_ecommerce/screens/home/view/components/selected_product_card.dart';
+import 'package:pets_ecommerce/screens/main_screen/model/main_screen_model.dart';
+import 'package:pets_ecommerce/screens/status/controller/status_controller.dart';
+import 'package:pets_ecommerce/screens/status/model/status_model.dart';
+import 'package:pets_ecommerce/screens/widgets/custom_app_bar.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
 import 'package:video_thumbnail_generator/video_thumbnail_generator.dart';
 import 'components/search_bar_component.dart';
 import 'components/status_view.dart';
-import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets/lib/screens/widgets/navigation_bar/custom_navigation_bar.dart';
-import 'package:pets/screens/widgets/text_field.dart';
+import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets_ecommerce/lib/screens/widgets/navigation_bar/custom_navigation_bar.dart';
+import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 
 import 'components/stable_news_card.dart';
 import 'components/store_and_stable_card.dart';
@@ -899,7 +899,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
 
               ///stables
               SizedBox(
-                height: getProportionateScreenHeight(100),
+                height: getProportionateScreenHeight(40),
               ),
             ],
           ),

@@ -1,41 +1,27 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/size_config.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
 import 'package:get/get.dart';
-import 'package:pets/screens/auth/controller/services/auth_services.dart';
-import 'package:pets/screens/auth/model/user.dart';
-import 'package:pets/screens/auth/view/splash/login_or_register.dart';
-import 'package:pets/screens/auth/view/splash/splash_screen.dart';
-import 'package:pets/screens/categories/view/categories_screen.dart';
-import 'package:pets/screens/corner/view/my_corner_details.dart';
-import 'package:pets/screens/corner/view/select_corner.dart';
-import 'package:pets/screens/doctor_app/view/doctor_details_screen.dart';
-import 'package:pets/screens/favorites/views/favorite_view.dart';
-import 'package:pets/screens/maps/view/map_screen.dart';
-import 'package:pets/screens/my_corner/view/my_corners_list.dart';
-import 'package:pets/screens/my_orders/view/orders_main_screen.dart';
-import 'package:pets/screens/vendor_app/view/vendor_details_screen.dart';
-import 'package:pets/services/local_storage_service.dart';
+import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
+import 'package:pets_ecommerce/screens/auth/model/user.dart';
+import 'package:pets_ecommerce/screens/auth/view/splash/splash_screen.dart';
+import 'package:pets_ecommerce/screens/categories/view/categories_screen.dart';
+import 'package:pets_ecommerce/screens/corner/view/my_corner_details.dart';
+import 'package:pets_ecommerce/screens/corner/view/select_corner.dart';
+import 'package:pets_ecommerce/screens/doctor_app/view/doctor_details_screen.dart';
+import 'package:pets_ecommerce/screens/favorites/views/favorite_view.dart';
+import 'package:pets_ecommerce/screens/maps/view/map_screen.dart';
+import 'package:pets_ecommerce/screens/my_corner/view/my_corners_list.dart';
+import 'package:pets_ecommerce/screens/my_orders/view/orders_main_screen.dart';
+import 'package:pets_ecommerce/screens/vendor_app/view/vendor_details_screen.dart';
+import 'package:pets_ecommerce/services/local_storage_service.dart';
 import 'components/drawer_item.dart';
-import 'package:pets/screens/profile/view/profile_screen.dart';
+import 'package:pets_ecommerce/screens/profile/view/profile_screen.dart';
 import '../../../screens/status/view/my_status_screen.dart';
-class CustomDrawer extends StatefulWidget {
+class CustomDrawer extends StatelessWidget {
   bool home;
   CustomDrawer({this.home = false});
-
-  @override
-  _CustomDrawerState createState() => _CustomDrawerState();
-}
-int  gusetId;
-class _CustomDrawerState extends State<CustomDrawer> {
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -68,7 +54,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                       ),
-                      child: gusetId==146?Container(child: Center(child: AutoSizeText("pets",style: h4_21pt_lightBlue,),),):Image.asset("assets/images/drawer/user_img.png"),
+                      child: Image.asset("assets/images/drawer/user_img.png"),
                     ),
                   ),
                   Positioned(
@@ -78,7 +64,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       width: getProportionateScreenWidth(288),
                       height: getProportionateScreenHeight(30),
                       alignment: Alignment.center,
-                      child: gusetId==146?Container(height: 0,width: 0,):AutoSizeText(
+                      child: AutoSizeText(
                         "أحمد العمودي",
                         style: body1_16pt,
                         maxLines: 1,
@@ -97,14 +83,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   child: Column(
                     children: [
                       //user
-                      gusetId==146?Container(height: 0,width: 0,):CustomeDraweritem(
+                      CustomeDraweritem(
                         title: "حسابي",
                         img: "assets/images/drawer/drawer_icons/user_icon.png",
                         onTap: () async{
 
               UserModel user=await AuthServices.getCurrentUser();
              Navigator.of(context).pop();
-              if( widget.home!=true) Navigator.of(context).pop();
+              if( home!=true) Navigator.of(context).pop();
                           if(user.user.role=="user")
                             // home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => ProfileScreen())):
 
@@ -129,7 +115,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             "assets/images/drawer/drawer_icons/category_icon.png",
                       onTap: () {
                          Navigator.of(context).pop();
-                         if( widget.home!=true) Navigator.of(context).pop();
+                         if( home!=true) Navigator.of(context).pop();
                           Get.to(CategoriesScreen());
                         },
                       ),
@@ -137,13 +123,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         height:getProportionateScreenHeight(8),
                       ),
                       //favorite
-                      gusetId==146?Container(height: 0,width: 0,):CustomeDraweritem(
+                      CustomeDraweritem(
                         title: "المفضلة",
                         img:
                             "assets/images/drawer/drawer_icons/favorite_icon.png",
                       onTap: () {
                        Navigator.of(context).pop();
-                       if( widget.home!=true) Navigator.of(context).pop();
+                       if( home!=true) Navigator.of(context).pop();
                           Get.to(FavoriteView());
 
                         },
@@ -158,25 +144,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             "assets/images/drawer/drawer_icons/location_icon.png",
                       onTap: () {
                          Navigator.of(context).pop();
-                         if( widget.home!=true) Navigator.of(context).pop();
+                         if( home!=true) Navigator.of(context).pop();
                           Get.to(()=>MapScreen());
                         },
                       ),
                       SizedBox(
                         height:getProportionateScreenHeight(8),
                       ),
-                      gusetId!=146?Container(height: 0,width: 0,): CustomeDraweritem(
-                        title: "تسجيل حساب",
-                        img:
-                        "assets/images/drawer/drawer_icons/user_icon.png",
-                        onTap: () async{
-                          Navigator.of(context).pop();
-                          await  LocalStorageService.prefs.clear();
-                          Get.offAll(SplashScreen());
-                        },
-                      ),
                       //money
-                      gusetId==146?Container(height: 0,width: 0,):CustomeDraweritem(
+                      CustomeDraweritem(
                         title: "تسديد الاشتراك",
                         img: "assets/images/drawer/drawer_icons/money_icon.png",
                       onTap: () {
@@ -187,7 +163,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         height:getProportionateScreenHeight(8),
                       ),
                       //my_baqa
-                      gusetId==146?Container(height: 0,width: 0,):CustomeDraweritem(
+                      CustomeDraweritem(
                         title: "باقتي",
                         img:
                             "assets/images/drawer/drawer_icons/my_baqa_icon.png",
@@ -200,13 +176,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         height:getProportionateScreenHeight(8),
                       ),
                       //my_status
-                      gusetId==146?Container(height: 0,width: 0,):CustomeDraweritem(
+                      CustomeDraweritem(
                         title: "حالتي",
                         img:
                             "assets/images/drawer/drawer_icons/status_icon.png",
                       onTap: () {
                          Navigator.of(context).pop();
-                         if( widget.home!=true) Navigator.of(context).pop();
+                         if( home!=true) Navigator.of(context).pop();
                          Get.to(MyStatus());
                         },
                       ),
@@ -214,26 +190,26 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         height:getProportionateScreenHeight(8),
                       ),
                       //my_corner
-                      gusetId==146?Container(height: 0,width: 0,):  CustomeDraweritem(
+                      CustomeDraweritem(
                         title: "زاويتي",
                         img:
                             "assets/images/drawer/drawer_icons/corner_icon.png",
                       onTap: () {
                           Navigator.of(context).pop();
-                         if( widget.home!=true) Navigator.of(context).pop();
+                         if( home!=true) Navigator.of(context).pop();
                           Get.to(MyCornerList());
                         },
                       ),
                       SizedBox(
                         height:getProportionateScreenHeight(8),
                       ),
-                      gusetId==146?Container(height: 0,width: 0,):  CustomeDraweritem(
+                      CustomeDraweritem(
                         title: "طلباتي",
                         img:
                         "assets/images/drawer/drawer_icons/drawer_order.png",
                       onTap: () {
                          Navigator.of(context).pop();
-                         if(widget.home!=true)Get.back();
+                         if(home!=true)Get.back();
                          Get.to(OrdersMainScreen());
                           // home!=true?Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => MyCornerList())) : Get.to(MyCornerList());
                         },
@@ -242,7 +218,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         height:getProportionateScreenHeight(8),
                       ),
                       //setting
-                      gusetId==146?Container(height: 0,width: 0,): CustomeDraweritem(
+                      CustomeDraweritem(
                         title: "الإعدادت",
                         img:
                             "assets/images/drawer/drawer_icons/setting_icon.png",
@@ -250,13 +226,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
                          Navigator.of(context).pop();
                         },
                       ),
-
                       SizedBox(
                         height:getProportionateScreenHeight(8),
                       ),
                       //user
                       Spacer(),
-                      gusetId==146?Container(height: 0,width: 0,): CustomeDraweritem(
+                      CustomeDraweritem(
                         title: "تسجيل الخروج",
                         img:
                             "assets/images/drawer/drawer_icons/logout_icon.png",

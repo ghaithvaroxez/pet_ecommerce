@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/constants/colors.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/home/view/components/favorite_icon.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/colors.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/home/view/components/favorite_icon.dart';
 
 import '../../../model/custoer_store_offer.dart';
 import 'package:get/get.dart';
@@ -13,13 +13,12 @@ class StoreOfferCard extends StatelessWidget {
 
   Offer offer ;
   Function fav;
-  bool store;
-  StoreOfferCard(this.offer,this.fav,this.store);
+  StoreOfferCard(this.offer,this.fav);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-       Get.to (OfferDetailsPage(offer,store: store,));
+       Get.to (OfferDetailsPage(offer));
       },
 
       child: Container(

@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/constants/colors.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/auth/controller/services/auth_services.dart';
-import 'package:pets/screens/auth/model/user.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/colors.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
+import 'package:pets_ecommerce/screens/auth/model/user.dart';
 import '../../model/all_orders_model.dart';
 import 'package:get/get.dart';
 import '../order_details_screen.dart';
@@ -27,8 +27,7 @@ class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-      // widget.refresh?
-      Get.to(OrderDetailsScreen(widget.order.id));//:Get.to(OrderDetailsScreenWithRefresh(widget.order.id,widget.ref));
+      widget.refresh?  Get.to(OrderDetailsScreen(widget.order.id)):Get.to(OrderDetailsScreenWithRefresh(widget.order.id,widget.ref));
       },
       child: Container(
         width: getProportionateScreenWidth(345),
@@ -58,10 +57,7 @@ class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
                     bottomRight: Radius.circular(12),
                   ),
                   child: Image.network(
-
                     Api.imagePath+widget.order.image,
-                    width: getProportionateScreenWidth(105),
-                    height: getProportionateScreenHeight(134),
                     fit: BoxFit.fill,
                   ),
                 ),

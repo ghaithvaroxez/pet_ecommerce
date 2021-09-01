@@ -1,12 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:pets/configuration/constants/colors.dart';
-import 'package:pets/configuration/constants/gradient.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/main_screen/model/main_screen_model.dart';
-import 'package:pets/screens/widgets/text_field.dart';
+import 'package:pets_ecommerce/configuration/constants/colors.dart';
+import 'package:pets_ecommerce/configuration/constants/gradient.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/main_screen/model/main_screen_model.dart';
+import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'package:get/get.dart';
 class EditTime extends StatefulWidget {
   Function action;

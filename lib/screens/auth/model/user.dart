@@ -15,11 +15,10 @@ class UserModel {
     this.user,
     this.token,
     this.store,
-    this.error=false
   });
 
   User user;
-  bool error;
+  bool error=false;
   String token;
   String fcmToken;
   List<StoreId> store;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/gradient.dart';
-import 'package:pets/screens/vendor_app/model/constants.dart';
+import 'package:pets_ecommerce/configuration/constants/gradient.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/constants.dart';
 
 class FancyFab extends StatefulWidget {
   final Function() onPressed1;

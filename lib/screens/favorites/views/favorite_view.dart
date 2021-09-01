@@ -1,12 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/doctors/controllers/customer_doctor_label_controller.dart';
-import 'package:pets/screens/favorites/controllers/favorite_label_controller.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/doctors/controllers/customer_doctor_label_controller.dart';
+import 'package:pets_ecommerce/screens/favorites/controllers/favorite_label_controller.dart';
 import 'package:get/get.dart';
-import 'package:pets/screens/favorites/views/components/products_body.dart';
-import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
+import 'package:pets_ecommerce/screens/favorites/views/components/products_body.dart';
+import 'package:pets_ecommerce/screens/widgets/drawer/custom_drawer.dart';
 
 import 'components/doctors_body.dart';
 import 'components/offers_body.dart';

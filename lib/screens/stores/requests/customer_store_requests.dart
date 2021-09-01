@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/services/http_requests_service.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
 import '../model/all_stores.dart';
 import 'package:get/get.dart';
 class CustomerStoreRequests extends HttpService{

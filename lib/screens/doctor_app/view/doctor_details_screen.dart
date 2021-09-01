@@ -1,12 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/constants/gradient.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/doctor_app/controller/doctor_controler.dart';
-import 'package:pets/screens/stores/view/components/orders/orders_body.dart';
-import 'package:pets/screens/widgets/floating_action_button.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/gradient.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/doctor_app/controller/doctor_controler.dart';
+import 'package:pets_ecommerce/screens/stores/view/components/orders/orders_body.dart';
+import 'package:pets_ecommerce/screens/widgets/floating_action_button.dart';
 import '../model/constants.dart';
 import 'package:get/get.dart';
 import '../controller/doctor_label_controller.dart';
@@ -14,7 +14,7 @@ import '../view/components/about/doctor_about_body.dart';
 import 'components/orders/doctor_orders_body.dart';
 import '../view/components/services/doctor_services_body.dart';
 import 'components/services/add_new_service_screen.dart';
-import 'package:pets/screens/doctor_app/model/doctor.dart';
+import 'package:pets_ecommerce/screens/doctor_app/model/doctor.dart';
 import 'package:http/http.dart' as http;
 
 class DoctorAppDetailsPage extends StatefulWidget {

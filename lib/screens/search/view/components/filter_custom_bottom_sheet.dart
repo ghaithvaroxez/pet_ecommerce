@@ -1,13 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/vendor_app/model/categories.dart';
-import 'package:pets/screens/vendor_app/model/location_model.dart';
-import 'package:pets/screens/vendor_app/model/types.dart';
-import 'package:pets/screens/vendor_app/requests/products_requests.dart';
-import 'package:pets/screens/vendor_app/requests/vendor_app_requests.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/categories.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/location_model.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/types.dart';
+import 'package:pets_ecommerce/screens/vendor_app/requests/products_requests.dart';
+import 'package:pets_ecommerce/screens/vendor_app/requests/vendor_app_requests.dart';
 
 
 

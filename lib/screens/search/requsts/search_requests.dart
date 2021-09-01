@@ -1,27 +1,12 @@
-
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/screens/stores/model/all_stores.dart';
-import 'package:pets/screens/stores/model/custoer_store_offer.dart';
-import 'package:pets/screens/vendor_app/model/categories.dart';
-import 'package:pets/screens/vendor_app/model/product.dart';
-import 'package:pets/services/http_requests_service.dart';
-import 'package:pets/screens/doctors/model/all_doctors.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/screens/stores/model/all_stores.dart';
+import 'package:pets_ecommerce/screens/stores/model/custoer_store_offer.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/categories.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
+import 'package:pets_ecommerce/screens/doctors/model/all_doctors.dart';
 class SearchRequests extends HttpService{
 
-
-  Future searchAll(String name)async{
-    try{
-      final apiResult = await getRequest(Api.generalSearch + name);
-      if (apiResult.statusCode == 200) {
-        return apiResult.data;
-      } else
-        return false;
-    }catch(e){
-      consolePrint("general search req error"+e.toString());
-      return false;
-    }
-  }
 
 Future<List<Offer>>getOffers(String offerName,{int catId=-1, int typeId=-1})async
 {
@@ -117,7 +102,7 @@ Future<List<Doctor>>getDoctors(String doctorName,{int district=-1,})async
 Future<List<Category>>getCat(String catName,)async
 {
 if(catName=="")return[];
-  String mainUrl="${Api.searchCategory}$catName";
+  String mainUrl="${Api.searchStores}$catName";
   final apiResult=await getRequest(mainUrl);
   if(apiResult.statusCode==200)
   {

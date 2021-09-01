@@ -8,21 +8,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/constants/gradient.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/auth/view/register/register_screen.dart';
-import 'package:pets/screens/my_orders/controller/my_orders_controller.dart';
-import 'package:pets/screens/my_orders/controller/my_orders_details_controller.dart';
-import 'package:pets/screens/orders/model/all_orders_model.dart';
-import 'package:pets/screens/vendor_app/controller/products_controller.dart';
-import 'package:pets/screens/vendor_app/model/categories.dart';
-import 'package:pets/screens/vendor_app/model/constants.dart';
-import 'package:pets/screens/vendor_app/model/product.dart';
-import 'package:pets/screens/vendor_app/model/types.dart';
-import 'package:pets/screens/vendor_app/requests/products_requests.dart';
-import 'package:pets/screens/widgets/text_field.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/gradient.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
+import 'package:pets_ecommerce/screens/my_orders/controller/my_orders_controller.dart';
+import 'package:pets_ecommerce/screens/my_orders/controller/my_orders_details_controller.dart';
+import 'package:pets_ecommerce/screens/orders/model/all_orders_model.dart';
+import 'package:pets_ecommerce/screens/vendor_app/controller/products_controller.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/categories.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/constants.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/types.dart';
+import 'package:pets_ecommerce/screens/vendor_app/requests/products_requests.dart';
+import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:math' as Math;
 import 'package:image/image.dart' as Im;
@@ -45,7 +45,6 @@ class _EditOrderScreenState extends State<EditOrderScreen> {
   String typeName="";
   String categoryName="";
   int typeId;
-  int catId;
   getcompress(File imageFile) async
   {
     setState(() {
@@ -283,8 +282,8 @@ if(widget.order.orderType=="animal")animal=0;else animal=1;
                                             onChanged: (category) async{
                                               print("before");
                                               setState(() {
-                                                widget. order.categoryName=category.name;
-                                                widget. order.categoryId=category.id;
+                                                categoryName=category.name;
+                                                categoryId=category.id;
                                               });
                                               print("after");
 
@@ -687,8 +686,8 @@ if(widget.order.orderType=="animal")animal=0;else animal=1;
                                           orderImage: newImage,
                                           name: nameController.text,
                                           desc: descriptionController.text,
-                                          cat_id: widget.order.categoryId,///noteeeeeeeee
-                                          type_id: widget.order.typeId,///noteeeeeeeee
+                                          cat_id: 1,///noteeeeeeeee
+                                          type_id: 1,///noteeeeeeeee
                                           order_type: animal==0?"animal":"vat",
                                           price: widget.order.price);
 if(k)

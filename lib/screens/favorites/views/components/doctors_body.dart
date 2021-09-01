@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/doctors/model/all_doctors.dart';
-import 'package:pets/screens/home/view/components/doctor_card.dart';
-import 'package:pets/screens/stores/view/components/products/store_product_card.dart';
-import 'package:pets/services/http_requests_service.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/doctors/model/all_doctors.dart';
+import 'package:pets_ecommerce/screens/home/view/components/doctor_card.dart';
+import 'package:pets_ecommerce/screens/stores/view/components/products/store_product_card.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
 
 import '../../../loading_screen.dart';
 import 'package:http/http.dart' as http;

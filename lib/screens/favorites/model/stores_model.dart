@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:pets/screens/stores/model/all_stores.dart';
+import 'package:pets_ecommerce/screens/stores/model/all_stores.dart';
 
 FavoriteStoreModel favoriteStoreModelFromJson(String str) => FavoriteStoreModel.fromJson(json.decode(str));
 

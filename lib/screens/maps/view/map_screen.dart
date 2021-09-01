@@ -6,15 +6,15 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/auth/view/register/register_screen.dart';
-import 'package:pets/screens/doctors/model/all_doctors.dart';
-import 'package:pets/screens/doctors/view/doctor_details.dart';
-import 'package:pets/screens/maps/controller/directions_repository.dart';
-import 'package:pets/screens/maps/model/directions_model.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
+import 'package:pets_ecommerce/screens/doctors/model/all_doctors.dart';
+import 'package:pets_ecommerce/screens/doctors/view/doctor_details.dart';
+import 'package:pets_ecommerce/screens/maps/controller/directions_repository.dart';
+import 'package:pets_ecommerce/screens/maps/model/directions_model.dart';
 
 // import 'package:bitmap/bitmap.dart';
 import 'package:custom_info_window/custom_info_window.dart';
@@ -22,10 +22,10 @@ import 'package:clippy_flutter/triangle.dart';
 
 // import 'package:image/image.dart' ;
 import 'package:http/http.dart' as http;
-import 'package:pets/screens/stores/model/all_stores.dart';
-import 'package:pets/screens/stores/view/store_details.dart';
-import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
-import 'package:pets/services/http_requests_service.dart';
+import 'package:pets_ecommerce/screens/stores/model/all_stores.dart';
+import 'package:pets_ecommerce/screens/stores/view/store_details.dart';
+import 'package:pets_ecommerce/screens/widgets/drawer/custom_drawer.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
 import 'package:get/get.dart';
 
 class MapScreen extends StatefulWidget {

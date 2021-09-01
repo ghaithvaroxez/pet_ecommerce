@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/screens/status/model/status_model.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/screens/status/model/status_model.dart';
 import '../requests/home_requests.dart';
 class StatusController extends GetxController
 {

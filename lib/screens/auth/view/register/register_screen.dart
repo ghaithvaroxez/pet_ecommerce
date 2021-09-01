@@ -2,22 +2,22 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/auth/controller/register_controller.dart';
-import 'package:pets/screens/auth/controller/requests/auth_requests.dart';
-import 'package:pets/screens/auth/controller/services/auth_services.dart';
-import 'package:pets/screens/auth/model/contstants.dart';
-import 'package:pets/screens/auth/model/user.dart';
-import 'package:pets/screens/auth/view/components/auth_button.dart';
-import 'package:pets/screens/auth/view/login/login_screen.dart';
-import 'package:pets/screens/auth/view/otp/otp_screen.dart';
-import 'package:pets/screens/main_screen/view/main_view.dart';
-import 'package:pets/screens/un_aprovverd_screen.dart';
-import 'package:pets/screens/vendor_app/model/location_model.dart';
-import 'package:pets/screens/vendor_app/requests/vendor_app_requests.dart';
-import 'package:pets/screens/widgets/text_field.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/auth/controller/register_controller.dart';
+import 'package:pets_ecommerce/screens/auth/controller/requests/auth_requests.dart';
+import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
+import 'package:pets_ecommerce/screens/auth/model/contstants.dart';
+import 'package:pets_ecommerce/screens/auth/model/user.dart';
+import 'package:pets_ecommerce/screens/auth/view/components/auth_button.dart';
+import 'package:pets_ecommerce/screens/auth/view/login/login_screen.dart';
+import 'package:pets_ecommerce/screens/auth/view/otp/otp_screen.dart';
+import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
+import 'package:pets_ecommerce/screens/un_aprovverd_screen.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/location_model.dart';
+import 'package:pets_ecommerce/screens/vendor_app/requests/vendor_app_requests.dart';
+import 'package:pets_ecommerce/screens/widgets/text_field.dart';
 import 'package:get/get.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -39,7 +39,6 @@ List<String> type_items = [
   "مستخدم",
   "متجر",
   "اسطبل",
-  "منحلة"
 ];
 
 class LoadingScreen extends StatelessWidget {
@@ -155,17 +154,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         registerController.changeType("stable");
         type = "اسطبل";
         break;
-        case UserType.stable:
-        registerController.changeType("stable");
-        type = "اسطبل";
-        break;
       case UserType.store:
         registerController.changeType("store");
         type = "متجر";
-        break;
-        case UserType.sieve:
-        registerController.changeType("sieve");
-        type = "منحلة";
         break;
     }
     // type = widget.userType.toString();
@@ -291,10 +282,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   case "متجر":
                                                     controller
                                                         .changeType("store");
-                                                    break;
-                                                    case "منحلة":
-                                                    controller
-                                                        .changeType("sieve");
                                                     break;
                                                 }
                                               },
@@ -435,91 +422,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                                 ),
                                                                 AutoSizeText(
                                                                   "اسم المتجر",
-                                                                  style:
-                                                                      body2_14pt,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Container(
-                                                            alignment: Alignment
-                                                                .centerRight,
-                                                            child:   Directionality(
-                                                              textDirection: TextDirection.rtl,
-                                                              child: Container(
-                                                                height:
-                                                                    getProportionateScreenHeight(
-                                                                        50),
-                                                                width:
-                                                                    getProportionateScreenWidth(
-                                                                        150),
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                                10),
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        width:
-                                                                            0.3)),
-                                                                child:
-                                                                    CustomTextField(
-                                                                  textEditingController:
-                                                                      registerStoreNameController,
-                                                                  // hint:,
-                                                                  // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                  // textInputType: TextInputType.phone,
-                                                                  color: true,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height:
-                                                                getProportionateScreenHeight(
-                                                                    15),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  : Container(),
-                                              controller.type == UserType.sieve
-                                                  ? Container(
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          Container(
-                                                            alignment: Alignment
-                                                                .centerRight,
-                                                            height:
-                                                                getProportionateScreenHeight(
-                                                                    30),
-                                                            width:
-                                                                getProportionateScreenWidth(
-                                                                    370),
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .end,
-                                                              children: [
-                                                                Container(
-                                                                  height:
-                                                                      getProportionateScreenHeight(
-                                                                          25),
-                                                                  width:
-                                                                      getProportionateScreenWidth(
-                                                                          20),
-                                                                  child: Image
-                                                                      .asset(
-                                                                    "assets/images/auth/star.png",
-                                                                    // fit: BoxFit.fill,
-                                                                  ),
-                                                                ),
-                                                                AutoSizeText(
-                                                                  "اسم المنحلة",
                                                                   style:
                                                                       body2_14pt,
                                                                 ),
@@ -1009,7 +911,7 @@ locationId=city.id;
       CoolAlert.show(
         context: context,
         type: CoolAlertType.error,
-        text: " رقم الهاتف الذي ادخلته غير صالح",
+        text: " رقم الهاتف الضي ادخلته غير صالح",
       );
       return false;
     }
@@ -1081,19 +983,6 @@ locationId=city.id;
         }
         break;
       case "متجر":
-        {
-          if (registerStoreNameController.text == "" ) {
-            CoolAlert.show(
-              context: context,
-              type: CoolAlertType.error,
-              text: "الرجاء تعبئة كافة الحقول اولاً",
-            );
-            return false;
-
-          }
-        }
-        break;
-      case "منحلة":
         {
           if (registerStoreNameController.text == "" ) {
             CoolAlert.show(
@@ -1195,24 +1084,6 @@ Future<bool> register2() async {
         }
       }
       break;
-    case "منحلة":
-      {
-        bool temp=await authRequest.registerSiveRequest(
-            stable_name: registerStoreNameController.text,
-            mobile: mobile,
-            password: registerPasswordController.text,
-            address: locationId);
-        if (!temp) {
-          // Get.back();
-          auth = false;
-          customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
-          // CoolAlert.show(
-          //   type: CoolAlertType.error,
-          //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
-          // );
-        }
-      }
-      break;
   }
 
   // Get.back();
@@ -1226,9 +1097,8 @@ Future<bool> register2() async {
     if (user.error != true) {
       if (user.user.approve == "pending") {
         Get.offAll(UnApprovedScreen());
-      } else {
-        Future.delayed(Duration(seconds: 1)).then((value) => Get.offAll(MainScreen()));
-      }
+      } else
+        Get.offAll(MainScreen());
     } else
       {
       Get.offAll(LoginScreen());

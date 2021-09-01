@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pets/configuration/constants/colors.dart';
+import 'package:pets_ecommerce/configuration/constants/colors.dart';
 
-import 'package:pets/screens/main_screen/model/main_screen_model.dart';
+import 'package:pets_ecommerce/screens/main_screen/model/main_screen_model.dart';
 
 String servicesImg="assets/images/store/not active/products_icon.png";
 String aboutStoreImg="assets/images/store/not active/about_store_icon.png";

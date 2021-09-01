@@ -2,19 +2,18 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/vendor_app/model/product.dart';
-import 'package:pets/screens/stores/model/custoer_store_offer.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
+import 'package:pets_ecommerce/screens/stores/model/custoer_store_offer.dart';
 import 'package:get/get.dart';
 
 import '../../store_details_id.dart';
 
 class OfferDetailsPage extends StatelessWidget {
   Offer offer;
-  bool store;
-  OfferDetailsPage(this.offer, {this.store=false});
+  OfferDetailsPage(this.offer);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,7 +167,7 @@ class OfferDetailsPage extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         child: Column(
                           children: [
-                           !store? Container(
+                            Container(
                               alignment: Alignment.centerRight,
                               // color: Colors.yellow,
                               height: getProportionateScreenHeight(30),
@@ -178,7 +177,6 @@ class OfferDetailsPage extends StatelessWidget {
                                 children: [
                                   GestureDetector(onTap:(){
                         Get.to(StoreDetailsById(offer.storeId));
-
                         },child: AutoSizeText(offer.storeName,style: darkGrayText_18pt_underlined,)),
 
                                   SizedBox(width: getProportionateScreenWidth(25),),
@@ -186,7 +184,7 @@ class OfferDetailsPage extends StatelessWidget {
                                   Container(child: AutoSizeText("اسم المتجر",style: body3_18pt,)),
                                 ],
                               ),
-                            ):Container(width: 0,height: 0,),
+                            ),
                             SizedBox(height: getProportionateScreenHeight(15),),
                             Row(
                               children: [

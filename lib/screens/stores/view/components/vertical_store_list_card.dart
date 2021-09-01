@@ -1,16 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/constants/colors.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/doctors/view/doctor_details.dart';
-import 'package:pets/screens/home/view/components/favorite_icon.dart';
-import 'package:pets/screens/home/view/components/open_now_coponent.dart';
-import 'package:pets/screens/home/view/components/social_media_components.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/colors.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/doctors/view/doctor_details.dart';
+import 'package:pets_ecommerce/screens/home/view/components/favorite_icon.dart';
+import 'package:pets_ecommerce/screens/home/view/components/open_now_coponent.dart';
+import 'package:pets_ecommerce/screens/home/view/components/social_media_components.dart';
 import 'package:get/get.dart';
-import 'package:pets/screens/stores/view/store_details.dart';
+import 'package:pets_ecommerce/screens/stores/view/store_details.dart';
 import '../../model/all_stores.dart';
 
 class VerticalStoreListCard extends StatelessWidget {

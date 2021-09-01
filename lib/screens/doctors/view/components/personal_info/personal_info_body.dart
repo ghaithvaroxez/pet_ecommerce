@@ -2,21 +2,18 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/constants/colors.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/auth/view/splash/login_or_register.dart';
-import 'package:pets/screens/doctor_app/model/doctor.dart';
-import 'package:pets/screens/home/view/components/social_media_components.dart';
-import 'package:pets/screens/maps/view/map_screen.dart';
-import 'package:pets/screens/stores/view/components/about/review_card.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/colors.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/doctor_app/model/doctor.dart';
+import 'package:pets_ecommerce/screens/home/view/components/social_media_components.dart';
+import 'package:pets_ecommerce/screens/maps/view/map_screen.dart';
+import 'package:pets_ecommerce/screens/stores/view/components/about/review_card.dart';
 import 'package:get/get.dart';
-import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
-import 'package:pets/services/http_requests_service.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 // import 'package:rating_dialog/rating_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -403,53 +400,6 @@ getReviews();
             // ),
             // SizedBox(height: getProportionateScreenHeight(10),),
             // GestureDetector(onTap:()async{
-            //
-            //   if( gusetId==146)
-            //   {
-            //     showDialog(
-            //         context: context,
-            //         builder: ((context) => AlertDialog(
-            //           shape: RoundedRectangleBorder(
-            //               borderRadius: BorderRadius.circular(5)),
-            //           title:  Text(
-            //             'يجب عليك تسجيل حساب اولاً ',
-            //             textDirection: TextDirection.rtl,
-            //             style: body3_18pt,
-            //           ),
-            //
-            //           actions: [
-            //             TextButton(
-            //               child: Text('العودة',style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
-            //               onPressed: () {
-            //                 Navigator.pop(context);
-            //                 return ;
-            //                 // Navigator.pop(context);
-            //               },
-            //             ),
-            //             TextButton(
-            //               child:  Text(
-            //                 'تسجيل حساب',style: GoogleFonts.tajawal(
-            //                   color: Colors.blue.withOpacity(0.6)
-            //               ),
-            //               ),
-            //               onPressed: () async{
-            //                 Get.back();
-            //                 Get.offAll(LoginOrRegister());
-            //                 return ;
-            //               },
-            //
-            //               // language.changeLanguage();
-            //               // Navigator.of(context).pop();
-            //               // await  LocalStorageService.prefs.clear();
-            //               // Get.offAll(SplashScreen());
-            //               // Navigator.popUntil(context, ModalRoute.withName('/'));
-            //             ),
-            //
-            //           ],
-            //         )));
-            //     return;
-            //   }
-            //
             //   final ratingDialog= RatingDialog(
             //     // your app's name?
             //     title: widget.doctor.firstName+" "+widget.doctor.lastName,
@@ -484,7 +434,7 @@ getReviews();
             //       color: offWhite,
             //       boxShadow: shadow,
             //     ),child: Center(child: Icon(Icons.add,color: Colors.blue.withOpacity(0.6),),),),),
-
+            //
             // error?Container(
             //   height: getProportionateScreenHeight(200),
             //   width: getProportionateScreenWidth(300),

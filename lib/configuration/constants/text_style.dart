@@ -7,7 +7,6 @@ TextStyle h5_24pt=GoogleFonts.tajawal(fontSize: 24,color: Color(0xFF1B4754));
 TextStyle h5_25pt=GoogleFonts.tajawal(fontSize: 25,color: Color(0xFF1B4754));
 TextStyle h5_21pt=GoogleFonts.tajawal(fontSize: 21,color: Color(0xFF1B4754),fontWeight: FontWeight.bold);
 TextStyle h4_21pt=GoogleFonts.tajawal(fontSize: 21,color: Color(0xFF348BA7),fontWeight: FontWeight.w900 );
-TextStyle h4_21pt_lightBlue=GoogleFonts.tajawal(fontSize: 21,color: Color(0xFF48C2F0),fontWeight: FontWeight.w900 );
 TextStyle subtitle1_16pt=GoogleFonts.tajawal(fontSize: 16,color: Color(0xFF1B4754),fontWeight: FontWeight.bold);
 TextStyle subtitle2_14pt=GoogleFonts.tajawal(fontSize: 14,color: Color(0xFF348BA7),fontWeight: FontWeight.bold);
 TextStyle body1_16pt=GoogleFonts.tajawal(fontSize: 16,color: Color(0xFF1B4754));

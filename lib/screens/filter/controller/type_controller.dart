@@ -1,6 +1,6 @@
 
 import 'package:get/get.dart';
-import 'package:pets/screens/filter/model/type_model.dart';
+import 'package:pets_ecommerce/screens/filter/model/type_model.dart';
 
 
 class FilterType extends GetxController

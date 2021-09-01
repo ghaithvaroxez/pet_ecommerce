@@ -4,13 +4,13 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/auth/view/register/register_screen.dart';
-import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets/lib/screens/stores/view/components/products/store_product_card.dart';
-import 'package:pets/screens/stores/view/components/offers/store_offer_card.dart';
-import 'package:pets/services/http_requests_service.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
+import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets_ecommerce/lib/screens/stores/view/components/products/store_product_card.dart';
+import 'package:pets_ecommerce/screens/stores/view/components/offers/store_offer_card.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
 import '../../../model/custoer_store_offer.dart';
 import 'package:http/http.dart' as http;
 class OffersBodyScreen extends StatefulWidget {
@@ -30,7 +30,7 @@ bool error=false;
     setState(() {
 
     });
-    var url=Uri.parse("http://pets.ahmadajory.com/api/offers/store/${widget.id.toString()}");
+    var url=Uri.parse("http://pets.sourcecode-ai.com/api/offers/store/${widget.id.toString()}");
     final h=await HttpService().getHeaders();
     final apiResult =await http.get(url,headers: h);
     if(apiResult.statusCode==200)
@@ -127,7 +127,7 @@ bool error=false;
 
                           child:         StoreOfferCard(customerStoreOffers.offers[index],()async{
 
-                          },true),
+                          }),
                         ):Container(height: 0,),
 
                       ),
@@ -144,7 +144,7 @@ bool error=false;
                               child:         StoreOfferCard(customerStoreOffers.offers[index],()async{
                                 bool k=await addToFavorite(customerStoreOffers.offers[index].id);
                                 return k;
-                              },true),
+                              }),
                         ):Container(height: 0,),
 
                       ),

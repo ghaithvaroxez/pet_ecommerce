@@ -3,20 +3,20 @@ import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/constants/colors.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/auth/controller/services/auth_services.dart';
-import 'package:pets/screens/auth/model/user.dart';
-import 'package:pets/screens/auth/view/register/register_screen.dart';
-import 'package:pets/screens/doctors/view/doctor_details.dart';
-import 'package:pets/screens/home/view/components/social_media_components.dart';
-import 'package:pets/screens/orders/model/all_orders_model.dart';
-import 'package:pets/screens/stores/view/store_details_id.dart';
-import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
-import 'package:pets/services/http_requests_service.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/colors.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
+import 'package:pets_ecommerce/screens/auth/model/user.dart';
+import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
+import 'package:pets_ecommerce/screens/doctors/view/doctor_details.dart';
+import 'package:pets_ecommerce/screens/home/view/components/social_media_components.dart';
+import 'package:pets_ecommerce/screens/orders/model/all_orders_model.dart';
+import 'package:pets_ecommerce/screens/stores/view/store_details_id.dart';
+import 'package:pets_ecommerce/screens/widgets/drawer/custom_drawer.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:rating_dialog/rating_dialog.dart';
@@ -36,10 +36,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   bool error = false;
 
   deleteAnswer(int answerId)async{
-    loading=true;
-    setState(() {
+loading=true;
+setState(() {
 
-    });
+});
     try{
       var url = Uri.parse(
           "${Api.baseUrl}/delete/answer/${answerId.toString()}");
@@ -48,29 +48,19 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
       final h = await HttpService().getHeaders();
       final apiResult = await http.get(url, headers: h,
-        //     body:{
-        //   "answer":answer
-        // }
+      //     body:{
+      //   "answer":answer
+      // }
       );
-      consolePrint("after add to favorite print");
-      print("++++++++++++++++++++++++++++++++++++"+apiResult.statusCode.toString()+"delete ANSWER");
-      print("++++++++++++++++++++++++++++++++++++"+apiResult.body.toString()+"delete ANSWER");
+      consolePrint("delete answer body "+apiResult.body);
+
 
       if (apiResult.statusCode == 200) {
         consolePrint("statusCode==200");
         // var j = jsonDecode(apiResult.body);
-
-            // try{
+        Get.rawSnackbar(message: "لقد تم حذف الرد بنجاح",backgroundColor: Colors.green.withOpacity(0.8));
         await fetchData();
-      // }catch(e){
-      //         consolePrint(e.toString());
-      //       }
-      Get.rawSnackbar(message: "لقد تم حذف الرد بنجاح",backgroundColor: Colors.green.withOpacity(0.8));
-        loading=false;
-        setState(() {
 
-        });
-        return;
         // return true;
       } else {
         consolePrint("statusCode!=200");
@@ -136,10 +126,10 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     loading = true;
     setState(() {});
 
-    // try {
+    try {
       var url = Uri.parse(
           "${Api.baseUrl}/show/order/${widget.id}");
-      consolePrint("${Api.baseUrl}/show/order/${widget.id}");
+      consolePrint(url.path);
       final h = await HttpService().getHeaders();
       final apiResult = await http.get(url, headers: h);
       if (apiResult.statusCode == 200) {
@@ -152,12 +142,12 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
 
       loading = false;
       setState(() {});
-    // } catch (e) {
-    //   error = true;
-    //   loading = false;
-    //   setState(() {});
-    //   consolePrint("fetch data error "+e.toString());
-    // }
+    } catch (e) {
+      error = true;
+      loading = false;
+      setState(() {});
+      consolePrint(e.toString());
+    }
   }
 
 bool answer;
@@ -166,7 +156,7 @@ bool answer;
    try {
       await fetchData();
        user = await AuthServices.getCurrentUser();
-      if (((user.user.role == "user" &&gusetId!=146) ||
+      if (((user.user.role == "user") ||
           (user.user.role == "doctor" && order.orderType == "vat") ||
           (user.user.role == "provider" && order.orderType != "vat"))&& (user.user.id  !=order.userId)){
         answer = true;
@@ -515,10 +505,6 @@ bool answer;
                            ),
                            ),
                            onPressed: () async{
-                             if(ans==""||ans==null){
-                               Get.rawSnackbar(message: "الرد لا يمكن ان يكون فارغاً",backgroundColor: Colors.red);
-return;
-                             }
                              Get.back();
                              bool k=await addAnswer(ans);
                                                  if(!k)
@@ -609,7 +595,7 @@ Column(
                 Row(
                   children: [
                     Container(width: getProportionateScreenWidth(210),height: getProportionateScreenHeight(20),
-                      child: AutoSizeText(order.answers[index].answeredType=="Store"?order.answers[index].answeredStoreName:order.answers[index].userName.toString(),style: body1_16pt,),
+                      child: AutoSizeText(order.answers[index].answeredType=="Store"?order.answers[index].answeredStoreName:order.answers[index].answeredName.toString(),style: body1_16pt,),
                     ),
                     order.answers[index].answeredId==user.user.id? Container(
                         height: getProportionateScreenHeight(30),

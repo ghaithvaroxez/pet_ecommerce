@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/corner/view/my_corner_details.dart';
-import 'package:pets/screens/widgets/drawer/components/drawer_item.dart';
-import 'package:pets/screens/profile/view/components/profile_item.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/corner/view/my_corner_details.dart';
+import 'package:pets_ecommerce/screens/widgets/drawer/components/drawer_item.dart';
+import 'package:pets_ecommerce/screens/profile/view/components/profile_item.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -60,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
                               Container(
                                   height: getProportionateScreenHeight(143),
                                   width: getProportionateScreenWidth(143),child: Image.asset("assets/images/drawer/user_img.png")),
-                              // Positioned(bottom:getProportionateScreenHeight(-6) ,right:getProportionateScreenWidth(15),child: Container(height:35,width:35,child: Image.asset("assets/images/vendor_app/camera.png"),))
+                              Positioned(bottom:getProportionateScreenHeight(-6) ,right:getProportionateScreenWidth(15),child: Container(height:35,width:35,child: Image.asset("assets/images/vendor_app/camera.png"),))
                             ],
                           ),
                         ),

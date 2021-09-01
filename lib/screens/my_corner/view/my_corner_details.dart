@@ -4,17 +4,17 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/constants/colors.dart';
-import 'package:pets/configuration/constants/gradient.dart';
-import 'package:pets/configuration/constants/text_style.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/auth/controller/services/auth_services.dart';
-import 'package:pets/screens/auth/model/user.dart';
-import 'package:pets/screens/corner/model/corner_model.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/constants/colors.dart';
+import 'package:pets_ecommerce/configuration/constants/gradient.dart';
+import 'package:pets_ecommerce/configuration/constants/text_style.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
+import 'package:pets_ecommerce/screens/auth/model/user.dart';
+import 'package:pets_ecommerce/screens/corner/model/corner_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:pets/services/http_requests_service.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
 
 import '../../loading_screen.dart';
 import 'package:get/get.dart';
@@ -453,9 +453,6 @@ class _MyCornerDetailsState extends State<MyCornerDetails> {
                                                       child:
                                                       GestureDetector(
                                                           onTap: () {
-                                                            controller.currentCorner.images[index].status=="addedStatus"?
-                                                                Get.rawSnackbar(message:"هذه الصورة بلفعل هي حالة لديك ",backgroundColor: Colors.green)
-                                                                  :
                                                             showDialog(
                                                                 context:
                                                                 context,
@@ -497,7 +494,7 @@ class _MyCornerDetailsState extends State<MyCornerDetails> {
                                                           },
                                                           child:Center (
 
-                                                            child: Directionality(textDirection:TextDirection.ltr,child: Icon(Icons.send,color: controller.currentCorner.images[index].status=="addedStatus"?Colors.blue:Colors.grey,size: 15,)),
+                                                            child: Directionality(textDirection:TextDirection.ltr,child: Icon(Icons.send,color: Colors.grey,size: 15,)),
                                                           ),
                                                           // Image
                                                           //     .asset(

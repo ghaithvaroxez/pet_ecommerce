@@ -1,72 +1,24 @@
 import 'package:get/get.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/screens/doctors/model/all_doctors.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/screens/doctors/model/all_doctors.dart';
 import '../requsts/search_requests.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/screens/stores/model/all_stores.dart';
-import 'package:pets/screens/stores/model/custoer_store_offer.dart';
-import 'package:pets/screens/vendor_app/model/categories.dart';
-import 'package:pets/screens/vendor_app/model/product.dart';
-import 'package:pets/services/http_requests_service.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/screens/stores/model/all_stores.dart';
+import 'package:pets_ecommerce/screens/stores/model/custoer_store_offer.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/categories.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
 
 class SearchController extends GetxController{
   bool loading=false;
   bool error=false;
   SearchRequests searchRequests=SearchRequests();
-    List<Offer> offers=[];
-    List<StoreProduct> products=[];
-    List<Store> stores=[];
-    List<Store> sieves=[];
-    List<Store> barns=[];
-    List<Doctor> doctors=[];
-    List<Category> categories=[];
+  List<Offer> offers=[];
+  List<StoreProduct> products=[];
+  List<Store> stores=[];
+  List<Doctor> doctors=[];
+  List<Category> categories=[];
 
-  
-  searchGeneral(String name)async{
-  try{
-    removeError();
-    activeLoading();
-
-    var j=await searchRequests.searchAll(name);
-    if(j==false)
-      {
-        Get.rawSnackbar(message: "الرجاء المجاولة مجدداً");
-        removeLoading();  activeError();
-      }
-    else{
-      products.clear();
-      offers.clear();
-      stores.clear();
-      doctors.clear();
-      products=List<StoreProduct>.from( j["items"].map((x) => StoreProduct.fromJson(x)));
-      offers=List<Offer>.from( j["offers"].map((x) => Offer.fromJson(x)));
-     var temp=List<Store>.from( j["stores"].map((x) => Store.fromJson(x)));
-      for(int i=0;i<temp.length;i++)
-        {
-
-          if(temp[i].type=="store")
-            stores.add(temp[i]);
-          else if(temp[i].type=="barn")
-            barns.add(temp[i]);
-          else if(temp[i].type=="sieve")
-            sieves.add(temp[i]);
-
-        }
-
-      doctors= List<Doctor>.from( j["doctors"].map((x) => Doctor.fromJson(x)));
-      removeLoading();
-    }
-
-  }catch(e){
-    Get.rawSnackbar(message: "الرجاء المجاولة مجدداً");
-    removeLoading();  activeError();
-    consolePrint("General Search Error"+e.toString());
-  }
-    
-    
-  }
-  
-  
 searchOffer(String offerName,{int catId=-1, int typeId=-1})
 async{
   offers.clear();

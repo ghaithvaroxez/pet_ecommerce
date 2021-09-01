@@ -83,7 +83,6 @@ class Img {
     this.createdAt,
     this.updatedAt,
     this.pivot,
-    this.status
   });
 
   int id;
@@ -91,7 +90,6 @@ class Img {
   DateTime createdAt;
   DateTime updatedAt;
   Pivot pivot;
-  String status;
 
   factory Img.fromJson(Map<String, dynamic> json) => Img(
     id: json["id"],
@@ -99,7 +97,6 @@ class Img {
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     pivot: Pivot.fromJson(json["pivot"]),
-    status: json["status"]
   );
 
   Map<String, dynamic> toJson() => {

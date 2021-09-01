@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pets/screens/home/view/home_view.dart';
-import 'package:pets/screens/vendor_app/model/categories.dart';
-import 'package:pets/screens/vendor_app/model/enums.dart';
-import 'package:pets/screens/vendor_app/model/product.dart';
-import 'package:pets/screens/vendor_app/model/types.dart';
-import 'package:pets/screens/vendor_app/requests/offers_requests.dart';
-import 'package:pets/screens/vendor_app/requests/products_requests.dart';
+import 'package:pets_ecommerce/screens/home/view/home_view.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/categories.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/enums.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/types.dart';
+import 'package:pets_ecommerce/screens/vendor_app/requests/offers_requests.dart';
+import 'package:pets_ecommerce/screens/vendor_app/requests/products_requests.dart';
 import '../model/offer.dart';
 class VendorOffersController extends GetxController{
 

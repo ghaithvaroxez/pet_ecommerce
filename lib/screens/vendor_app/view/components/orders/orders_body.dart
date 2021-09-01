@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/size_config.dart';
-import 'package:pets/screens/vendor_app/view/components/orders/vendor_orders_card.dart';
+import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets_ecommerce/screens/vendor_app/view/components/orders/vendor_orders_card.dart';
 class OrdersBodyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

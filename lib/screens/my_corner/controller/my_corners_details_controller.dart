@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/screens/corner/model/corner_model.dart';
-import 'package:pets/screens/my_corner/view/my_corners_list.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/screens/corner/model/corner_model.dart';
+import 'package:pets_ecommerce/screens/my_corner/view/my_corners_list.dart';
 import '../requests/my_corner_requests.dart';
 import 'package:get/get.dart';
 class MyCornersDetailsController extends GetxController{

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/screens/doctor_app/model/doctor.dart';
-import 'package:pets/screens/doctor_app/requests/doctor_info_requests.dart';
-import 'package:pets/screens/vendor_app/model/location_model.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/screens/doctor_app/model/doctor.dart';
+import 'package:pets_ecommerce/screens/doctor_app/requests/doctor_info_requests.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/location_model.dart';
 
 import 'dart:io';
 import 'package:image/image.dart' as Im;

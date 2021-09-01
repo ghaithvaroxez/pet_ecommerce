@@ -7,7 +7,6 @@ class Api {
   //registration
   static const registerUser = "/register/user";
   static const registerStable = "/register/barn";
-  static const registerSieve = "/register/sieve";
   static const registerStore = "/register/store";
   static const registerDoctor = "/register/doctor";
   static const mobileExist = "/check/mobile";
@@ -24,12 +23,11 @@ class Api {
   //user_store
   static const allStores = "/stores/stores";
   //photo
-  static const imagePath="http://pets.ahmadajory.com/storage/";
+  static const imagePath="http://pets.sourcecode-ai.com/storage/";
   static const categories="/categories";
   static const types="/productTypes";
   //doctor_app
   static const getDoctorId="/doctor";
-  static const getUserId="/doctor";
   static const getDoctors="/doctors";
   static const updateUser="/update/user";
   static const addService="/add/service";
@@ -113,7 +111,6 @@ static const addStatus="/add/status";
 
 
   //search
-static const generalSearch="/search?name=";
 static const searchOffers="/search/offers?name=";
 static const searchStores="/search/stores?name=";
 static const searchDoctors="/get/search/doctors?name=";

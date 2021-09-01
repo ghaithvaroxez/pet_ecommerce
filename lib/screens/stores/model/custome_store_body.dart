@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:pets/screens/vendor_app/model/store.dart';
+import 'package:pets_ecommerce/screens/vendor_app/model/store.dart';
 
 CustomerStoreBody customerStoreBodyFromJson(String str) => CustomerStoreBody.fromJson(json.decode(str));
 

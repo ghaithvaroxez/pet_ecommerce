@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/screens/auth/controller/register_controller.dart';
-import 'package:pets/screens/auth/controller/services/auth_services.dart';
-import 'package:pets/screens/auth/model/user.dart';
-import 'package:pets/screens/auth/view/register/register_screen.dart';
-import 'package:pets/screens/main_screen/view/main_view.dart';
-import 'package:pets/services/http_requests_service.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/screens/auth/controller/register_controller.dart';
+import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
+import 'package:pets_ecommerce/screens/auth/model/user.dart';
+import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
+import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
+import 'package:pets_ecommerce/services/http_requests_service.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -44,7 +44,7 @@ AuthRequest(){
     final apiResult = await postRequest(
       Api.registerUser,
       {
-        "first_name": firstName,
+        "name": firstName,
         "last_name": secondName,
         "mobile": mobile,
         "password": password,
@@ -146,39 +146,6 @@ consolePrint("store_name"+ store_name+
       return false;
   }
 
- Future<bool> registerSiveRequest({
-    @required String stable_name,
-    // @required String secondName,
-    @required String mobile,
-    @required String password,
-    @required int address,
-  }) async {
-    dio.FormData data=dio.FormData.fromMap({
-      "store_name": stable_name,
-      // "last_name":secondName,
-      "phone": mobile,
-      "password": password,
-      "district_id": address,
-    });
-    final apiResult = await postRequest(
-      Api.registerSieve,
-      data
-    );
-    if (apiResult.statusCode == 200)
-    // {
-    //   UserModel userModel =
-    //       await loginRequest(mobile: mobile, password: password);
-    //   if (userModel.error == false) {
-    //     AuthServices.saveUser(userModel.toJson());
-    //     return true;
-    //   } else
-    //     return false;
-    // }
-    return true;
-      else
-      return false;
-  }
-
   Future<bool> registerDoctorRequest({
     @required String firstName,
     @required String secondName,
@@ -235,16 +202,12 @@ consolePrint("store_name"+ store_name+
       },
     );
     consolePrint(apiResult.data["status"].toString());
-    if (apiResult.statusCode == 200
-    // &&
-        // apiResult.data["status"] != false
+    if (apiResult.statusCode == 200 &&
+        apiResult.data["status"] != false
     ) {
 consolePrint("saving user");
-consolePrint(apiResult.data.toString());
 UserModel userModel =UserModel.fromJson(apiResult.data);
-consolePrint(userModel.toString());
-   if(userModel.user.approve!="pending")
-     AuthServices.saveUser(apiResult.data);
+   if(userModel.user.approve!="pending") AuthServices.saveUser(apiResult.data);
       return userModel;
     }
     // else if(apiResult.statusCode == 200 ){ }

@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/screens/corner/model/corner_model.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/screens/corner/model/corner_model.dart';
 // import '../requests/my_corner_requests.dart';
 import 'package:get/get.dart';
-import 'package:pets/screens/my_orders/requests/my_orders_requests.dart';
-import 'package:pets/screens/orders/model/all_orders_model.dart';
-import 'package:pets/screens/orders/views/select_order_view.dart';
+import 'package:pets_ecommerce/screens/my_orders/requests/my_orders_requests.dart';
+import 'package:pets_ecommerce/screens/orders/model/all_orders_model.dart';
+import 'package:pets_ecommerce/screens/orders/views/select_order_view.dart';
 class MyOrdersController extends GetxController{
   List<Order> myOrders=[];
   // List<Order> myAnswers=[];

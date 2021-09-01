@@ -1,9 +1,9 @@
-import 'package:pets/configuration/constants/api.dart';
-import 'package:pets/configuration/printer.dart';
-import 'package:pets/my_packages/status_view/controller/story_controller.dart';
-import 'package:pets/my_packages/status_view/utils.dart';
-import 'package:pets/my_packages/status_view/widgets/story_view.dart';
-import 'package:pets/screens/status/model/status_model.dart';
+import 'package:pets_ecommerce/configuration/constants/api.dart';
+import 'package:pets_ecommerce/configuration/printer.dart';
+import 'package:pets_ecommerce/my_packages/status_view/controller/story_controller.dart';
+import 'package:pets_ecommerce/my_packages/status_view/utils.dart';
+import 'package:pets_ecommerce/my_packages/status_view/widgets/story_view.dart';
+import 'package:pets_ecommerce/screens/status/model/status_model.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
