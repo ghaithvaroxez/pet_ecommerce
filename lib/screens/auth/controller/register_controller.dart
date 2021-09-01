@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/screens/auth/model/contstants.dart';
+import 'package:pets/screens/auth/model/contstants.dart';
 
 enum MobileVerificationState {
   SHOW_MOBILE_FORM_STATE,
@@ -50,6 +50,9 @@ class RegisterController extends GetxController {
         break;
       case "store":
         type = UserType.store;
+        break;
+        case "sieve":
+        type = UserType.sieve;
         break;
     }
 

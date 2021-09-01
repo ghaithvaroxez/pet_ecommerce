@@ -1,12 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/constants/api.dart';
-import 'package:pets_ecommerce/configuration/constants/colors.dart';
-import 'package:pets_ecommerce/configuration/constants/text_style.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets/configuration/constants/api.dart';
+import 'package:pets/configuration/constants/colors.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/size_config.dart';
 import '../../../../vendor_app/model/product.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/image_model.dart' as im;
+import 'package:pets/screens/vendor_app/model/image_model.dart' as im;
 
 
 class StoreImageCard extends StatelessWidget {

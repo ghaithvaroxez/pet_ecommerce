@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/constants/api.dart';
-import 'package:pets_ecommerce/configuration/printer.dart';
-import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
-import 'package:pets_ecommerce/screens/auth/model/user.dart';
-import 'package:pets_ecommerce/screens/corner/model/corner_model.dart';
-import 'package:pets_ecommerce/screens/home/view/home_view.dart';
-import 'package:pets_ecommerce/screens/orders/model/all_orders_model.dart';
-import 'package:pets_ecommerce/services/http_requests_service.dart';
+import 'package:pets/configuration/constants/api.dart';
+import 'package:pets/configuration/printer.dart';
+import 'package:pets/screens/auth/controller/services/auth_services.dart';
+import 'package:pets/screens/auth/model/user.dart';
+import 'package:pets/screens/corner/model/corner_model.dart';
+import 'package:pets/screens/home/view/home_view.dart';
+import 'package:pets/screens/orders/model/all_orders_model.dart';
+import 'package:pets/services/http_requests_service.dart';
 import 'package:dio/dio.dart';
 
 class MyOrdersRequests extends HttpService {

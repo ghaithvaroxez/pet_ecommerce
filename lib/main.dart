@@ -4,17 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:pets_ecommerce/screens/auth/model/contstants.dart';
-import 'package:pets_ecommerce/screens/auth/view/login/login_screen.dart';
-import 'package:pets_ecommerce/screens/auth/view/otp/otp_screen.dart';
-import 'package:pets_ecommerce/screens/auth/view/register/register_screen.dart';
-import 'package:pets_ecommerce/screens/auth/view/splash/splash_screen.dart';
-import 'package:pets_ecommerce/screens/doctors/view/doctor_details.dart';
-import 'package:pets_ecommerce/screens/error/view/error_view.dart';
-import 'package:pets_ecommerce/screens/home/view/home_view.dart';
-import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
-import 'package:pets_ecommerce/screens/vendor_app/view/vendor_details_screen.dart';
-import 'package:pets_ecommerce/screens/doctor_app/view/doctor_details_screen.dart';
+import 'package:pets/screens/auth/model/contstants.dart';
+import 'package:pets/screens/auth/view/login/login_screen.dart';
+import 'package:pets/screens/auth/view/otp/otp_screen.dart';
+import 'package:pets/screens/auth/view/register/register_screen.dart';
+import 'package:pets/screens/auth/view/splash/splash_screen.dart';
+import 'package:pets/screens/doctors/view/doctor_details.dart';
+import 'package:pets/screens/error/view/error_view.dart';
+import 'package:pets/screens/home/view/home_view.dart';
+import 'package:pets/screens/main_screen/view/main_view.dart';
+import 'package:pets/screens/vendor_app/view/vendor_details_screen.dart';
+import 'package:pets/screens/doctor_app/view/doctor_details_screen.dart';
 
 void main() async {
 

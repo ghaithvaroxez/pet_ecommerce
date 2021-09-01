@@ -1,9 +1,10 @@
 
 import 'dart:convert';
 
-import 'package:pets_ecommerce/configuration/constants/strings.dart';
-import 'package:pets_ecommerce/screens/auth/model/user.dart';
-import 'package:pets_ecommerce/services/local_storage_service.dart';
+import 'package:pets/configuration/constants/strings.dart';
+import 'package:pets/screens/auth/model/user.dart';
+import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
+import 'package:pets/services/local_storage_service.dart';
 
 class AuthServices {
 
@@ -18,7 +19,7 @@ class AuthServices {
 
   //
   static bool authenticated() {
-    return LocalStorageService.prefs.getBool(AppStrings.authenticated)==true?true : false;
+    return LocalStorageService.prefs.getBool(AppStrings.authenticated)==null?false : true;
   }
 
   static Future<bool> isAuthenticated() {
@@ -58,6 +59,7 @@ class AuthServices {
     if (currentUser == null ) {
       final userStringObject =
       await LocalStorageService.prefs.getString(AppStrings.userKey);
+      if(userStringObject==null)return UserModel(error: true);
       final userObject = json.decode(userStringObject);
       currentUser = UserModel.fromJson(userObject);
     }
@@ -66,7 +68,10 @@ class AuthServices {
 
 
   static Future<UserModel> saveUser(dynamic jsonObject) async {
+
+    await  LocalStorageService.prefs.clear();
      currentUser = UserModel.fromJson(jsonObject);
+     gusetId=currentUser.user.id;
     try {
       await LocalStorageService.prefs.setString(
         AppStrings.userKey,

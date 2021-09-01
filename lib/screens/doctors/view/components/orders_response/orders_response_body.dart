@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/doctors/view/components/orders_response/doctor_orders_card.dart';
+import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/doctors/view/components/orders_response/doctor_orders_card.dart';
 
 class DoctorOrdersResponseBody extends StatelessWidget {
   @override

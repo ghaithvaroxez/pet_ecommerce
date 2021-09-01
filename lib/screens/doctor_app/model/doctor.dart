@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:pets_ecommerce/screens/vendor_app/model/store.dart';
+import 'package:pets/screens/vendor_app/model/store.dart';
 
 DoctorModel doctorModelFromJson(String str) => DoctorModel.fromJson(json.decode(str));
 

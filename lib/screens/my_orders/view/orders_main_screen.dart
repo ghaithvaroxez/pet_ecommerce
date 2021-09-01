@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/constants/gradient.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/my_orders/controller/my_orders_controller.dart';
-import 'package:pets_ecommerce/screens/my_orders/view/my_orders_list.dart';
+import 'package:pets/configuration/constants/gradient.dart';
+import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/my_orders/controller/my_orders_controller.dart';
+import 'package:pets/screens/my_orders/view/my_orders_list.dart';
 import '../../loading_screen.dart';
 import '../controller/oreders_label_controller.dart';
 import 'package:get/get.dart';

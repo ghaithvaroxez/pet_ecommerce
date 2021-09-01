@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:pets_ecommerce/services/local_storage_service.dart';
+import 'package:pets/services/local_storage_service.dart';
 
 class AppStrings {
   //

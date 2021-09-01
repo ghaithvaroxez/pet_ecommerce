@@ -1,13 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/constants/api.dart';
-import 'package:pets_ecommerce/configuration/constants/colors.dart';
-import 'package:pets_ecommerce/configuration/constants/text_style.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/home/view/components/favorite_icon.dart';
-import 'package:pets_ecommerce/screens/stores/view/components/products/products_details_page.dart';
-import 'package:pets_ecommerce/screens/vendor_app/model/product.dart';
+import 'package:pets/configuration/constants/api.dart';
+import 'package:pets/configuration/constants/colors.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/home/view/components/favorite_icon.dart';
+import 'package:pets/screens/stores/view/components/products/products_details_page.dart';
+import 'package:pets/screens/vendor_app/model/product.dart';
 import 'package:get/get.dart';
 
 class HomeStoreProductCard extends StatelessWidget {
@@ -18,7 +18,7 @@ class HomeStoreProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.to(ProductDetailsPage(storeProdcut));
+        Get.to(ProductDetailsPage(storeProdcut,false));
       },
       child: Container(
         margin: EdgeInsets.only(left: getProportionateScreenWidth(5),right:getProportionateScreenWidth(5),),

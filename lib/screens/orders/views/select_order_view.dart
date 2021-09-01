@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/constants/text_style.dart';
-import 'package:pets_ecommerce/configuration/printer.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/home/view/components/search_bar_component.dart';
-import 'package:pets_ecommerce/screens/orders/views/components/vertical_order_list_card.dart';
-import 'package:pets_ecommerce/services/http_requests_service.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/printer.dart';
+import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/home/view/components/search_bar_component.dart';
+import 'package:pets/screens/orders/views/components/vertical_order_list_card.dart';
+import 'package:pets/services/http_requests_service.dart';
 import '../../loading_screen.dart';
 import '../model/all_orders_model.dart';
 import 'package:http/http.dart' as http;

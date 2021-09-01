@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/size_config.dart';
 
 import 'package:get/get.dart';
+import 'package:pets/screens/auth/view/splash/login_or_register.dart';
+import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
+import 'package:pets/services/local_storage_service.dart';
 class FavoriteIcon extends StatefulWidget {
   Function fav;
   bool s;
@@ -26,6 +31,52 @@ class _FavoriteIconState extends State<FavoriteIcon> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ()async{
+if( gusetId==146)
+{
+  showDialog(
+      context: context,
+      builder: ((context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5)),
+        title:  Text(
+          'يجب عليك تسجيل حساب اولاً ',
+          textDirection: TextDirection.rtl,
+          style: body3_18pt,
+        ),
+
+        actions: [
+          TextButton(
+            child: Text('العودة',style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
+            onPressed: () {
+              Navigator.pop(context);
+              return ;
+              // Navigator.pop(context);
+            },
+          ),
+          TextButton(
+            child:  Text(
+              'تسجيل حساب',style: GoogleFonts.tajawal(
+                color: Colors.blue.withOpacity(0.6)
+            ),
+            ),
+            onPressed: () async{
+              Get.back();
+              await  LocalStorageService.prefs.clear();
+              Get.offAll(LoginOrRegister());
+              return ;
+            },
+
+            // language.changeLanguage();
+            // Navigator.of(context).pop();
+            // await  LocalStorageService.prefs.clear();
+            // Get.offAll(SplashScreen());
+            // Navigator.popUntil(context, ModalRoute.withName('/'));
+          ),
+
+        ],
+      )));
+  return;
+}
         setState(() {
           if(myIcon==borderFavorite)
             myIcon=favorite;

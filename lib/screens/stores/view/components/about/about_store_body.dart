@@ -3,20 +3,23 @@ import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pets_ecommerce/configuration/constants/api.dart';
-import 'package:pets_ecommerce/configuration/constants/colors.dart';
-import 'package:pets_ecommerce/configuration/constants/text_style.dart';
-import 'package:pets_ecommerce/configuration/printer.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
-import 'package:pets_ecommerce/screens/doctors/model/review_model.dart';
+import 'package:pets/configuration/constants/api.dart';
+import 'package:pets/configuration/constants/colors.dart';
+import 'package:pets/configuration/constants/text_style.dart';
+import 'package:pets/configuration/printer.dart';
+import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/auth/view/splash/login_or_register.dart';
+import 'package:pets/screens/doctors/model/review_model.dart';
 
-import 'package:pets_ecommerce/screens/home/view/components/social_media_components.dart';
-import 'package:pets_ecommerce/screens/maps/view/map_screen.dart';
-import 'package:pets_ecommerce/screens/stores/view/components/about/review_card.dart';
+import 'package:pets/screens/home/view/components/social_media_components.dart';
+import 'package:pets/screens/maps/view/map_screen.dart';
+import 'package:pets/screens/stores/view/components/about/review_card.dart';
 import 'package:http/http.dart' as http;
-import 'package:pets_ecommerce/screens/vendor_app/model/store.dart';
-import 'package:pets_ecommerce/services/http_requests_service.dart';
+import 'package:pets/screens/vendor_app/model/store.dart';
+import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
+import 'package:pets/services/http_requests_service.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:shape_of_view/shape_of_view.dart';
 // import 'package:rating_dialog/rating_dialog.dart';
@@ -46,6 +49,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
     consolePrint("befor get ");
     final h=await HttpService().getHeaders();
     try{
+       consolePrint("reviews url"+ Api.baseUrl + Api.getStoreReview + widget.id.toString());
       final apiResult = await http.get(
           Api.baseUrl + Api.getStoreReview + widget.id.toString(),
           headers: h);
@@ -414,63 +418,111 @@ else {
               //
               //         child: Container(height:getProportionateScreenHeight(15),child: AutoSizeText("عرض المزيد ",style: body2_14pt,minFontSize: 8,))),                ],
               // ),
-    //           SizedBox(height: getProportionateScreenHeight(10),),
-    //           GestureDetector(onTap:()async{
-    //             final ratingDialog= RatingDialog(
-    //               // your app's name?
-    //               title: storeModel.store.name,
-    //               initialRating: 0,
-    //               ratingColor: Color(0xFF49C3EA).withOpacity(0.8),
-    //               // encourage your user to leave a high rating?
-    //               message:
-    //               'ماهو تقيمك لهذا المتجر  ؟',
-    //               commentHint: 'اخبرنا برئيك عن هذا المتجر',
-    //               // your app's logo?
-    //               // image: Container(
-    //               //   color: ,
-    //               // ),
-    //               submitButton: 'متابعة',
-    //               onCancelled: () {
-    //
-    //               },
-    //               onSubmitted: (response) async{
-    //                 print('rating: ${response.rating}, comment: ${response.comment}');
-    //                  addReview(response.comment, response.rating);
-    //               },
-    //             );
-    //
-    //             showDialog(context: context, builder: (context)=>ratingDialog);
-    //           },
-    //               child: Container(
-    // margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(5)),
-    // width: getProportionateScreenWidth(345),
-    // height: getProportionateScreenHeight(85),
-    // decoration: BoxDecoration(
-    // borderRadius: BorderRadius.circular(12),
-    // color: offWhite,
-    // boxShadow: shadow,
-    // ),child: Center(child: Icon(Icons.add,color: Colors.blue.withOpacity(0.6),),),),),
-    //
-    //           eerror?Container(
-    //             height: getProportionateScreenHeight(200),
-    //             width: getProportionateScreenWidth(300),
-    //             child: AutoSizeText(
-    //               "عذرا حدثت مشكلة بجلب التقيمات الرجاء المحاولة مجدداً",
-    //               style: body1_16pt,
-    //             ),
-    //           ):lloading?Container(height: getProportionateScreenHeight(200),
-    //             width: getProportionateScreenWidth(300),
-    //             child: Container(
-    //               alignment: Alignment.center,
-    //               child: CircularProgressIndicator(),
-    //
-    //             ),
-    //           ):
-    //           Column(
-    //             children: [
-    //               ...List<Widget>.generate(reviewModel.rates.length,(index)=>index>2?Container(width: 0,height: 0,):ReviewCad(reviewModel.rates[index].userComment, reviewModel.rates[index].ratedType=="Store"?reviewModel.rates[index].ratedStoreName:reviewModel.rates[index].userFirstName+" "+reviewModel.rates[index].userLastName, reviewModel.rates[index].userRate,reviewModel.rates[index].ratedType=="Store"?reviewModel.rates[index].storeImage:reviewModel.rates[index].userImage))
-    //             ],
-    //           ),
+              SizedBox(height: getProportionateScreenHeight(10),),
+              GestureDetector(onTap:()async{
+                if( gusetId==146)
+                {
+                  showDialog(
+                      context: context,
+                      builder: ((context) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        title:  Text(
+                          'يجب عليك تسجيل حساب اولاً ',
+                          textDirection: TextDirection.rtl,
+                          style: body3_18pt,
+                        ),
+
+                        actions: [
+                          TextButton(
+                            child: Text('العودة',style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              return ;
+                              // Navigator.pop(context);
+                            },
+                          ),
+                          TextButton(
+                            child:  Text(
+                              'تسجيل حساب',style: GoogleFonts.tajawal(
+                                color: Colors.blue.withOpacity(0.6)
+                            ),
+                            ),
+                            onPressed: () async{
+                              Get.back();
+                              Get.offAll(LoginOrRegister());
+                              return ;
+                            },
+
+                            // language.changeLanguage();
+                            // Navigator.of(context).pop();
+                            // await  LocalStorageService.prefs.clear();
+                            // Get.offAll(SplashScreen());
+                            // Navigator.popUntil(context, ModalRoute.withName('/'));
+                          ),
+
+                        ],
+                      )));
+                  return;
+                }
+                final ratingDialog= RatingDialog(
+                  // your app's name?
+                  title: storeModel.store.name,
+                  initialRating: 0,
+                  ratingColor: Color(0xFF49C3EA).withOpacity(0.8),
+                  // encourage your user to leave a high rating?
+                  message:
+                  'ماهو تقيمك لهذا المتجر  ؟',
+                  commentHint: 'اخبرنا برئيك عن هذا المتجر',
+                  // your app's logo?
+                  // image: Container(
+                  //   color: ,
+                  // ),
+                  submitButton: 'متابعة',
+                  onCancelled: () {
+
+                  },
+                  onSubmitted: (response) async{
+                    if(response.comment==""){
+                      response.comment+=" ";
+                    }
+                    print('rating: ${response.rating}, comment: ${response.comment}');
+                     addReview(response.comment, response.rating);
+                  },
+                );
+
+                showDialog(context: context, builder: (context)=>ratingDialog);
+              },
+                  child: Container(
+    margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(5)),
+    width: getProportionateScreenWidth(345),
+    height: getProportionateScreenHeight(85),
+    decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(12),
+    color: offWhite,
+    boxShadow: shadow,
+    ),child: Center(child: Icon(Icons.add,color: Colors.blue.withOpacity(0.6),),),),),
+
+              eerror?Container(
+                height: getProportionateScreenHeight(200),
+                width: getProportionateScreenWidth(300),
+                child: AutoSizeText(
+                  "عذرا حدثت مشكلة بجلب التقيمات الرجاء المحاولة مجدداً",
+                  style: body1_16pt,
+                ),
+              ):lloading?Container(height: getProportionateScreenHeight(200),
+                width: getProportionateScreenWidth(300),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(),
+
+                ),
+              ):
+              Column(
+                children: [
+                  ...List<Widget>.generate(reviewModel.rates.length,(index)=>index>2?Container(width: 0,height: 0,):ReviewCad(reviewModel.rates[index].userComment=="null"?" ":reviewModel.rates[index].userComment, reviewModel.rates[index].ratedType=="Store"?reviewModel.rates[index].ratedStoreName:reviewModel.rates[index].userFirstName+" "+reviewModel.rates[index].userLastName, reviewModel.rates[index].userRate,reviewModel.rates[index].ratedType=="Store"?reviewModel.rates[index].storeImage:reviewModel.rates[index].userImage))
+                ],
+              ),
 
               SizedBox(height: getProportionateScreenHeight(25),),
              (storeModel.store.lat==-1.01||storeModel.store.long==-1.01)?Container(height: 0,width: 0,):

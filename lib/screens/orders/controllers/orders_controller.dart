@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/configuration/constants/api.dart';
-import 'package:pets_ecommerce/configuration/printer.dart';
-import 'package:pets_ecommerce/services/http_requests_service.dart';
+import 'package:pets/configuration/constants/api.dart';
+import 'package:pets/configuration/printer.dart';
+import 'package:pets/services/http_requests_service.dart';
 import '../model/all_orders_model.dart';
 import 'package:http/http.dart' as http;
 class OrdersController extends GetxController{

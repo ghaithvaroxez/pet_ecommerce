@@ -2,7 +2,8 @@ enum UserType{
   user,
   doctor,
   store,
-  stable
+  stable,
+  sieve
 }
 
 List<String> address_list=[

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pets_ecommerce/configuration/size_config.dart';
+import 'package:pets/configuration/size_config.dart';
 import 'package:get/get.dart';
-import 'package:pets_ecommerce/screens/auth/controller/services/auth_services.dart';
-import 'package:pets_ecommerce/screens/main_screen/view/main_view.dart';
-import 'package:pets_ecommerce/services/local_storage_service.dart';
+import 'package:pets/screens/auth/controller/services/auth_services.dart';
+import 'package:pets/screens/auth/model/user.dart';
+import 'package:pets/screens/main_screen/view/main_view.dart';
+import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
+import 'package:pets/services/local_storage_service.dart';
 import '../register/register_types_screen.dart';
 import 'login_or_register.dart';
 
@@ -13,14 +15,17 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
   @override
   void initState() {
     LocalStorageService.getPrefs();
     // AuthServices.getCurrentUser();
     Duration duration = Duration(seconds: 2);
-    Future.delayed(duration).then((value){
-       bool k= AuthServices.authenticated();
-
+    Future.delayed(duration).then((value) async {
+      // var user =await AuthServices.getCurrentUser();
+      // bool k=false;
+// if(user.error!=true)
+      bool   k= AuthServices.authenticated();
 
             k?
         Navigator.pushReplacement(context,
