@@ -160,7 +160,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
     // }
   }
 
-bool answer;
+bool answer=false;
   UserModel user;
   canAnswer()async{
    try {

@@ -179,7 +179,7 @@ consolePrint("statusCode:"+apiResult.statusCode.toString());
                                     Row(
                                       children: [
                                         Container(width: getProportionateScreenWidth(210),height: getProportionateScreenHeight(20),
-                                          child: AutoSizeText(   answers[index].answeredType=="Store"?   answers[index].answeredStoreName:   answers[index].answeredName.toString(),style: body1_16pt,),
+                                          child: AutoSizeText(   answers[index].answeredType=="Store"?   answers[index].answeredStoreName:   answers[index].userName,style: body1_16pt,),
                                         ),
                                            Container(
                                             height: getProportionateScreenHeight(30),

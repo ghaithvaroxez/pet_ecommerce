@@ -263,7 +263,7 @@ consolePrint(userModel.toString());
     UserModel userModel =
     await loginRequest(mobile: mobile, password: password);
     if (userModel.error == false) {
-      AuthServices.saveUser(userModel.toJson());
+      // AuthServices.saveUser(userModel);
       AuthServices.isAuthenticated();
       return true;
     } else

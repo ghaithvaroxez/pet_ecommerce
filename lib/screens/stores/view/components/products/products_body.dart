@@ -32,7 +32,7 @@
 //
 //     });
 //
-//     var url=Uri.parse("http://pets.sourcecode-ai.com/api/store/${widget.id}");
+//     var url=Uri.parse("${Api.baseUrl}/store/${widget.id}");
 //     final apiResult =await http.get(url);
 //     if(apiResult.statusCode==200)
 //     {

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets/configuration/constants/api.dart';
 import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/printer.dart';
 import 'package:pets/configuration/size_config.dart';
@@ -37,7 +38,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
     try{
       var url =
-      Uri.parse("http://pets.sourcecode-ai.com/api/categories");
+      Uri.parse("${Api.baseUrl}/categories");
       final h = await HttpService().getHeaders();
       final apiResult = await http.get(url, headers: h);
       if (apiResult.statusCode == 200) {

@@ -367,7 +367,7 @@ checkPassword(String pass)async {
                   SizedBox(width: getProportionateScreenWidth(10),),
                   Container(
                     alignment: Alignment.centerRight,
-                    width: getProportionateScreenWidth(140),
+                    width: getProportionateScreenWidth(180),
                     height: getProportionateScreenHeight(40),
                     child: AutoSizeText(" المعلومات الشخصية ",style: darkBlueText_13pt,maxLines: 1,),
                   ),

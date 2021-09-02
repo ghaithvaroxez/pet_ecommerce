@@ -42,9 +42,9 @@ decoration: BoxDecoration(
               SizedBox(width: getProportionateScreenWidth(10),),
               Container(
                 alignment: Alignment.centerRight,
-                width: getProportionateScreenWidth(100),
+                width: getProportionateScreenWidth(130),
                 height: getProportionateScreenHeight(40),
-                child: AutoSizeText(title,style: darkGrayText_14pt,),
+                child: AutoSizeText(title,style: darkGrayText_14pt,maxLines: 1,minFontSize: 9,),
               ),
               Spacer(),
               isExpanded?Row(

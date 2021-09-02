@@ -38,9 +38,9 @@ class CustomeProfileItem extends StatelessWidget {
               SizedBox(width: getProportionateScreenWidth(10),),
               Container(
                 alignment: Alignment.centerRight,
-                width: getProportionateScreenWidth(140),
+                width: getProportionateScreenWidth(180),
                 height: getProportionateScreenHeight(40),
-                child: AutoSizeText(title,style: darkGrayText_14pt,maxLines: 1,),
+                child: AutoSizeText(title,style: darkGrayText_14pt,maxLines: 1,minFontSize: 9,),
               ),
               Spacer(),
               isExpanded?  Directionality(

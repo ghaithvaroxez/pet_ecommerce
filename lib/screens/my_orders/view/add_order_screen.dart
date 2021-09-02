@@ -165,7 +165,7 @@ class _AddOrderScreenState extends State<AddOrderScreen> {
                         GetBuilder<MyOrdersController>(
                           init: widget.myOrdersController,
                           builder:(controller)=>controller.loading==true||
-                              isloading==true?LoadingScreen():Column(
+                              isloading==true?Container(height:getProportionateScreenHeight(500),child: LoadingScreen()):Column(
                             children: [
                               Container(
                                 height: getProportionateScreenHeight(30),

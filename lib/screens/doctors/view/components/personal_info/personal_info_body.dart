@@ -37,6 +37,19 @@ class _DoctorPersonalInfoBodyState extends State<DoctorPersonalInfoBody> {
     _googleMapController.dispose();
     super.dispose();
   }
+  int  more=2;
+
+
+  setMore(){
+    setState(() {
+      more=10;
+    });
+  }
+  removeMore(){
+    setState(() {
+      more=2;
+    });
+  }
 bool loading=false;
 bool error=false;
 ReviewModel reviewModel;
@@ -347,164 +360,131 @@ getReviews();
     ],
     ),
     ),
-            // SizedBox(
-            //   height: getProportionateScreenHeight(15),
-            // ),  Row(
-            //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Container(height:getProportionateScreenHeight(30), child: AutoSizeText("احدث التقييمات",style:body3_18pt,minFontSize: 12,maxLines: 1,)),
-            //     Spacer(),
-            //     GestureDetector(
-            //         onTap: (){
-            //           Scaffold.of(context)
-            //               .showBottomSheet((context) => ClipRRect(
-            //             borderRadius: BorderRadius.circular(12),
-            //
-            //             child: Container(
-            //             height: getProportionateScreenHeight(400),
-            //                 decoration: BoxDecoration(
-            //                   borderRadius: BorderRadius.circular(12),
-            //                   color: backgroundGrey,
-            //                   boxShadow: shadow,
-            //                 ),
-            //             child:
-            //
-            //              Container(
-            //                    margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(5))  ,
-            //                    width: getProportionateScreenWidth(410),
-            //                    height: getProportionateScreenHeight(85),
-            //                    decoration: BoxDecoration(
-            //                      borderRadius: BorderRadius.circular(12),
-            //                      color: backgroundGrey,
-            //                      boxShadow: shadow,
-            //                    ),
-            //                    child:
-            //                    Center(
-            //          child: SingleChildScrollView(
-            //            child: Column(
-            //                  children: [
-            //                    SizedBox(height: getProportionateScreenHeight(20),),
-            //                    Container(width:getProportionateScreenWidth(220),child: Divider()),
-            //                 SizedBox(height: getProportionateScreenHeight(10),),
-            //                    ...List<Widget>.generate(reviewModel.rates.length,(index)=>ReviewCad(reviewModel.rates[index].userComment, reviewModel.rates[index].ratedType=="Store"?reviewModel.rates[index].ratedStoreName:reviewModel.rates[index].userFirstName+" "+reviewModel.rates[index].userLastName, reviewModel.rates[index].userRate,reviewModel.rates[index].ratedType=="Store"?reviewModel.rates[index].storeImage:reviewModel.rates[index].userImage))
-            //
-            //                  ],
-            //                  ),
-            //          ),
-            //                    )
-            //
-            //              )
-            //           ),
-            //               ),elevation:4,);
-            //           },
-            //
-            //         child: Container(height:getProportionateScreenHeight(15),child: AutoSizeText("عرض المزيد ",style: body2_14pt,minFontSize: 8,))),
-            //   ],
-            // ),
-            // SizedBox(height: getProportionateScreenHeight(10),),
-            // GestureDetector(onTap:()async{
-            //
-            //   if( gusetId==146)
-            //   {
-            //     showDialog(
-            //         context: context,
-            //         builder: ((context) => AlertDialog(
-            //           shape: RoundedRectangleBorder(
-            //               borderRadius: BorderRadius.circular(5)),
-            //           title:  Text(
-            //             'يجب عليك تسجيل حساب اولاً ',
-            //             textDirection: TextDirection.rtl,
-            //             style: body3_18pt,
-            //           ),
-            //
-            //           actions: [
-            //             TextButton(
-            //               child: Text('العودة',style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
-            //               onPressed: () {
-            //                 Navigator.pop(context);
-            //                 return ;
-            //                 // Navigator.pop(context);
-            //               },
-            //             ),
-            //             TextButton(
-            //               child:  Text(
-            //                 'تسجيل حساب',style: GoogleFonts.tajawal(
-            //                   color: Colors.blue.withOpacity(0.6)
-            //               ),
-            //               ),
-            //               onPressed: () async{
-            //                 Get.back();
-            //                 Get.offAll(LoginOrRegister());
-            //                 return ;
-            //               },
-            //
-            //               // language.changeLanguage();
-            //               // Navigator.of(context).pop();
-            //               // await  LocalStorageService.prefs.clear();
-            //               // Get.offAll(SplashScreen());
-            //               // Navigator.popUntil(context, ModalRoute.withName('/'));
-            //             ),
-            //
-            //           ],
-            //         )));
-            //     return;
-            //   }
-            //
-            //   final ratingDialog= RatingDialog(
-            //     // your app's name?
-            //     title: widget.doctor.firstName+" "+widget.doctor.lastName,
-            //     initialRating: 0,
-            //     ratingColor: Color(0xFF49C3EA).withOpacity(0.8),
-            //     // encourage your user to leave a high rating?
-            //     message:
-            //     'ماهو تقيمك لهذا الطبيب  ؟',
-            //     commentHint: 'اخبرنا برئيك عن هذا الطبيب',
-            //     // your app's logo?
-            //     // image: Container(
-            //     //   color: ,
-            //     // ),
-            //     submitButton: 'متابعة',
-            //     onCancelled: () {
-            //
-            //     },
-            //     onSubmitted: (response) async{
-            //       print('rating: ${response.rating}, comment: ${response.comment}');
-            //       addReview(response.comment, response.rating);
-            //     },
-            //   );
-            //
-            //   showDialog(context: context, builder: (context)=>ratingDialog);
-            // },
-            //   child: Container(
-            //     margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(5)),
-            //     width: getProportionateScreenWidth(345),
-            //     height: getProportionateScreenHeight(85),
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.circular(12),
-            //       color: offWhite,
-            //       boxShadow: shadow,
-            //     ),child: Center(child: Icon(Icons.add,color: Colors.blue.withOpacity(0.6),),),),),
+            SizedBox(
+              height: getProportionateScreenHeight(15),
+            ),
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(height:getProportionateScreenHeight(30), child: AutoSizeText("احدث التقييمات",style:body3_18pt,minFontSize: 12,maxLines: 1,)),
+                Spacer(),
+                GestureDetector(
+                    onTap: (){
+                      if(more==2)
+                        setMore();
+                      else removeMore();
+                      setState(() {
 
-            // error?Container(
-            //   height: getProportionateScreenHeight(200),
-            //   width: getProportionateScreenWidth(300),
-            //   child: AutoSizeText(
-            //     "عذرا حدثت مشكلة بجلب التقيمات الرجاء المحاولة مجدداً",
-            //     style: body1_16pt,
-            //   ),
-            // ):loading?Container(height: getProportionateScreenHeight(200),
-            //   width: getProportionateScreenWidth(300),
-            //   child: Container(
-            //     alignment: Alignment.center,
-            //     child: CircularProgressIndicator(),
-            //
-            //   ),
-            // ):
-            // Column(
-            //   children: [
-            //     ...List<Widget>.generate(reviewModel.rates.length,(index)=>index>2?Container(width: 0,height: 0,):ReviewCad(reviewModel.rates[index].userComment, reviewModel.rates[index].ratedType=="Store"?reviewModel.rates[index].ratedStoreName:reviewModel.rates[index].userFirstName+" "+reviewModel.rates[index].userLastName, reviewModel.rates[index].userRate,reviewModel.rates[index].ratedType=="Store"?reviewModel.rates[index].storeImage:reviewModel.rates[index].userImage))
-            //   ],
-            // ),
+                      });
+                    },
+
+                    child: Container(height:getProportionateScreenHeight(15),child: AutoSizeText("عرض "+ (more==2?"المزيد":"اقل"),style: body2_14pt,minFontSize: 8,))),
+              ],
+            ),
+            SizedBox(height: getProportionateScreenHeight(10),),
+            GestureDetector(onTap:()async{
+
+              if( gusetId==146)
+              {
+                showDialog(
+                    context: context,
+                    builder: ((context) => AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      title:  Text(
+                        'يجب عليك تسجيل حساب اولاً ',
+                        textDirection: TextDirection.rtl,
+                        style: body3_18pt,
+                      ),
+
+                      actions: [
+                        TextButton(
+                          child: Text('العودة',style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            return ;
+                            // Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          child:  Text(
+                            'تسجيل حساب',style: GoogleFonts.tajawal(
+                              color: Colors.blue.withOpacity(0.6)
+                          ),
+                          ),
+                          onPressed: () async{
+                            Get.back();
+                            Get.offAll(LoginOrRegister());
+                            return ;
+                          },
+
+                          // language.changeLanguage();
+                          // Navigator.of(context).pop();
+                          // await  LocalStorageService.prefs.clear();
+                          // Get.offAll(SplashScreen());
+                          // Navigator.popUntil(context, ModalRoute.withName('/'));
+                        ),
+
+                      ],
+                    )));
+                return;
+              }
+
+              final ratingDialog= RatingDialog(
+                // your app's name?
+                title: widget.doctor.firstName+" "+widget.doctor.lastName,
+                initialRating: 0,
+                ratingColor: Color(0xFF49C3EA).withOpacity(0.8),
+                // encourage your user to leave a high rating?
+                message:
+                'ماهو تقيمك لهذا الطبيب  ؟',
+                commentHint: 'اخبرنا برئيك عن هذا الطبيب',
+                // your app's logo?
+                // image: Container(
+                //   color: ,
+                // ),
+                submitButton: 'متابعة',
+                onCancelled: () {
+
+                },
+                onSubmitted: (response) async{
+                  print('rating: ${response.rating}, comment: ${response.comment}');
+                  addReview(response.comment, response.rating);
+                },
+              );
+
+              showDialog(context: context, builder: (context)=>ratingDialog);
+            },
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(5)),
+                width: getProportionateScreenWidth(345),
+                height: getProportionateScreenHeight(85),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: offWhite,
+                  boxShadow: shadow,
+                ),child: Center(child: Icon(Icons.add,color: Colors.blue.withOpacity(0.6),),),),),
+
+            error?Container(
+              height: getProportionateScreenHeight(200),
+              width: getProportionateScreenWidth(300),
+              child: AutoSizeText(
+                "عذرا حدثت مشكلة بجلب التقيمات الرجاء المحاولة مجدداً",
+                style: body1_16pt,
+              ),
+            ):loading?Container(height: getProportionateScreenHeight(200),
+              width: getProportionateScreenWidth(300),
+              child: Container(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(),
+
+              ),
+            ):
+            Column(
+              children: [
+                ...List<Widget>.generate(reviewModel.rates.length,(index)=>index>more?Container(width: 0,height: 0,):ReviewCad(reviewModel.rates[index].userComment=="null"?" ":reviewModel.rates[index].userComment, reviewModel.rates[index].ratedStoreName!="null"?reviewModel.rates[index].ratedStoreName:reviewModel.rates[index].userFirstName!="null"?reviewModel.rates[index].userFirstName+" "+reviewModel.rates[index].userLastName:reviewModel.rates[index].doctorFirstName+" "+reviewModel.rates[index].doctorLastName, reviewModel.rates[index].userRate,reviewModel.rates[index].ratedStoreImage!="null"?reviewModel.rates[index].ratedStoreImage:reviewModel.rates[index].userImage!="null"?reviewModel.rates[index].userImage:reviewModel.rates[index].doctorImage))
+              ],
+            ),
 
             SizedBox(height: getProportionateScreenHeight(25),),
 

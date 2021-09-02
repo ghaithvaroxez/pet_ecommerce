@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pets/configuration/constants/api.dart';
 import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/printer.dart';
 import 'package:pets/configuration/size_config.dart';
@@ -41,7 +42,7 @@ class _CustomerPhotosBodyState extends State<CustomerPhotosBody> {
 
     });
 
-    var url=Uri.parse("http://pets.sourcecode-ai.com/api/store/images/${widget.id.toString()}");
+    var url=Uri.parse("${Api.baseUrl}/store/images/${widget.id.toString()}");
     String token=await AuthServices.getAuthToken();
     consolePrint(token)
 ;

@@ -152,11 +152,13 @@ markers[MarkerId('doctor${doctor.id}')]=
       ),
       LatLng(doctor.lat,doctor.long),
     );
-  final directions = await DirectionsRepository()
-      .getDirections(origin: _origin.position, destination: LatLng(doctor.lat,doctor.long));
-  setState(() => _info = directions);
-
-  },
+    if(directions){
+          final directions = await DirectionsRepository().getDirections(
+              origin: _origin.position,
+              destination: LatLng(doctor.lat, doctor.long));
+          setState(() => _info = directions);
+        }
+      },
 
 );
 
@@ -180,20 +182,27 @@ addStoreMarker(Store store)async {
             StoreCard(store),
           LatLng(store.lat,store.long),
         );
-        final directions = await DirectionsRepository()
-            .getDirections(origin: _origin.position, destination: LatLng(store.lat,store.long));
-        setState(() => _info = directions);
+       if(directions) {
+          final directions = await DirectionsRepository().getDirections(
+              origin: _origin.position,
+              destination: LatLng(store.lat, store.long));
+          setState(() => _info = directions);
+        }
       },
 
   );
 }
-
+bool directions=true;
 addLocationMarker()async{
   var icon = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty,
       "assets/images/vendor_app/my_location_marker.png");
 
   LocationPermission  permission = await Geolocator.checkPermission();
-  Position position = await Geolocator.getCurrentPosition(
+  if(permission==LocationPermission.denied) {
+    directions=false;
+      return;
+    }
+    Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high);
   LatLng userLocation = LatLng(position.latitude, position.longitude);
 

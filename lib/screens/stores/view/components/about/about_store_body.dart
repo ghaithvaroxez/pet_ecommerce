@@ -38,7 +38,19 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
 
 
 
+int  more=2;
 
+
+setMore(){
+  setState(() {
+    more=10;
+  });
+}
+removeMore(){
+  setState(() {
+    more=2;
+  });
+}
   ReviewModel reviewModel;
   getReviews()async {
     eerror=false;
@@ -138,7 +150,7 @@ await getReviews();
     });
     consolePrint(widget.id.toString());
     final h=await HttpService().getHeaders();
-    var url=Uri.parse("http://pets.sourcecode-ai.com/api/about/store/${widget.id}");
+    var url=Uri.parse("${Api.baseUrl}/about/store/${widget.id}");
     final apiResult =await http.get(url,headers: h);
 
     if(apiResult.statusCode==200)
@@ -365,9 +377,10 @@ else {
                   ],
                 ),
               ),
-              SizedBox(
-                height: getProportionateScreenHeight(15),
-              ),
+              // SizedBox(
+              //   height: getProportionateScreenHeight(15),
+              // ),
+
               // Row(
               //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               //   children: [
@@ -418,6 +431,29 @@ else {
               //
               //         child: Container(height:getProportionateScreenHeight(15),child: AutoSizeText("عرض المزيد ",style: body2_14pt,minFontSize: 8,))),                ],
               // ),
+
+
+              SizedBox(
+                height: getProportionateScreenHeight(15),
+              ),
+              Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(height:getProportionateScreenHeight(30), child: AutoSizeText("احدث التقييمات",style:body3_18pt,minFontSize: 12,maxLines: 1,)),
+                  Spacer(),
+                  GestureDetector(
+                      onTap: (){
+                        if(more==2)
+                          setMore();
+                        else removeMore();
+                        setState(() {
+
+                        });
+                      },
+
+                      child: Container(height:getProportionateScreenHeight(15),child: AutoSizeText("عرض "+ (more==2?"المزيد":"اقل"),style: body2_14pt,minFontSize: 8,))),
+                ],
+              ),
               SizedBox(height: getProportionateScreenHeight(10),),
               GestureDetector(onTap:()async{
                 if( gusetId==146)
@@ -520,7 +556,7 @@ else {
               ):
               Column(
                 children: [
-                  ...List<Widget>.generate(reviewModel.rates.length,(index)=>index>2?Container(width: 0,height: 0,):ReviewCad(reviewModel.rates[index].userComment=="null"?" ":reviewModel.rates[index].userComment, reviewModel.rates[index].ratedType=="Store"?reviewModel.rates[index].ratedStoreName:reviewModel.rates[index].userFirstName+" "+reviewModel.rates[index].userLastName, reviewModel.rates[index].userRate,reviewModel.rates[index].ratedType=="Store"?reviewModel.rates[index].storeImage:reviewModel.rates[index].userImage))
+                  ...List<Widget>.generate(reviewModel.rates.length,(index)=>index>more?Container(width: 0,height: 0,):ReviewCad(reviewModel.rates[index].userComment=="null"?" ":reviewModel.rates[index].userComment, reviewModel.rates[index].ratedStoreName!="null"?reviewModel.rates[index].ratedStoreName:reviewModel.rates[index].userFirstName!="null"?reviewModel.rates[index].userFirstName+" "+reviewModel.rates[index].userLastName:reviewModel.rates[index].doctorFirstName+" "+reviewModel.rates[index].doctorLastName, reviewModel.rates[index].userRate,reviewModel.rates[index].ratedStoreImage!="null"?reviewModel.rates[index].ratedStoreImage:reviewModel.rates[index].userImage!="null"?reviewModel.rates[index].userImage:reviewModel.rates[index].doctorImage))
                 ],
               ),
 

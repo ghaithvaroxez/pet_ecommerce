@@ -41,8 +41,8 @@ class _CategoryStoresState extends State<CategoryStores> {
 
     });
     try{
-      var url = Uri.parse("http://pets.sourcecode-ai.com/api/stores/cat/${widget.id.toString()}");
-      var url2 = Uri.parse("http://pets.sourcecode-ai.com/api/productTypes");
+      var url = Uri.parse("${Api.baseUrl}/stores/cat/${widget.id.toString()}");
+      var url2 = Uri.parse("${Api.baseUrl}/productTypes");
       consolePrint("before print");
       final h = await HttpService().getHeaders();
       final apiResult = await http.get(url, headers: h);
@@ -73,7 +73,7 @@ class _CategoryStoresState extends State<CategoryStores> {
     try{
       consolePrint("store id" + storeId.toString());
       var url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/addToFavourite/$storeId/store/Store");
+          "${Api.baseUrl}/addToFavourite/$storeId/store/Store");
       consolePrint("before add to favorite print");
       final h = await HttpService().getHeaders();
       final apiResult = await http.post(url, headers: h);

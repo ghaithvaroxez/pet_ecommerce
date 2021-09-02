@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets/configuration/constants/api.dart';
 import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/printer.dart';
 import 'package:pets/configuration/size_config.dart';
@@ -27,7 +28,7 @@ class _SelectCornerViewState extends State<SelectCornerView> {
     });
    try {
      consolePrint("before corners requests");
-     var url=Uri.parse("http://pets.sourcecode-ai.com/api/corners",);
+     var url=Uri.parse("${Api.baseUrl}/corners",);
      final apiResult =
           await http.get(url,headers: await HttpService().getHeaders());
       consolePrint("corners statusCode"+apiResult.statusCode.toString());

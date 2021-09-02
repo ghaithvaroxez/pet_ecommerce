@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:pets/configuration/constants/api.dart';
 import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/printer.dart';
 import 'package:pets/configuration/size_config.dart';
@@ -55,7 +56,7 @@ bool error=false;
    try {
       consolePrint("product id" + offerId.toString());
       var url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/addToFavourite/$offerId/offer");
+          "${Api.baseUrl}/addToFavourite/$offerId/offer");
       consolePrint("before add to favorite print");
       consolePrint("try to post on " + url.path);
 

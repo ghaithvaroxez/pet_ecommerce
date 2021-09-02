@@ -45,7 +45,8 @@ else return [Offer(error: true)];
 
 Future<List<StoreProduct>>getProducts(String productName,{int catId=-1,int typeId=-1,double price1=-1,double price2=-1})async
 {
-
+consolePrint("price1:$price1");
+consolePrint("price2:$price2");
   String mainUrl="${Api.searchProducts}$productName";
   if(catId!=-1)
   {
@@ -57,11 +58,11 @@ Future<List<StoreProduct>>getProducts(String productName,{int catId=-1,int typeI
   }
   if(price1!=-1)
   {
-    mainUrl+="&price1=$price1";
+    mainUrl+="&price1=${price1.floor()}";
   }
   if(price2!=-1)
   {
-    mainUrl+="&price2=$price2";
+    mainUrl+="&price2=${price2.floor()}";
   }
   final apiResult=await getRequest(mainUrl);
   if(apiResult.statusCode==200)

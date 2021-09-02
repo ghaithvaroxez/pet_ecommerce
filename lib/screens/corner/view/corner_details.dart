@@ -42,12 +42,12 @@ consolePrint(widget.corner.storeId.toString());
       var url;
       if(widget.corner.storeId!=-1){
          url = Uri.parse(
-          "http://pets.sourcecode-ai.com/api/corners?store_id=${widget.corner.storeId}",
+          "${Api.baseUrl}/corners?store_id=${widget.corner.storeId}",
         );
       }
       else {
          url = Uri.parse(
-        "http://pets.sourcecode-ai.com/api/corners?doctor_id=${widget.corner.userId}",
+        "${Api.baseUrl}/corners?doctor_id=${widget.corner.userId}",
       );
 
       }

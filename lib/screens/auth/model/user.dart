@@ -31,9 +31,9 @@ class UserModel {
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
     user: User.fromJson(json["user"]),
     token: json["token"],
-    store: List<StoreId>.from(json["store"].map((x) => StoreId.fromJson(x))),
-    storeName: List<StoreName>.from(json["store_name"].map((x) => StoreName.fromJson(x))),
-    storeImage: List<StoreImage>.from(json["store_image"].map((x) => StoreImage.fromJson(x))),
+    store:json["store"]==null?[]: List<StoreId>.from(json["store"].map((x) => StoreId.fromJson(x))),
+    storeName:json["store_name"]==null?[]: List<StoreName>.from(json["store_name"].map((x) => StoreName.fromJson(x))),
+    storeImage:json["store_image"]==null?[]: List<StoreImage>.from(json["store_image"].map((x) => StoreImage.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {

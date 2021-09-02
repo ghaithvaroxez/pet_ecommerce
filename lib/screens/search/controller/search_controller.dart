@@ -21,7 +21,16 @@ class SearchController extends GetxController{
     List<Doctor> doctors=[];
     List<Category> categories=[];
 
-  
+  clearLists(){
+     offers=[];
+     products=[];
+   stores=[];
+     sieves=[];
+    barns=[];
+   doctors=[];
+    categories=[];
+    update();
+  }
   searchGeneral(String name)async{
   try{
     removeError();
@@ -54,6 +63,8 @@ class SearchController extends GetxController{
         }
 
       doctors= List<Doctor>.from( j["doctors"].map((x) => Doctor.fromJson(x)));
+      categories= List<Category>.from( j["categories"].map((x) => Category.fromJson(x)));
+
       removeLoading();
     }
 
