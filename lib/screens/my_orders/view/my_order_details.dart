@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'translations/my_order_details.i18n.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -196,7 +196,7 @@ MyOrdersDetailsController myOrdersDetailsController;
                               Container(
                                   height: getProportionateScreenHeight(28),
                                   child: AutoSizeText(
-                                    "تفاصيل الطلب",
+                                    "تفاصيل الطلب".i18n,
                                     style: h5_21pt,
                                     minFontSize: 8,
                                   )),
@@ -342,7 +342,7 @@ MyOrdersDetailsController myOrdersDetailsController;
                                                     alignment: Alignment.centerRight,
                                                     height: getProportionateScreenHeight(getProportionateScreenHeight(25)),
                                                     child: Obx(()=>
-                                                      AutoSizeText(orderType.value=="animal"?"حيوانات":"استطباب",
+                                                      AutoSizeText(orderType.value=="animal"?"حيوانات".i18n:"استطباب".i18n,
                                                           style: darkGrayText_14pt,
                                                           // minFontSize: 9,
                                                           textDirection: TextDirection.rtl),
@@ -393,7 +393,7 @@ MyOrdersDetailsController myOrdersDetailsController;
                   ),
 // SizedBox(height: getProportionateScreenHeight(24),),
                   SizedBox(height: getProportionateScreenHeight(16),)
-                  ,Container(height: getProportionateScreenHeight(30),width: getProportionateScreenWidth(345),alignment: Alignment.centerRight,child: AutoSizeText("الردود",style: body3_18pt,),),
+                  ,Container(height: getProportionateScreenHeight(30),width: getProportionateScreenWidth(345),alignment: Alignment.centerRight,child: AutoSizeText("الردود".i18n,style: body3_18pt,),),
 //                   !answer?Container(width: 0,height: 0,):
 //                   GestureDetector(
 //                     onTap: ()async{
@@ -528,7 +528,7 @@ MyOrdersDetailsController myOrdersDetailsController;
 //                       ),
 //                     ),
 //                   ),
-                  order.answers.length==0?Container(alignment: Alignment.center,width: getProportionateScreenWidth(250),height: getProportionateScreenHeight(250),child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):
+                  order.answers.length==0?Container(alignment: Alignment.center,width: getProportionateScreenWidth(250),height: getProportionateScreenHeight(250),child: AutoSizeText("لا يوجد عناصر لعرضها حالياً".i18n,style: body1_16pt,),):
 
                   Column(
                     children: [

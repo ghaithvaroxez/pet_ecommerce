@@ -10,7 +10,7 @@ import 'package:pets/screens/stores/model/custoer_store_offer.dart';
 import 'package:get/get.dart';
 
 import '../../store_details_id.dart';
-
+import 'translations/offers_details_screen.i18n.dart';
 class OfferDetailsPage extends StatelessWidget {
   Offer offer;
   bool store;
@@ -120,7 +120,7 @@ class OfferDetailsPage extends StatelessWidget {
                           minFontSize: 11,
                           style: blueButton_21pt,
                           maxLines: 1,
-                          textDirection: TextDirection.rtl,
+                          // textDirection: TextDirection.rtl,
                         ),
                       ),
                       SizedBox(height: getProportionateScreenHeight(5),),
@@ -183,7 +183,7 @@ class OfferDetailsPage extends StatelessWidget {
 
                                   SizedBox(width: getProportionateScreenWidth(25),),
 
-                                  Container(child: AutoSizeText("اسم المتجر",style: body3_18pt,)),
+                                  Container(child: AutoSizeText("اسم المتجر".i18n,style: body3_18pt,)),
                                 ],
                               ),
                             ):Container(width: 0,height: 0,),
@@ -191,7 +191,7 @@ class OfferDetailsPage extends StatelessWidget {
                             Row(
                               children: [
 Spacer(),
-                                Container(alignment:Alignment.centerRight,child: AutoSizeText("الوصف",style: body3_18pt,)),
+                                Container(alignment:Alignment.centerRight,child: AutoSizeText("الوصف".i18n,style: body3_18pt,)),
                                 SizedBox(width: getProportionateScreenWidth(5),),
 
                               ],

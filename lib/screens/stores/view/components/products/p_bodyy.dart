@@ -12,6 +12,8 @@ import 'package:http/http.dart' as http;
 import 'package:pets/services/http_requests_service.dart';
 
 import '../../../../loading_screen.dart';
+import '../offers/translations/offers_body.i18n.dart';
+
 
 class PBody extends StatefulWidget {
   int id;
@@ -100,7 +102,7 @@ class _PBodyState extends State<PBody> {
     return loading?LoadingScreen():products.length==0?Container(
       width: getProportionateScreenWidth(390),
       height: getProportionateScreenHeight(350),
-      child: Center(child: AutoSizeText("لا يوجد عناصر حاليا",style: body1_16pt,)),
+      child: Center(child: AutoSizeText( "لا يوجد عناصر حاليا".i18n,style: body1_16pt,)),
     ):Container(
         padding: EdgeInsets.symmetric(
         horizontal: getProportionateScreenWidth(16),

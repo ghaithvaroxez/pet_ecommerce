@@ -10,7 +10,7 @@ import 'package:pets/screens/auth/view/login/login_screen.dart';
 import 'package:pets/screens/auth/view/register/register_types_screen.dart';
 import 'package:pets/screens/main_screen/view/main_view.dart';
 import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
-
+import './translation/login_or_register.i18n.dart';
 import '../../../un_aprovverd_screen.dart';
 
 class LoginOrRegister extends StatefulWidget {
@@ -51,7 +51,7 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
             right: getProportionateScreenWidth(16),
             child: AuthButton(
                 color: true,
-                title: "الدخول كزائر",
+                title: "الدخول كزائر".i18n,
                 ontap: () async {
                   CoolAlert.show(
                     context: context,
@@ -76,7 +76,7 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
                     CoolAlert.show(
                       context: context,
                       type: CoolAlertType.error,
-                      text: " الرجاء المحاولة مجدداً",
+                      text: " الرجاء المحاولة مجدداً".i18n,
                     );
                   }
                 }),
@@ -87,7 +87,7 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
             right: getProportionateScreenWidth(16),
             child: AuthButton(
                 color: true,
-                title: "تسجيل دخول",
+                title: "تسجيل دخول".i18n,
                 ontap: () {
                   Get.to(LoginScreen());
                 }),
@@ -98,7 +98,7 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
             right: getProportionateScreenWidth(16),
             child: AuthButton(
               color: false,
-              title: "إنشاء حساب",
+              title: "إنشاء حساب".i18n,
               ontap: () {
                 Get.to(SignUpTypeScreen());
               },

@@ -17,6 +17,7 @@ import 'package:pets/screens/widgets/text_field.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:pets/services/http_requests_service.dart';
+import '../translations/doctor_add_time_screen.i18n.dart';
 class DoctorAddTimeScreen extends StatefulWidget {
   // Function action;
   TextEditingController t1;
@@ -148,7 +149,7 @@ class _DoctorAddTimeScreenState extends State<DoctorAddTimeScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: failed?Container(width:getProportionateScreenWidth(410),height:getProportionateScreenHeight(200),child: AutoSizeText("عذراً حدثت مشكلة ما الرجاء المحاولة مرة اخرى ",style: body3_18pt,),):loading?LoadingScreen():Column(
+        child: failed?Container(width:getProportionateScreenWidth(410),height:getProportionateScreenHeight(200),child: AutoSizeText("الرجاء المحاولة مجدداً".i18n,style: body3_18pt,),):loading?LoadingScreen():Column(
           children: [
             Container(
               child: Material(
@@ -164,7 +165,7 @@ class _DoctorAddTimeScreenState extends State<DoctorAddTimeScreen> {
                         ),
 
                         Spacer(),
-                        Container(height:getProportionateScreenHeight(28),child: AutoSizeText("اضافة مواعيد العمل",style: h5_21pt,minFontSize: 8,)),
+                        Container(height:getProportionateScreenHeight(28),child: AutoSizeText("اضافة مواعيد العمل".i18n,style: h5_21pt,minFontSize: 8,)),
                         Spacer(),
                         SizedBox(
                           width: getProportionateScreenWidth(24),
@@ -241,7 +242,9 @@ class _DoctorAddTimeScreenState extends State<DoctorAddTimeScreen> {
                   ),
                 ),
                 Spacer(),
-                Container(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),alignment:Alignment.centerRight,child: AutoSizeText("يفتح عند الساعة ",style: body1_16pt,textDirection: TextDirection.rtl,)),
+                Container(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),alignment:Alignment.centerRight,child: AutoSizeText("يفتح عند الساعة ".i18n,style: body1_16pt,
+                  // textDirection: TextDirection.rtl,
+                )),
                 SizedBox(width: getProportionateScreenWidth(16),),
               ],
             ),
@@ -272,7 +275,9 @@ class _DoctorAddTimeScreenState extends State<DoctorAddTimeScreen> {
                   ),
                 ),
                 Spacer(),
-                Container(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),alignment:Alignment.centerRight,child: AutoSizeText("يغلق عند الساعة ",style: body1_16pt,textDirection: TextDirection.rtl,)),
+                Container(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),alignment:Alignment.centerRight,child: AutoSizeText("يغلق عند الساعة ",style: body1_16pt,
+                  // textDirection: TextDirection.rtl,
+                )),
 
                 SizedBox(width: getProportionateScreenWidth(16),),
               ],
@@ -285,7 +290,7 @@ class _DoctorAddTimeScreenState extends State<DoctorAddTimeScreen> {
             GestureDetector(
                 onTap: ()async {
                   if(widget.t1.text=="" || widget.t2.text=="")
-                    Get.rawSnackbar(message: "please fill the fields") ;
+                    Get.rawSnackbar(message: "الرجاء ملىء الحقول".i18n) ;
                   else {
                     Get.back();
                     await widget.controller.addTime(
@@ -302,7 +307,7 @@ class _DoctorAddTimeScreenState extends State<DoctorAddTimeScreen> {
                       gradient: blueGradient),
                   child: Center(
                     child: AutoSizeText(
-                      "حفظ ومتابعة ",
+                      "حفظ ومتابعة ".i18n,
                       style: blueButton_14pt,
                     ),
                   ),

@@ -8,7 +8,7 @@ import 'package:pets/screens/search/view/search_screen.dart';
 import 'package:pets/screens/widgets/text_field.dart';
 import 'package:get/get.dart';
 import 'package:pets/screens/search/view/components/filter_custom_bottom_sheet.dart';
-
+import 'translations/search_bar.i18n.dart';
 
 class SearchBar extends StatelessWidget {
   TextEditingController searchController=TextEditingController();
@@ -39,7 +39,7 @@ class SearchBar extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 padding: EdgeInsets.only(top: getProportionateScreenHeight(10)),
                 child:
-                  AutoSizeText("ابحث هنا ",style:darkGrayText_14pt,),
+                  AutoSizeText("ابحث هنا ".i18n,style:darkGrayText_14pt,),
 //                 TextField(
 //                   controller: searchController,
 // onSubmitted: (value){

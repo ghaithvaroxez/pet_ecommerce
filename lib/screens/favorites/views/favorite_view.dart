@@ -13,7 +13,7 @@ import 'components/offers_body.dart';
 import 'components/sieves_body.dart';
 import 'components/stables_body.dart';
 import 'components/stores_body.dart';
-
+import 'translations/favorite_view.i18n.dart';
 class FavoriteView extends StatefulWidget {
   @override
   _FavoriteViewState createState() => _FavoriteViewState();
@@ -50,45 +50,42 @@ class _FavoriteViewState extends State<FavoriteView>
                 left: 0,
                 right: 0,
                 height: getProportionateScreenHeight(400),
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      Image.asset(
-                        productsBackground,
-                        fit: BoxFit.fill,
-                      ),
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    Image.asset(
+                      productsBackground,
+                      fit: BoxFit.fill,
+                    ),
 
-                      Column(
-                        children: [
-                          SizedBox(height: getProportionateScreenHeight(100)  ,),
-                          Image.asset(
+                    Column(
+                      children: [
+                        SizedBox(height: getProportionateScreenHeight(100)  ,),
+                        Image.asset(
 
-                            storesBackground,
-                            height: getProportionateScreenHeight(260),
-                            fit: BoxFit.fill,
-                          ),
-                        ],
-                      ),
-                      Image.asset(
-                        doctorsBackground,
-                        fit: BoxFit.fill,
-                      ),
-                      Image.asset(
-                        stablesBackground,
-                        fit: BoxFit.fill,
-                      ),
-                      Image.asset(
-                        offersBackground,
-                        fit: BoxFit.fill,
-                      ),
-                      Image.asset(
-                        offersBackground,
-                        fit: BoxFit.fill,
-                      ),
-                    ],
-                  ),
+                          storesBackground,
+                          height: getProportionateScreenHeight(260),
+                          fit: BoxFit.fill,
+                        ),
+                      ],
+                    ),
+                    Image.asset(
+                      doctorsBackground,
+                      fit: BoxFit.fill,
+                    ),
+                    Image.asset(
+                      stablesBackground,
+                      fit: BoxFit.fill,
+                    ),
+                    Image.asset(
+                      offersBackground,
+                      fit: BoxFit.fill,
+                    ),
+                    Image.asset(
+                      offersBackground,
+                      fit: BoxFit.fill,
+                    ),
+                  ],
                 ),
                 // GetBuilder<FavoriteLabelController>(
                 //   // init: _customerLabelController,
@@ -155,7 +152,7 @@ class _FavoriteViewState extends State<FavoriteView>
                           height: getProportionateScreenHeight(28),
                           width: getProportionateScreenWidth(75),
                           child: AutoSizeText(
-                            "المفضلة",
+                            "المفضلة".i18n,
                             style: controller.index != 1 && controller.index != 4
                                 ?blueButton_25pt:teal_25pt,
                             minFontSize: 8,
@@ -188,282 +185,279 @@ class _FavoriteViewState extends State<FavoriteView>
                 top: getProportionateScreenHeight(350),
                 left: 0,
                 right: 0,
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Container(
-                    height: getProportionateScreenHeight(55),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: GetBuilder<FavoriteLabelController>(
-                            // init: _customerLabelController,
-                            builder: (controller) => GestureDetector(
-                              onTap: () {
-                                _tabController.animateTo(0);
-                                controller.changeIndex(0);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    top: getProportionateScreenHeight(12)),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(12)),
-                                  color: controller.backgroundColors[0],
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: getProportionateScreenHeight(18),
-                                      width: getProportionateScreenWidth(18),
-                                      child: Image.asset(
-                                        controller.products,
-                                        fit: BoxFit.fill,
-                                      ),
+                child: Container(
+                  height: getProportionateScreenHeight(55),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GetBuilder<FavoriteLabelController>(
+                          // init: _customerLabelController,
+                          builder: (controller) => GestureDetector(
+                            onTap: () {
+                              _tabController.animateTo(0);
+                              controller.changeIndex(0);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  top: getProportionateScreenHeight(12)),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(12)),
+                                color: controller.backgroundColors[0],
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: getProportionateScreenHeight(18),
+                                    width: getProportionateScreenWidth(18),
+                                    child: Image.asset(
+                                      controller.products,
+                                      fit: BoxFit.fill,
                                     ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: getProportionateScreenHeight(20),
-                                      width: getProportionateScreenWidth(80),
-                                      child: AutoSizeText(
-                                        "المنتجات",
-                                        style: controller.productsStyle,
-                                        minFontSize: 8,
-                                      ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: getProportionateScreenHeight(20),
+                                    width: getProportionateScreenWidth(80),
+                                    child: AutoSizeText(
+                                      "المنتجات".i18n,
+                                      style: controller.productsStyle,
+                                      minFontSize: 8,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ),
+                      ),
 
-                        ///products
+                      ///products
 
-                        Expanded(
-                          child: GetBuilder<FavoriteLabelController>(
-                            // init: _customerLabelController,
-                            builder: (controller) => GestureDetector(
-                              onTap: () {
-                                _tabController.animateTo(1);
-                                controller.changeIndex(1);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    top: getProportionateScreenHeight(12)),
-                                decoration: BoxDecoration(
-                                  color: controller.backgroundColors[1],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      height: getProportionateScreenHeight(18),
-                                      width: getProportionateScreenWidth(18),
-                                      child: Image.asset(
-                                        controller.stores,
-                                        fit: BoxFit.fill,
-                                      ),
+                      Expanded(
+                        child: GetBuilder<FavoriteLabelController>(
+                          // init: _customerLabelController,
+                          builder: (controller) => GestureDetector(
+                            onTap: () {
+                              _tabController.animateTo(1);
+                              controller.changeIndex(1);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  top: getProportionateScreenHeight(12)),
+                              decoration: BoxDecoration(
+                                color: controller.backgroundColors[1],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: getProportionateScreenHeight(18),
+                                    width: getProportionateScreenWidth(18),
+                                    child: Image.asset(
+                                      controller.stores,
+                                      fit: BoxFit.fill,
                                     ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: getProportionateScreenHeight(20),
-                                      width: getProportionateScreenWidth(80),
-                                      child: AutoSizeText(
-                                        "المتاجر",
-                                        style: controller.storesStyle,
-                                        minFontSize: 8,
-                                      ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: getProportionateScreenHeight(20),
+                                    width: getProportionateScreenWidth(80),
+                                    child: AutoSizeText(
+                                      "المتاجر".i18n,
+                                      style: controller.storesStyle,
+                                      minFontSize: 8,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ),
+                      ),
 
-                        /// stores
+                      /// stores
 
-                        Expanded(
-                          child: GetBuilder<FavoriteLabelController>(
-                            // init: _FavoriteLabelController,
-                            builder: (controller) => GestureDetector(
-                              onTap: () {
-                                _tabController.animateTo(2);
-                                controller.changeIndex(2);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    top: getProportionateScreenHeight(12)),
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
-                                  color: controller.backgroundColors[2],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      height: getProportionateScreenHeight(18),
-                                      width: getProportionateScreenWidth(18),
-                                      child: Image.asset(
-                                        controller.doctors,
-                                        fit: BoxFit.fill,
-                                      ),
+                      Expanded(
+                        child: GetBuilder<FavoriteLabelController>(
+                          // init: _FavoriteLabelController,
+                          builder: (controller) => GestureDetector(
+                            onTap: () {
+                              _tabController.animateTo(2);
+                              controller.changeIndex(2);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  top: getProportionateScreenHeight(12)),
+                              decoration: BoxDecoration(
+                                // borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
+                                color: controller.backgroundColors[2],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: getProportionateScreenHeight(18),
+                                    width: getProportionateScreenWidth(18),
+                                    child: Image.asset(
+                                      controller.doctors,
+                                      fit: BoxFit.fill,
                                     ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: getProportionateScreenHeight(20),
-                                      width: getProportionateScreenWidth(80),
-                                      child: AutoSizeText(
-                                        "الأطباء",
-                                        style: controller.doctorsStyle,
-                                        minFontSize: 8,
-                                      ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: getProportionateScreenHeight(20),
+                                    width: getProportionateScreenWidth(80),
+                                    child: AutoSizeText(
+                                      "الأطباء".i18n,
+                                      style: controller.doctorsStyle,
+                                      minFontSize: 8,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ),
+                      ),
 
-                        ///doctors
-                        Expanded(
-                          child: GetBuilder<FavoriteLabelController>(
-                            // init: _FavoriteLabelController,
-                            builder: (controller) => GestureDetector(
-                              onTap: () {
-                                _tabController.animateTo(3);
-                                controller.changeIndex(3);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    top: getProportionateScreenHeight(12)),
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
-                                  color: controller.backgroundColors[3],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      height: getProportionateScreenHeight(18),
-                                      width: getProportionateScreenWidth(18),
-                                      child: Image.asset(
-                                        controller.stables,
-                                        fit: BoxFit.fill,
-                                      ),
+                      ///doctors
+                      Expanded(
+                        child: GetBuilder<FavoriteLabelController>(
+                          // init: _FavoriteLabelController,
+                          builder: (controller) => GestureDetector(
+                            onTap: () {
+                              _tabController.animateTo(3);
+                              controller.changeIndex(3);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  top: getProportionateScreenHeight(12)),
+                              decoration: BoxDecoration(
+                                // borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
+                                color: controller.backgroundColors[3],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: getProportionateScreenHeight(18),
+                                    width: getProportionateScreenWidth(18),
+                                    child: Image.asset(
+                                      controller.stables,
+                                      fit: BoxFit.fill,
                                     ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: getProportionateScreenHeight(20),
-                                      width: getProportionateScreenWidth(80),
-                                      child: AutoSizeText(
-                                        "الاسطبلات",
-                                        style: controller.stablesStyle,
-                                        minFontSize: 8,
-                                      ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: getProportionateScreenHeight(20),
+                                    width: getProportionateScreenWidth(80),
+                                    child: AutoSizeText(
+                                      "الاسطبلات".i18n,
+                                      style: controller.stablesStyle,
+                                      minFontSize: 8,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ),
+                      ),
 
-                        ///stables
-                        Expanded(
-                          child: GetBuilder<FavoriteLabelController>(
-                            // init: _FavoriteLabelController,
-                            builder: (controller) => GestureDetector(
-                              onTap: () {
-                                _tabController.animateTo(4);
-                                controller.changeIndex(4);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    top: getProportionateScreenHeight(12)),
-                                decoration: BoxDecoration(
-                                  // borderRadius: BorderRadius.only(
-                                  //     topLeft: Radius.circular(12)),
-                                  color: controller.backgroundColors[4],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      height: getProportionateScreenHeight(18),
-                                      width: getProportionateScreenWidth(18),
-                                      child: Image.asset(
-                                        controller.sieves,
-                                        fit: BoxFit.fill,
-                                      ),
+                      ///stables
+                      Expanded(
+                        child: GetBuilder<FavoriteLabelController>(
+                          // init: _FavoriteLabelController,
+                          builder: (controller) => GestureDetector(
+                            onTap: () {
+                              _tabController.animateTo(4);
+                              controller.changeIndex(4);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  top: getProportionateScreenHeight(12)),
+                              decoration: BoxDecoration(
+                                // borderRadius: BorderRadius.only(
+                                //     topLeft: Radius.circular(12)),
+                                color: controller.backgroundColors[4],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: getProportionateScreenHeight(18),
+                                    width: getProportionateScreenWidth(18),
+                                    child: Image.asset(
+                                      controller.sieves,
+                                      fit: BoxFit.fill,
                                     ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: getProportionateScreenHeight(20),
-                                      width: getProportionateScreenWidth(80),
-                                      child: AutoSizeText(
-                                        "المناحل",
-                                        style: controller.sievesStyle,
-                                        minFontSize: 8,
-                                      ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: getProportionateScreenHeight(20),
+                                    width: getProportionateScreenWidth(80),
+                                    child: AutoSizeText(
+                                      "المناحل",
+                                      style: controller.sievesStyle,
+                                      minFontSize: 8,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ),
+                      ),
 
-                        ///sieves
+                      ///sieves
 
-                        Expanded(
-                          child: GetBuilder<FavoriteLabelController>(
-                            // init: _FavoriteLabelController,
-                            builder: (controller) => GestureDetector(
-                              onTap: () {
-                                _tabController.animateTo(5);
-                                controller.changeIndex(5);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    top: getProportionateScreenHeight(12)),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(12)),
-                                  color: controller.backgroundColors[5],
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      height: getProportionateScreenHeight(18),
-                                      width: getProportionateScreenWidth(18),
-                                      child: Image.asset(
-                                        controller.offers,
-                                        fit: BoxFit.fill,
-                                      ),
+                      Expanded(
+                        child: GetBuilder<FavoriteLabelController>(
+                          // init: _FavoriteLabelController,
+                          builder: (controller) => GestureDetector(
+                            onTap: () {
+                              _tabController.animateTo(5);
+                              controller.changeIndex(5);
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  top: getProportionateScreenHeight(12)),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(12)),
+                                color: controller.backgroundColors[5],
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: getProportionateScreenHeight(18),
+                                    width: getProportionateScreenWidth(18),
+                                    child: Image.asset(
+                                      controller.offers,
+                                      fit: BoxFit.fill,
                                     ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: getProportionateScreenHeight(20),
-                                      width: getProportionateScreenWidth(80),
-                                      child: AutoSizeText(
-                                        "العروض",
-                                        style: controller.offersStyle,
-                                        minFontSize: 8,
-                                      ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: getProportionateScreenHeight(20),
+                                    width: getProportionateScreenWidth(80),
+                                    child: AutoSizeText(
+                                      "العروض".i18n,
+                                      style: controller.offersStyle,
+                                      minFontSize: 8,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                         ),
+                      ),
 
-                        ///offers
-                      ],
-                    ),
+                      ///offers
+                    ],
                   ),
                 ),
               ),
@@ -474,20 +468,17 @@ class _FavoriteViewState extends State<FavoriteView>
                 left: 0,
                 right: 0,
                 bottom: 0,
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Container(
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: [
-                        FavoriteProductsBody(),
-                        FavoriteStoresBody(),
-                        FavoriteDoctorsBody(),
-                        FavoriteStablesBody(),
-                        FavoriteSiviesBody(),
-                        FavoriteOffersBody(),
-                      ],
-                    ),
+                child: Container(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      FavoriteProductsBody(),
+                      FavoriteStoresBody(),
+                      FavoriteDoctorsBody(),
+                      FavoriteStablesBody(),
+                      FavoriteSiviesBody(),
+                      FavoriteOffersBody(),
+                    ],
                   ),
                 ),
               ),

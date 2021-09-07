@@ -6,7 +6,7 @@ import 'package:pets/configuration/size_config.dart';
 import 'package:pets/screens/auth/view/register/register_screen.dart';
 
 import 'otp_form.dart';
-
+import '../translations/body.i18n.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -21,12 +21,12 @@ class Body extends StatelessWidget {
             children: [
               SizedBox(height: SizeConfig.screenHeight * 0.2),
               Text(
-                "التحقق من رقم الهاتف",
+                "التحقق من رقم الهاتف".i18n,
                 style: h5_24pt,
               ),
               SizedBox(height: getProportionateScreenHeight(10),),
 
-              AutoSizeText("لقد تم ارسال رمز التحق الى الرقم ${registerPhoneNumberController.text} ",style: body1_16pt_blue,maxLines: 1,),
+              AutoSizeText("لقد تم ارسال رمز التحق الى الرقم ".i18n+registerPhoneNumberController.text,style: body1_16pt_blue,maxLines: 1,),
               SizedBox(height: getProportionateScreenHeight(5),),
               buildTimer(),
               OtpForm(),
@@ -37,7 +37,7 @@ class Body extends StatelessWidget {
                   authRequest.reVerifyPhoneNumber(registerPhoneNumberController.text);
                 },
                 child: Text(
-                  "اعادة ارسال الرمز",
+                  "اعادة ارسال الرمز".i18n,
                   style: body2_14pt_underlined,
 
                 ),
@@ -55,7 +55,7 @@ class Body extends StatelessWidget {
       children: [
 
         TweenAnimationBuilder(
-          tween: Tween(begin: 59.0, end: 0.0),
+          tween: Tween(begin: 30.0, end: 0.0),
           duration: Duration(minutes: 1),
           builder: (_, value, child) => Text(
             "00:${value.toInt()}",
@@ -63,7 +63,7 @@ class Body extends StatelessWidget {
             style: body1_16pt,
           ),
         ),
-        Text("سوف تنتهي صلاحية الكود بعد ",style: body2_14pt,),
+        Text("سوف تنتهي صلاحية الكود بعد ".i18n,style: body2_14pt,),
       ],
     );
   }

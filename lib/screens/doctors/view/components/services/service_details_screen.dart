@@ -7,7 +7,7 @@ import 'package:pets/configuration/size_config.dart';
 import 'package:pets/screens/doctor_app/model/doctor.dart';
 import 'package:pets/screens/vendor_app/model/product.dart';
 // import 'package:pets/screens/stores/model/custoer_store_offer.dart';
-
+import 'translations/service_details_screen.dart';
 
 class DoctorServiceDetailsPage extends StatelessWidget {
   DoctorService offer;
@@ -155,7 +155,7 @@ class DoctorServiceDetailsPage extends StatelessWidget {
                       SizedBox(height: getProportionateScreenHeight(10),),
                       Container(
                         alignment: Alignment.centerRight,
-                        child: AutoSizeText("الوصف",style: body3_18pt,),
+                        child: AutoSizeText("الوصف".i18n,style: body3_18pt,),
                       ),
                       SizedBox(height: getProportionateScreenHeight(35),),
                       Container(

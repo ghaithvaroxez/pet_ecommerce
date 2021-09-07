@@ -5,6 +5,7 @@ import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/printer.dart';
 import 'package:pets/configuration/size_config.dart';
 import 'package:pets/screens/auth/view/register/register_screen.dart';
+import 'package:pets/screens/categories/view/catgory_stores.dart';
 import 'package:pets/screens/corner/model/corner_model.dart';
 import 'package:pets/screens/home/view/components/search_bar_component.dart';
 import 'package:pets/screens/stores/view/components/vertical_store_list_card.dart';
@@ -61,8 +62,7 @@ class _SelectCornerViewState extends State<SelectCornerView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: error?Container(height: getProportionateScreenHeight(400),width: getProportionateScreenWidth(400),
-        child: Center(child: AutoSizeText("عذراً لقد حدثت مشكلة الرجاء المحاولة لاحقاً",style: body3_18pt,),),):loading?LoadingScreen():
+      body: error?ErrorScreen():loading?LoadingScreen():
       Container(
           margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
           child: ListView.builder(

@@ -25,6 +25,7 @@ import 'package:image/image.dart' as Im;
 
 import 'edit_corner_screen.dart';
 import './components/corner_images_view.dart';
+import 'translations/my_corner_details.i18n.dart';
 class MyCornerDetails extends StatefulWidget {
   Corner corner;
 
@@ -156,7 +157,7 @@ class _MyCornerDetailsState extends State<MyCornerDetails> {
       Get.rawSnackbar(
           messageText: Text(
         "حدثت مشكلة ما الرجاء المحاولة مرة اخرى",
-        textDirection: TextDirection.rtl,
+        // textDirection: TextDirection.rtl,
         style: TextStyle(color: Colors.white),
       ));
     }
@@ -299,7 +300,7 @@ class _MyCornerDetailsState extends State<MyCornerDetails> {
                                 width: getProportionateScreenWidth(345),
                                 child: AutoSizeText(
                                   controller.currentCorner.name,
-                                  textDirection: TextDirection.rtl,
+                                  // textDirection: TextDirection.rtl,
                                   style: h6_20pt,
                                 ),
                               ),
@@ -311,391 +312,385 @@ class _MyCornerDetailsState extends State<MyCornerDetails> {
                                 alignment: Alignment.centerRight,
                                 child: AutoSizeText(
                                   controller.currentCorner.desc,
-                                  textDirection: TextDirection.rtl,
+                                  // textDirection: TextDirection.rtl,
                                   style: darkGrayText_16pt,
                                 ),
                               ),
                               SizedBox(
                                 height: getProportionateScreenHeight(50),
                               ),
-                              Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: Row(
-                                  children: [
-                                    GestureDetector(
-                                        onTap: () async {
-                                          await _uploadPhoto();
-                                        },
-                                        child: Container(
-                                          width:
-                                          getProportionateScreenWidth(
-                                              105),
-                                          height: 130,
-                                          decoration: BoxDecoration(
-                                              color: Colors.grey
-                                                  .withOpacity(0.6),
-                                              borderRadius:
-                                              BorderRadius
-                                                  .circular(8)),
-                                          child: Center(
-                                              child: Icon(
-                                                Icons.add,
-                                                color: Colors.blue,
-                                                size: 22,
-                                              )),
-                                        )),
-                                    SizedBox(width: getProportionateScreenWidth(5),),
-
-                                    Directionality(
-                                      textDirection: TextDirection.rtl,
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                      onTap: () async {
+                                        await _uploadPhoto();
+                                      },
                                       child: Container(
-                                        alignment: Alignment.center,
+                                        width:
+                                        getProportionateScreenWidth(
+                                            105),
                                         height: 130,
-                                        width: getProportionateScreenWidth(265),
-                                        child: ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: controller.currentCorner.images.length,
-                                          itemBuilder: (context,index)=>Padding(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),child: Stack(
-                                            children: [
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey
+                                                .withOpacity(0.6),
+                                            borderRadius:
+                                            BorderRadius
+                                                .circular(8)),
+                                        child: Center(
+                                            child: Icon(
+                                              Icons.add,
+                                              color: Colors.blue,
+                                              size: 22,
+                                            )),
+                                      )),
+                                  SizedBox(width: getProportionateScreenWidth(5),),
+
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: 130,
+                                    width: getProportionateScreenWidth(265),
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: controller.currentCorner.images.length,
+                                      itemBuilder: (context,index)=>Padding(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),child: Stack(
+                                        children: [
 
 
-                                              GestureDetector(onTap:(){
+                                          GestureDetector(onTap:(){
 
-                                                  Get.to(()=>CornerPhotosView(controller.currentCorner.images,index));
+                                              Get.to(()=>CornerPhotosView(controller.currentCorner.images,index));
 
-                                              },child: Container(width: getProportionateScreenWidth(105),height: 130,decoration:BoxDecoration(boxShadow: shadow),child: ClipRRect( borderRadius:BorderRadius.circular(8),child: Image.network(Api.imagePath+controller.currentCorner.images[index].path,fit: BoxFit.fill,)),)),
-                                              Positioned(
-                                                  left: getProportionateScreenWidth(
-                                                      8),
-                                                  top: getProportionateScreenHeight(
-                                                      8),
-                                                  child: Container(
-                                                      height:
-                                                      getProportionateScreenHeight(
-                                                          30),
-                                                      width:
-                                                      getProportionateScreenWidth(
-                                                          30),
-                                                      decoration:
-                                                      BoxDecoration(
-                                                          shape: BoxShape
-                                                              .circle,
-                                                          color: Colors
-                                                              .white),
+                                          },child: Container(width: getProportionateScreenWidth(105),height: 130,decoration:BoxDecoration(boxShadow: shadow),child: ClipRRect( borderRadius:BorderRadius.circular(8),child: Image.network(Api.imagePath+controller.currentCorner.images[index].path,fit: BoxFit.fill,)),)),
+                                          Positioned(
+                                              left: getProportionateScreenWidth(
+                                                  8),
+                                              top: getProportionateScreenHeight(
+                                                  8),
+                                              child: Container(
+                                                  height:
+                                                  getProportionateScreenHeight(
+                                                      30),
+                                                  width:
+                                                  getProportionateScreenWidth(
+                                                      30),
+                                                  decoration:
+                                                  BoxDecoration(
+                                                      shape: BoxShape
+                                                          .circle,
+                                                      color: Colors
+                                                          .white),
+                                                  child:
+                                                  GestureDetector(
+                                                      onTap: () {
+                                                        showDialog(
+                                                            context:
+                                                            context,
+                                                            builder: ((context) =>
+                                                                AlertDialog(
+                                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                                  title: Text(
+                                                                    'هل أنت متأكد ؟'.i18n,
+                                                                    // textDirection: TextDirection.rtl,
+                                                                    style: body3_18pt,
+                                                                  ),
+                                                                  content: Text(
+                                                                    'انت على وشك حذف هذه الصورة !'.i18n,
+                                                                    // textDirection: TextDirection.rtl,
+                                                                    style: body1_16pt,
+                                                                  ),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      child: Text(
+                                                                        'نعم'.i18n,
+                                                                      ),
+                                                                      onPressed: () async {
+                                                                        controller.deleteSubImage(controller.currentCorner.images[index].id);
+                                                                        // language.changeLanguage();
+                                                                        Navigator.of(context).pop();
+
+                                                                        /// await controller.deleteSubImage(controller.currentCorner.images[index].id);
+                                                                        // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                                                      },
+                                                                    ),
+                                                                    TextButton(
+                                                                      child: Text('لا'),
+                                                                      onPressed: () {
+                                                                        Navigator.pop(context);
+                                                                      },
+                                                                    )
+                                                                  ],
+                                                                )));
+                                                      },
                                                       child:
-                                                      GestureDetector(
-                                                          onTap: () {
-                                                            showDialog(
-                                                                context:
-                                                                context,
-                                                                builder: ((context) =>
-                                                                    AlertDialog(
-                                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                                                      title: Text(
-                                                                        'هل أنت متأكد ؟',
-                                                                        textDirection: TextDirection.rtl,
-                                                                        style: body3_18pt,
+                                                      Image
+                                                          .asset(
+                                                        "assets/images/vendor_app/trash.png",
+                                                        fit: BoxFit
+                                                            .fill,
+                                                      ),
+                                                  ))),
+                                          Positioned(
+                                              right: getProportionateScreenWidth(
+                                                  8),
+                                              bottom: getProportionateScreenHeight(
+                                                  8),
+                                              child: Container(
+                                                  height:
+                                                  getProportionateScreenHeight(
+                                                      30),
+                                                  width:
+                                                  getProportionateScreenWidth(
+                                                      30),
+                                                  decoration:
+                                                  BoxDecoration(
+                                                      shape: BoxShape
+                                                          .circle,
+                                                      color: Colors
+                                                          .white),
+                                                  child:
+                                                  GestureDetector(
+                                                      onTap: () {
+                                                        controller.currentCorner.images[index].status=="addedStatus"?
+                                                            Get.rawSnackbar(message:"هذه الصورة بلفعل هي حالة لديك ".i18n,backgroundColor: Colors.green)
+                                                              :
+                                                        showDialog(
+                                                            context:
+                                                            context,
+                                                            builder: ((context) =>
+                                                                AlertDialog(
+                                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                                                  title: Text(
+                                                                    'هل أنت متأكد ؟'.i18n,
+                                                                    // textDirection: TextDirection.rtl,
+                                                                    style: body3_18pt,
+                                                                  ),
+                                                                  content: Text(
+                                                                    'انت على وشك اضافة هذه الصورة الى حالتك !'.i18n,
+                                                                    // textDirection: TextDirection.rtl,
+                                                                    style: body1_16pt,
+                                                                  ),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      child: Text(
+                                                                        'نعم'.i18n,
                                                                       ),
-                                                                      content: Text(
-                                                                        'انت على وشك حذف هذه الصورة !',
-                                                                        textDirection: TextDirection.rtl,
-                                                                        style: body1_16pt,
-                                                                      ),
-                                                                      actions: [
-                                                                        TextButton(
-                                                                          child: Text(
-                                                                            'نعم',
-                                                                          ),
-                                                                          onPressed: () async {
-                                                                            controller.deleteSubImage(controller.currentCorner.images[index].id);
-                                                                            // language.changeLanguage();
-                                                                            Navigator.of(context).pop();
+                                                                      onPressed: () async {
+                                                                        controller.subImageToStory(controller.currentCorner.images[index].id);
+                                                                        // language.changeLanguage();
+                                                                        Navigator.of(context).pop();
 
-                                                                            /// await controller.deleteSubImage(controller.currentCorner.images[index].id);
-                                                                            // Navigator.popUntil(context, ModalRoute.withName('/'));
-                                                                          },
-                                                                        ),
-                                                                        TextButton(
-                                                                          child: Text('لا'),
-                                                                          onPressed: () {
-                                                                            Navigator.pop(context);
-                                                                          },
-                                                                        )
-                                                                      ],
-                                                                    )));
-                                                          },
-                                                          child:
-                                                          Image
-                                                              .asset(
-                                                            "assets/images/vendor_app/trash.png",
-                                                            fit: BoxFit
-                                                                .fill,
-                                                          ),
-                                                      ))),
-                                              Positioned(
-                                                  right: getProportionateScreenWidth(
-                                                      8),
-                                                  bottom: getProportionateScreenHeight(
-                                                      8),
-                                                  child: Container(
-                                                      height:
-                                                      getProportionateScreenHeight(
-                                                          30),
-                                                      width:
-                                                      getProportionateScreenWidth(
-                                                          30),
-                                                      decoration:
-                                                      BoxDecoration(
-                                                          shape: BoxShape
-                                                              .circle,
-                                                          color: Colors
-                                                              .white),
-                                                      child:
-                                                      GestureDetector(
-                                                          onTap: () {
-                                                            controller.currentCorner.images[index].status=="addedStatus"?
-                                                                Get.rawSnackbar(message:"هذه الصورة بلفعل هي حالة لديك ",backgroundColor: Colors.green)
-                                                                  :
-                                                            showDialog(
-                                                                context:
-                                                                context,
-                                                                builder: ((context) =>
-                                                                    AlertDialog(
-                                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                                                      title: Text(
-                                                                        'هل أنت متأكد ؟',
-                                                                        textDirection: TextDirection.rtl,
-                                                                        style: body3_18pt,
-                                                                      ),
-                                                                      content: Text(
-                                                                        'انت على وشك اضافة هذه الصورة الى حالتك !',
-                                                                        textDirection: TextDirection.rtl,
-                                                                        style: body1_16pt,
-                                                                      ),
-                                                                      actions: [
-                                                                        TextButton(
-                                                                          child: Text(
-                                                                            'نعم',
-                                                                          ),
-                                                                          onPressed: () async {
-                                                                            controller.subImageToStory(controller.currentCorner.images[index].id);
-                                                                            // language.changeLanguage();
-                                                                            Navigator.of(context).pop();
+                                                                        /// await controller.deleteSubImage(controller.currentCorner.images[index].id);
+                                                                        // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                                                      },
+                                                                    ),
+                                                                    TextButton(
+                                                                      child: Text('لا'.i18n),
+                                                                      onPressed: () {
+                                                                        Navigator.pop(context);
+                                                                      },
+                                                                    )
+                                                                  ],
+                                                                )));
+                                                      },
+                                                      child:Center (
 
-                                                                            /// await controller.deleteSubImage(controller.currentCorner.images[index].id);
-                                                                            // Navigator.popUntil(context, ModalRoute.withName('/'));
-                                                                          },
-                                                                        ),
-                                                                        TextButton(
-                                                                          child: Text('لا'),
-                                                                          onPressed: () {
-                                                                            Navigator.pop(context);
-                                                                          },
-                                                                        )
-                                                                      ],
-                                                                    )));
-                                                          },
-                                                          child:Center (
-
-                                                            child: Directionality(textDirection:TextDirection.ltr,child: Icon(Icons.send,color: controller.currentCorner.images[index].status=="addedStatus"?Colors.blue:Colors.grey,size: 15,)),
-                                                          ),
-                                                          // Image
-                                                          //     .asset(
-                                                          //   "assets/images/drawer/drawer_icons/corner_icon.png",
-                                                          //   // fit: BoxFit
-                                                          //       // .fill,
-                                                          //
-                                                          // ),
-                                                      ))),
-                                            ],
-                                          )),
-                                        ),
-                                      ),
+                                                        child: Directionality(textDirection:TextDirection.ltr,child: Icon(Icons.send,color: controller.currentCorner.images[index].status=="addedStatus"?Colors.blue:Colors.grey,size: 15,)),
+                                                      ),
+                                                      // Image
+                                                      //     .asset(
+                                                      //   "assets/images/drawer/drawer_icons/corner_icon.png",
+                                                      //   // fit: BoxFit
+                                                      //       // .fill,
+                                                      //
+                                                      // ),
+                                                  ))),
+                                        ],
+                                      )),
                                     ),
-                                    // Container(
-                                    //   alignment: Alignment.center,
-                                    //   height: 130,
-                                    //   width: getProportionateScreenWidth(340),
-                                    //   child: ListView.builder(
-                                    //     scrollDirection: Axis.horizontal,
-                                    //     itemCount:
-                                    //         controller.currentCorner.images.length,
-                                    //     itemBuilder: (context, index) => index == 0
-                                    //         ? Row(
-                                    //             children: [
-                                    //               Stack(
-                                    //                 children: [
-                                    //                   Positioned(
-                                    //                       left: getProportionateScreenWidth(
-                                    //                           8),
-                                    //                       top: getProportionateScreenHeight(
-                                    //                           8),
-                                    //                       child: Container(
-                                    //                           height:
-                                    //                               getProportionateScreenHeight(
-                                    //                                   35),
-                                    //                           width:
-                                    //                               getProportionateScreenWidth(
-                                    //                                   35),
-                                    //                           decoration:
-                                    //                               BoxDecoration(
-                                    //                                   shape: BoxShape
-                                    //                                       .circle,
-                                    //                                   color: Colors
-                                    //                                       .white),
-                                    //                           child:
-                                    //                               GestureDetector(
-                                    //                                   onTap: () {
-                                    //                                     showDialog(
-                                    //                                         context:
-                                    //                                             context,
-                                    //                                         builder: ((context) =>
-                                    //                                             AlertDialog(
-                                    //                                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    //                                               title: Text(
-                                    //                                                 'هل أنت متأكد ؟',
-                                    //                                                 textDirection: TextDirection.rtl,
-                                    //                                                 style: body3_18pt,
-                                    //                                               ),
-                                    //                                               content: Text(
-                                    //                                                 'انت على وشك حذف هذه الزاوية !',
-                                    //                                                 textDirection: TextDirection.rtl,
-                                    //                                                 style: body1_16pt,
-                                    //                                               ),
-                                    //                                               actions: [
-                                    //                                                 TextButton(
-                                    //                                                   child: Text(
-                                    //                                                     'نعم',
-                                    //                                                   ),
-                                    //                                                   onPressed: () async {
-                                    //                                                     // language.changeLanguage();
-                                    //                                                     Navigator.of(context).pop();
-                                    //
-                                    //                                                     /// await controller.deleteSubImage(controller.currentCorner.images[index].id);
-                                    //                                                     // Navigator.popUntil(context, ModalRoute.withName('/'));
-                                    //                                                   },
-                                    //                                                 ),
-                                    //                                                 TextButton(
-                                    //                                                   child: Text('لا'),
-                                    //                                                   onPressed: () {
-                                    //                                                     Navigator.pop(context);
-                                    //                                                   },
-                                    //                                                 )
-                                    //                                               ],
-                                    //                                             )));
-                                    //                                   },
-                                    //                                   child: Image
-                                    //                                       .asset(
-                                    //                                     "assets/images/vendor_app/trash.png",
-                                    //                                     fit: BoxFit
-                                    //                                         .fill,
-                                    //                                   )))),
-                                    //                   Container(
-                                    //                     width:
-                                    //                         getProportionateScreenWidth(
-                                    //                             120),
-                                    //                     child: Image.network(
-                                    //                       Api.imagePath +
-                                    //                           widget.corner
-                                    //                               .images[index],
-                                    //                       fit: BoxFit.fill,
-                                    //                     ),
-                                    //                   ),
-                                    //                 ],
-                                    //               ),
-                                    //             ],
-                                    //           )
-                                    //         : Stack(
-                                    //             children: [
-                                    //               Positioned(
-                                    //                   left:
-                                    //                       getProportionateScreenWidth(
-                                    //                           8),
-                                    //                   top:
-                                    //                       getProportionateScreenHeight(
-                                    //                           8),
-                                    //                   child: Container(
-                                    //                       height:
-                                    //                           getProportionateScreenHeight(
-                                    //                               35),
-                                    //                       width:
-                                    //                           getProportionateScreenWidth(
-                                    //                               35),
-                                    //                       decoration: BoxDecoration(
-                                    //                           shape:
-                                    //                               BoxShape.circle,
-                                    //                           color: Colors.white),
-                                    //                       child: GestureDetector(
-                                    //                           onTap: () {
-                                    //                             showDialog(
-                                    //                                 context:
-                                    //                                     context,
-                                    //                                 builder:
-                                    //                                     ((context) =>
-                                    //                                         AlertDialog(
-                                    //                                           shape:
-                                    //                                               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                    //                                           title:
-                                    //                                               Text(
-                                    //                                             'هل أنت متأكد ؟',
-                                    //                                             textDirection:
-                                    //                                                 TextDirection.rtl,
-                                    //                                             style:
-                                    //                                                 body3_18pt,
-                                    //                                           ),
-                                    //                                           content:
-                                    //                                               Text(
-                                    //                                             'انت على وشك حذف هذه الزاوية !',
-                                    //                                             textDirection:
-                                    //                                                 TextDirection.rtl,
-                                    //                                             style:
-                                    //                                                 body1_16pt,
-                                    //                                           ),
-                                    //                                           actions: [
-                                    //                                             TextButton(
-                                    //                                               child: Text(
-                                    //                                                 'نعم',
-                                    //                                               ),
-                                    //                                               onPressed: () async {
-                                    //                                                 // language.changeLanguage();
-                                    //                                                 Navigator.of(context).pop();
-                                    //
-                                    //                                                 /// await controller.deleteSubImage(controller.currentCorner.images[index].id);
-                                    //                                                 // Navigator.popUntil(context, ModalRoute.withName('/'));
-                                    //                                               },
-                                    //                                             ),
-                                    //                                             TextButton(
-                                    //                                               child: Text('لا'),
-                                    //                                               onPressed: () {
-                                    //                                                 Navigator.pop(context);
-                                    //                                               },
-                                    //                                             )
-                                    //                                           ],
-                                    //                                         )));
-                                    //                           },
-                                    //                           child: Image.asset(
-                                    //                             "assets/images/vendor_app/trash.png",
-                                    //                             fit: BoxFit.fill,
-                                    //                           )))),
-                                    //               Container(
-                                    //                 width:
-                                    //                     getProportionateScreenWidth(
-                                    //                         103),
-                                    //                 child: Image.network(
-                                    //                   Api.imagePath +
-                                    //                       controller.currentCorner
-                                    //                           .images[index],
-                                    //                   fit: BoxFit.fill,
-                                    //                 ),
-                                    //               ),
-                                    //             ],
-                                    //           ),
-                                    //
-                                    //     ///105
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
+                                  ),
+                                  // Container(
+                                  //   alignment: Alignment.center,
+                                  //   height: 130,
+                                  //   width: getProportionateScreenWidth(340),
+                                  //   child: ListView.builder(
+                                  //     scrollDirection: Axis.horizontal,
+                                  //     itemCount:
+                                  //         controller.currentCorner.images.length,
+                                  //     itemBuilder: (context, index) => index == 0
+                                  //         ? Row(
+                                  //             children: [
+                                  //               Stack(
+                                  //                 children: [
+                                  //                   Positioned(
+                                  //                       left: getProportionateScreenWidth(
+                                  //                           8),
+                                  //                       top: getProportionateScreenHeight(
+                                  //                           8),
+                                  //                       child: Container(
+                                  //                           height:
+                                  //                               getProportionateScreenHeight(
+                                  //                                   35),
+                                  //                           width:
+                                  //                               getProportionateScreenWidth(
+                                  //                                   35),
+                                  //                           decoration:
+                                  //                               BoxDecoration(
+                                  //                                   shape: BoxShape
+                                  //                                       .circle,
+                                  //                                   color: Colors
+                                  //                                       .white),
+                                  //                           child:
+                                  //                               GestureDetector(
+                                  //                                   onTap: () {
+                                  //                                     showDialog(
+                                  //                                         context:
+                                  //                                             context,
+                                  //                                         builder: ((context) =>
+                                  //                                             AlertDialog(
+                                  //                                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                  //                                               title: Text(
+                                  //                                                 'هل أنت متأكد ؟',
+                                  //                                                 textDirection: TextDirection.rtl,
+                                  //                                                 style: body3_18pt,
+                                  //                                               ),
+                                  //                                               content: Text(
+                                  //                                                 'انت على وشك حذف هذه الزاوية !',
+                                  //                                                 textDirection: TextDirection.rtl,
+                                  //                                                 style: body1_16pt,
+                                  //                                               ),
+                                  //                                               actions: [
+                                  //                                                 TextButton(
+                                  //                                                   child: Text(
+                                  //                                                     'نعم',
+                                  //                                                   ),
+                                  //                                                   onPressed: () async {
+                                  //                                                     // language.changeLanguage();
+                                  //                                                     Navigator.of(context).pop();
+                                  //
+                                  //                                                     /// await controller.deleteSubImage(controller.currentCorner.images[index].id);
+                                  //                                                     // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                  //                                                   },
+                                  //                                                 ),
+                                  //                                                 TextButton(
+                                  //                                                   child: Text('لا'),
+                                  //                                                   onPressed: () {
+                                  //                                                     Navigator.pop(context);
+                                  //                                                   },
+                                  //                                                 )
+                                  //                                               ],
+                                  //                                             )));
+                                  //                                   },
+                                  //                                   child: Image
+                                  //                                       .asset(
+                                  //                                     "assets/images/vendor_app/trash.png",
+                                  //                                     fit: BoxFit
+                                  //                                         .fill,
+                                  //                                   )))),
+                                  //                   Container(
+                                  //                     width:
+                                  //                         getProportionateScreenWidth(
+                                  //                             120),
+                                  //                     child: Image.network(
+                                  //                       Api.imagePath +
+                                  //                           widget.corner
+                                  //                               .images[index],
+                                  //                       fit: BoxFit.fill,
+                                  //                     ),
+                                  //                   ),
+                                  //                 ],
+                                  //               ),
+                                  //             ],
+                                  //           )
+                                  //         : Stack(
+                                  //             children: [
+                                  //               Positioned(
+                                  //                   left:
+                                  //                       getProportionateScreenWidth(
+                                  //                           8),
+                                  //                   top:
+                                  //                       getProportionateScreenHeight(
+                                  //                           8),
+                                  //                   child: Container(
+                                  //                       height:
+                                  //                           getProportionateScreenHeight(
+                                  //                               35),
+                                  //                       width:
+                                  //                           getProportionateScreenWidth(
+                                  //                               35),
+                                  //                       decoration: BoxDecoration(
+                                  //                           shape:
+                                  //                               BoxShape.circle,
+                                  //                           color: Colors.white),
+                                  //                       child: GestureDetector(
+                                  //                           onTap: () {
+                                  //                             showDialog(
+                                  //                                 context:
+                                  //                                     context,
+                                  //                                 builder:
+                                  //                                     ((context) =>
+                                  //                                         AlertDialog(
+                                  //                                           shape:
+                                  //                                               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                  //                                           title:
+                                  //                                               Text(
+                                  //                                             'هل أنت متأكد ؟',
+                                  //                                             textDirection:
+                                  //                                                 TextDirection.rtl,
+                                  //                                             style:
+                                  //                                                 body3_18pt,
+                                  //                                           ),
+                                  //                                           content:
+                                  //                                               Text(
+                                  //                                             'انت على وشك حذف هذه الزاوية !',
+                                  //                                             textDirection:
+                                  //                                                 TextDirection.rtl,
+                                  //                                             style:
+                                  //                                                 body1_16pt,
+                                  //                                           ),
+                                  //                                           actions: [
+                                  //                                             TextButton(
+                                  //                                               child: Text(
+                                  //                                                 'نعم',
+                                  //                                               ),
+                                  //                                               onPressed: () async {
+                                  //                                                 // language.changeLanguage();
+                                  //                                                 Navigator.of(context).pop();
+                                  //
+                                  //                                                 /// await controller.deleteSubImage(controller.currentCorner.images[index].id);
+                                  //                                                 // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                  //                                               },
+                                  //                                             ),
+                                  //                                             TextButton(
+                                  //                                               child: Text('لا'),
+                                  //                                               onPressed: () {
+                                  //                                                 Navigator.pop(context);
+                                  //                                               },
+                                  //                                             )
+                                  //                                           ],
+                                  //                                         )));
+                                  //                           },
+                                  //                           child: Image.asset(
+                                  //                             "assets/images/vendor_app/trash.png",
+                                  //                             fit: BoxFit.fill,
+                                  //                           )))),
+                                  //               Container(
+                                  //                 width:
+                                  //                     getProportionateScreenWidth(
+                                  //                         103),
+                                  //                 child: Image.network(
+                                  //                   Api.imagePath +
+                                  //                       controller.currentCorner
+                                  //                           .images[index],
+                                  //                   fit: BoxFit.fill,
+                                  //                 ),
+                                  //               ),
+                                  //             ],
+                                  //           ),
+                                  //
+                                  //     ///105
+                                  //   ),
+                                  // ),
+                                ],
                               ),
                               SizedBox(
                                 height: getProportionateScreenHeight(20),

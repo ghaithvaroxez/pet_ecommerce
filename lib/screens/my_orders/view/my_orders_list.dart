@@ -23,6 +23,9 @@ import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
 
 import 'add_order_screen.dart';
 import 'components/my_order_vertical_card.dart';
+
+
+
 class MyOrdersScreen extends StatefulWidget {
   @override
   _MyOrdersScreenState createState() => _MyOrdersScreenState();
@@ -132,7 +135,7 @@ ordersController.getMyOrders();
                              await controller.getMyOrders();
                            },
                            child: SingleChildScrollView(
-                             child: Column(
+                             child:  controller.myOrders.length==0?Container(height: getProportionateScreenHeight(200),width: getProportionateScreenWidth(390),child: Center(child: AutoSizeText("لا يوجد عناصر حالياً"),),):Column(
                                crossAxisAlignment: CrossAxisAlignment.center,
                                children: [
                              ...List<Widget>.generate(

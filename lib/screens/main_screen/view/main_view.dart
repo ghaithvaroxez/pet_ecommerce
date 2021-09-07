@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n_extension/i18n_widget.dart';
 import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/size_config.dart';
 import 'package:pets/screens/corner/view/select_corner.dart';
@@ -91,58 +93,73 @@ with SingleTickerProviderStateMixin {
         }
       },
       child: Scaffold(
+        floatingActionButton: Row(
+          children: [
+            FloatingActionButton(
+              onPressed: ()async{
+               context.locale=Locale('ar');
 
+                I18n.of(context).locale=Locale('ar');
+                // context.locale=Locale('ar');
+              },
+              child: Text("ar"),
+            ),
+            FloatingActionButton(
+              onPressed: ()async{
+               context.locale=Locale('en');
+                I18n.of(context).locale=Locale('en');
+              },  child: Text("en"),
+            ),
+          ],
+        ),
         endDrawer: CustomDrawer(home: true,),
         body: Builder(
             builder: ((context) =>
-                Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: SafeArea(
-                    child: Stack(
-                      children: [
-                        Opacity(
-                          opacity: 0.8,
-                          child: Container(
-                            height: SizeConfig.screenHeight,
-                            width: SizeConfig.screenWidth,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage(
-                                      "assets/images/home/custom_background.png"),
-                                )),
-                          ),
-                        ),
-
-                        ///background
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          child: CustomAppBar(open_drawer: () {
-                            Scaffold.of(context).openEndDrawer();
-                          }),
-                        ),
-                        Positioned(
-                          top: getProportionateScreenHeight(95),
-                          height: getProportionateScreenHeight(754),
+                SafeArea(
+                  child: Stack(
+                    children: [
+                      Opacity(
+                        opacity: 0.8,
+                        child: Container(
+                          height: SizeConfig.screenHeight,
                           width: SizeConfig.screenWidth,
-                          child: TabBarView(
-                            controller: bottomTabController,
-                            children: [
-                              HomeScreen(),
-                              SelectDoctorView(),
-                              SelectOrderView(),
-                              SelectStoreView(),
-                              SelectCornerView(),
-                            ],
-                          ),
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage(
+                                    "assets/images/home/custom_background.png"),
+                              )),
                         ),
-                        Positioned(bottom: 0,
-                            left: 0,
-                            child: CustomBottomBar(
-                              controller: bottomTabController,)),
-                      ],
-                    ),
+                      ),
+
+                      ///background
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        child: CustomAppBar(open_drawer: () {
+                          Scaffold.of(context).openEndDrawer();
+                        }),
+                      ),
+                      Positioned(
+                        top: getProportionateScreenHeight(95),
+                        height: getProportionateScreenHeight(754),
+                        width: SizeConfig.screenWidth,
+                        child: TabBarView(
+                          controller: bottomTabController,
+                          children: [
+                            HomeScreen(),
+                            SelectDoctorView(),
+                            SelectOrderView(),
+                            SelectStoreView(),
+                            SelectCornerView(),
+                          ],
+                        ),
+                      ),
+                      Positioned(bottom: 0,
+                          left: 0,
+                          child: CustomBottomBar(
+                            controller: bottomTabController,)),
+                    ],
                   ),
                 )
             )

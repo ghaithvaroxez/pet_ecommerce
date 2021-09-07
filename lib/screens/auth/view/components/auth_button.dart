@@ -36,10 +36,10 @@ class AuthButton extends StatelessWidget {
 
               SizedBox(width: getProportionateScreenWidth(SizeConfig.screenWidth/2-75),),
 
-              Text(title,style: color?blueButton_14pt:subtitle2_14pt,textAlign: TextAlign.center,textDirection: TextDirection.rtl,),
+              Text(title,style: color?blueButton_14pt:subtitle2_14pt,textAlign: TextAlign.center,),
 
             ],
-          ):Center(child:  Text(title,style: color?blueButton_14pt:subtitle2_14pt,textAlign: TextAlign.center,textDirection: TextDirection.rtl,),),
+          ):Center(child:  Text(title,style: color?blueButton_14pt:subtitle2_14pt,textAlign: TextAlign.center,),),
         ),
       ),
     );

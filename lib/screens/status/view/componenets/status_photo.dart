@@ -3,7 +3,7 @@ import 'package:pets/configuration/constants/api.dart';
 import 'package:pets/configuration/constants/colors.dart';
 import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/size_config.dart';
-
+import '../translations/my_status_screen.i18n.dart';
 class StatusImage extends StatelessWidget {
   StatusImage(this.image,this.delete);
   String image;
@@ -82,19 +82,19 @@ class StatusImage extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5)),
                           title: Text(
-                            'هل أنت متأكد ؟',
-                            textDirection: TextDirection.rtl,
+                            'هل أنت متأكد ؟'.i18n,
+                            // textDirection: TextDirection.rtl,
                             style: body3_18pt,
                           ),
                           content: Text(
-                            'انت على وشك حذف هذه الصوة !',
-                            textDirection: TextDirection.rtl,
+                            'انت على وشك حذف هذه الصوة !'.i18n,
+                            // textDirection: TextDirection.rtl,
                             style: body1_16pt,
                           ),
                           actions: [
                             TextButton(
                               child: Text(
-                                'نعم',
+                                'نعم'.i18n,
                               ),
                               onPressed: () async{
                                 // language.changeLanguage();
@@ -104,7 +104,7 @@ class StatusImage extends StatelessWidget {
                               },
                             ),
                             TextButton(
-                              child: Text('لا'),
+                              child: Text('لا'.i18n),
                               onPressed: () {
                                 Navigator.pop(context);
                               },

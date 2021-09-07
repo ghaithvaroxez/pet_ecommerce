@@ -6,7 +6,7 @@ import 'package:pets/screens/doctor_app/model/doctor.dart';
 import 'package:pets/screens/doctors/view/components/services/services_card.dart';
 import 'package:pets/screens/main_screen/model/main_screen_model.dart';
 import 'package:pets/screens/stores/view/components/products/store_product_card.dart';
-
+import 'translations/service_body.i18n.dart';
 
 class DoctorServicesBody extends StatelessWidget {
   List<DoctorService> doctorServices;
@@ -22,7 +22,7 @@ class DoctorServicesBody extends StatelessWidget {
       Container(
         width: getProportionateScreenWidth(390),
         height: getProportionateScreenHeight(350),
-        child: Center(child: AutoSizeText("لا يوجد عناصر حاليا",style: body1_16pt,)),
+        child: Center(child: AutoSizeText("لا يوجد عناصر حاليا".i18n,style: body1_16pt,)),
       ):SingleChildScrollView(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_widget.dart';
+import 'package:i18n_extension/i18n_widget.dart';
 import 'package:pets/configuration/constants/api.dart';
 import 'package:pets/configuration/printer.dart';
 import 'package:pets/screens/auth/controller/register_controller.dart';
@@ -12,6 +15,8 @@ import 'package:pets/services/http_requests_service.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'auth_requests.i18n.dart';
+
 class AuthRequest extends HttpService {
   // Future<ApiResponse> resetPasswordRequest({
   //   @required String phone,
@@ -236,8 +241,8 @@ consolePrint("store_name"+ store_name+
     );
     consolePrint(apiResult.data["status"].toString());
     if (apiResult.statusCode == 200
-    // &&
-        // apiResult.data["status"] != false
+    &&
+        apiResult.data["status"] != false
     ) {
 consolePrint("saving user");
 consolePrint(apiResult.data.toString());
@@ -343,7 +348,7 @@ consolePrint("verify done");
     verificationFailed: (FirebaseAuthException verificationFailed) async {
       registerController.changeLoading(false);
       // Get.snackbar("OOPS!!!", "verification failed:"+verificationFailed.message,duration: five_sec);
-      Get.rawSnackbar(message:"حدثت مشكلة اثناء التحقق من الرقم الرجاء المحاولة مجددا ",duration: five_sec);
+      Get.rawSnackbar(message:"حدثت مشكلة اثناء التحقق من الرقم  الرجاء المحاولة لاحقا ".i18n,duration: five_sec);
 
       consolePrint("verification failed:"+verificationFailed.message);
       // setState(() {
@@ -358,7 +363,7 @@ consolePrint("verify done");
       // Get.to(MainScreen());
       phoneVerificationId=verificationId;
       consolePrint("code sent :\n verification id is"+verificationId);
-      Get.rawSnackbar(message: "تم ارسال رسالة الى الرقم "+phone,duration: five_sec);
+      Get.rawSnackbar(message: "لقد قمنا بارسال رسالة الى الرقم".i18n+phone,duration: five_sec);
       // setState(() {
       //   showLoading = false;
       //   currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
@@ -369,7 +374,7 @@ consolePrint("verify done");
   );
 }on FirebaseAuthException catch (e) {
 consolePrint("firebase exception"+e.message);
-Get.rawSnackbar(message: "حدثت مشكلة اثناء التحقق من الرقم  الرجاء المحاولة لاحقا ",duration: five_sec);
+Get.rawSnackbar(message: "حدثت مشكلة اثناء التحقق من الرقم  الرجاء المحاولة لاحقا ".i18n,duration: five_sec);
 
   // _scaffoldKey.currentState
   //     .showSnackBar(SnackBar(content: Text(e.message)));
@@ -394,7 +399,7 @@ try{
       //signInWithPhoneAuthCredential(phoneAuthCredential);
     },
     verificationFailed: (verificationFailed) async {
-      Get.rawSnackbar(message: "فشلت العملية الرجاء المحاولة مجدداً ",duration: five_sec);
+      Get.rawSnackbar(message: "فشلت العملية الرجاء المحاولة مجدداً".i18n,duration: five_sec);
       registerController.changeLoading(false);
       registerController.changeToRegister();
       consolePrint("verification failed:"+verificationFailed.message);
@@ -409,7 +414,7 @@ try{
       // registerController.changeState();
       phoneVerificationId=verificationId;
       consolePrint("code sent :\n verification id is"+verificationId);
-      Get.rawSnackbar(message: "لقد قمنا بارسال العملية الى الرقم"+phone,duration: five_sec);
+      Get.rawSnackbar(message: "لقد قمنا بارسال رسالة الى الرقم".i18n+phone,duration: five_sec);
       // setState(() {
       //   showLoading = false;
       //   currentState = MobileVerificationState.SHOW_OTP_FORM_STATE;
@@ -423,7 +428,7 @@ try{
   );
 }catch (e) {
   registerController.changeLoading(false);
-Get.rawSnackbar(message:"حدث امر ما الرجاء المحاولة مجدداً",duration: five_sec);
+Get.rawSnackbar(message:"فشلت العملية الرجاء المحاولة مجدداً".i18n,duration: five_sec);
 consolePrint("error :"+e.message);
   // _scaffoldKey.currentState
   //     .showSnackBar(SnackBar(content: Text(e.message)));
@@ -472,7 +477,7 @@ consolePrint("error :"+e.message);
         registerController.changeLoading(false);
         consolePrint("failed to sign in with google");
         // registerController.changeToRegister();
-        Get.rawSnackbar(message:"لقد قمت بادخال كود خاطئ الرجاء المحاولة لاحقا ",
+        Get.rawSnackbar(messageText:Text("لقد قمت بادخال كود خاطئ الرجاء المحاولة لاحقا ".i18n),
             duration: five_sec);
       };
 
@@ -482,7 +487,7 @@ consolePrint("error :"+e.message);
       // });
       registerController.changeLoading(false);
       registerController.changeToRegister();
-      Get.rawSnackbar(message:"فشلت العملية الرجاء المحاولة مجدداً",duration: five_sec);
+      Get.rawSnackbar(message:"فشلت العملية الرجاء المحاولة مجدداً".i18n,duration: five_sec);
       consolePrint(" firebase error :"+e.message);
       // _scaffoldKey.currentState
       //     .showSnackBar(SnackBar(content: Text(e.message)));

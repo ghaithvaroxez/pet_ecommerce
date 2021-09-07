@@ -45,6 +45,7 @@ import '../controller/home_controller.dart';
 
 import '../../stores/view/select_barn.dart';
 import '../../stores/view/select_sieve.dart';
+import 'translations/home_view.i18n.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -291,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child:GetBuilder<HomeController>(
         init: homeController,
-     builder:(controller)=> controller.loading?LoadingScreen():controller.error?Container(height:getProportionateScreenHeight(500),width:getProportionateScreenWidth(370),child: Container(alignment:Alignment.center,child: AutoSizeText("حدثت مشكلة الرجاء المحاولة لاحقا",style: body3_18pt,)),):
+     builder:(controller)=> controller.loading?LoadingScreen():controller.error?Container(height:getProportionateScreenHeight(500),width:getProportionateScreenWidth(370),child: Container(alignment:Alignment.center,child: AutoSizeText("الرجاء المحاولة مجدداً".i18n,style: body3_18pt,)),):
 
      RefreshIndicator(
        onRefresh: ()async{
@@ -310,7 +311,7 @@ SizedBox(height: getProportionateScreenHeight(8),),
                       width: getProportionateScreenWidth(25),
                     ),
                     Text(
-                      "الأصناف",
+                      "الأصناف".i18n,
                       style: body3_18pt,
                     ),
                     Spacer(),
@@ -321,7 +322,7 @@ SizedBox(height: getProportionateScreenHeight(8),),
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),
                         child: Text(
-                          "عرض المزيد",
+                          "عرض المزيد".i18n,
                           style: body2_14pt,
                         ),
                       ),
@@ -339,7 +340,7 @@ SizedBox(height: getProportionateScreenHeight(8),),
               Container(
                 height: getProportionateScreenHeight(55),
                 width: SizeConfig.screenWidth,
-                child: controller.homeModel.categories.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):ListView.builder(
+                child: controller.homeModel.categories.length==0?Center(child: AutoSizeText("لا يوجد أصناف لعرضها حالياً".i18n,style: body1_16pt,),):ListView.builder(
                     itemCount: controller.homeModel.categories.length,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
@@ -446,7 +447,7 @@ SizedBox(height: getProportionateScreenHeight(8),),
                           width: 25,
                         ),
                         Text(
-                          "السلع",
+                          "السلع".i18n,
                           style: body3_18pt,
                         ),
                         Spacer(),
@@ -457,7 +458,7 @@ SizedBox(height: getProportionateScreenHeight(8),),
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),
                             child: Text(
-                              "عرض المزيد",
+                              "عرض المزيد".i18n,
                               style: body2_14pt,
                             ),
                           ),
@@ -472,7 +473,7 @@ SizedBox(height: getProportionateScreenHeight(8),),
                     ),
                     Container(
                         height: getProportionateScreenHeight(150),
-                        child: controller.homeModel.products.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):ListView.builder(
+                        child: controller.homeModel.products.length==0?Center(child: AutoSizeText("لا يوجد منتجات لعرضها حالياً".i18n,style: body1_16pt,),):ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: controller.homeModel.products.length,
                             itemBuilder: (context, index) =>
@@ -566,7 +567,7 @@ SizedBox(height: getProportionateScreenHeight(20),),
 //                 // control:SwiperControl(),
 //               ),
               ),
-    ): Center(child: AutoSizeText("لا يوجد حالات لعرضها حالياً",style: body1_16pt,),)
+    ): Center(child: AutoSizeText("لا يوجد حالات لعرضها حالياً".i18n,style: body1_16pt,),)
               ),
 
 
@@ -587,7 +588,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                             width: getProportionateScreenWidth(25),
                           ),
                           Text(
-                            "المتاجر",
+                            "المتاجر".i18n,
                             style: body3_18pt,
                           ),
                           Spacer(),
@@ -598,7 +599,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(3)),
                               child: Text(
-                                "عرض المزيد",
+                                "عرض المزيد".i18n,
                                 style: body2_14pt,
                               ),
                             ),
@@ -614,7 +615,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                     ),
                     Container(
                       height: getProportionateScreenHeight(220),
-                      child:controller.homeModel.stores.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),): ListView.builder(
+                      child:controller.homeModel.stores.length==0?Center(child: AutoSizeText("لا يوجد متاجر لعرضها حالياً".i18n,style: body1_16pt,),): ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: controller.homeModel.stores.length,
                         itemBuilder: (context, index) =>
@@ -654,7 +655,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                             width: 25,
                           ),
                           Text(
-                            "الأطباء البيطريين",
+                            "الأطباء البيطريين".i18n,
                             style: body3_18pt,
                           ),
                           Spacer(),
@@ -665,7 +666,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(3)),
                             child: Text(
-                              "عرض المزيد",
+                              "عرض المزيد".i18n,
                               style: body2_14pt,
                             ),
                           ),
@@ -681,7 +682,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                     ),
                     Container(
                         height: getProportionateScreenHeight(230),
-                        child: controller.homeModel.doctors.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):ListView.builder(
+                        child: controller.homeModel.doctors.length==0?Center(child: AutoSizeText("لا يوجد أطباء لعرضها حالياً".i18n,style: body1_16pt,),):ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: controller.homeModel.doctors.length,
                             itemBuilder: (context, index) =>
@@ -718,7 +719,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                             width: 25,
                           ),
                           Text(
-                            "العروض",
+                            "العروض".i18n,
                             style: body3_18pt,
                           ),
                           Spacer(),
@@ -729,7 +730,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),
                               child: Text(
-                                "عرض المزيد",
+                                "عرض المزيد".i18n,
                                 style: body2_14pt,
                               ),
                             ),
@@ -746,7 +747,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
 
                     Container(
                       height: getProportionateScreenHeight(225),
-                      child: controller.homeModel.offers.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):ListView.builder(
+                      child: controller.homeModel.offers.length==0?Center(child: AutoSizeText( "لا يوجد عروض حالياً".i18n,style: body1_16pt,),):ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: controller.homeModel.offers.length,
                         itemBuilder: (context, index) => OfferCard(controller.homeModel.offers[index],()async{
@@ -784,7 +785,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                             width: getProportionateScreenWidth(25),
                           ),
                           Text(
-                            "الاسطبلات",
+                            "الاسطبلات".i18n,
                             style: body3_18pt,
                           ),
                           Spacer(),
@@ -795,7 +796,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
     child: Container(
         padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),
                               child: Text(
-                                "عرض المزيد",
+                                "عرض المزيد".i18n,
                                 style: body2_14pt,
                               ),
                             ),
@@ -811,7 +812,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                     ),
                     Container(
                       height: getProportionateScreenHeight(220),
-                      child: controller.homeModel.barns.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):ListView.builder(
+                      child: controller.homeModel.barns.length==0?Center(child: AutoSizeText("لا يوجد أسطبلات لعرضها حالياً".i18n,style: body1_16pt,),):ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: controller.homeModel.barns.length,
                         itemBuilder: (context, index) =>
@@ -851,7 +852,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                             width: getProportionateScreenWidth(25),
                           ),
                           Text(
-                            "المناحل",
+                            "المناحل".i18n,
                             style: body3_18pt,
                           ),
                           Spacer(),
@@ -862,7 +863,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),
                               child: Text(
-                                "عرض المزيد",
+                                "عرض المزيد".i18n,
                                 style: body2_14pt,
                               ),
                             ),
@@ -878,7 +879,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                     ),
                     Container(
                       height: getProportionateScreenHeight(220),
-                      child: controller.homeModel.sieves.length==0?Center(child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):ListView.builder(
+                      child: controller.homeModel.sieves.length==0?Center(child: AutoSizeText("لا يوجد مناحل لعرضها حالياً".i18n,style: body1_16pt,),):ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: controller.homeModel.sieves.length,
                         itemBuilder: (context, index) =>

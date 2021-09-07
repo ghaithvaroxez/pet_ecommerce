@@ -12,6 +12,8 @@ import 'package:pets/screens/doctor_app/model/doctor.dart';
 import 'package:pets/screens/vendor_app/model/constants.dart';
 import 'package:get/get.dart';
 import 'package:pets/screens/doctors/view/components/services/service_details_screen.dart';
+import 'translations/doctor_service_card.i18n.dart';
+
 class DoctorServiceCard extends StatelessWidget {
   DoctorService service;
   DoctorServiceCard({this.service,this.delete,this.edit});
@@ -129,19 +131,20 @@ class DoctorServiceCard extends StatelessWidget {
                                         shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(5)),
                                         title:  Text(
-                                          'هل أنت متأكد ؟',
-                                          textDirection: TextDirection.rtl,
+                                          "هل أنت متأكد ؟".i18n,
+                                          // textDirection: TextDirection.rtl,
                                           style: body3_18pt,
                                         ),
                                         content: Text(
-                                          'انت على وشك حذف هذه الخدمة !',
-                                          textDirection: TextDirection.rtl,
+                                          "انت على وشك حذف هذه الخدمة !".i18n,
+
+                                          // textDirection: TextDirection.rtl,
                                           style: body1_16pt,
                                         ),
                                         actions: [
                                           TextButton(
                                             child:  Text(
-                                              'نعم',
+                                              "نعم".i18n,
                                             ),
                                             onPressed: () async{
                                               // language.changeLanguage();
@@ -151,7 +154,7 @@ class DoctorServiceCard extends StatelessWidget {
                                             },
                                           ),
                                           TextButton(
-                                            child: Text('لا'),
+                                            child: Text("لا".i18n),
                                             onPressed: () {
                                               Navigator.pop(context);
                                             },

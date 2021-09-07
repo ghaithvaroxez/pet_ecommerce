@@ -8,7 +8,7 @@ import 'package:pets/screens/stores/model/custoer_store_offer.dart';
 import 'package:pets/screens/vendor_app/model/categories.dart';
 import 'package:pets/screens/vendor_app/model/product.dart';
 import 'package:pets/services/http_requests_service.dart';
-
+import 'translations/search_controller.i18n.dart';
 class SearchController extends GetxController{
   bool loading=false;
   bool error=false;
@@ -39,7 +39,7 @@ class SearchController extends GetxController{
     var j=await searchRequests.searchAll(name);
     if(j==false)
       {
-        Get.rawSnackbar(message: "الرجاء المجاولة مجدداً");
+        Get.rawSnackbar(message: "الرجاء المجاولة مجدداً".i18n);
         removeLoading();  activeError();
       }
     else{
@@ -69,7 +69,7 @@ class SearchController extends GetxController{
     }
 
   }catch(e){
-    Get.rawSnackbar(message: "الرجاء المجاولة مجدداً");
+    Get.rawSnackbar(message: "الرجاء المجاولة مجدداً".i18n);
     removeLoading();  activeError();
     consolePrint("General Search Error"+e.toString());
   }
@@ -109,7 +109,7 @@ async{
     removeError();
     activeLoading();
 
-    try{
+    // try{
       products=await searchRequests.getProducts(productName,catId: catId,typeId: typeId,price1: price1,price2: price2);
      consolePrint(products.toString());
       if(products.length!=0)
@@ -119,12 +119,12 @@ async{
       }
       removeLoading();
       update();
-    }catch(e){
-      consolePrint("searchProducts Error:"+e.toString());
-      activeError();
-      removeLoading();
-      update();
-    }
+    // }catch(e){
+    //   consolePrint("searchProducts Error:"+e.toString());
+    //   activeError();
+    //   removeLoading();
+    //   update();
+    // }
 
   }
 

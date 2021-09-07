@@ -10,7 +10,7 @@ import 'package:pets/screens/doctors/model/all_doctors.dart';
 import 'package:pets/screens/home/view/components/doctor_card.dart';
 import 'package:pets/screens/stores/view/components/products/store_product_card.dart';
 import 'package:pets/services/http_requests_service.dart';
-
+import 'translation.i18n.dart';
 import '../../../loading_screen.dart';
 import 'package:http/http.dart' as http;
 import '../components/cards/doctor_favorite_card.dart';
@@ -95,13 +95,13 @@ consolePrint(apiResult.body);
 
 
     return failed?Column(mainAxisSize: MainAxisSize.max,children: [
-      Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
+      Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مجدداً ".i18n,style: body3_18pt,),),),
     ],):loading?LoadingScreen():
         doctors.length==0? Container(
           height: getProportionateScreenHeight(400),
           width: getProportionateScreenWidth(350),
           alignment: Alignment.center,
-          child: AutoSizeText("لا يوجد عناصر في المفضلة",style: body3_18pt,),
+          child: AutoSizeText("لا يوجد عناصر في المفضلة".i18n,style: body3_18pt,),
         ):
     Container(
       padding: EdgeInsets.symmetric(

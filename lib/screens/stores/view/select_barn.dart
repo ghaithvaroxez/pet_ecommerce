@@ -17,6 +17,10 @@ import 'package:pets/services/http_requests_service.dart';
 import '../model/all_stores.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
+import 'components/offers/translations/offers_body.i18n.dart';
+
+
 class SelectBarnView extends StatefulWidget {
   @override
   _SelectBarnViewState createState() => _SelectBarnViewState();
@@ -98,81 +102,78 @@ class _SelectBarnViewState extends State<SelectBarnView> {
       endDrawer: CustomDrawer(),
       body: SafeArea(
         child: Builder(
-          builder: (context)=>Directionality(
-            textDirection: TextDirection.rtl,
-            child: failed?Column(mainAxisSize: MainAxisSize.max,children: [
-              Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
-            ],):loading?LoadingScreen():Column(
-              children: [
-                Container(
-                  child: Material(
-                    elevation: 5,
-                    color: Colors.white,
-                    child: Container(
-                        width: SizeConfig.screenWidth,
-                        height: getProportionateScreenHeight(95),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: getProportionateScreenWidth(24),
-                            ),
-                            GestureDetector(
-                              onTap: (){
-                                Scaffold.of(context).openEndDrawer();
-                              },
-                              child: CircleAvatar(
-                                radius: 24,
-                                backgroundColor: Colors.grey.shade50,
-                                child: Image.asset(
-                                  "assets/images/home/menu_icon.png",
-                                  height: 24,
-                                  width: 20,
-                                ),
-                              ),
-                            ),
-                            Spacer(),
-                          Container(height:getProportionateScreenHeight(28),child: AutoSizeText("الاسطبلات",style: h5_21pt,minFontSize: 8,)),
-                            Spacer(),
-                            CircleAvatar(
+          builder: (context)=>failed?Column(mainAxisSize: MainAxisSize.max,children: [
+            Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
+          ],):loading?LoadingScreen():Column(
+            children: [
+              Container(
+                child: Material(
+                  elevation: 5,
+                  color: Colors.white,
+                  child: Container(
+                      width: SizeConfig.screenWidth,
+                      height: getProportionateScreenHeight(95),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: getProportionateScreenWidth(24),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              Scaffold.of(context).openEndDrawer();
+                            },
+                            child: CircleAvatar(
                               radius: 24,
                               backgroundColor: Colors.grey.shade50,
                               child: Image.asset(
-                                "assets/images/home/notification_icon.png",
+                                "assets/images/home/menu_icon.png",
                                 height: 24,
                                 width: 20,
                               ),
                             ),
-                            SizedBox(
-                              width: getProportionateScreenWidth(24),
+                          ),
+                          Spacer(),
+                        Container(height:getProportionateScreenHeight(28),child: AutoSizeText("الاسطبلات",style: h5_21pt,minFontSize: 8,)),
+                          Spacer(),
+                          CircleAvatar(
+                            radius: 24,
+                            backgroundColor: Colors.grey.shade50,
+                            child: Image.asset(
+                              "assets/images/home/notification_icon.png",
+                              height: 24,
+                              width: 20,
                             ),
-                          ],
-                        )),
-                  ),
+                          ),
+                          SizedBox(
+                            width: getProportionateScreenWidth(24),
+                          ),
+                        ],
+                      )),
                 ),
-                Stores.length==0?Container(width: getProportionateScreenWidth(410),child: Container(
-                    width: getProportionateScreenWidth(370),
-                    height: getProportionateScreenHeight(400),
-                    child: Center(child: AutoSizeText("لا يوجد عناصر حالياً",style: body1_16pt,)))):Expanded(
-                    // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
-                    child: ListView.builder(
-                      // physics: NeverScrollableScrollPhysics(),
-                        itemCount: Stores.length,
-                        itemBuilder: (context, index) => index == 0
-                            ? Column(
-                          children: [
+              ),
+              Stores.length==0?Container(width: getProportionateScreenWidth(410),child: Container(
+                  width: getProportionateScreenWidth(370),
+                  height: getProportionateScreenHeight(400),
+                  child: Center(child: AutoSizeText("لا يوجد عناصر حاليا".i18n,style: body1_16pt,)))):Expanded(
+                  // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
+                  child: ListView.builder(
+                    // physics: NeverScrollableScrollPhysics(),
+                      itemCount: Stores.length,
+                      itemBuilder: (context, index) => index == 0
+                          ? Column(
+                        children: [
 
-                            SearchBar(),
-                            VerticalStoreListCard(store:Stores[index],addToFav: ()async{
-                              bool k=  await addToFavorite(Stores[index].id);
-                              return k;
-                            },)],
-                        )
-                            : VerticalStoreListCard(store:Stores[index],addToFav: ()async{
-                          bool k=  await addToFavorite(Stores[index].id);
-                          return k;
-                        },))),
-              ],
-            ),
+                          SearchBar(),
+                          VerticalStoreListCard(store:Stores[index],addToFav: ()async{
+                            bool k=  await addToFavorite(Stores[index].id);
+                            return k;
+                          },)],
+                      )
+                          : VerticalStoreListCard(store:Stores[index],addToFav: ()async{
+                        bool k=  await addToFavorite(Stores[index].id);
+                        return k;
+                      },))),
+            ],
           ),
         ),
       )

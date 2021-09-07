@@ -23,7 +23,7 @@ import '../model/custoer_store_offer.dart';
 import 'package:http/http.dart' as http;
 import '../view/components/products/p_bodyy.dart';
 import '../view/components/photos/photos_body.dart';
-
+import 'translations/store_details.i18n.dart';
 class StoreDetailsById extends StatefulWidget {
 
 int id;
@@ -176,7 +176,7 @@ class _StoreDetailsByIdState extends State<StoreDetailsById>   with SingleTicker
                 ),
                 child: Center(
                   child: AutoSizeText(
-                    "مفتوح الان",
+                    "مفتوح الان".i18n,
                     minFontSize: 11,
                     style: blueButton_14pt,
                   ),
@@ -199,7 +199,7 @@ class _StoreDetailsByIdState extends State<StoreDetailsById>   with SingleTicker
                       width: getProportionateScreenWidth(200),
                       child: AutoSizeText(
                          storeName,
-                        textDirection: TextDirection.rtl,
+                        // textDirection: TextDirection.rtl,
                         style: blueButton_25pt,
                       ),
                     ),
@@ -222,7 +222,7 @@ class _StoreDetailsByIdState extends State<StoreDetailsById>   with SingleTicker
                               style: blueButton_14pt,
                               minFontSize: 10,
                               maxLines: 1,
-                              textDirection: TextDirection.rtl,
+                              // textDirection: TextDirection.rtl,
                             ),
                           ),
                           SizedBox(
@@ -331,7 +331,7 @@ class _StoreDetailsByIdState extends State<StoreDetailsById>   with SingleTicker
                                   height: getProportionateScreenHeight(20),
                                   width: getProportionateScreenWidth(80),
                                   child: AutoSizeText(
-                                    "الصور",
+                                    "الصور".i18n,
                                     style: controller.photosStyle,
                                     minFontSize: 8,
                                   ),
@@ -376,7 +376,7 @@ class _StoreDetailsByIdState extends State<StoreDetailsById>   with SingleTicker
                                   height: getProportionateScreenHeight(20),
                                   width: getProportionateScreenWidth(80),
                                   child: AutoSizeText(
-                                    "المنتجات",
+                                    "المنتجات".i18n,
                                     style: controller.productsStyle,
                                     minFontSize: 8,
                                   ),
@@ -420,7 +420,7 @@ class _StoreDetailsByIdState extends State<StoreDetailsById>   with SingleTicker
                                   height: getProportionateScreenHeight(20),
                                   width: getProportionateScreenWidth(80),
                                   child: AutoSizeText(
-                                    "عن المتجر",
+                                    "عن المتجر".i18n,
                                     style: controller.aboutStoreStyle,
                                     minFontSize: 8,
                                   ),
@@ -467,7 +467,7 @@ class _StoreDetailsByIdState extends State<StoreDetailsById>   with SingleTicker
                                   height: getProportionateScreenHeight(20),
                                   width: getProportionateScreenWidth(80),
                                   child: AutoSizeText(
-                                    "العروض",
+                                    "العروض".i18n,
                                     style: controller.offersStyle,
                                     minFontSize: 8,
                                   ),
@@ -545,7 +545,6 @@ class _StoreDetailsByIdState extends State<StoreDetailsById>   with SingleTicker
                       AboutStoreBodyScreen(   widget.id),
                       OffersBodyScreen(   widget.id),
                       // OrdersBodyScreen(),
-
                     ],
                   ),
                 )),

@@ -10,6 +10,7 @@ import 'package:pets/configuration/constants/colors.dart';
 import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/printer.dart';
 import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/categories/view/categories_screen.dart';
 import 'package:pets/screens/stores/model/all_stores.dart';
 import 'package:pets/screens/stores/view/components/vertical_store_list_card.dart';
 import 'package:pets/screens/vendor_app/model/types.dart';
@@ -18,6 +19,8 @@ import 'package:pets/services/http_requests_service.dart';
 
 import '../../loading_screen.dart';
 import 'category_types_item.dart';
+
+import 'translations/category_stores.i18n.dart';
 class CategoryStores extends StatefulWidget {
   int id;
   String cat_name;
@@ -111,157 +114,161 @@ class _CategoryStoresState extends State<CategoryStores> {
     return Scaffold(
       endDrawer: CustomDrawer(),
 
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Builder(
+      body: Builder(
 
-          builder:(context)=> SafeArea(
-            child: failed?Column(mainAxisSize: MainAxisSize.max,children: [
-              Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
-            ],):loading?LoadingScreen():Container(
-              // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
-                child: Column(
-                  children: [
-                    Container(
-                      child: Material(
-                        elevation: 5,
-                        color: Colors.white,
-                        child: Container(
-                            width: SizeConfig.screenWidth,
-                            height: getProportionateScreenHeight(95),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: getProportionateScreenWidth(24),
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-                                    Scaffold.of(context).openEndDrawer();
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 24,
-                                    backgroundColor: Colors.grey.shade50,
-                                    child: Image.asset(
-                                      "assets/images/home/menu_icon.png",
-                                      height: 24,
-                                      width: 20,
-                                    ),
-                                  ),
-                                ),
-                                Spacer(),
-                                Container(height:getProportionateScreenHeight(28),child: AutoSizeText(widget.cat_name,style: h5_21pt,minFontSize: 8,)),
-                                Spacer(),
-                                CircleAvatar(
+        builder:(context)=> SafeArea(
+          child: failed?ErrorScreen():loading?LoadingScreen():Container(
+            // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
+              child: Column(
+                children: [
+                  Container(
+                    child: Material(
+                      elevation: 5,
+                      color: Colors.white,
+                      child: Container(
+                          width: SizeConfig.screenWidth,
+                          height: getProportionateScreenHeight(95),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: getProportionateScreenWidth(24),
+                              ),
+                              GestureDetector(
+                                onTap: (){
+                                  Scaffold.of(context).openEndDrawer();
+                                },
+                                child: CircleAvatar(
                                   radius: 24,
                                   backgroundColor: Colors.grey.shade50,
                                   child: Image.asset(
-                                    "assets/images/home/notification_icon.png",
+                                    "assets/images/home/menu_icon.png",
                                     height: 24,
                                     width: 20,
                                   ),
                                 ),
-                                SizedBox(
-                                  width: getProportionateScreenWidth(24),
+                              ),
+                              Spacer(),
+                              Container(height:getProportionateScreenHeight(28),child: AutoSizeText(widget.cat_name,style: h5_21pt,minFontSize: 8,)),
+                              Spacer(),
+                              CircleAvatar(
+                                radius: 24,
+                                backgroundColor: Colors.grey.shade50,
+                                child: Image.asset(
+                                  "assets/images/home/notification_icon.png",
+                                  height: 24,
+                                  width: 20,
                                 ),
-                              ],
-                            )),
-                      ),
+                              ),
+                              SizedBox(
+                                width: getProportionateScreenWidth(24),
+                              ),
+                            ],
+                          )),
                     ),
+                  ),
 SizedBox(height: getProportionateScreenHeight(35),),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(right: getProportionateScreenWidth(20)),
-                        child: ListView.builder(itemCount:type_items.length,scrollDirection: Axis.horizontal,itemBuilder: (context,index)=>
-                            GestureDetector(
-                              onTap: (){
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.only(right: getProportionateScreenWidth(20)),
+                      child: ListView.builder(itemCount:type_items.length,scrollDirection: Axis.horizontal,itemBuilder: (context,index)=>
+                          GestureDetector(
+                            onTap: (){
 Get.to(CategoryTypeItemsScreen(type_items[index].id,widget.id));
-                              },
-                              child: Container(
-                          height: getProportionateScreenHeight(100),
-                          width: getProportionateScreenWidth(90),
+                            },
+                            child: Container(
+                        height: getProportionateScreenHeight(100),
+                        width: getProportionateScreenWidth(90),
 margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),
 
-                          decoration: BoxDecoration(
-                              // color: Colors.red,
-                          ),
-                          child: Column(
-                              children: [
-                                Container(
-                                  height: getProportionateScreenHeight(76),
-                                  width: getProportionateScreenWidth(90),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(12),topRight:Radius.circular(12) ),
-                                    color: Colors.white,
-
-                                  ),
-                                  child: ClipRRect(                              borderRadius: BorderRadius.only(topLeft: Radius.circular(12),topRight:Radius.circular(12) ),
-                                      child: Image.network(Api.imagePath+type_items[index].image,fit: BoxFit.fill,)),
+                        decoration: BoxDecoration(
+                            // color: Colors.red,
+                        ),
+                        child: Column(
+                            children: [
+                              Container(
+                                height: getProportionateScreenHeight(76),
+                                width: getProportionateScreenWidth(90),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(12),topRight:Radius.circular(12) ),
+                                  color: Colors.white,
 
                                 ),
-                                Container(
-                                  height: getProportionateScreenHeight(24),
-                                  width: getProportionateScreenWidth(90),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(12),
-                                        bottomRight: Radius.circular(12),
-                                      ),
-                                      color: Colors.grey.withOpacity(0.7)
-                                  ),
-                                  // padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(15)),
-                                  child: Center(
-                                    child: Container(
-                                      height: getProportionateScreenHeight(24),
-                                      width: getProportionateScreenWidth(75),
+                                child: ClipRRect(                              borderRadius: BorderRadius.only(topLeft: Radius.circular(12),topRight:Radius.circular(12) ),
+                                    child: Image.network(Api.imagePath+type_items[index].image,fit: BoxFit.fill,)),
 
-                                      child: AutoSizeText(
-                                        type_items[index].name,
-                                        style: body2_14pt,
-                                        minFontSize: 9,
-                                        textAlign: TextAlign.center,
-                                      ),
+                              ),
+                              Container(
+                                height: getProportionateScreenHeight(24),
+                                width: getProportionateScreenWidth(90),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(12),
+                                      bottomRight: Radius.circular(12),
+                                    ),
+                                    color: Colors.grey.withOpacity(0.7)
+                                ),
+                                // padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(15)),
+                                child: Center(
+                                  child: Container(
+                                    height: getProportionateScreenHeight(24),
+                                    width: getProportionateScreenWidth(75),
+
+                                    child: AutoSizeText(
+                                      type_items[index].name,
+                                      style: body2_14pt,
+                                      minFontSize: 9,
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
-                                )
-                              ],
-                          ),
+                                ),
+                              )
+                            ],
                         ),
-                            )),
                       ),
+                          )),
                     ),
-                    SizedBox(height: getProportionateScreenHeight(40),),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(24)) ,
-                      alignment: Alignment.centerRight,
-                      child: AutoSizeText("المتاجر",style: body3_18pt,textDirection: TextDirection.rtl,),
+                  ),
+                  SizedBox(height: getProportionateScreenHeight(40),),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(24)) ,
+                    alignment: Alignment.centerRight,
+                    child: AutoSizeText("المتاجر".i18n,style: body3_18pt,
+                      // textDirection: TextDirection.rtl,
                     ),
-                    SizedBox(height: getProportionateScreenHeight(15),),
-                    Expanded(
-                      flex: 4,
-                      child:Stores.stores.length==0?Container(height:getProportionateScreenHeight(100),
-
-                          width:getProportionateScreenWidth(300),alignment:Alignment.topCenter,margin:EdgeInsets.symmetric(vertical: getProportionateScreenHeight(100)),child: AutoSizeText("لايوجد متاجر لعرضها",style: body3_18pt,minFontSize: 9,)): ListView.builder(
-                        // physics: NeverScrollableScrollPhysics(),
-                          itemCount: Stores.stores.length,
-                          itemBuilder: (context, index) => index == 0
-                              ? Column(
-                            children: [
-                              VerticalStoreListCard(store:Stores.stores[index],addToFav: ()async{
-                                bool k=  await addToFavorite(Stores.stores[index].id);
-                                return k;
-                              },)],
-                          )
-                              : VerticalStoreListCard(store:Stores.stores[index],addToFav: ()async{
-                            bool k=  await addToFavorite(Stores.stores[index].id);
-                            return k;
-                          },)),
-                    ),
-                  ],
-                )),
-          ),
+                  ),
+                  SizedBox(height: getProportionateScreenHeight(15),),
+                  Expanded(
+                    flex: 4,
+                    child:Stores.stores.length==0?NoItems(): ListView.builder(
+                      // physics: NeverScrollableScrollPhysics(),
+                        itemCount: Stores.stores.length,
+                        itemBuilder: (context, index) => index == 0
+                            ? Column(
+                          children: [
+                            VerticalStoreListCard(store:Stores.stores[index],addToFav: ()async{
+                              bool k=  await addToFavorite(Stores.stores[index].id);
+                              return k;
+                            },)],
+                        )
+                            : VerticalStoreListCard(store:Stores.stores[index],addToFav: ()async{
+                          bool k=  await addToFavorite(Stores.stores[index].id);
+                          return k;
+                        },)),
+                  ),
+                ],
+              )),
         ),
       ),
     );
   }
 }
 
+
+class ErrorScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(mainAxisSize: MainAxisSize.max,children: [
+      Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مرة اخرى ".i18n,style: body3_18pt,),),),
+    ],);
+  }
+}

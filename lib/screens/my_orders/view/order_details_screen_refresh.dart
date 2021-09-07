@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'translations/order_details_screen_refresh.i18n.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,7 +57,7 @@ class _OrderDetailsScreenWithRefreshState extends State<OrderDetailsScreenWithRe
       if (apiResult.statusCode == 200) {
         consolePrint("statusCode==200");
         // var j = jsonDecode(apiResult.body);
-        Get.rawSnackbar(message: "لقد تم حذف الرد بنجاح",backgroundColor: Colors.green.withOpacity(0.8));
+        Get.rawSnackbar(message: "لقد تم حذف الرد بنجاح".i18n,backgroundColor: Colors.green.withOpacity(0.8));
         await fetchData();
 await widget.refresh();
         // return true;
@@ -68,14 +68,14 @@ await widget.refresh();
         setState(() {
 
         });
-        Get.rawSnackbar(message: "لم نتمكن من حذف ردك الان الرجاء المحاولة لاحقا",backgroundColor: Colors.red.withOpacity(0.8));
+        Get.rawSnackbar(message: " الرجاء المحاولة لاحقا".i18n,backgroundColor: Colors.red.withOpacity(0.8));
 
         // return false;
       }
     }
     catch(e){
       consolePrint(e.toString());
-      Get.rawSnackbar(message: "لم نتمكن من حذف ردك الان الرجاء المحاولة لاحقا",backgroundColor: Colors.red.withOpacity(0.8));
+      Get.rawSnackbar(message:" الرجاء المحاولة لاحقا".i18n,backgroundColor: Colors.red.withOpacity(0.8));
     }
 
   }
@@ -215,7 +215,7 @@ await widget.refresh();
                               Container(
                                   height: getProportionateScreenHeight(28),
                                   child: AutoSizeText(
-                                    "تفاصيل الطلب",
+                                    "تفاصيل الطلب".i18n,
                                     style: h5_21pt,
                                     minFontSize: 8,
                                   )),
@@ -477,7 +477,7 @@ await widget.refresh();
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5)),
                             title:  Text(
-                              'ادخل ردك على هذا الطلب',
+                              'ادخل ردك على هذا الطلب'.i18n,
                               textDirection: TextDirection.rtl,
                               style: body3_18pt,
                             ),
@@ -498,7 +498,7 @@ await widget.refresh();
                               ),
                               TextButton(
                                 child:  Text(
-                                  'نشر الرد',style: GoogleFonts.tajawal(
+                                  'نشر الرد'.i18n,style: GoogleFonts.tajawal(
                                     color: Colors.blue.withOpacity(0.6)
                                 ),
                                 ),
@@ -507,7 +507,7 @@ await widget.refresh();
                                   bool k=await addAnswer(ans);
                                   if(!k)
                                   {
-                                    Get.rawSnackbar(message: "حدثت مشكلة حاول مجدداً",backgroundColor: Colors.red);
+                                    Get.rawSnackbar(message: " حاول مجدداً".i18n,backgroundColor: Colors.red);
                                   }
                                 },
 
@@ -537,13 +537,13 @@ await widget.refresh();
 
                           children: [
                             Icon(Icons.add,color: Color(0xFFE4F2F6) ,),
-                            AutoSizeText("انقر لإضافة ردك ",style: darkGrayText_14pt,)
+                            AutoSizeText("انقر لإضافة ردك ".i18n,style: darkGrayText_14pt,)
                           ],
                         ),
                       ),
                     ),
                   ),
-                  order.answers.length==0?Container(alignment: Alignment.center,width: getProportionateScreenWidth(250),height: getProportionateScreenHeight(250),child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):
+                  order.answers.length==0?Container(alignment: Alignment.center,width: getProportionateScreenWidth(250),height: getProportionateScreenHeight(250),child: AutoSizeText("لا يوجد عناصر لعرضها حالياً".i18n,style: body1_16pt,),):
 
                   Column(
                     children: [
@@ -609,12 +609,12 @@ await widget.refresh();
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius: BorderRadius.circular(5)),
                                                   title: Text(
-                                                    'هل أنت متأكد ؟',
+                                                    'هل أنت متأكد ؟'.i18n,
                                                     textDirection: TextDirection.rtl,
                                                     style: body3_18pt,
                                                   ),
                                                   content: Text(
-                                                    'انت على وشك حذف هذا الرد !',
+                                                    'انت على وشك حذف هذا الرد !'.i18n,
                                                     textDirection: TextDirection.rtl,
                                                     style: body1_16pt,
                                                   ),
@@ -631,7 +631,7 @@ await widget.refresh();
                                                       },
                                                     ),
                                                     TextButton(
-                                                      child: Text('لا'),
+                                                      child: Text('لا'.i18n),
                                                       onPressed: () {
                                                         Navigator.pop(context);
                                                       },

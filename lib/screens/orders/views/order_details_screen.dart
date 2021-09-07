@@ -21,6 +21,7 @@ import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:get/get.dart';
+import 'translations/order_details_screen.i18n.dart';
 class OrderDetailsScreen extends StatefulWidget {
   int id;
 
@@ -65,7 +66,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
       // }catch(e){
       //         consolePrint(e.toString());
       //       }
-      Get.rawSnackbar(message: "لقد تم حذف الرد بنجاح",backgroundColor: Colors.green.withOpacity(0.8));
+      Get.rawSnackbar(message: "لقد تم حذف الرد بنجاح".i18n,backgroundColor: Colors.green.withOpacity(0.8));
         loading=false;
         setState(() {
 
@@ -79,14 +80,14 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
         setState(() {
 
         });
-        Get.rawSnackbar(message: "لم نتمكن من حذف ردك الان الرجاء المحاولة لاحقا",backgroundColor: Colors.red.withOpacity(0.8));
+        Get.rawSnackbar(message: "لم نتمكن من حذف ردك الان الرجاء المحاولة لاحقا".i18n,backgroundColor: Colors.red.withOpacity(0.8));
 
         // return false;
       }
     }
     catch(e){
       consolePrint(e.toString());
-      Get.rawSnackbar(message: "لم نتمكن من حذف ردك الان الرجاء المحاولة لاحقا",backgroundColor: Colors.red.withOpacity(0.8));
+      Get.rawSnackbar(message: "لم نتمكن من حذف ردك الان الرجاء المحاولة لاحقا".i18n,backgroundColor: Colors.red.withOpacity(0.8));
     }
 
   }
@@ -191,318 +192,318 @@ bool answer=false;
     return Scaffold(
       endDrawer: CustomDrawer(),
       body: SafeArea(
-        child: loading?LoadingScreen():error?Container(height: getProportionateScreenHeight(700),width: getProportionateScreenWidth(390),alignment: Alignment.center,child: AutoSizeText("الرجاء المحاولة مجدداً",style: body3_18pt,),):Builder(
-          builder: (context) => Directionality(
-            textDirection: TextDirection.rtl,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    child: Material(
-                      elevation: 5,
-                      color: Colors.white,
-                      child: Container(
-                          width: SizeConfig.screenWidth,
-                          height: getProportionateScreenHeight(95),
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: getProportionateScreenWidth(24),
+        child: loading?LoadingScreen():error?Container(height: getProportionateScreenHeight(700),width: getProportionateScreenWidth(390),alignment: Alignment.center,child: AutoSizeText("الرجاء المحاولة مجدداً".i18n,style: body3_18pt,),):Builder(
+          builder: (context) => SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  child: Material(
+                    elevation: 5,
+                    color: Colors.white,
+                    child: Container(
+                        width: SizeConfig.screenWidth,
+                        height: getProportionateScreenHeight(95),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: getProportionateScreenWidth(24),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Scaffold.of(context).openEndDrawer();
+                              },
+                              child: CircleAvatar(
+                                radius: 24,
+                                backgroundColor: Colors.grey.shade50,
+                                child: Image.asset(
+                                  "assets/images/home/menu_icon.png",
+                                  height: 24,
+                                  width: 20,
+                                ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  Scaffold.of(context).openEndDrawer();
-                                },
-                                child: CircleAvatar(
-                                  radius: 24,
-                                  backgroundColor: Colors.grey.shade50,
-                                  child: Image.asset(
-                                    "assets/images/home/menu_icon.png",
-                                    height: 24,
-                                    width: 20,
+                            ),
+                            Spacer(),
+                            Container(
+                                height: getProportionateScreenHeight(28),
+                                child: AutoSizeText(
+                                  "تفاصيل الطلب".i18n,
+                                  style: h5_21pt,
+                                  minFontSize: 8,
+                                )),
+                            Spacer(),
+                            GestureDetector(
+                              onTap: (){
+                                Get.back();
+                              },
+                              child: CircleAvatar(
+                                radius: 24,
+                                backgroundColor: Colors.grey.shade50,
+                                child: Directionality(
+                                    textDirection: TextDirection.ltr,
+                                    child: Center(
+                                        child: Icon(
+                                      Icons.arrow_back_ios,
+                                      color: Color(0xFF707070),
+                                      size: 20,
+                                    ))),
+                              ),
+                            ),
+                            SizedBox(
+                              width: getProportionateScreenWidth(24),
+                            ),
+                          ],
+                        )),
+                  ),
+                ),
+                SizedBox(
+                  height: getProportionateScreenHeight(15),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(22)),
+                  width: getProportionateScreenWidth(345),
+                  height: getProportionateScreenHeight(350),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    // boxShadow: shadow,
+
+                  ),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                          top: 0,
+                          left: 0,
+                          child: Container(
+                            width: getProportionateScreenWidth(345),
+                            height: getProportionateScreenHeight(198),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                              ),
+                              color: Colors.white
+                            ),
+                            child: order.image == null||order.image == ""
+                                ? Container(
+                                    child: Center(
+                                      child: AutoSizeText(
+                                        "Image",
+                                        style: h5_24pt,
+                                      ),
+                                    ),
+                                  )
+                                :
+                            ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(12),
+                                      topRight: Radius.circular(12),
+                                    ),
+                                    child: Image.network(
+                                        Api.imagePath + order.image,fit: BoxFit.fill,),
                                   ),
-                                ),
-                              ),
-                              Spacer(),
-                              Container(
-                                  height: getProportionateScreenHeight(28),
-                                  child: AutoSizeText(
-                                    "تفاصيل الطلب",
-                                    style: h5_21pt,
-                                    minFontSize: 8,
-                                  )),
-                              Spacer(),
-                              GestureDetector(
-                                onTap: (){
-                                  Get.back();
-                                },
-                                child: CircleAvatar(
-                                  radius: 24,
-                                  backgroundColor: Colors.grey.shade50,
-                                  child: Directionality(
-                                      textDirection: TextDirection.ltr,
-                                      child: Center(
-                                          child: Icon(
-                                        Icons.arrow_back_ios,
-                                        color: Color(0xFF707070),
-                                        size: 20,
-                                      ))),
-                                ),
-                              ),
-                              SizedBox(
-                                width: getProportionateScreenWidth(24),
-                              ),
-                            ],
                           )),
-                    ),
-                  ),
-                  SizedBox(
-                    height: getProportionateScreenHeight(15),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(22)),
-                    width: getProportionateScreenWidth(345),
-                    height: getProportionateScreenHeight(350),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      // boxShadow: shadow,
+                   Positioned(
+                            top: getProportionateScreenHeight(192),
+                            child:  Container(
+                                padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10),vertical: getProportionateScreenHeight(10)),
+                                // height: getProportionateScreenHeight(75),
+                                width: getProportionateScreenWidth(345),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(topRight:  Radius.circular(12),
+                                  topLeft: Radius.circular(12,),bottomRight: Radius.circular(12,),),
 
-                    ),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                            top: 0,
-                            left: 0,
-                            child: Container(
-                              width: getProportionateScreenWidth(345),
-                              height: getProportionateScreenHeight(198),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(12),
-                                  topRight: Radius.circular(12),
-                                ),
-                                color: Colors.white
-                              ),
-                              child: order.image == null||order.image == ""
-                                  ? Container(
-                                      child: Center(
+                                  color: Color(0xFFE4F2F6), ),
+
+                              child: Column(
+                                children: [
+                                  SizedBox(height: getProportionateScreenHeight(10),),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        height: getProportionateScreenHeight(35),
+                                        width: getProportionateScreenWidth(220),
+                                        alignment: Alignment.centerRight,
                                         child: AutoSizeText(
-                                          "Image",
-                                          style: h5_24pt,
+                                          order.title,
+                                          style: body3_18pt,
+                                          minFontSize: 9,
                                         ),
                                       ),
-                                    )
-                                  :
-                              ClipRRect(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(12),
-                                        topRight: Radius.circular(12),
-                                      ),
-                                      child: Image.network(
-                                          Api.imagePath + order.image,fit: BoxFit.fill,),
-                                    ),
-                            )),
-                     Positioned(
-                              top: getProportionateScreenHeight(192),
-                              child:  Container(
-                                  padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10),vertical: getProportionateScreenHeight(10)),
-                                  // height: getProportionateScreenHeight(75),
-                                  width: getProportionateScreenWidth(345),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(topRight:  Radius.circular(12),
-                                    topLeft: Radius.circular(12,),bottomRight: Radius.circular(12,),),
-
-                                    color: Color(0xFFE4F2F6), ),
-
-                                child: Column(
-                                  children: [
-                                    SizedBox(height: getProportionateScreenHeight(10),),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          height: getProportionateScreenHeight(35),
-                                          width: getProportionateScreenWidth(220),
-                                          alignment: Alignment.centerRight,
-                                          child: AutoSizeText(
-                                            order.title,
-                                            style: body3_18pt,
-                                            minFontSize: 9,
-                                          ),
+                                      Container(
+                                        height: getProportionateScreenHeight(22),
+                                        width: getProportionateScreenWidth(100),
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          // "السعر المتوقع: "+
+                                              order.price.toString()+" \$ ",
+                                          style: body3_18pt,
+                                          minFontSize: 6,
                                         ),
-                                        Container(
-                                          height: getProportionateScreenHeight(22),
-                                          width: getProportionateScreenWidth(100),
-                                          alignment: Alignment.centerRight,
-                                          child: AutoSizeText(
-                                            // "السعر المتوقع: "+
-                                                order.price.toString()+" \$ ",
-                                            style: body3_18pt,
-                                            minFontSize: 6,
-                                          ),
-                                        ),
-
-                                      ],
-                                    ),
-                                    // SizedBox(height: getProportionateScreenHeight(10),),
-                                    Container(
-
-                                      // height: getProportionateScreenHeight(75),
-                                      child:  Container(
-                                          height: getProportionateScreenHeight(30),
-                                          width: getProportionateScreenWidth(320),
-                                          alignment: Alignment.center,
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-
-                                              Expanded(child: Container(child: Row(
-                                                children: [
-                                                  Container(
-                                                    // color: Colors.red,
-                                                    alignment: Alignment.centerRight,
-                                                    height: getProportionateScreenHeight(12),
-                                                    child: Image.asset(
-                                                      "assets/images/drawer/drawer_icons/category_icon.png",fit: BoxFit.fitHeight,),
-                                                  ),
-                                                  SizedBox(width: getProportionateScreenWidth(15),),
-                                                  Expanded(
-                                                      flex: 3,
-                                                      child: Container(
-                                                        alignment: Alignment.centerRight,
-                                                        height: getProportionateScreenHeight(getProportionateScreenHeight(25)),
-                                                        child: AutoSizeText(order.orderType.toString()=="animal"?"حيوانات":"استطباب",
-                                                            style: darkGrayText_14pt,
-                                                            // minFontSize: 9,
-                                                            textDirection: TextDirection.rtl),
-                                                      )),
-
-                                                ],
-                                              ),)),
-                                              Expanded(child:  Container(child: AutoSizeText(order.categoryName,style: body2_14pt,),)),
-                                              Expanded(child:  Container(child:  Row(
-                                                children: [
-                                                  Expanded(
-                                                      flex: 1,
-                                                      child: Container(
-                                                        height: getProportionateScreenHeight(12),
-                                                        child: Image.asset(
-                                                            "assets/images/home/clock_icon.png"),
-                                                      )),
-                                                  SizedBox(width: getProportionateScreenWidth(5),),
-                                                  Expanded(
-                                                      flex: 3,
-                                                      child: Container(
-                                                        height: getProportionateScreenHeight(20),
-                                                        child: AutoSizeText(order.date.toString(),
-                                                            style: darkGrayText_11pt,
-                                                            minFontSize: 5,
-                                                            textDirection: TextDirection.rtl),
-                                                      )),
-
-                                                ],
-                                              ),)),
-                                            ],
-                                          )
                                       ),
+
+                                    ],
+                                  ),
+                                  // SizedBox(height: getProportionateScreenHeight(10),),
+                                  Container(
+
+                                    // height: getProportionateScreenHeight(75),
+                                    child:  Container(
+                                        height: getProportionateScreenHeight(30),
+                                        width: getProportionateScreenWidth(320),
+                                        alignment: Alignment.center,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+
+                                            Expanded(child: Container(child: Row(
+                                              children: [
+                                                Container(
+                                                  // color: Colors.red,
+                                                  alignment: Alignment.centerRight,
+                                                  height: getProportionateScreenHeight(12),
+                                                  child: Image.asset(
+                                                    "assets/images/drawer/drawer_icons/category_icon.png",fit: BoxFit.fitHeight,),
+                                                ),
+                                                SizedBox(width: getProportionateScreenWidth(15),),
+                                                Expanded(
+                                                    flex: 3,
+                                                    child: Container(
+                                                      alignment: Alignment.centerRight,
+                                                      height: getProportionateScreenHeight(getProportionateScreenHeight(25)),
+                                                      child: AutoSizeText(order.orderType.toString()=="animal"?"حيوانات".i18n:"استطباب".i18n,
+                                                          style: darkGrayText_14pt,
+                                                          // minFontSize: 9,
+                                                          // textDirection: TextDirection.rtl
+                                                      ),
+                                                    )),
+
+                                              ],
+                                            ),)),
+                                            Expanded(child:  Container(child: AutoSizeText(order.categoryName,style: body2_14pt,),)),
+                                            Expanded(child:  Container(child:  Row(
+                                              children: [
+                                                Expanded(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      height: getProportionateScreenHeight(12),
+                                                      child: Image.asset(
+                                                          "assets/images/home/clock_icon.png"),
+                                                    )),
+                                                SizedBox(width: getProportionateScreenWidth(5),),
+                                                Expanded(
+                                                    flex: 3,
+                                                    child: Container(
+                                                      height: getProportionateScreenHeight(20),
+                                                      child: AutoSizeText(order.date.toString(),
+                                                          style: darkGrayText_11pt,
+                                                          minFontSize: 5,
+                                                          // textDirection: TextDirection.rtl
+                                                      ),
+                                                    )),
+
+                                              ],
+                                            ),)),
+                                          ],
+                                        )
                                     ),
-                                    SizedBox(height: getProportionateScreenHeight(5),),
-                                    Container(width: getProportionateScreenWidth(345),
-                                      // height: getProportionateScreenHeight(50),
-                                      child: AutoSizeText(order.question,style: darkGrayText_14pt,minFontSize: 9,),),
-                                    // SizedBox(height: getProportionateScreenHeight(8),),
-                                   ],
-                                ),
-                                ),
+                                  ),
+                                  SizedBox(height: getProportionateScreenHeight(5),),
+                                  Container(width: getProportionateScreenWidth(345),
+                                    // height: getProportionateScreenHeight(50),
+                                    child: AutoSizeText(order.question,style: darkGrayText_14pt,minFontSize: 9,),),
+                                  // SizedBox(height: getProportionateScreenHeight(8),),
+                                 ],
                               ),
+                              ),
+                            ),
 
-                      ],
-                    ),
+                    ],
                   ),
+                ),
 // SizedBox(height: getProportionateScreenHeight(24),),
-                  SizedBox(height: getProportionateScreenHeight(16),)
-,Container(height: getProportionateScreenHeight(30),width: getProportionateScreenWidth(345),alignment: Alignment.centerRight,child: AutoSizeText("الردود",style: body3_18pt,),),
-              !answer?Container(width: 0,height: 0,):GestureDetector(
-               onTap: ()async{
+                SizedBox(height: getProportionateScreenHeight(16),)
+,Container(height: getProportionateScreenHeight(30),width: getProportionateScreenWidth(345),alignment: Alignment.centerRight,child: AutoSizeText("الردود".i18n,style: body3_18pt,),),
+            !answer?Container(width: 0,height: 0,):GestureDetector(
+             onTap: ()async{
 
-                 String ans;
-                 showDialog(
-                     context: context,
-                     builder: ((context) => AlertDialog(
-                       shape: RoundedRectangleBorder(
-                           borderRadius: BorderRadius.circular(5)),
-                       title:  Text(
-                         'ادخل ردك على هذا الطلب',
-                         textDirection: TextDirection.rtl,
-                         style: body3_18pt,
+               String ans;
+               showDialog(
+                   context: context,
+                   builder: ((context) => AlertDialog(
+                     shape: RoundedRectangleBorder(
+                         borderRadius: BorderRadius.circular(5)),
+                     title:  Text(
+                       'ادخل ردك على هذا الطلب'.i18n,
+                       // textDirection: TextDirection.rtl,
+                       style: body3_18pt,
+                     ),
+                     content:
+                               Container(width: getProportionateScreenWidth(250),height: getProportionateScreenHeight(60),child: TextField(
+                                 onChanged: (v){
+                                   ans=v;
+                                   print(ans);
+                                 },
+                               ),),
+                     actions: [
+                       TextButton(
+                         child: Text('العودة'.i18n,style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
+                         onPressed: () {
+                           Navigator.pop(context);
+                           // Navigator.pop(context);
+                         },
                        ),
-                       content:
-                                 Container(width: getProportionateScreenWidth(250),height: getProportionateScreenHeight(60),child: TextField(
-                                   onChanged: (v){
-                                     ans=v;
-                                     print(ans);
-                                   },
-                                 ),),
-                       actions: [
-                         TextButton(
-                           child: Text('العودة',style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
-                           onPressed: () {
-                             Navigator.pop(context);
-                             // Navigator.pop(context);
-                           },
+                       TextButton(
+                         child:  Text(
+                           'نشر الرد'.i18n,style: GoogleFonts.tajawal(
+                           color: Colors.blue.withOpacity(0.6)
                          ),
-                         TextButton(
-                           child:  Text(
-                             'نشر الرد',style: GoogleFonts.tajawal(
-                             color: Colors.blue.withOpacity(0.6)
-                           ),
-                           ),
-                           onPressed: () async{
-                             if(ans==""||ans==null){
-                               Get.rawSnackbar(message: "الرد لا يمكن ان يكون فارغاً",backgroundColor: Colors.red);
+                         ),
+                         onPressed: () async{
+                           if(ans==""||ans==null){
+                             Get.rawSnackbar(message: "الرد لا يمكن ان يكون فارغاً".i18n,backgroundColor: Colors.red);
 return;
-                             }
-                             Get.back();
-                             bool k=await addAnswer(ans);
-                                                 if(!k)
-                                                 {
-                                                   Get.rawSnackbar(message: "حدثت مشكلة حاول مجدداً",backgroundColor: Colors.red);
-                                                 }
-                                               },
+                           }
+                           Get.back();
+                           bool k=await addAnswer(ans);
+                                               if(!k)
+                                               {
+                                                 Get.rawSnackbar(message: "حدثت مشكلة حاول مجدداً".i18n,backgroundColor: Colors.red);
+                                               }
+                                             },
 
-                             // language.changeLanguage();
-                             // Navigator.of(context).pop();
-                             // await  LocalStorageService.prefs.clear();
-                             // Get.offAll(SplashScreen());
-                             // Navigator.popUntil(context, ModalRoute.withName('/'));
-                         ),
+                           // language.changeLanguage();
+                           // Navigator.of(context).pop();
+                           // await  LocalStorageService.prefs.clear();
+                           // Get.offAll(SplashScreen());
+                           // Navigator.popUntil(context, ModalRoute.withName('/'));
+                       ),
 
-                       ],
-                     )));
-                 //     showDialog(context: context, builder: (context)=>ratingDialog);
+                     ],
+                   )));
+               //     showDialog(context: context, builder: (context)=>ratingDialog);
 
-               },
-                child: Container(
-                    width: getProportionateScreenWidth(345),
-                    height: getProportionateScreenHeight(110),
-                    margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(10)),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Color(0xFFF9F9F9),
-                        boxShadow: shadow
-                    ),
-                  child: Center(
-                    child: Column(
+             },
+              child: Container(
+                  width: getProportionateScreenWidth(345),
+                  height: getProportionateScreenHeight(110),
+                  margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(10)),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Color(0xFFF9F9F9),
+                      boxShadow: shadow
+                  ),
+                child: Center(
+                  child: Column(
 mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.add,color: Color(0xFFE4F2F6) ,),
-                        AutoSizeText("انقر لإضافة ردك ",style: darkGrayText_14pt,)
-                      ],
-                    ),
+                    children: [
+                      Icon(Icons.add,color: Color(0xFFE4F2F6) ,),
+                      AutoSizeText("انقر لإضافة ردك ".i18n,style: darkGrayText_14pt,)
+                    ],
                   ),
                 ),
               ),
-                  order.answers.length==0?Container(alignment: Alignment.center,width: getProportionateScreenWidth(250),height: getProportionateScreenHeight(250),child: AutoSizeText("لا يوجد عناصر لعرضها حالياً",style: body1_16pt,),):
+            ),
+                order.answers.length==0?Container(alignment: Alignment.center,width: getProportionateScreenWidth(250),height: getProportionateScreenHeight(250),child: AutoSizeText("لا يوجد عناصر لعرضها حالياً".i18n,style: body1_16pt,),):
 
 Column(
   children: [
@@ -521,107 +522,107 @@ Column(
         height: getProportionateScreenHeight(110),
         margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(10)),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Color(0xFFF9F9F9),
-            boxShadow: shadow
+          borderRadius: BorderRadius.circular(12),
+          color: Color(0xFFF9F9F9),
+          boxShadow: shadow
         ),
         child: Row(
           children: [
-            Container(
-              width: getProportionateScreenWidth(95),
-              height: getProportionateScreenHeight(110),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight:  Radius.circular(12),
-                    bottomRight: Radius.circular(12)
-                ),
-                color: Colors.white,
-              ),
-              child: ClipRRect( borderRadius: BorderRadius.only(
+          Container(
+            width: getProportionateScreenWidth(95),
+            height: getProportionateScreenHeight(110),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
                   topRight:  Radius.circular(12),
                   bottomRight: Radius.circular(12)
-              ),child: Image.network(
-                order.answers[index].answeredType=="Store"?
-                Api.imagePath+ order.answers[index].answeredStoreImage:
-                Api.imagePath+order.answers[index].answeredImage,fit: BoxFit.fill,)),
+              ),
+              color: Colors.white,
             ),
-            SizedBox(width: getProportionateScreenWidth(10),),
-            Column(
-              children: [
-                SizedBox(height: getProportionateScreenHeight(6),),
-                Row(
-                  children: [
-                    Container(width: getProportionateScreenWidth(210),height: getProportionateScreenHeight(20),
-                      child: AutoSizeText(order.answers[index].answeredType=="Store"?order.answers[index].answeredStoreName:order.answers[index].userName.toString(),style: body1_16pt,),
-                    ),
-                    order.answers[index].answeredId==user.user.id? Container(
-                        height: getProportionateScreenHeight(30),
-                        width: getProportionateScreenWidth(30),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white
-                        ),
-                        child:GestureDetector(onTap:(){
-                          showDialog(
-                              context: context,
-                              builder: ((context) => AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5)),
-                                title: Text(
-                                  'هل أنت متأكد ؟',
-                                  textDirection: TextDirection.rtl,
-                                  style: body3_18pt,
-                                ),
-                                content: Text(
-                                  'انت على وشك حذف هذا الرد !',
-                                  textDirection: TextDirection.rtl,
-                                  style: body1_16pt,
-                                ),
-                                actions: [
-                                  TextButton(
-                                    child: Text(
-                                      'نعم',
-                                    ),
-                                    onPressed: () async{
-                                      // language.changeLanguage();
-                                      Navigator.of(context).pop();
-                                      await deleteAnswer(order.answers[index].id);
-                                      // Navigator.popUntil(context, ModalRoute.withName('/'));
-                                    },
+            child: ClipRRect( borderRadius: BorderRadius.only(
+                topRight:  Radius.circular(12),
+                bottomRight: Radius.circular(12)
+            ),child: Image.network(
+              order.answers[index].answeredType=="Store"?
+              Api.imagePath+ order.answers[index].answeredStoreImage:
+              Api.imagePath+order.answers[index].answeredImage,fit: BoxFit.fill,)),
+          ),
+          SizedBox(width: getProportionateScreenWidth(10),),
+          Column(
+            children: [
+              SizedBox(height: getProportionateScreenHeight(6),),
+              Row(
+                children: [
+                  Container(width: getProportionateScreenWidth(210),height: getProportionateScreenHeight(20),
+                    child: AutoSizeText(order.answers[index].answeredType=="Store"?order.answers[index].answeredStoreName:order.answers[index].userName.toString(),style: body1_16pt,),
+                  ),
+                  order.answers[index].answeredId==user.user.id? Container(
+                      height: getProportionateScreenHeight(30),
+                      width: getProportionateScreenWidth(30),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white
+                      ),
+                      child:GestureDetector(onTap:(){
+                        showDialog(
+                            context: context,
+                            builder: ((context) => AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5)),
+                              title: Text(
+                                'هل أنت متأكد ؟'.i18n,
+                                // textDirection: TextDirection.rtl,
+                                style: body3_18pt,
+                              ),
+                              content: Text(
+                                'انت على وشك حذف هذا الرد !'.i18n,
+                                // textDirection: TextDirection.rtl,
+                                style: body1_16pt,
+                              ),
+                              actions: [
+                                TextButton(
+                                  child: Text(
+                                    'نعم'.i18n,
                                   ),
-                                  TextButton(
-                                    child: Text('لا'),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  )
-                                ],
-                              )));
-                        },child: Image.asset("assets/images/vendor_app/trash.png",fit: BoxFit.fill,))
-                    ):Container(width: 0,height: 0,)
+                                  onPressed: () async{
+                                    // language.changeLanguage();
+                                    Navigator.of(context).pop();
+                                    await deleteAnswer(order.answers[index].id);
+                                    // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text('لا'.i18n),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            )));
+                      },child: Image.asset("assets/images/vendor_app/trash.png",fit: BoxFit.fill,))
+                  ):Container(width: 0,height: 0,)
+                ],
+              ),
+              SizedBox(height: getProportionateScreenHeight(4),),
+              Container(width: getProportionateScreenWidth(220),height: getProportionateScreenHeight(36),
+                child: AutoSizeText(order.answers[index].answer.toString(),style: darkGrayText_13pt,),
+              ),
+              Container(width: getProportionateScreenWidth(240),height: getProportionateScreenHeight(34),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Spacer(),
+                        SocialMedia(freez: true,),
+                        SizedBox(width: getProportionateScreenWidth(2),),
+                      ],
+                    ),
+                    SizedBox(height: getProportionateScreenHeight(2),)
                   ],
                 ),
-                SizedBox(height: getProportionateScreenHeight(4),),
-                Container(width: getProportionateScreenWidth(220),height: getProportionateScreenHeight(36),
-                  child: AutoSizeText(order.answers[index].answer.toString(),style: darkGrayText_13pt,),
-                ),
-                Container(width: getProportionateScreenWidth(240),height: getProportionateScreenHeight(34),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Spacer(),
-                          SocialMedia(freez: true,),
-                          SizedBox(width: getProportionateScreenWidth(2),),
-                        ],
-                      ),
-                      SizedBox(height: getProportionateScreenHeight(2),)
-                    ],
-                  ),
-                ),
+              ),
 
-              ],
-            )
+            ],
+          )
           ],
         ),
       ),
@@ -629,8 +630,7 @@ Column(
   ],
 )
 
-                ],
-              ),
+              ],
             ),
           ),
         ),

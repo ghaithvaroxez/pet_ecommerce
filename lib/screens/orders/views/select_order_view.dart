@@ -10,6 +10,7 @@ import '../model/all_orders_model.dart';
 import 'package:http/http.dart' as http;
 import '../controllers/orders_controller.dart';
 import 'package:get/get.dart';
+import 'translations/select_order_view.i18n.dart';
 class SelectOrderView extends StatefulWidget {
   @override
   _SelectOrderViewState createState() => _SelectOrderViewState();
@@ -76,7 +77,7 @@ class _SelectOrderViewState extends State<SelectOrderView> {
           builder: (controller)=>Container(
               margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
               child: controller.error?Column(mainAxisSize: MainAxisSize.max,children: [
-                Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مجدداً ",style: body3_18pt,),),),
+                Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مجدداً ".i18n,style: body3_18pt,),),),
               ],):controller.loading?LoadingScreen():RefreshIndicator(
                 onRefresh: ()async{
                   await controller.fetchData();

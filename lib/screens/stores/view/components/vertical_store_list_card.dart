@@ -13,15 +13,48 @@ import 'package:get/get.dart';
 import 'package:pets/screens/stores/view/store_details.dart';
 import '../../model/all_stores.dart';
 
-class VerticalStoreListCard extends StatelessWidget {
+class VerticalStoreListCard extends StatefulWidget {
 Store store;
 Function addToFav;
 VerticalStoreListCard({this.store,this.addToFav});
+
+  @override
+  _VerticalStoreListCardState createState() => _VerticalStoreListCardState();
+}
+
+class _VerticalStoreListCardState extends State<VerticalStoreListCard> {
+
+  String fb,wa,ins;
+  bool bfb=true,bwa=true,bins=true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for(int i =0; i<widget.store.storeContacts.length;i++)
+    {
+      if( widget.store.storeContacts[i].type=="facebook"&&bfb==true)
+      {
+        fb= widget.store.storeContacts[i].link;
+        bfb=false;
+      }
+      else if( widget.store.storeContacts[i].type=="phone"&&bwa==true)
+      {
+        wa= widget.store.storeContacts[i].link;
+        bwa=false;
+      }
+      else if ( widget.store.storeContacts[i].type=="instagram"&&bins==true)
+      {
+        ins= widget.store.storeContacts[i].link;
+        bins=false;
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(StoreDetailsPage(store));
+
+        Get.to(StoreDetailsPage(widget.store));
       },
       child: Container(
         height: getProportionateScreenHeight(135),
@@ -55,7 +88,7 @@ VerticalStoreListCard({this.store,this.addToFav});
                       topRight: Radius.circular(12),
                       bottomRight: Radius.circular(12)),
                   child: Image.network(
-                   Api.imagePath+store.image,
+                   Api.imagePath+widget.store.image,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -85,13 +118,13 @@ VerticalStoreListCard({this.store,this.addToFav});
                         height: getProportionateScreenHeight(30),
                         width: getProportionateScreenWidth(115),
                         child: AutoSizeText(
-                         store.name,
+                         widget.store.name,
                          style: body3_18pt,
                           maxLines: 1,
                           minFontSize: 9,
                         ),
                       ),
-                   
+
                     ],
                   ),
 
@@ -113,7 +146,7 @@ VerticalStoreListCard({this.store,this.addToFav});
                               height: getProportionateScreenHeight(20),
                               // width: getProportionateScreenWidth(120),
                               child: AutoSizeText(
-                                "${store.openFrom} ",textDirection: TextDirection.ltr,
+                                "${widget.store.openFrom} ",textDirection: TextDirection.ltr,
                                 style: body3_18pt,
                                 minFontSize: 10,
                               ),
@@ -131,7 +164,7 @@ VerticalStoreListCard({this.store,this.addToFav});
                               height: getProportionateScreenHeight(20),
                               // width: getProportionateScreenWidth(120),
                               child: AutoSizeText(
-                                "${store.closedAt} ",textDirection: TextDirection.ltr ,
+                                "${widget.store.closedAt} ",textDirection: TextDirection.ltr ,
                                 style: body3_18pt,
                                 minFontSize: 10,
                               ),
@@ -156,7 +189,7 @@ VerticalStoreListCard({this.store,this.addToFav});
                         height: getProportionateScreenHeight(18),
                         width: getProportionateScreenWidth(120),
                         child: AutoSizeText(
-                          store.district,
+                          widget.store.district,
                           style: body3_18pt,
                           minFontSize: 10,
                         ),
@@ -169,7 +202,7 @@ VerticalStoreListCard({this.store,this.addToFav});
               ),
             ),
 
-            Positioned(left: getProportionateScreenWidth(4), bottom: getProportionateScreenHeight(4), child: SocialMedia(freez: true,)),
+            Positioned(left: getProportionateScreenWidth(4), bottom: getProportionateScreenHeight(4), child: SocialMedia(wa: wa,fb: fb,ins: ins,),),
 
             ///social media
             Positioned(
@@ -177,7 +210,7 @@ VerticalStoreListCard({this.store,this.addToFav});
               // height: getProportionateScreenHeight(15),
               left:getProportionateScreenWidth(15),
               top: getProportionateScreenHeight(15),
-              child: FavoriteIcon(fav: addToFav,s: store.favStatus,),
+              child: FavoriteIcon(fav: widget.addToFav,s: widget.store.favStatus,),
             ),
           ],
         ),

@@ -10,16 +10,48 @@ import 'package:pets/screens/home/view/components/favorite_icon.dart';
 import 'package:pets/screens/home/view/components/open_now_coponent.dart';
 import 'package:pets/screens/home/view/components/social_media_components.dart';
 import '../../model/all_doctors.dart';
-class VerticalDoctorListCard extends StatelessWidget {
+class VerticalDoctorListCard extends StatefulWidget {
   Doctor doctor;
   Function fav;
   VerticalDoctorListCard(this.doctor,this.fav);
 
   @override
+  _VerticalDoctorListCardState createState() => _VerticalDoctorListCardState();
+}
+
+class _VerticalDoctorListCardState extends State<VerticalDoctorListCard> {
+
+  String fb,wa,ins;
+  bool bfb=true,bwa=true,bins=true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for(int i =0; i<widget.doctor.doctorContacts.length;i++)
+    {
+      if( widget.doctor.doctorContacts[i].type=="facebook"&&bfb==true)
+      {
+        fb= widget.doctor.doctorContacts[i].link;
+        bfb=false;
+      }
+      else if( widget.doctor.doctorContacts[i].type=="phone"&&bwa==true)
+      {
+        wa= widget.doctor.doctorContacts[i].link;
+        bwa=false;
+      }
+      else if ( widget.doctor.doctorContacts[i].type=="instagram"&&bins==true)
+      {
+        ins= widget.doctor.doctorContacts[i].link;
+        bins=false;
+      }
+    }
+  }
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(DoctorDetailsPage(doctor.id));
+
+        Get.to(DoctorDetailsPage(widget.doctor.id));
       },
       child: Container(
         height: getProportionateScreenHeight(128),
@@ -52,8 +84,8 @@ class VerticalDoctorListCard extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(12),
                       bottomRight: Radius.circular(12)),
-                  child:doctor.image!=null?
-                      Image.network(Api.imagePath+doctor.image,fit: BoxFit.fill,): Image.asset(
+                  child:widget.doctor.image!=null?
+                      Image.network(Api.imagePath+widget.doctor.image,fit: BoxFit.fill,): Image.asset(
                     "assets/images/doctors/femal_doctor_details_image.png",
                     fit: BoxFit.fill,
                   ),
@@ -71,11 +103,11 @@ class VerticalDoctorListCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  doctor.firstName!=null&&doctor.lastName!=null? Container(
+                  widget.doctor.firstName!=null&&widget.doctor.lastName!=null? Container(
                     height: getProportionateScreenHeight(30),
                     width: getProportionateScreenWidth(150),
                     child: AutoSizeText(
-                      doctor.firstName+" "+doctor.lastName,
+                      widget.doctor.firstName+" "+widget.doctor.lastName,
                       style: body3_18pt,
                     ),
                   ):Container(height: 0,),
@@ -96,7 +128,8 @@ class VerticalDoctorListCard extends StatelessWidget {
                               height: getProportionateScreenHeight(20),
                               // width: getProportionateScreenWidth(120),
                               child: AutoSizeText(
-                                "${doctor.openFrom} ",textDirection: TextDirection.ltr,
+                                "${widget.doctor.openFrom} ",
+                                // textDirection: TextDirection.ltr,
                                 style: body3_18pt,
                                 minFontSize: 10,
                               ),
@@ -114,7 +147,8 @@ class VerticalDoctorListCard extends StatelessWidget {
                               height: getProportionateScreenHeight(20),
                               // width: getProportionateScreenWidth(120),
                               child: AutoSizeText(
-                                "${doctor.closedAt} ",textDirection: TextDirection.ltr ,
+                                "${widget.doctor.closedAt} ",
+                                // textDirection: TextDirection.ltr ,
                                 style: body3_18pt,
                                 minFontSize: 10,
                               ),
@@ -137,7 +171,7 @@ class VerticalDoctorListCard extends StatelessWidget {
                         height: getProportionateScreenHeight(18),
                         width: getProportionateScreenWidth(120),
                         child: AutoSizeText(
-                          doctor.district,
+                          widget.doctor.district,
                           style: body3_18pt,
                           minFontSize: 10,
                         ),
@@ -153,7 +187,7 @@ class VerticalDoctorListCard extends StatelessWidget {
             Positioned(
               bottom: getProportionateScreenHeight(4),
               left: getProportionateScreenWidth(4),
-              child: SocialMedia(freez: true,),
+              child: SocialMedia(wa: wa,fb: fb,ins: ins,),
             ),///social media
 
             ///social media
@@ -162,7 +196,7 @@ class VerticalDoctorListCard extends StatelessWidget {
               // height: getProportionateScreenHeight(15),
               left:getProportionateScreenWidth(15),
               top: getProportionateScreenHeight(15),
-              child: FavoriteIcon(fav: fav,s: doctor.favStatus,),
+              child: FavoriteIcon(fav: widget.fav,s: widget.doctor.favStatus,),
             ),
           ],
         ),

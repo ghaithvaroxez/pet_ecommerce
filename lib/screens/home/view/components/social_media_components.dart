@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pets/configuration/printer.dart';
 import 'package:pets/configuration/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,38 +25,65 @@ bool e;
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(12),
                 bottomLeft: Radius.circular(12)),
-            color: Colors.white.withOpacity(0.6),
+            color: Colors.white.withOpacity(0.8),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               freez?Image.asset("assets/images/home/whatsapp.png"):GestureDetector(onTap: () async {
+                if(wa==null) {
+                  Get.rawSnackbar(
+                    message: "عذرا لا يوجد رقم هاتف !",
+                    backgroundColor: Colors.blueGrey.withOpacity(0.8),
+                  );
+                  return;
+                }
                 // await FlutterLaunch.launchWathsApp(phone: wa,);
                 var whatsappUrl ="whatsapp://send?phone=$wa";
-                await canLaunch(whatsappUrl)? launch(whatsappUrl)
-                    :
-                Get.rawSnackbar(message: "عذرا لا يوجد رابط !",);
+               if( await canLaunch(whatsappUrl)) launch(whatsappUrl);
+                   else
+                {
+                  consolePrint("can't launch facebook");
+                  Get.rawSnackbar(message: "عذرا لا يوجد رقم !",  backgroundColor: Colors.blueGrey.withOpacity(0.8),);
+
+                }
               },child: Image.asset("assets/images/home/whatsapp.png")),
               SizedBox(
                 width: 5,
               ),
               freez?Image.asset("assets/images/home/facebook.png"):   GestureDetector(onTap: ()async {
-
+                if(fb==null) {
+                  Get.rawSnackbar(
+                    message: "عذرا لا يوجد رابط !",  backgroundColor: Colors.blueGrey.withOpacity(0.8),
+                  );
+                  return;
+                }
+                String url=fb.contains("http://")?fb:"http://"+fb;
       if (await canLaunch(fb)) {
         await launch(fb);
       } else {
-       Get.rawSnackbar(message: "عذرا لا يوجد رابط !",);
+        consolePrint("can't launch facebook");
+
+        Get.rawSnackbar(message: "عذرا لا يوجد رابط !",  backgroundColor: Colors.blueGrey.withOpacity(0.8),);
       }
     },child: Image.asset("assets/images/home/facebook.png")),
               SizedBox(
                 width: 5,
               ),
               freez?Image.asset("assets/images/home/instagram.png"):   GestureDetector(onTap: ()async{
+if(ins==null) {
+                          Get.rawSnackbar(
+                            message: "عذرا لا يوجد رابط !",  backgroundColor: Colors.blueGrey.withOpacity(0.8),
+                          );
+                          return;
+                        }
 
-                if (await canLaunch(ins)) {
-                await launch(ins);
+String url=ins.contains("http://")?ins:"http://"+ins;
+                        if (await canLaunch(url)) {
+                await launch(url);
                 } else {
-                Get.rawSnackbar(message: "عذرا لا يوجد رابط !",);
+                          consolePrint("can't launch instagram");
+                Get.rawSnackbar(message: "عذرا لا يوجد رابط !",  backgroundColor: Colors.blueGrey.withOpacity(0.8),);
                 }
 
               },child: Image.asset("assets/images/home/instagram.png")),

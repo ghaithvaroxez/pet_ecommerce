@@ -11,15 +11,46 @@ import 'package:pets/screens/home/view/components/favorite_icon.dart';
 import 'package:pets/screens/home/view/components/social_media_components.dart';
 import 'package:pets/screens/doctors/model/all_doctors.dart';
 import 'package:get/get.dart';
-class DoctorFavoriteCard extends StatelessWidget {
+class DoctorFavoriteCard extends StatefulWidget {
   Doctor doctor;
   Function fav;
   DoctorFavoriteCard(this.doctor,this.fav);
+
+  @override
+  _DoctorFavoriteCardState createState() => _DoctorFavoriteCardState();
+}
+
+class _DoctorFavoriteCardState extends State<DoctorFavoriteCard> {
+  String fb,wa,ins;
+  bool bfb=true,bwa=true,bins=true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for(int i =0; i<widget.doctor.doctorContacts.length;i++)
+    {
+      if( widget.doctor.doctorContacts[i].type=="facebook"&&bfb==true)
+      {
+        fb= widget.doctor.doctorContacts[i].link;
+        bfb=false;
+      }
+      else if( widget.doctor.doctorContacts[i].type=="phone"&&bwa==true)
+      {
+        wa= widget.doctor.doctorContacts[i].link;
+        bwa=false;
+      }
+      else if ( widget.doctor.doctorContacts[i].type=="instagram"&&bins==true)
+      {
+        ins= widget.doctor.doctorContacts[i].link;
+        bins=false;
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.to(DoctorDetailsPage(doctor.id));
+        Get.to(DoctorDetailsPage(widget.doctor.id));
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 6),
@@ -42,7 +73,7 @@ class DoctorFavoriteCard extends StatelessWidget {
                       topLeft: Radius.circular(12)
                   ),
                   child: Image.network(
-                    Api.imagePath+doctor.image,
+                    Api.imagePath+widget.doctor.image,
                     fit: BoxFit.fill,
                   ),
                 )),///doctor_image
@@ -68,7 +99,7 @@ class DoctorFavoriteCard extends StatelessWidget {
                         Container
                           (height: getProportionateScreenHeight(30),width: getProportionateScreenWidth(120),
                           alignment: Alignment.center, child: AutoSizeText(
-                            doctor.firstName+" "+doctor.lastName,
+                            widget.doctor.firstName+" "+widget.doctor.lastName,
                             style: body2_14pt,
                             maxLines: 1,
                             minFontSize: 9,
@@ -79,7 +110,7 @@ class DoctorFavoriteCard extends StatelessWidget {
                           child: Row(
                             children: [
                               Spacer(),
-                              SocialMedia(freez: true,),
+                              SocialMedia(wa: wa,fb: fb,ins: ins,),
                               Spacer(),
                             ],
                           ),
@@ -109,7 +140,7 @@ class DoctorFavoriteCard extends StatelessWidget {
               // height: getProportionateScreenHeight(15),
               left:getProportionateScreenWidth(15),
               top: getProportionateScreenHeight(15),
-              child: FavoriteIcon(fav: fav,s: doctor.favStatus,),
+              child: FavoriteIcon(fav: widget.fav,s: widget.doctor.favStatus,),
             ),///favorite icon
 
           ],

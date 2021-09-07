@@ -14,7 +14,7 @@ import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets/lib/screens/stores/v
 import 'package:pets/screens/stores/view/components/offers/store_offer_card.dart';
 import 'package:pets/services/http_requests_service.dart';
 import 'package:http/http.dart' as http;
-
+import 'translation.i18n.dart';
 class FavoriteOffersBody extends StatefulWidget {
   @override
   _FavoriteOffersBodyState createState() => _FavoriteOffersBodyState();
@@ -106,12 +106,15 @@ class _FavoriteOffersBodyState extends State<FavoriteOffersBody> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return  error? Container(
+    return  error?Column(mainAxisSize: MainAxisSize.max,children: [
+      Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مجدداً ".i18n,style: body3_18pt,),),),
+    ],):loading?LoadingScreen():
+    offers.length==0? Container(
       height: getProportionateScreenHeight(400),
       width: getProportionateScreenWidth(350),
       alignment: Alignment.center,
-      child: AutoSizeText("عذرا حدثت مشكلة الرجاء المحاولة مجددا",style: body3_18pt,),
-    ):loading?LoadingScreen():Container(
+      child: AutoSizeText("لا يوجد عناصر في المفضلة".i18n,style: body3_18pt,),
+    ):Container(
       margin: EdgeInsets.symmetric(
           horizontal: getProportionateScreenWidth(24),
           vertical: getProportionateScreenHeight(26)),

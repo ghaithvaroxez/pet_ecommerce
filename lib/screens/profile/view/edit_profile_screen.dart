@@ -23,6 +23,7 @@ import 'dart:math' as Math;
 import 'package:image/image.dart' as Im;
 import 'components/profile_item.dart';
 import 'dart:io';
+import 'translations/edit_profile_screen.i18n.dart';
 class EditProfileScreen extends StatefulWidget {
   Function refresh;
   EditProfileScreen(this.refresh);
@@ -114,8 +115,8 @@ checkPassword(String pass)async {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5)),
           title:  Text(
-            'ادخل كلمة السر الجديدة ',
-            textDirection: TextDirection.rtl,
+            'ادخل كلمة السر الجديدة '.i18n,
+            // textDirection: TextDirection.rtl,
             style: body3_18pt,
           ),
           content:
@@ -127,7 +128,7 @@ checkPassword(String pass)async {
           ),),
           actions: [
             TextButton(
-              child: Text('العودة',style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
+              child: Text('العودة'.i18n,style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
               onPressed: () {
                 Navigator.pop(context);
                 // Navigator.pop(context);
@@ -135,17 +136,17 @@ checkPassword(String pass)async {
             ),
             TextButton(
               child:  Text(
-                'المتابعة',style: GoogleFonts.tajawal(
+                'المتابعة'.i18n,style: GoogleFonts.tajawal(
                   color: Colors.blue.withOpacity(0.6)
               ),
               ),
               onPressed: () async{
                 if(ans==""||ans==null){
-                  Get.rawSnackbar(message:"كلمة المرور لا يمكن ان تكون فارغة",backgroundColor: Colors.red);
+                  Get.rawSnackbar(message:"كلمة المرور لا يمكن ان تكون فارغة".i18n,backgroundColor: Colors.red);
                   return;
                 }
                 if(ans.length<6){
-                  Get.rawSnackbar(message:"كلمة المرور لا يمكن ان تكون اقل من 6 محارف",backgroundColor: Colors.red);
+                  Get.rawSnackbar(message:"كلمة المرور لا يمكن ان تكون اقل من 6 محارف".i18n,backgroundColor: Colors.red);
                   return;
                 }
                 Get.back();
@@ -278,7 +279,7 @@ checkPassword(String pass)async {
                                         ),
                                         child: Center(
                                           child: AutoSizeText(
-                                            "حمل صورة",
+                                            "حمل صورة".i18n,
                                             style: body1_16pt,
                                             maxLines: 1,
                                           ),
@@ -348,34 +349,31 @@ checkPassword(String pass)async {
 
                 ),
                 SizedBox(height: getProportionateScreenHeight(50),),
-        Directionality(
-            textDirection: TextDirection.rtl,
-            child: Container(
-              alignment: Alignment.center,
-              width: getProportionateScreenWidth(361),
-              height: getProportionateScreenHeight(48),
-              child:Row(
-                children: [
-                  SizedBox(width: getProportionateScreenWidth(10),),
+        Container(
+          alignment: Alignment.center,
+          width: getProportionateScreenWidth(361),
+          height: getProportionateScreenHeight(48),
+          child:Row(
+            children: [
+              SizedBox(width: getProportionateScreenWidth(10),),
 
-                  Container(
-                    alignment: Alignment.topCenter,
-                    width: getProportionateScreenWidth(16),
-                    height: getProportionateScreenHeight(20),
-                    child: Image.asset("assets/images/profile/personal_info_icon.png",fit: BoxFit.fill,color: Color(0xFF348BA7)),
-                  ),
-                  SizedBox(width: getProportionateScreenWidth(10),),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    width: getProportionateScreenWidth(180),
-                    height: getProportionateScreenHeight(40),
-                    child: AutoSizeText(" المعلومات الشخصية ",style: darkBlueText_13pt,maxLines: 1,),
-                  ),
-                  Spacer(),
-                ],
+              Container(
+                alignment: Alignment.topCenter,
+                width: getProportionateScreenWidth(16),
+                height: getProportionateScreenHeight(20),
+                child: Image.asset("assets/images/profile/personal_info_icon.png",fit: BoxFit.fill,color: Color(0xFF348BA7)),
               ),
+              SizedBox(width: getProportionateScreenWidth(10),),
+              Container(
+                alignment: Alignment.centerRight,
+                width: getProportionateScreenWidth(180),
+                height: getProportionateScreenHeight(40),
+                child: AutoSizeText(" المعلومات الشخصية ".i18n,style: darkBlueText_13pt,maxLines: 1,),
+              ),
+              Spacer(),
+            ],
+          ),
 
-            ),
         ),
 SizedBox(height: getProportionateScreenHeight(25),),
                 Container
@@ -424,7 +422,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                                   ),
                                 ),
                                 AutoSizeText(
-                                  "الاسم الأخير",
+                                  "الاسم الأخير".i18n,
                                   style:
                                   body2_14pt,
                                 ),
@@ -438,33 +436,30 @@ SizedBox(height: getProportionateScreenHeight(25),),
                             alignment: Alignment
                                 .centerLeft,
                             child:
-                            Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: Container(
-                                height:
-                                getProportionateScreenHeight(
-                                    60),
-                                width:
-                                getProportionateScreenWidth(
-                                    150),
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.circular(
-                                        10),
-                                    border: Border.all(
-                                        color: Colors
-                                            .grey,
-                                        width:
-                                        0.3)),
-                                child:
-                                CustomTextField(
-                                  textEditingController:
-                                  lastNameController,
-                                  // hint:,
-                                  // prefixImage: "assets/images/auth/mobile_icon.png",
-                                  // textInputType: TextInputType.phone,
-                                  color: true,
-                                ),
+                            Container(
+                              height:
+                              getProportionateScreenHeight(
+                                  60),
+                              width:
+                              getProportionateScreenWidth(
+                                  150),
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                  BorderRadius.circular(
+                                      10),
+                                  border: Border.all(
+                                      color: Colors
+                                          .grey,
+                                      width:
+                                      0.3)),
+                              child:
+                              CustomTextField(
+                                textEditingController:
+                                lastNameController,
+                                // hint:,
+                                // prefixImage: "assets/images/auth/mobile_icon.png",
+                                // textInputType: TextInputType.phone,
+                                color: true,
                               ),
                             ),
                           ),
@@ -511,7 +506,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                                   ),
                                 ),
                                 AutoSizeText(
-                                  "الاسم الاول",
+                                  "الاسم الاول".i18n,
                                   style:
                                   body2_14pt,
                                 ),
@@ -522,81 +517,78 @@ SizedBox(height: getProportionateScreenHeight(25),),
                           SizedBox(
                             height: 10,
                           ),
-                          Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: Row(
-                              children: [
-                                Container(
-                                  height:
-                                  getProportionateScreenHeight(
-                                      60),
-                                  width:
-                                  getProportionateScreenWidth(
-                                      151),
-                                  decoration: BoxDecoration(
+                          Row(
+                            children: [
+                              Container(
+                                height:
+                                getProportionateScreenHeight(
+                                    60),
+                                width:
+                                getProportionateScreenWidth(
+                                    151),
+                                decoration: BoxDecoration(
 
-                                      borderRadius:
-                                      BorderRadius.circular(
-                                          10),
-                                      border: Border.all(
-                                          color: Colors
-                                              .grey,
-                                          width:
-                                          0.3)),
-                                  child:
-                                  Row(
-                                    children: [
+                                    borderRadius:
+                                    BorderRadius.circular(
+                                        10),
+                                    border: Border.all(
+                                        color: Colors
+                                            .grey,
+                                        width:
+                                        0.3)),
+                                child:
+                                Row(
+                                  children: [
 
-                                      // Obx(
-                                      //   ()=>editFirst.value?
+                                    // Obx(
+                                    //   ()=>editFirst.value?
                           Container(width: getProportionateScreenWidth(120),
-                                          child: CustomTextField(
-                                            textEditingController:
-                                            firstNameController,
-                                            // hint:,
-                                            // prefixImage: "assets/images/auth/mobile_icon.png",
-                                            // textInputType: TextInputType.phone,
-                                            color: true,
-                                          ),
-                                        // ):Container(width: getProportionateScreenWidth(120),child: Container(alignment:Alignment.centerRight,
-                                        //     margin:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),child: AutoSizeText(controller.doctorModel.doctor.firstName==null?" ":controller.doctorModel.doctor.firstName,style: darkGrayText_13pt,minFontSize: 9,maxLines: 1,)),),
-                                      ),
-                                      // Obx(
-                                      //       ()=> Container(
-                                      //
-                                      //     child: editFirst.value?Column(
-                                      //       children: [
-                                      //         GestureDetector(
-                                      //           onTap: (){
-                                      //             controller.changeFirstName(firstNameController.text);
-                                      //           },
-                                      //           child: Container(width: getProportionateScreenWidth(20),height:getProportionateScreenHeight(29),//color: Colors.red,
-                                      //           child: Icon(CupertinoIcons.checkmark_alt,color: Colors.blue,size: 20,),),
-                                      //         ),
-                                      //         GestureDetector(
-                                      //           onTap: (){
-                                      //             editFirst.value=false;
-                                      //           },
-                                      //           child: Container(width: getProportionateScreenWidth(20),height:getProportionateScreenHeight(29),//color: Colors.green,
-                                      //             child: Icon(CupertinoIcons.clear,color: Colors.red,size: 20,),
-                                      //           ),
-                                      //         ),
-                                      //       ],
-                                      //     ):GestureDetector(
-                                      //         onTap: (){
-                                      //           editFirst.value=true;
-                                      //           firstNameController.text=controller.doctorModel.doctor.firstName;
-                                      //         },
-                                      //         child: Icon
-                                      //           (Icons.edit,size: 22,color: Colors.grey,)),
-                                      //   ),
-                                      // )
-                                      // ,
-                                    ],
-                                  ),
+                                        child: CustomTextField(
+                                          textEditingController:
+                                          firstNameController,
+                                          // hint:,
+                                          // prefixImage: "assets/images/auth/mobile_icon.png",
+                                          // textInputType: TextInputType.phone,
+                                          color: true,
+                                        ),
+                                      // ):Container(width: getProportionateScreenWidth(120),child: Container(alignment:Alignment.centerRight,
+                                      //     margin:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(5)),child: AutoSizeText(controller.doctorModel.doctor.firstName==null?" ":controller.doctorModel.doctor.firstName,style: darkGrayText_13pt,minFontSize: 9,maxLines: 1,)),),
+                                    ),
+                                    // Obx(
+                                    //       ()=> Container(
+                                    //
+                                    //     child: editFirst.value?Column(
+                                    //       children: [
+                                    //         GestureDetector(
+                                    //           onTap: (){
+                                    //             controller.changeFirstName(firstNameController.text);
+                                    //           },
+                                    //           child: Container(width: getProportionateScreenWidth(20),height:getProportionateScreenHeight(29),//color: Colors.red,
+                                    //           child: Icon(CupertinoIcons.checkmark_alt,color: Colors.blue,size: 20,),),
+                                    //         ),
+                                    //         GestureDetector(
+                                    //           onTap: (){
+                                    //             editFirst.value=false;
+                                    //           },
+                                    //           child: Container(width: getProportionateScreenWidth(20),height:getProportionateScreenHeight(29),//color: Colors.green,
+                                    //             child: Icon(CupertinoIcons.clear,color: Colors.red,size: 20,),
+                                    //           ),
+                                    //         ),
+                                    //       ],
+                                    //     ):GestureDetector(
+                                    //         onTap: (){
+                                    //           editFirst.value=true;
+                                    //           firstNameController.text=controller.doctorModel.doctor.firstName;
+                                    //         },
+                                    //         child: Icon
+                                    //           (Icons.edit,size: 22,color: Colors.grey,)),
+                                    //   ),
+                                    // )
+                                    // ,
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           SizedBox(
                             height:
@@ -631,7 +623,7 @@ SizedBox(height: getProportionateScreenHeight(25),),
                         ),
                       ),
                       AutoSizeText(
-                        "عنوان السكن",
+                        "عنوان السكن".i18n,
                         style: body2_14pt,
                       ),
                       SizedBox(width: getProportionateScreenWidth(4),)
@@ -674,8 +666,8 @@ SizedBox(height: getProportionateScreenHeight(25),),
                                 getProportionateScreenHeight(45),
                                 child: AutoSizeText(
                                   item.name,
-                                  textDirection:
-                                  TextDirection.rtl,
+                                  // textDirection:
+                                  // TextDirection.rtl,
                                   style: blackText_14pt,
                                   minFontSize: 9,
                                 ),
@@ -723,7 +715,7 @@ SizedBox(height: getProportionateScreenHeight(20),),
                         ),
                       ),
                       AutoSizeText(
-                        "البريد الالكتروني",
+                        "البريد الالكتروني".i18n,
                         style: body2_14pt,
                       ),
                       SizedBox(width: getProportionateScreenWidth(4),)
@@ -733,26 +725,22 @@ SizedBox(height: getProportionateScreenHeight(20),),
                 SizedBox(
                   height: getProportionateScreenHeight(15),
                 ),
-                Directionality(
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 24),
 
-                  textDirection: TextDirection.rtl,
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 24),
-
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.grey, width: 0.3),
-                        borderRadius:
-                        BorderRadius.circular(10)),
-                    child: CustomTextField(
-                      textEditingController:
-                      registerPasswordController,
-                      hint: "البريد الالكتروني",
-                      // prefixImage:
-                      // "assets/images/auth/lock_icon.png",
-                      // password: true,
-                      textInputType: TextInputType.emailAddress,
-                    ),
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Colors.grey, width: 0.3),
+                      borderRadius:
+                      BorderRadius.circular(10)),
+                  child: CustomTextField(
+                    textEditingController:
+                    registerPasswordController,
+                    hint: "البريد الالكتروني".i18n,
+                    // prefixImage:
+                    // "assets/images/auth/lock_icon.png",
+                    // password: true,
+                    textInputType: TextInputType.emailAddress,
                   ),
                 ),
 
@@ -770,7 +758,7 @@ SizedBox(height: getProportionateScreenHeight(20),),
                                   borderRadius: BorderRadius.circular(5)),
                               title:  Text(
                                 'ادخل كلمة السر القديمة ',
-                                textDirection: TextDirection.rtl,
+                                // textDirection: TextDirection.rtl,
                                 style: body3_18pt,
                               ),
                               content:
@@ -782,7 +770,7 @@ SizedBox(height: getProportionateScreenHeight(20),),
                               ),),
                               actions: [
                                 TextButton(
-                                  child: Text('العودة',style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
+                                  child: Text('العودة'.i18n,style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
                                   onPressed: () {
                                     Navigator.pop(context);
                                     // Navigator.pop(context);
@@ -790,17 +778,17 @@ SizedBox(height: getProportionateScreenHeight(20),),
                                 ),
                                 TextButton(
                                   child:  Text(
-                                    'المتابعة',style: GoogleFonts.tajawal(
+                                    'المتابعة'.i18n,style: GoogleFonts.tajawal(
                                       color: Colors.blue.withOpacity(0.6)
                                   ),
                                   ),
                                   onPressed: () async{
                                     if(ans==""||ans==null){
-                                      Get.rawSnackbar(message:"كلمة المرور لا يمكن ان تكون فارغة",backgroundColor: Colors.red);
+                                      Get.rawSnackbar(message:"كلمة المرور لا يمكن ان تكون فارغة".i18n,backgroundColor: Colors.red);
                                       return;
                                     }
                                     if(ans.length<6){
-                                      Get.rawSnackbar(message:"كلمة المرور لا يمكن ان تكون اقل من 6 محارف",backgroundColor: Colors.red);
+                                      Get.rawSnackbar(message:"كلمة المرور لا يمكن ان تكون اقل من 6 محارف".i18n,backgroundColor: Colors.red);
                                       return;
                                     }
 checkPassword( ans);
@@ -819,72 +807,69 @@ checkPassword( ans);
 
                               ],
                             )));
-                      },child: Container(margin:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(12)),alignment: Alignment.centerRight,child: AutoSizeText("هل تريد تغير كلمة المرور ؟",style: body2_14pt_underlined,),)),
+                      },child: Container(margin:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(12)),alignment: Alignment.centerRight,child: AutoSizeText("هل تريد تغير كلمة المرور ؟".i18n,style: body2_14pt_underlined,),)),
                 SizedBox(
                   height: getProportionateScreenHeight(25),
                 ),
-                Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16),
-                    height: getProportionateScreenHeight(60),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        GestureDetector(
-                            onTap: () async {
-                              if(firstNameController.text==""||lastNameController.text=="")
-                              {
-                                CoolAlert.show(context: context, type: CoolAlertType.error,text: "الرجاء ملئ كافة الحقول قبل تعديل البيانات",title: "فشلت العملية");
-                                return;
-                              }
-                              // if(image==null)
-                              // {
-                              //   CoolAlert.show(context: context, type: CoolAlertType.error,text: "الرجاء اضافة صورة للمنتج",title: "فشلت العملية",);
-                              //   return;
-                              // }
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  height: getProportionateScreenHeight(60),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                          onTap: () async {
+                            if(firstNameController.text==""||lastNameController.text=="")
+                            {
+                              CoolAlert.show(context: context, type: CoolAlertType.error,text: "الرجاء ملئ كافة الحقول قبل تعديل البيانات".i18n,);
+                              return;
+                            }
+                            // if(image==null)
+                            // {
+                            //   CoolAlert.show(context: context, type: CoolAlertType.error,text: "الرجاء اضافة صورة للمنتج",title: "فشلت العملية",);
+                            //   return;
+                            // }
 
-                              // widget.storeProduct.id;
-                              // widget.storeProduct.image;
+                            // widget.storeProduct.id;
+                            // widget.storeProduct.image;
 
-                              await controller.updateUser( locationId,firstNameController.text,lastNameController.text,emailController.text);
-                              await widget.refresh();
-                              // vendorAppTabController.animateTo(0);
-                              // vendorAppLabelController.changeIndex(0);
-                            },
-                            child: Container(
-                              width: getProportionateScreenWidth(170),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  gradient: blueGradient),
-                              child: Center(
-                                child: AutoSizeText(
-                                  "تعديل ",
-                                  style: blueButton_14pt,
-                                ),
+                            await controller.updateUser( locationId,firstNameController.text,lastNameController.text,emailController.text);
+                            await widget.refresh();
+                            // vendorAppTabController.animateTo(0);
+                            // vendorAppLabelController.changeIndex(0);
+                          },
+                          child: Container(
+                            width: getProportionateScreenWidth(170),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                gradient: blueGradient),
+                            child: Center(
+                              child: AutoSizeText(
+                                "تعديل ".i18n,
+                                style: blueButton_14pt,
                               ),
-                            )),
-                        GestureDetector(
-                            onTap: (){
-                              // vendorAppTabController.animateTo(0);
-                              // vendorAppLabelController.changeIndex(0);
-                              Get.back();
-                            },
-                            child: Container(
-                              width: getProportionateScreenWidth(170),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  border:
-                                  Border.all(color: Color(0xFF49C3EA), width: 0.8)),
-                              child: Center(
-                                child: AutoSizeText(
-                                  "العودة",
-                                  style: body2_14pt,
-                                ),
+                            ),
+                          )),
+                      GestureDetector(
+                          onTap: (){
+                            // vendorAppTabController.animateTo(0);
+                            // vendorAppLabelController.changeIndex(0);
+                            Get.back();
+                          },
+                          child: Container(
+                            width: getProportionateScreenWidth(170),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                border:
+                                Border.all(color: Color(0xFF49C3EA), width: 0.8)),
+                            child: Center(
+                              child: AutoSizeText(
+                                "العودة".i18n,
+                                style: body2_14pt,
                               ),
-                            )),
-                      ],
-                    ),
+                            ),
+                          )),
+                    ],
                   ),
                 ),
                 SizedBox(height: getProportionateScreenHeight(20),)

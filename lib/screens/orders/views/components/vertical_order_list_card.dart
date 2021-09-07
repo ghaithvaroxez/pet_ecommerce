@@ -80,7 +80,7 @@ class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
                     width: getProportionateScreenWidth(200),
                     child: AutoSizeText(
                      widget.order.title,
-                      textDirection: TextDirection.rtl,
+                      // textDirection: TextDirection.rtl,
                       minFontSize: 8,
                       style: body1_16pt,
                     ),
@@ -114,7 +114,7 @@ class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
                                       widget.order.categoryName,
                                       style: darkGrayText_11pt,
                                       minFontSize: 5,
-                                      textDirection: TextDirection.rtl,
+                                      // textDirection: TextDirection.rtl,
                                     ),
                                   )),
                             ],
@@ -140,7 +140,8 @@ class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
                                     child: AutoSizeText(widget.order.date.toString(),
                                         style: darkGrayText_11pt,
                                         minFontSize: 5,
-                                        textDirection: TextDirection.rtl),
+                                        // textDirection: TextDirection.rtl
+                                      ),
                                   )),
 
                             ],
@@ -160,7 +161,8 @@ class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
                         widget.order.question,
                         minFontSize: 8,
                         style: darkGrayText_13pt,
-                        textDirection: TextDirection.rtl),
+                        // textDirection: TextDirection.rtl
+                    ),
                   ),
                 ],
               ),

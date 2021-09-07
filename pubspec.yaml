@@ -94,6 +94,7 @@ flutter:
     - assets/images/drawer/drawer_icons/
     - assets/images/drawer/
     - assets/images/profile/
+    - assets/translations/
 
 
 

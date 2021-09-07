@@ -14,15 +14,46 @@ import 'package:pets/screens/stores/view/store_details.dart';
 import 'favorite_icon.dart';
 import 'package:get/get.dart';
 
-class StoreAndStableCard extends StatelessWidget {
+class StoreAndStableCard extends StatefulWidget {
   Store store;
   Function fav;
   StoreAndStableCard(this.store,this.fav);
+
+  @override
+  _StoreAndStableCardState createState() => _StoreAndStableCardState();
+}
+
+class _StoreAndStableCardState extends State<StoreAndStableCard> {
+  String fb,wa,ins;
+  bool bfb=true,bwa=true,bins=true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for(int i =0; i<widget.store.storeContacts.length;i++)
+    {
+      if( widget.store.storeContacts[i].type=="facebook"&&bfb==true)
+      {
+        fb= widget.store.storeContacts[i].link;
+        bfb=false;
+      }
+      else if( widget.store.storeContacts[i].type=="phone"&&bwa==true)
+      {
+        wa= widget.store.storeContacts[i].link;
+        bwa=false;
+      }
+      else if ( widget.store.storeContacts[i].type=="instagram"&&bins==true)
+      {
+        ins= widget.store.storeContacts[i].link;
+        bins=false;
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(StoreDetailsPage(store));
+        Get.to(StoreDetailsPage(widget.store));
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 6),
@@ -64,7 +95,7 @@ class StoreAndStableCard extends StatelessWidget {
                               Container(
                                 height: getProportionateScreenHeight(25),
                                 child: AutoSizeText(
-                                  store.name,
+                                  widget.store.name,
                                   // minFontSize: 8,
                                   style: body1_16pt,
                                 ),
@@ -87,7 +118,7 @@ class StoreAndStableCard extends StatelessWidget {
                                       width: getProportionateScreenWidth(10),
                                     ),
                                     AutoSizeText(
-                                      store.district,
+                                      widget.store.district,
                                       // minFontSize: 8,
                                       style: darkGrayText_13pt,
                                     ),
@@ -133,7 +164,7 @@ class StoreAndStableCard extends StatelessWidget {
             Positioned(
               bottom: getProportionateScreenHeight(4),
               left: getProportionateScreenWidth(4),
-              child: SocialMedia(freez: true,),
+              child:SocialMedia(wa: wa,fb: fb,ins: ins,),
             ),///social media
             Positioned(
                 // left: 15,
@@ -146,11 +177,11 @@ class StoreAndStableCard extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(12),
                         topLeft: Radius.circular(12)),
-                    child: store.image==""||store.image==null?Image.asset(
+                    child: widget.store.image==""||widget.store.image==null?Image.asset(
                       "assets/images/home/shop_image.png",
                       fit: BoxFit.fill,
                     ):Image.network(
-                      Api.imagePath+store.image,
+                      Api.imagePath+widget.store.image,
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -193,7 +224,7 @@ class StoreAndStableCard extends StatelessWidget {
             Positioned(
                 left: 25,
                 top: 8,
-                child: FavoriteIcon(s:store.favStatus ,fav: fav,)),
+                child: FavoriteIcon(s:widget.store.favStatus ,fav: widget.fav,)),
           ],
         ),
       ),

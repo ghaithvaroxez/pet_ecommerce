@@ -7,6 +7,7 @@ import 'package:pets/screens/vendor_app/model/location_model.dart';
 import '../requests/user_profile_requests.dart';
 import 'dart:io';
 import 'package:image/image.dart' as Im;
+import 'translations/user_profile_controller.i18n.dart';
 class UserController extends GetxController {
   DoctorModel doctorModel;
   List<City> cities=[];
@@ -50,14 +51,14 @@ class UserController extends GetxController {
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "كلمة المرور التي ادخلتها ليست صحيحة !",
+            message: "كلمة المرور التي ادخلتها ليست صحيحة !".i18n,
             backgroundColor: Colors.redAccent);
       }
         return k;
     }catch(e){
       removeLoading();
       Get.rawSnackbar(
-          message: "كلمة المرور التي ادخلتها ليست صحيحة !",
+          message: "كلمة المرور التي ادخلتها ليست صحيحة !".i18n,
           backgroundColor: Colors.redAccent);
       return false;
       consolePrint(e.toString());
@@ -75,11 +76,14 @@ class UserController extends GetxController {
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't update doctor data now try again later !!",
+            message: "الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch (e) {
       removeLoading();
+      Get.rawSnackbar(
+          message: "الرجاء المحاولة مجدداً".i18n,
+          backgroundColor: Colors.redAccent);
     }
     update();
 
@@ -117,12 +121,15 @@ class UserController extends GetxController {
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't update store data now try again later !!",
+            message: "الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
         update();
       }
     } catch (e) {
       removeLoading();
+      Get.rawSnackbar(
+          message: "الرجاء المحاولة مجدداً".i18n,
+          backgroundColor: Colors.redAccent);
       update();
     }
 
@@ -195,17 +202,20 @@ class UserController extends GetxController {
       if ( k== true) {
         await getDoctorInfo();
         Get.rawSnackbar(
-            message: "تم تغير كلمة المرور بنجاح ",
+            message: "تم تغير كلمة المرور بنجاح ".i18n,
             backgroundColor: Colors.green);
         removeLoading();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "الرجاء المحاولة مجدداً",
+            message: "الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch (e) {
       removeLoading();
+      Get.rawSnackbar(
+          message: "الرجاء المحاولة مجدداً".i18n,
+          backgroundColor: Colors.redAccent);
     }
     update();
 

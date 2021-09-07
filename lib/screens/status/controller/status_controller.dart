@@ -12,7 +12,7 @@ import '../requests/status_requests.dart';
 // import 'package:video_thumbnail/video_thumbnail.dart';
 import 'dart:io';
 import 'package:flutter_video_info/flutter_video_info.dart';
-
+import 'translations/status_controller.i18n.dart';
 class StatusController extends GetxController{
 
 
@@ -98,7 +98,7 @@ class StatusController extends GetxController{
         // Get.back();
         removeLoading();
         Get.rawSnackbar(
-            message: "can't add your photo now try again later",
+            message: "can't add your photo now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
     }catch(e)
@@ -106,7 +106,7 @@ class StatusController extends GetxController{
       // Get.back();
       removeLoading();
       Get.rawSnackbar(
-          message: "can't add your photo now try again later",
+          message: "can't add your photo now try again later".i18n,
           backgroundColor: Colors.redAccent);
     }
     update();
@@ -128,7 +128,7 @@ addNewVideo(
 if(info.filesize>92440960)//41943040//102440960
   {
     Get.rawSnackbar(
-        message: "حجم الفيديو كبير جدا الرجاء اختيار فيديو اخر",
+        message: "Video size is too big .Please select another one...".i18n,
         backgroundColor: Colors.redAccent);
     removeLoading();
 return;
@@ -145,7 +145,7 @@ return;
         // Get.back();
         removeLoading();
         Get.rawSnackbar(
-            message: "can't add your video now try again later",
+            message: "can't add your video now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
     }catch(e)
@@ -153,7 +153,7 @@ return;
       // Get.back();
       removeLoading();
       Get.rawSnackbar(
-          message: "can't add your video now try again later",
+          message: "can't add your video now try again later".i18n,
           backgroundColor: Colors.redAccent);
     }
     update();
@@ -186,7 +186,7 @@ return;
         removeLoading();
         update();
         Get.rawSnackbar(
-            message: "can't delete your status now try again later",
+            message: "can't delete your status now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch(e) {
@@ -194,7 +194,7 @@ return;
       removeLoading();
       update();
       Get.rawSnackbar(
-          message: "can't delete your status now try again later",
+          message: "can't delete your status now try again later".i18n,
           backgroundColor: Colors.redAccent);
     }
   }

@@ -10,7 +10,7 @@ import 'package:pets/screens/auth/model/user.dart';
 import 'package:pets/screens/auth/view/splash/login_or_register.dart';
 import 'package:pets/screens/auth/view/splash/splash_screen.dart';
 import 'package:pets/screens/categories/view/categories_screen.dart';
-import 'package:pets/screens/corner/view/my_corner_details.dart';
+// import 'package:pets/screens/corner/view/my_corner_details.dart';
 import 'package:pets/screens/corner/view/select_corner.dart';
 import 'package:pets/screens/doctor_app/view/doctor_details_screen.dart';
 import 'package:pets/screens/favorites/views/favorite_view.dart';
@@ -202,8 +202,7 @@ getdata();
                       //my_baqa
                       gusetId==146?Container(height: 0,width: 0,):CustomeDraweritem(
                         title: "باقتي",
-                        img:
-                            "assets/images/drawer/drawer_icons/my_baqa_icon.png",
+                        img:"assets/images/drawer/drawer_icons/my_baqa_icon.png",
                       onTap: () {
                          Navigator.of(context).pop();
                         },

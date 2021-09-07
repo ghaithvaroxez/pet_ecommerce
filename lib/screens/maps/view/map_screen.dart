@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-
+import 'translations/map_screen.i18n.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -257,77 +257,74 @@ _origin= Marker(
             borderRadius: BorderRadius.circular(7),
             color: Colors.white
         ),
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Column(
-            children: [
-              Expanded(
-                flex: 2,
-                // width: getProportionateScreenWidth(90),
-                // height: getProportionateScreenHeight(50),
-                child: Container(
-                  width: double.infinity,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(7),topRight: Radius.circular(7)),
-                    child: Image.network(Api.imagePath+doctor.image,fit: BoxFit.cover,),
-                  ),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 2,
+              // width: getProportionateScreenWidth(90),
+              // height: getProportionateScreenHeight(50),
+              child: Container(
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(7),topRight: Radius.circular(7)),
+                  child: Image.network(Api.imagePath+doctor.image,fit: BoxFit.cover,),
                 ),
               ),
-              Expanded(
-                flex: 3,
-                child: Container(
-                  // width: getProportionateScreenWidth(90),
-                  // height: getProportionateScreenHeight(50),
-                  padding: EdgeInsets.symmetric(horizontal:getProportionateScreenHeight(8)),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+            ),
+            Expanded(
+              flex: 3,
+              child: Container(
+                // width: getProportionateScreenWidth(90),
+                // height: getProportionateScreenHeight(50),
+                padding: EdgeInsets.symmetric(horizontal:getProportionateScreenHeight(8)),
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
 
+                        Container(
+                          // height: getProportionateScreenHeight(30),
+                          // width: getProportionateScreenWidth(115),
+                          child: AutoSizeText(
+                            doctor.name+" ",
+                            style: body3_18pt,
+                            maxLines: 1,
+                            minFontSize: 9,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            "assets/images/home/location_icon.png",
+                            height: getProportionateScreenHeight(12),
+                          ),
+                          SizedBox(
+                            width: getProportionateScreenWidth(10),
+                          ),
                           Container(
-                            // height: getProportionateScreenHeight(30),
-                            // width: getProportionateScreenWidth(115),
+                            // height: getProportionateScreenHeight(18),
+                            // width: getProportionateScreenWidth(120),
                             child: AutoSizeText(
-                              doctor.name+" ",
-                              style: body3_18pt,
-                              maxLines: 1,
-                              minFontSize: 9,
+                              doctor.district,
+                              style: darkGrayText_14pt,
+                              minFontSize: 10,
                             ),
                           ),
                         ],
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              "assets/images/home/location_icon.png",
-                              height: getProportionateScreenHeight(12),
-                            ),
-                            SizedBox(
-                              width: getProportionateScreenWidth(10),
-                            ),
-                            Container(
-                              // height: getProportionateScreenHeight(18),
-                              // width: getProportionateScreenWidth(120),
-                              child: AutoSizeText(
-                                doctor.district,
-                                style: darkGrayText_14pt,
-                                minFontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              )
+              ),
+            )
 
-            ],
-          ),
+          ],
         ),
       ),
     );
@@ -347,86 +344,83 @@ _origin= Marker(
           borderRadius: BorderRadius.circular(7),
 color: Colors.white
         ),
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: Column(
-            children: [
-              Expanded(
-                flex: 2,
-                // width: getProportionateScreenWidth(90),
-                // height: getProportionateScreenHeight(50),
-                child: Container(
-                  width: double.infinity,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(7),topRight: Radius.circular(7)),
-                  child: Image.network(Api.imagePath+doctor.image,fit: BoxFit.cover,),
-                  ),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 2,
+              // width: getProportionateScreenWidth(90),
+              // height: getProportionateScreenHeight(50),
+              child: Container(
+                width: double.infinity,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(7),topRight: Radius.circular(7)),
+                child: Image.network(Api.imagePath+doctor.image,fit: BoxFit.cover,),
                 ),
               ),
-              Expanded(
-                flex: 3,
-                child: Container(
-                  // width: getProportionateScreenWidth(90),
-                  // height: getProportionateScreenHeight(50),
-                  padding: EdgeInsets.symmetric(horizontal:getProportionateScreenHeight(8)),
-                  child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            Expanded(
+              flex: 3,
+              child: Container(
+                // width: getProportionateScreenWidth(90),
+                // height: getProportionateScreenHeight(50),
+                padding: EdgeInsets.symmetric(horizontal:getProportionateScreenHeight(8)),
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          // height: getProportionateScreenHeight(30),
+                          // width: getProportionateScreenWidth(115),
+                          child: AutoSizeText(
+                            doctor.lastName+" ",
+                            style: body3_18pt,
+                            maxLines: 1,
+                            minFontSize: 9,
+                          ),
+                        ),
+                        Container(
+                          // height: getProportionateScreenHeight(30),
+                          // width: getProportionateScreenWidth(115),
+                          child: AutoSizeText(
+                            doctor.firstName+" ",
+                            style: body3_18pt,
+                            maxLines: 1,
+                            minFontSize: 9,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Row(
                         children: [
-                          Container(
-                            // height: getProportionateScreenHeight(30),
-                            // width: getProportionateScreenWidth(115),
-                            child: AutoSizeText(
-                              doctor.lastName+" ",
-                              style: body3_18pt,
-                              maxLines: 1,
-                              minFontSize: 9,
-                            ),
+                          Image.asset(
+                            "assets/images/home/location_icon.png",
+                            height: getProportionateScreenHeight(12),
+                          ),
+                          SizedBox(
+                            width: getProportionateScreenWidth(10),
                           ),
                           Container(
-                            // height: getProportionateScreenHeight(30),
-                            // width: getProportionateScreenWidth(115),
+                            // height: getProportionateScreenHeight(18),
+                            // width: getProportionateScreenWidth(120),
                             child: AutoSizeText(
-                              doctor.firstName+" ",
-                              style: body3_18pt,
-                              maxLines: 1,
-                              minFontSize: 9,
+                              doctor.district,
+                              style: darkGrayText_14pt,
+                              minFontSize: 10,
                             ),
                           ),
                         ],
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Row(
-                          children: [
-                            Image.asset(
-                              "assets/images/home/location_icon.png",
-                              height: getProportionateScreenHeight(12),
-                            ),
-                            SizedBox(
-                              width: getProportionateScreenWidth(10),
-                            ),
-                            Container(
-                              // height: getProportionateScreenHeight(18),
-                              // width: getProportionateScreenWidth(120),
-                              child: AutoSizeText(
-                                doctor.district,
-                                style: darkGrayText_14pt,
-                                minFontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              )
+              ),
+            )
 
-            ],
-          ),
+          ],
         ),
       ),
     );
@@ -449,63 +443,60 @@ color: Colors.white
           child: Column(
             children: [
 
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: Container(
-                  child: Material(
-                    elevation: 5,
-                    color: Colors.white,
-                    child: Container(
-                        width: SizeConfig.screenWidth,
-                        height: getProportionateScreenHeight(95),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: getProportionateScreenWidth(24),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Scaffold.of(context).openEndDrawer();
-                              },
-                              child: CircleAvatar(
-                                radius: 24,
-                                backgroundColor: Colors.grey.shade50,
-                                child: Image.asset(
-                                  "assets/images/home/menu_icon.png",
-                                  height: 24,
-                                  width: 20,
-                                ),
+              Container(
+                child: Material(
+                  elevation: 5,
+                  color: Colors.white,
+                  child: Container(
+                      width: SizeConfig.screenWidth,
+                      height: getProportionateScreenHeight(95),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: getProportionateScreenWidth(24),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Scaffold.of(context).openEndDrawer();
+                            },
+                            child: CircleAvatar(
+                              radius: 24,
+                              backgroundColor: Colors.grey.shade50,
+                              child: Image.asset(
+                                "assets/images/home/menu_icon.png",
+                                height: 24,
+                                width: 20,
                               ),
                             ),
-                            Spacer(),
-                            Container(
-                                height: getProportionateScreenHeight(28),
-                                child: AutoSizeText(
-                                  "الخريطة",
-                                  style: h5_21pt,
-                                  minFontSize: 8,
-                                )),
-                            Spacer(),
-                            GestureDetector(
-                              onTap: (){
-                                Get.back();
-                              },
-                              child: CircleAvatar(
-                                radius: 24,
-                                backgroundColor: Colors.grey.shade50,
-                                child: Image.asset(
-                                  "assets/images/vendor_app/back_icon.png",
-                                  height: 24,
-                                  width: 20,
-                                ),
+                          ),
+                          Spacer(),
+                          Container(
+                              height: getProportionateScreenHeight(28),
+                              child: AutoSizeText(
+                                "الخريطة".i18n,
+                                style: h5_21pt,
+                                minFontSize: 8,
+                              )),
+                          Spacer(),
+                          GestureDetector(
+                            onTap: (){
+                              Get.back();
+                            },
+                            child: CircleAvatar(
+                              radius: 24,
+                              backgroundColor: Colors.grey.shade50,
+                              child: Image.asset(
+                                "assets/images/vendor_app/back_icon.png",
+                                height: 24,
+                                width: 20,
                               ),
                             ),
-                            SizedBox(
-                              width: getProportionateScreenWidth(24),
-                            ),
-                          ],
-                        )),
-                  ),
+                          ),
+                          SizedBox(
+                            width: getProportionateScreenWidth(24),
+                          ),
+                        ],
+                      )),
                 ),
               ),
               Expanded(
@@ -569,7 +560,7 @@ color: Colors.white
                                       color: !stores.value ? Colors.white:Color(0xFFE4F2F6)),
                                   child: Center(
                                     child: AutoSizeText(
-                                      "متاجر", style: body1_16pt_blue,
+                                      "متاجر".i18n, style: body1_16pt_blue,
                                       minFontSize: 9,),
                                   ),),
                               ),
@@ -586,7 +577,7 @@ color: Colors.white
                                       color: stores.value ? Colors.white:Color(0xFFE4F2F6)),
                                   child: Center(
                                     child: AutoSizeText(
-                                      "أطباء", style: body1_16pt_blue,
+                                      "أطباء".i18n, style: body1_16pt_blue,
                                       minFontSize: 9,),
                                   ),),
                               ),

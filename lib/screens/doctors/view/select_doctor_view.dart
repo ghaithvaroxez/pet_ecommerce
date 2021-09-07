@@ -14,7 +14,7 @@ import '../../loading_screen.dart';
 import 'components/vertical_doctor_list_card.dart';
 import '../model/all_doctors.dart';
 import 'package:http/http.dart' as http;
-
+import 'translations/select_doctor.i18n.dart';
 class SelectDoctorView extends StatefulWidget {
   @override
   _SelectDoctorViewState createState() => _SelectDoctorViewState();
@@ -88,7 +88,7 @@ class _SelectDoctorViewState extends State<SelectDoctorView> {
   Widget build(BuildContext context) {
     return
       failed?Column(mainAxisSize: MainAxisSize.max,children: [
-        Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
+        Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مجدداً".i18n,style: body3_18pt,),),),
       ],):loading?LoadingScreen():
       Container(
           margin:  EdgeInsets.only(bottom: getProportionateScreenHeight(100)),

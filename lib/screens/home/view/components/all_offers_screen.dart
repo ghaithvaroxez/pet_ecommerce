@@ -14,7 +14,7 @@ import 'file:///C:/Users/Varoxez/AndroidStudioProjects/pets/lib/screens/stores/v
 import 'package:pets/screens/stores/view/components/offers/store_offer_card.dart';
 import 'package:pets/services/http_requests_service.dart';
 import 'package:http/http.dart' as http;
-
+import 'translations/all_offers_screen.i18n.dart';
 class AllOffersScreen extends StatefulWidget {
   @override
   _AllOffersScreenState createState() => _AllOffersScreenState();
@@ -104,115 +104,112 @@ class _AllOffersScreenState extends State<AllOffersScreen> {
     SizeConfig.init(context);
     return  Scaffold(
 
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: SafeArea(
-          child: Builder(
-            builder: (context)=>Column(
-              children: [
-                Container(
-                  child: Material(
-                    elevation: 5,
-                    color: Colors.white,
-                    child: Container(
-                        width: SizeConfig.screenWidth,
-                        height: getProportionateScreenHeight(95),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: getProportionateScreenWidth(24),
-                            ),
-                            GestureDetector(
-                              onTap: (){
-                                Scaffold.of(context).openEndDrawer();
-                              },
-                              child: CircleAvatar(
-                                radius: 24,
-                                backgroundColor: Colors.grey.shade50,
-                                child: Image.asset(
-                                  "assets/images/home/menu_icon.png",
-                                  height: 24,
-                                  width: 20,
-                                ),
-                              ),
-                            ),
-                            Spacer(),
-                            Container(height:getProportionateScreenHeight(28),child: AutoSizeText("العروض",style: h5_21pt,minFontSize: 8,)),
-                            Spacer(),
-                            CircleAvatar(
+      body: SafeArea(
+        child: Builder(
+          builder: (context)=>Column(
+            children: [
+              Container(
+                child: Material(
+                  elevation: 5,
+                  color: Colors.white,
+                  child: Container(
+                      width: SizeConfig.screenWidth,
+                      height: getProportionateScreenHeight(95),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: getProportionateScreenWidth(24),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              Scaffold.of(context).openEndDrawer();
+                            },
+                            child: CircleAvatar(
                               radius: 24,
                               backgroundColor: Colors.grey.shade50,
                               child: Image.asset(
-                                "assets/images/home/notification_icon.png",
+                                "assets/images/home/menu_icon.png",
                                 height: 24,
                                 width: 20,
                               ),
                             ),
-                            SizedBox(
-                              width: getProportionateScreenWidth(24),
-                            ),
-                          ],
-                        )),
-                  ),
-                ),
-
-                Expanded(
-                  child: error?Container(
-                    margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
-                    child: AutoSizeText("عذرا حدثت مشكلة الرجاء المحاولة مجددا"),
-                  ):loading?LoadingScreen():Container(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: getProportionateScreenWidth(24),
-                        vertical: getProportionateScreenHeight(26)),
-                    child:offers.length==0? Container(
-                      height: getProportionateScreenHeight(400),
-                      width: getProportionateScreenWidth(350),
-                      alignment: Alignment.center,
-                      child: AutoSizeText("لا يوجد عناصر لعرضها حاليا",style: body3_18pt,),
-                    ):
-                    SingleChildScrollView(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            children: [
-                              ...List<Widget>.generate(
-                                offers.length,
-                                    (index)=>index%2==0&&offers[index].visible=="visible"?Container(
-                                  margin: EdgeInsets.symmetric(vertical: 10),
-
-                                  child:         StoreOfferCard(offers[index],()async{
-
-                                  },false),
-                                ):Container(height: 0,),
-
-                              ),
-                            ],
                           ),
                           Spacer(),
-                          Column(
-                            children: [
-                              ...List<Widget>.generate(
-                                offers.length,
-                                    (index)=>index%2==1&&offers[index].visible=="visible"?Container(
-                                  margin: EdgeInsets.symmetric(vertical: 10),
-
-                                  child:         StoreOfferCard(offers[index],()async{
-                                    bool k=await addToFavorite(offers[index].id);
-                                    return k;
-                                  },false),
-                                ):Container(height: 0,),
-
-                              ),
-                            ],
+                          Container(height:getProportionateScreenHeight(28),child: AutoSizeText("العروض".i18n,style: h5_21pt,minFontSize: 8,)),
+                          Spacer(),
+                          CircleAvatar(
+                            radius: 24,
+                            backgroundColor: Colors.grey.shade50,
+                            child: Image.asset(
+                              "assets/images/home/notification_icon.png",
+                              height: 24,
+                              width: 20,
+                            ),
+                          ),
+                          SizedBox(
+                            width: getProportionateScreenWidth(24),
                           ),
                         ],
-                      ),
+                      )),
+                ),
+              ),
+
+              Expanded(
+                child: error?Container(
+                  margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
+                  child: AutoSizeText("الرجاء المحاولة مجددا".i18n),
+                ):loading?LoadingScreen():Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: getProportionateScreenWidth(24),
+                      vertical: getProportionateScreenHeight(26)),
+                  child:offers.length==0? Container(
+                    height: getProportionateScreenHeight(400),
+                    width: getProportionateScreenWidth(350),
+                    alignment: Alignment.center,
+                    child: AutoSizeText("لا يوجد عناصر لعرضها حاليا".i18n,style: body3_18pt,),
+                  ):
+                  SingleChildScrollView(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            ...List<Widget>.generate(
+                              offers.length,
+                                  (index)=>index%2==0&&offers[index].visible=="visible"?Container(
+                                margin: EdgeInsets.symmetric(vertical: 10),
+
+                                child:         StoreOfferCard(offers[index],()async{
+
+                                },false),
+                              ):Container(height: 0,),
+
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        Column(
+                          children: [
+                            ...List<Widget>.generate(
+                              offers.length,
+                                  (index)=>index%2==1&&offers[index].visible=="visible"?Container(
+                                margin: EdgeInsets.symmetric(vertical: 10),
+
+                                child:         StoreOfferCard(offers[index],()async{
+                                  bool k=await addToFavorite(offers[index].id);
+                                  return k;
+                                },false),
+                              ):Container(height: 0,),
+
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

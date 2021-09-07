@@ -14,7 +14,7 @@ import 'package:get/get.dart';
 import 'package:pets/screens/stores/view/store_details.dart';
 
 import '../my_corner_details.dart';
-
+import 'translations/my_cornar_card.i18n.dart';
 
 class MyCornerVerticalCard extends StatelessWidget {
   Corner corner;
@@ -80,7 +80,7 @@ Function delete;
                     width: getProportionateScreenWidth(150),
                     child: AutoSizeText(
                       corner.name,
-                      textDirection: TextDirection.rtl,
+                      // textDirection: TextDirection.rtl,
                       style: body3_18pt,
                     ),
                   ),
@@ -91,7 +91,7 @@ Function delete;
                     width: getProportionateScreenWidth(150),
                     child: AutoSizeText(
                        corner.userName!=""? corner.userName: corner.doctorName!=""? corner.doctorName: corner.storeName!=""? corner.storeName:"",
-                      textDirection: TextDirection.rtl,
+                      // textDirection: TextDirection.rtl,
                       style: darkBlueText_11pt,
                     ),
                   ),
@@ -101,7 +101,7 @@ Function delete;
                     width: getProportionateScreenWidth(150),
                     child: AutoSizeText(
                       corner.desc,
-                      textDirection: TextDirection.rtl,
+                      // textDirection: TextDirection.rtl,
                       style: darkGrayText_11pt,
                     ),
                   ),
@@ -129,19 +129,19 @@ Function delete;
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5)),
                             title: Text(
-                              'هل أنت متأكد ؟',
-                              textDirection: TextDirection.rtl,
+                              'هل أنت متأكد ؟'.i18n,
+                              // textDirection: TextDirection.rtl,
                               style: body3_18pt,
                             ),
                             content: Text(
-                              'انت على وشك حذف هذه الزاوية !',
-                              textDirection: TextDirection.rtl,
+                              'انت على وشك حذف هذه الزاوية !'.i18n,
+                              // textDirection: TextDirection.rtl,
                               style: body1_16pt,
                             ),
                             actions: [
                               TextButton(
                                 child: Text(
-                                  'نعم',
+                                  'نعم'.i18n,
                                 ),
                                 onPressed: () async{
                                   // language.changeLanguage();
@@ -151,7 +151,7 @@ Function delete;
                                 },
                               ),
                               TextButton(
-                                child: Text('لا'),
+                                child: Text('لا'.i18n),
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },

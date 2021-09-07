@@ -4,7 +4,7 @@ import 'package:pets/configuration/printer.dart';
 import 'package:pets/screens/doctor_app/model/doctor.dart';
 import 'package:pets/screens/doctor_app/requests/doctor_info_requests.dart';
 import 'package:pets/screens/vendor_app/model/location_model.dart';
-
+import 'translations/doctor_controller.i18n.dart';
 import 'dart:io';
 import 'package:image/image.dart' as Im;
 class DoctorController extends GetxController {
@@ -48,7 +48,7 @@ update();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't update doctor data now try again later !!",
+            message: "عذراً لم نتمكن من تحديث معلومات الطبيب الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch (e) {
@@ -68,7 +68,7 @@ update();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't update store data now try again later !!",
+            message: "عذراً لم نتمكن من تحديث معلومات الطبيب الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
         update();
       }
@@ -90,13 +90,13 @@ update();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't set your location now try again later !!",
+            message: "عذراً لم نتمكن من اضافة موقعك الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch (e) {
       removeLoading();
       Get.rawSnackbar(
-          message: "error can't set your location now try again later !!",
+          message: "عذراً لم نتمكن من اضافة موقعك الرجاء المحاولة مجدداً".i18n,
           backgroundColor: Colors.redAccent);
       consolePrint(e.toString());
     }
@@ -112,11 +112,15 @@ update();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't update store Times now try again later !!",
+            message: "عذراً لم نتمكن من تحديث أوقات دوام الطبيب الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch (e) {
       removeLoading();
+      Get.rawSnackbar(
+          message: "عذراً لم نتمكن من تحديث أوقات دوام الطبيب الرجاء المحاولة مجدداً".i18n,
+          backgroundColor: Colors.redAccent);
+
     }
     update();
 
@@ -135,10 +139,14 @@ update();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't update doctor work Times now try again later !!",
+            message: "عذراً لم نتمكن من اضافة أوقات دوام الطبيب الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
+
       }
     } catch (e) {
+      Get.rawSnackbar(
+          message: "عذراً لم نتمكن من اضافة أوقات دوام الطبيب الرجاء المحاولة مجدداً".i18n,
+          backgroundColor: Colors.redAccent);
       consolePrint(e.toString());
       removeLoading();
     }
@@ -159,11 +167,14 @@ update();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't doctor work Times now try again later !!",
+            message: "عذراً لم نتمكن من تحديث أوقات دوام الطبيب الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch (e) {
       removeLoading();
+      Get.rawSnackbar(
+          message: "عذراً لم نتمكن من تحديث أوقات دوام الطبيب الرجاء المحاولة مجدداً".i18n,
+          backgroundColor: Colors.redAccent);
     }
     update();
 
@@ -178,11 +189,14 @@ update();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't update store Times now try again later !!",
+            message: "عذراً لم نتمكن من حذف أوقات دوام الطبيب الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch (e) {
       removeLoading();
+      Get.rawSnackbar(
+          message: "عذراً لم نتمكن من حذف أوقات دوام الطبيب الرجاء المحاولة مجدداً".i18n,
+          backgroundColor: Colors.redAccent);
     }
     update();
 
@@ -198,11 +212,14 @@ update();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't update store Times now try again later !!",
+            message: "عذراً لم نتمكن من تحديث معلومات الطبيب الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch (e) {
       removeLoading();
+      Get.rawSnackbar(
+          message: "عذراً لم نتمكن من تحديث معلومات الطبيب الرجاء المحاولة مجدداً".i18n,
+          backgroundColor: Colors.redAccent);
     }
     update();
 
@@ -220,11 +237,14 @@ update();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't update store Times now try again later !!",
+            message: "عذراً لم نتمكن من تحديث معلومات الطبيب الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch (e) {
       removeLoading();
+      Get.rawSnackbar(
+          message: "عذراً لم نتمكن من تحديث معلومات الطبيب الرجاء المحاولة مجدداً".i18n,
+          backgroundColor: Colors.redAccent);
     }
     update();
 
@@ -242,11 +262,14 @@ update();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't update contact now try again later !!",
+            message: "عذراً لم نتمكن من تحديث معلومات الطبيب الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch (e) {
       removeLoading();
+      Get.rawSnackbar(
+          message: "عذراً لم نتمكن من تحديث معلومات الطبيب الرجاء المحاولة مجدداً".i18n,
+          backgroundColor: Colors.redAccent);
     }
     update();
   }
@@ -261,11 +284,14 @@ update();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error add contact now try again later !!",
+            message: "عذراً لم نتمكن من تحديث معلومات الطبيب الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch (e) {
       removeLoading();
+      Get.rawSnackbar(
+          message: "عذراً لم نتمكن من تحديث معلومات الطبيب الرجاء المحاولة مجدداً".i18n,
+          backgroundColor: Colors.redAccent);
     }
     update();
 
@@ -281,11 +307,14 @@ update();
       } else {
         removeLoading();
         Get.rawSnackbar(
-            message: "error can't delete it  now try again later !!",
+            message: "عذراً لم نتمكن من تحديث معلومات الطبيب الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     } catch (e) {
       removeLoading();
+      Get.rawSnackbar(
+          message: "عذراً لم نتمكن من تحديث معلومات الطبيب الرجاء المحاولة مجدداً".i18n,
+          backgroundColor: Colors.redAccent);
     }
     update();
 
@@ -323,7 +352,7 @@ update();
         Get.back();
         removeLoading();
         Get.rawSnackbar(
-            message: "can't add your product now try again later",
+            message:  "لم نتمكن من اضافة خدمتك الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     }catch(e)
@@ -331,7 +360,7 @@ update();
       Get.back();
       removeLoading();
       Get.rawSnackbar(
-          message: "can't add your product now try again later",
+          message:  "لم نتمكن من اضافة خدمتك الرجاء المحاولة مجدداً".i18n,
           backgroundColor: Colors.redAccent);
     }
     update();
@@ -362,7 +391,7 @@ update();
         removeLoading();
         update();
         Get.rawSnackbar(
-            message: "can't delete your product now try again later",
+            message:  "لم نتمكن من حذف خدمتك الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     }catch(e){
@@ -370,7 +399,7 @@ update();
       removeLoading();
       update();
       Get.rawSnackbar(
-          message: "can't delete your service now try again later",
+          message:  "لم نتمكن من حذف خدمتك الرجاء المحاولة مجدداً".i18n,
           backgroundColor: Colors.redAccent);
     }
   }
@@ -404,7 +433,7 @@ update();
         removeLoading();
         update();
         Get.rawSnackbar(
-            message: "can't edit your product now try again later",
+            message:  "لم نتمكن من تعديل خدمتك الرجاء المحاولة مجدداً".i18n,
             backgroundColor: Colors.redAccent);
       }
     }catch(e){
@@ -413,7 +442,7 @@ update();
       removeLoading();
       update();
       Get.rawSnackbar(
-          message: "can't edit your product now try again later",
+          message:  "لم نتمكن من تعديل خدمتك الرجاء المحاولة مجدداً".i18n,
           backgroundColor: Colors.redAccent);
 
     }

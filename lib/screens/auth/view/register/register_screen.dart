@@ -19,7 +19,7 @@ import 'package:pets/screens/vendor_app/model/location_model.dart';
 import 'package:pets/screens/vendor_app/requests/vendor_app_requests.dart';
 import 'package:pets/screens/widgets/text_field.dart';
 import 'package:get/get.dart';
-
+import 'translations/register_screen.i18n.dart';
 class RegisterScreen extends StatefulWidget {
   UserType userType;
 
@@ -35,11 +35,11 @@ bool loaddata=false;
 String type;
 AuthRequest authRequest = new AuthRequest();
 List<String> type_items = [
-  "طبيب",
-  "مستخدم",
-  "متجر",
-  "اسطبل",
-  "منحلة"
+  "طبيب".i18n,
+  "مستخدم".i18n,
+  "متجر".i18n,
+  "اسطبل".i18n,
+  "منحلة".i18n
 ];
 
 class LoadingScreen extends StatelessWidget {
@@ -145,27 +145,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
     switch (widget.userType) {
       case UserType.user:
         registerController.changeType("user");
-        type = "مستخدم";
+        type = type_items[1];
         break;
       case UserType.doctor:
         registerController.changeType("doctor");
-        type = "طبيب";
+        type =type_items[0];
         break;
       case UserType.stable:
         registerController.changeType("stable");
-        type = "اسطبل";
+        type = type_items[3];
         break;
         case UserType.stable:
         registerController.changeType("stable");
-        type = "اسطبل";
+        type =  type_items[3];
         break;
       case UserType.store:
         registerController.changeType("store");
-        type = "متجر";
+        type =  type_items[2];
         break;
         case UserType.sieve:
         registerController.changeType("sieve");
-        type = "منحلة";
+        type =  type_items[4];
         break;
     }
     // type = widget.userType.toString();
@@ -198,7 +198,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      "طلب انضمام",
+                                      "طلب انضمام".i18n,
                                       style: h4_21pt,
                                       maxLines: 1,
                                     ),
@@ -232,7 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           ),
                                         ),
                                         AutoSizeText(
-                                          "النوع",
+                                          "النوع".i18n,
                                           style: body2_14pt,
                                         ),
                                       ],
@@ -275,28 +275,45 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 setState(() {
                                                   type = value;
                                                 });
-                                                switch (type) {
-                                                  case "مستخدم":
-                                                    controller
-                                                        .changeType("user");
-                                                    break;
-                                                  case "طبيب":
-                                                    controller
-                                                        .changeType("doctor");
-                                                    break;
-                                                  case "اسطبل":
-                                                    controller
-                                                        .changeType("stable");
-                                                    break;
-                                                  case "متجر":
-                                                    controller
-                                                        .changeType("store");
-                                                    break;
-                                                    case "منحلة":
-                                                    controller
-                                                        .changeType("sieve");
-                                                    break;
-                                                }
+                                                if(type==type_items[1])
+                                                  controller
+                                                      .changeType("user");
+                                                else if(type==type_items[0])
+                                                  controller
+                                                      .changeType("doctor");
+                                                else if(type==type_items[3])
+                                                  controller
+                                                      .changeType("stable");
+                                                else if(type==type_items[2])
+                                                  controller
+                                                      .changeType("store");
+                                                else if(type==type_items[4])
+                                                  controller
+                                                      .changeType("sieve");
+
+
+                                                // switch (type) {
+                                                //   case type_items[1]:
+                                                //     controller
+                                                //         .changeType("user");
+                                                //     break;
+                                                //   case "طبيب":
+                                                //     controller
+                                                //         .changeType("doctor");
+                                                //     break;
+                                                //   case "اسطبل":
+                                                //     controller
+                                                //         .changeType("stable");
+                                                //     break;
+                                                //   case "متجر":
+                                                //     controller
+                                                //         .changeType("store");
+                                                //     break;
+                                                //     case "منحلة":
+                                                //     controller
+                                                //         .changeType("sieve");
+                                                //     break;
+                                                // }
                                               },
                                               hint: Text(type),
                                               elevation: 8,
@@ -349,7 +366,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                                   ),
                                                                 ),
                                                                 AutoSizeText(
-                                                                  "اسم الاسطبل",
+                                                                  "اسم الاسطبل".i18n,
                                                                   style:
                                                                       body2_14pt,
                                                                 ),
@@ -362,34 +379,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                           Container(
                                                             alignment: Alignment
                                                                 .centerRight,
-                                                            child: Directionality(
-                                                              textDirection: TextDirection.rtl,
-                                                              child: Container(
-                                                                height:
-                                                                    getProportionateScreenHeight(
-                                                                        50),
-                                                                width:
-                                                                    getProportionateScreenWidth(
-                                                                        150),
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                                10),
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        width:
-                                                                            0.3)),
-                                                                child:
-                                                                    CustomTextField(
-                                                                  textEditingController:
-                                                                      registerStableNameController,
-                                                                  // hint:,
-                                                                  // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                  // textInputType: TextInputType.phone,
-                                                                  color: true,
-                                                                ),
+                                                            child: Container(
+                                                              height:
+                                                                  getProportionateScreenHeight(
+                                                                      50),
+                                                              width:
+                                                                  getProportionateScreenWidth(
+                                                                      150),
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width:
+                                                                          0.3)),
+                                                              child:
+                                                                  CustomTextField(
+                                                                textEditingController:
+                                                                    registerStableNameController,
+                                                                // hint:,
+                                                                // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                // textInputType: TextInputType.phone,
+                                                                color: true,
                                                               ),
                                                             ),
                                                           ),
@@ -434,7 +448,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                                   ),
                                                                 ),
                                                                 AutoSizeText(
-                                                                  "اسم المتجر",
+                                                                  "اسم المتجر".i18n,
                                                                   style:
                                                                       body2_14pt,
                                                                 ),
@@ -447,34 +461,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                           Container(
                                                             alignment: Alignment
                                                                 .centerRight,
-                                                            child:   Directionality(
-                                                              textDirection: TextDirection.rtl,
-                                                              child: Container(
-                                                                height:
-                                                                    getProportionateScreenHeight(
-                                                                        50),
-                                                                width:
-                                                                    getProportionateScreenWidth(
-                                                                        150),
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                                10),
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        width:
-                                                                            0.3)),
-                                                                child:
-                                                                    CustomTextField(
-                                                                  textEditingController:
-                                                                      registerStoreNameController,
-                                                                  // hint:,
-                                                                  // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                  // textInputType: TextInputType.phone,
-                                                                  color: true,
-                                                                ),
+                                                            child:   Container(
+                                                              height:
+                                                                  getProportionateScreenHeight(
+                                                                      50),
+                                                              width:
+                                                                  getProportionateScreenWidth(
+                                                                      150),
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width:
+                                                                          0.3)),
+                                                              child:
+                                                                  CustomTextField(
+                                                                textEditingController:
+                                                                    registerStoreNameController,
+                                                                // hint:,
+                                                                // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                // textInputType: TextInputType.phone,
+                                                                color: true,
                                                               ),
                                                             ),
                                                           ),
@@ -519,7 +530,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                                   ),
                                                                 ),
                                                                 AutoSizeText(
-                                                                  "اسم المنحلة",
+                                                                  "اسم المنحلة".i18n,
                                                                   style:
                                                                       body2_14pt,
                                                                 ),
@@ -532,34 +543,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                           Container(
                                                             alignment: Alignment
                                                                 .centerRight,
-                                                            child:   Directionality(
-                                                              textDirection: TextDirection.rtl,
-                                                              child: Container(
-                                                                height:
-                                                                    getProportionateScreenHeight(
-                                                                        50),
-                                                                width:
-                                                                    getProportionateScreenWidth(
-                                                                        150),
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(
-                                                                                10),
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        width:
-                                                                            0.3)),
-                                                                child:
-                                                                    CustomTextField(
-                                                                  textEditingController:
-                                                                      registerStoreNameController,
-                                                                  // hint:,
-                                                                  // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                  // textInputType: TextInputType.phone,
-                                                                  color: true,
-                                                                ),
+                                                            child:   Container(
+                                                              height:
+                                                                  getProportionateScreenHeight(
+                                                                      50),
+                                                              width:
+                                                                  getProportionateScreenWidth(
+                                                                      150),
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width:
+                                                                          0.3)),
+                                                              child:
+                                                                  CustomTextField(
+                                                                textEditingController:
+                                                                    registerStoreNameController,
+                                                                // hint:,
+                                                                // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                // textInputType: TextInputType.phone,
+                                                                color: true,
                                                               ),
                                                             ),
                                                           ),
@@ -620,7 +628,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                                       ),
                                                                     ),
                                                                     AutoSizeText(
-                                                                      "الاسم الأخير",
+                                                                      "الاسم الأخير".i18n,
                                                                       style:
                                                                           body2_14pt,
                                                                     ),
@@ -634,35 +642,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                                 alignment: Alignment
                                                                     .centerLeft,
                                                                 child:
-                                                                Directionality(
-                                                                  textDirection: TextDirection.rtl,
-                                                                      child: Container(
+                                                                Container(
                                                                   height:
-                                                                        getProportionateScreenHeight(
-                                                                            60),
+                                                                  getProportionateScreenHeight(
+                                                                      60),
                                                                   width:
-                                                                        getProportionateScreenWidth(
-                                                                            150),
+                                                                  getProportionateScreenWidth(
+                                                                      150),
                                                                   decoration: BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(
-                                                                                10),
-                                                                        border: Border.all(
-                                                                            color: Colors
-                                                                                .grey,
-                                                                            width:
-                                                                                0.3)),
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          10),
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      width:
+                                                                          0.3)),
                                                                   child:
-                                                                        CustomTextField(
-                                                                      textEditingController:
-                                                                          registerLastNameController,
-                                                                      // hint:,
-                                                                      // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                      // textInputType: TextInputType.phone,
-                                                                      color: true,
+                                                                  CustomTextField(
+                                                                textEditingController:
+                                                                    registerLastNameController,
+                                                                // hint:,
+                                                                // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                // textInputType: TextInputType.phone,
+                                                                color: true,
                                                                   ),
                                                                 ),
-                                                                    ),
                                                               ),
                                                               SizedBox(
                                                                 height:
@@ -707,7 +712,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                                       ),
                                                                     ),
                                                                     AutoSizeText(
-                                                                      "الاسم الاول",
+                                                                      "الاسم الاول".i18n,
                                                                       style:
                                                                           body2_14pt,
                                                                     ),
@@ -717,33 +722,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                               SizedBox(
                                                                 height: 10,
                                                               ),
-                                                              Directionality(
-                                                                textDirection: TextDirection.rtl,
-                                                                child: Container(
-                                                                  height:
-                                                                      getProportionateScreenHeight(
-                                                                          60),
-                                                                  width:
-                                                                      getProportionateScreenWidth(
-                                                                          150),
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10),
-                                                                      border: Border.all(
-                                                                          color: Colors
-                                                                              .grey,
-                                                                          width:
-                                                                              0.3)),
-                                                                  child:
-                                                                      CustomTextField(
-                                                                    textEditingController:
-                                                                        registerFirstNameController,
-                                                                    // hint:,
-                                                                    // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                    // textInputType: TextInputType.phone,
-                                                                    color: true,
-                                                                  ),
+                                                              Container(
+                                                                height:
+                                                                    getProportionateScreenHeight(
+                                                                        60),
+                                                                width:
+                                                                    getProportionateScreenWidth(
+                                                                        150),
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10),
+                                                                    border: Border.all(
+                                                                        color: Colors
+                                                                            .grey,
+                                                                        width:
+                                                                            0.3)),
+                                                                child:
+                                                                    CustomTextField(
+                                                                  textEditingController:
+                                                                      registerFirstNameController,
+                                                                  // hint:,
+                                                                  // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                  // textInputType: TextInputType.phone,
+                                                                  color: true,
                                                                 ),
                                                               ),
                                                               SizedBox(
@@ -780,7 +782,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           ),
                                         ),
                                         AutoSizeText(
-                                          "رقم الهاتف",
+                                          "رقم الهاتف".i18n,
                                           style: body2_14pt,
                                         ),
                                       ],
@@ -825,7 +827,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           child: CustomTextField(
                                             textEditingController:
                                                 registerNumberController,
-                                            hint: "رقم الهاتف الجوال",
+                                            hint: "رقم الهاتف الجوال".i18n,
                                             prefixImage:
                                                 "assets/images/auth/mobile_icon.png",
                                             textInputType: TextInputType.phone,
@@ -856,7 +858,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           ),
                                         ),
                                         AutoSizeText(
-                                          "كلمة السر",
+                                          "كلمة السر".i18n,
                                           style: body2_14pt,
                                         ),
                                       ],
@@ -865,23 +867,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   SizedBox(
                                     height: getProportionateScreenHeight(15),
                                   ),
-                                  Directionality(
-                                    textDirection: TextDirection.rtl,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.grey, width: 0.3),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: CustomTextField(
-                                        textEditingController:
-                                            registerPasswordController,
-                                        hint: "كلمة السر",
-                                        prefixImage:
-                                            "assets/images/auth/lock_icon.png",
-                                        password: true,
-                                        textInputType: TextInputType.name,
-                                      ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.grey, width: 0.3),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: CustomTextField(
+                                      textEditingController:
+                                          registerPasswordController,
+                                      hint: "كلمة السر".i18n,
+                                      prefixImage:
+                                          "assets/images/auth/lock_icon.png",
+                                      password: true,
+                                      textInputType: TextInputType.name,
                                     ),
                                   ),
                                   SizedBox(
@@ -905,7 +904,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           ),
                                         ),
                                         AutoSizeText(
-                                          "العنوان",
+                                          "العنوان".i18n,
                                           style: body2_14pt,
                                         ),
                                       ],
@@ -946,8 +945,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   getProportionateScreenHeight(45),
                                                   child: AutoSizeText(
                                                     item.name,
-                                                    textDirection:
-                                                    TextDirection.rtl,
+                                                    // textDirection:
+                                                    // TextDirection.rtl,
                                                     style: blackText_14pt,
                                                     minFontSize: 9,
                                                   ),
@@ -976,7 +975,7 @@ locationId=city.id;
                                   ),
                                   AuthButton(
                                     color: true,
-                                    title: "متابعة",
+                                    title: "متابعة".i18n,
                                     ontap: () async{
                                      await register();
                                      // await register2();
@@ -1009,7 +1008,7 @@ locationId=city.id;
       CoolAlert.show(
         context: context,
         type: CoolAlertType.error,
-        text: " رقم الهاتف الذي ادخلته غير صالح",
+        text: " رقم الهاتف الذي ادخلته غير صالح".i18n,
       );
       return false;
     }
@@ -1017,7 +1016,7 @@ locationId=city.id;
       CoolAlert.show(
         context: context,
         type: CoolAlertType.error,
-        text: "الرجاء ادخال كلمة مرور لإكمال طلبك ",
+        text: "الرجاء ادخال كلمة مرور لإكمال طلبك ".i18n,
       );
       return false;
     }
@@ -1025,7 +1024,7 @@ locationId=city.id;
       CoolAlert.show(
         context: context,
         type: CoolAlertType.error,
-        text: "كلمة المرور قصيرة جدا",
+        text: "كلمة المرور قصيرة جدا".i18n,
       );
       return false;
     }
@@ -1035,78 +1034,133 @@ locationId=city.id;
       CoolAlert.show(
         context: context,
         type: CoolAlertType.error,
-        text: " رقم الهاتف  موجود مسبقا بالفعل",
+        text: " رقم الهاتف  موجود مسبقا بالفعل".i18n,
       );
       return false;
     }
-    switch (type) {
-      case "مستخدم":
-        {
-          if (registerFirstNameController.text==""||registerLastNameController.text=="") {
-            CoolAlert.show(
-              context: context,
-              type: CoolAlertType.error,
-              text: "الرجاء تعبئة كافة الحقول اولاً",
-            );
-            return false;
 
-          }
-        }
-        break;
-      case "طبيب":
-        {
-          if (registerFirstNameController.text == "" ||
-              registerLastNameController.text == "") {
-            CoolAlert.show(
-              context: context,
-              type: CoolAlertType.error,
-              text: "الرجاء تعبئة كافة الحقول اولاً",
-            );
-            return false;
 
-          }
-          break;
-        }
-      case "اسطبل":
-        {
-          if (registerStableNameController.text == "" ) {
-            CoolAlert.show(
-              context: context,
-              type: CoolAlertType.error,
-              text: "الرجاء تعبئة كافة الحقول اولاً",
-            );
-            return false;
+    if(type==type_items[1]) {
+      if (registerFirstNameController.text==""||registerLastNameController.text=="") {
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          text: "الرجاء تعبئة كافة الحقول اولاً".i18n,
+        );
+        return false;
 
-          }
-        }
-        break;
-      case "متجر":
-        {
-          if (registerStoreNameController.text == "" ) {
-            CoolAlert.show(
-              context: context,
-              type: CoolAlertType.error,
-              text: "الرجاء تعبئة كافة الحقول اولاً",
-            );
-            return false;
+      }
+    } else if(type==type_items[0]) {
+      if (registerFirstNameController.text == "" ||
+          registerLastNameController.text == "") {
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          text: "الرجاء تعبئة كافة الحقول اولاً".i18n,
+        );
+        return false;
 
-          }
-        }
-        break;
-      case "منحلة":
-        {
-          if (registerStoreNameController.text == "" ) {
-            CoolAlert.show(
-              context: context,
-              type: CoolAlertType.error,
-              text: "الرجاء تعبئة كافة الحقول اولاً",
-            );
-            return false;
+      }
+    } else if(type==type_items[3]) {
+      if (registerStableNameController.text == "" ) {
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          text: "الرجاء تعبئة كافة الحقول اولاً".i18n,
+        );
+        return false;
 
-          }
-        }
-        break;
+      }
+    } else if(type==type_items[2]) {
+      if (registerStoreNameController.text == "" ) {
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          text: "الرجاء تعبئة كافة الحقول اولاً".i18n,
+        );
+        return false;
+
+      }
+    } else if(type==type_items[4]) {
+      if (registerStoreNameController.text == "" ) {
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          text: "الرجاء تعبئة كافة الحقول اولاً".i18n,
+        );
+        return false;
+
+      }
     }
+
+    // switch (type) {
+    //   case "مستخدم":
+    //     {
+    //       if (registerFirstNameController.text==""||registerLastNameController.text=="") {
+    //         CoolAlert.show(
+    //           context: context,
+    //           type: CoolAlertType.error,
+    //           text: "الرجاء تعبئة كافة الحقول اولاً",
+    //         );
+    //         return false;
+    //
+    //       }
+    //     }
+    //     break;
+    //   case "طبيب":
+    //     {
+    //       if (registerFirstNameController.text == "" ||
+    //           registerLastNameController.text == "") {
+    //         CoolAlert.show(
+    //           context: context,
+    //           type: CoolAlertType.error,
+    //           text: "الرجاء تعبئة كافة الحقول اولاً",
+    //         );
+    //         return false;
+    //
+    //       }
+    //       break;
+    //     }
+    //   case "اسطبل":
+    //     {
+    //       if (registerStableNameController.text == "" ) {
+    //         CoolAlert.show(
+    //           context: context,
+    //           type: CoolAlertType.error,
+    //           text: "الرجاء تعبئة كافة الحقول اولاً",
+    //         );
+    //         return false;
+    //
+    //       }
+    //     }
+    //     break;
+    //   case "متجر":
+    //     {
+    //       if (registerStoreNameController.text == "" ) {
+    //         CoolAlert.show(
+    //           context: context,
+    //           type: CoolAlertType.error,
+    //           text: "الرجاء تعبئة كافة الحقول اولاً",
+    //         );
+    //         return false;
+    //
+    //       }
+    //     }
+    //     break;
+    //   case "منحلة":
+    //     {
+    //       if (registerStoreNameController.text == "" ) {
+    //         CoolAlert.show(
+    //           context: context,
+    //           type: CoolAlertType.error,
+    //           text: "الرجاء تعبئة كافة الحقول اولاً",
+    //         );
+    //         return false;
+    //
+    //       }
+    //     }
+    //     break;
+    // }
 
       // await register2();
       await authRequest.verifyPhoneNumber(registerPhoneNumberController.text);
@@ -1121,99 +1175,182 @@ Future<bool> register2() async {
   String mobile="00"+registerPhoneNumberController.text.substring(1);
   consolePrint(mobile);
   bool auth = true;
-  switch (type) {
-    case "مستخدم":
-      {
-        if (!await authRequest.registerUserRequest(
-            firstName: registerFirstNameController.text,
-            secondName: registerLastNameController.text,
-            mobile: mobile,
-            password: registerPasswordController.text,
-            address: locationId)) {
-          auth = false;
-          customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
-          // Get.back();
-          // CoolAlert.show(
-          //   type: CoolAlertType.error,
-          //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
-          // );
-        }
-      }
-      break;
-    case "طبيب":
-      {
-        if (!await authRequest.registerDoctorRequest(
-            firstName: registerFirstNameController.text,
-            secondName: registerLastNameController.text,
-            mobile: mobile,
-            password: registerPasswordController.text,
-            address: locationId)) {
-          // Get.back();
-          auth = false;
-          customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
 
-          // CoolAlert.show(
-          //   type: CoolAlertType.error,
-          //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
-          // );
-        }
-      }
-      break;
-    case "اسطبل":
-      {
-        if (!await authRequest.registerStableRequest(
-            stable_name: registerStableNameController.text,
-            mobile: mobile,
-            password: registerPasswordController.text,
-            address: locationId)) {
-          // Get.back();
-          auth = false;
-          customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
+  if(type==type_items[1]) {
+    if (!await authRequest.registerUserRequest(
+        firstName: registerFirstNameController.text,
+        secondName: registerLastNameController.text,
+        mobile: mobile,
+        password: registerPasswordController.text,
+        address: locationId)) {
+      auth = false;
+      customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى".i18n);
+      // Get.back();
+      // CoolAlert.show(
+      //   type: CoolAlertType.error,
+      //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+      // );
+    }
+  } else if(type==type_items[0]) {
+    if (!await authRequest.registerDoctorRequest(
+        firstName: registerFirstNameController.text,
+        secondName: registerLastNameController.text,
+        mobile: mobile,
+        password: registerPasswordController.text,
+        address: locationId)) {
+      // Get.back();
+      auth = false;
+      customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى".i18n);
 
-          // CoolAlert.show(
-          //   type: CoolAlertType.error,
-          //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
-          // );
-        }
-      }
-      break;
-    case "متجر":
-      {
-        bool temp=await authRequest.registerStoreRequest(
-            store_name: registerStoreNameController.text,
-            mobile: mobile,
-            password: registerPasswordController.text,
-            address: locationId);
-        if (!temp) {
-          // Get.back();
-          auth = false;
-          customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
-          // CoolAlert.show(
-          //   type: CoolAlertType.error,
-          //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
-          // );
-        }
-      }
-      break;
-    case "منحلة":
-      {
-        bool temp=await authRequest.registerSiveRequest(
-            stable_name: registerStoreNameController.text,
-            mobile: mobile,
-            password: registerPasswordController.text,
-            address: locationId);
-        if (!temp) {
-          // Get.back();
-          auth = false;
-          customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
-          // CoolAlert.show(
-          //   type: CoolAlertType.error,
-          //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
-          // );
-        }
-      }
-      break;
+      // CoolAlert.show(
+      //   type: CoolAlertType.error,
+      //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+      // );
+    }
+  } else if(type==type_items[3]) {
+    if (!await authRequest.registerStableRequest(
+        stable_name: registerStableNameController.text,
+        mobile: mobile,
+        password: registerPasswordController.text,
+        address: locationId)) {
+      // Get.back();
+      auth = false;
+      customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى".i18n);
+
+      // CoolAlert.show(
+      //   type: CoolAlertType.error,
+      //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+      // );
+    }
+  } else if(type==type_items[2]) {
+    bool temp=await authRequest.registerStoreRequest(
+        store_name: registerStoreNameController.text,
+        mobile: mobile,
+        password: registerPasswordController.text,
+        address: locationId);
+    if (!temp) {
+      // Get.back();
+      auth = false;
+      customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى".i18n);
+      // CoolAlert.show(
+      //   type: CoolAlertType.error,
+      //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+      // );
+    }
+  } else if(type==type_items[4]) {
+    bool temp=await authRequest.registerSiveRequest(
+        stable_name: registerStoreNameController.text,
+        mobile: mobile,
+        password: registerPasswordController.text,
+        address: locationId);
+    if (!temp) {
+      // Get.back();
+      auth = false;
+      customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى".i18n);
+      // CoolAlert.show(
+      //   type: CoolAlertType.error,
+      //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+      // );
+    }
+
   }
+
+
+
+  //
+  // switch (type) {
+  //   case "مستخدم":
+  //     {
+  //       if (!await authRequest.registerUserRequest(
+  //           firstName: registerFirstNameController.text,
+  //           secondName: registerLastNameController.text,
+  //           mobile: mobile,
+  //           password: registerPasswordController.text,
+  //           address: locationId)) {
+  //         auth = false;
+  //         customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
+  //         // Get.back();
+  //         // CoolAlert.show(
+  //         //   type: CoolAlertType.error,
+  //         //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+  //         // );
+  //       }
+  //     }
+  //     break;
+  //   case "طبيب":
+  //     {
+  //       if (!await authRequest.registerDoctorRequest(
+  //           firstName: registerFirstNameController.text,
+  //           secondName: registerLastNameController.text,
+  //           mobile: mobile,
+  //           password: registerPasswordController.text,
+  //           address: locationId)) {
+  //         // Get.back();
+  //         auth = false;
+  //         customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
+  //
+  //         // CoolAlert.show(
+  //         //   type: CoolAlertType.error,
+  //         //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+  //         // );
+  //       }
+  //     }
+  //     break;
+  //   case "اسطبل":
+  //     {
+  //       if (!await authRequest.registerStableRequest(
+  //           stable_name: registerStableNameController.text,
+  //           mobile: mobile,
+  //           password: registerPasswordController.text,
+  //           address: locationId)) {
+  //         // Get.back();
+  //         auth = false;
+  //         customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
+  //
+  //         // CoolAlert.show(
+  //         //   type: CoolAlertType.error,
+  //         //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+  //         // );
+  //       }
+  //     }
+  //     break;
+  //   case "متجر":
+  //     {
+  //       bool temp=await authRequest.registerStoreRequest(
+  //           store_name: registerStoreNameController.text,
+  //           mobile: mobile,
+  //           password: registerPasswordController.text,
+  //           address: locationId);
+  //       if (!temp) {
+  //         // Get.back();
+  //         auth = false;
+  //         customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
+  //         // CoolAlert.show(
+  //         //   type: CoolAlertType.error,
+  //         //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+  //         // );
+  //       }
+  //     }
+  //     break;
+  //   case "منحلة":
+  //     {
+  //       bool temp=await authRequest.registerSiveRequest(
+  //           stable_name: registerStoreNameController.text,
+  //           mobile: mobile,
+  //           password: registerPasswordController.text,
+  //           address: locationId);
+  //       if (!temp) {
+  //         // Get.back();
+  //         auth = false;
+  //         customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى");
+  //         // CoolAlert.show(
+  //         //   type: CoolAlertType.error,
+  //         //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
+  //         // );
+  //       }
+  //     }
+  //     break;
+  // }
 
   // Get.back();
   // registerController.changeState();
@@ -1232,7 +1369,7 @@ Future<bool> register2() async {
     } else
       {
       Get.offAll(LoginScreen());
-      customDialog("حدث خطأ ما اثناء التسجيل الرجاء تسجيل الدخول  مرة اخرى");
+      customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى".i18n);
     }
     // CoolAlert.show(
     //   type: CoolAlertType.error,

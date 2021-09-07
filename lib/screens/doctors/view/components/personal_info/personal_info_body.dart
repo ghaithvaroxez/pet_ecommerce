@@ -9,6 +9,8 @@ import 'package:pets/configuration/constants/colors.dart';
 import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/printer.dart';
 import 'package:pets/configuration/size_config.dart';
+import 'package:pets/screens/auth/controller/services/auth_services.dart';
+import 'package:pets/screens/auth/model/user.dart';
 import 'package:pets/screens/auth/view/splash/login_or_register.dart';
 import 'package:pets/screens/doctor_app/model/doctor.dart';
 import 'package:pets/screens/home/view/components/social_media_components.dart';
@@ -22,6 +24,8 @@ import 'package:rating_dialog/rating_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 import '../../../model/review_model.dart';
+import 'translations/personal_info_body.i18n.dart';
+
 class DoctorPersonalInfoBody extends StatefulWidget {
   Doctor doctor;
   DoctorPersonalInfoBody(this.doctor);
@@ -125,13 +129,20 @@ await getReviews();
     });
   }
 
+  int currentUserId=-1;
+  getUser()async{
+    UserModel userModel=await AuthServices.getCurrentUser();
 
+      currentUserId=userModel.user.id;
+
+  }
  String fb,wa,ins;
  bool bfb=true,bwa=true,bins=true;
  @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getUser();
     for(int i =0; i<widget.doctor.doctorContacts.length;i++)
     {
       if( widget.doctor.doctorContacts[i].type=="facebook"&&bfb==true)
@@ -160,168 +171,169 @@ getReviews();
  }
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Container(
-        color: Colors.white,
-        padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(24),
-            vertical: getProportionateScreenHeight(26)),
-        child: ListView(
-          children: [
-            Row(
+    return Container(
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(
+          horizontal: getProportionateScreenWidth(24),
+          vertical: getProportionateScreenHeight(26)),
+      child: ListView(
+        children: [
+          Row(
 
+            children: [
+              Container(
+                height: getProportionateScreenHeight(30),
+                width: getProportionateScreenWidth(150),
+                child: AutoSizeText(
+                  widget.doctor.firstName+" "+widget.doctor.lastName,
+                  style: body3_25pt,
+                ),
+              ),
+              Spacer(),
+              SocialMedia(fb: fb,ins: ins,wa: wa,freez: false,),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image.asset(
+                "assets/images/home/clock_icon.png",
+                height: getProportionateScreenHeight(12),
+              ),
+
+              SizedBox(
+                width: getProportionateScreenWidth(10),
+              ),
+
+              Container(
+                height: getProportionateScreenHeight(20),
+                width: getProportionateScreenWidth(200),
+                child: AutoSizeText(
+                  widget.doctor.info,
+                  style: darkGrayText_14pt,
+                  minFontSize: 10,
+                  maxLines: 1,
+                  // textDirection: TextDirection.rtl,
+                ),
+              ),
+
+            ],
+          ),
+          SizedBox(height: getProportionateScreenHeight(15),),
+          Container(
+            height: getProportionateScreenHeight(20),
+            // width: getPr oportionateScreenWidth(200),
+            alignment: Alignment.centerRight,
+            // color: Colors.red,
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Image.asset(
+                  "assets/images/home/location_icon.png",
+                  height: getProportionateScreenHeight(12),
+                ),
+                SizedBox(
+                  width: getProportionateScreenWidth(10),
+                ),
                 Container(
-                  height: getProportionateScreenHeight(30),
-                  width: getProportionateScreenWidth(150),
+
+                  // alignment: Alignment.centerRight,
+                  height: getProportionateScreenHeight(20),
+                  width: getProportionateScreenWidth(200),
                   child: AutoSizeText(
-                    widget.doctor.firstName+" "+widget.doctor.lastName,
-                    style: body3_25pt,
+                  widget.doctor.address,
+                    style: darkGrayText_14pt,
+                    minFontSize: 10,
+                    maxLines: 1,
+                    // textDirection: TextDirection.rtl,
                   ),
                 ),
-                Spacer(),
-                SocialMedia(fb: fb,ins: ins,wa: wa,freez: false,),
+
+
               ],
             ),
+          ),
+
+          SizedBox(height: getProportionateScreenHeight(15),),
+          Container(
+            height: getProportionateScreenHeight(30),
+            alignment: Alignment.centerRight,
+            child: AutoSizeText(
+              "مواعيد العمل".i18n,
+              minFontSize: 14,
+              style: body3_18pt,
+              maxLines: 1,
+            ),
+          ),
+
+          ///مواعيد العمل
+          SizedBox(
+            height: getProportionateScreenHeight(16),
+          ),
+
+          for(int i=0;i<widget.doctor.doctorWorkDays.length;i++)
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image.asset(
                   "assets/images/home/clock_icon.png",
                   height: getProportionateScreenHeight(12),
                 ),
-
                 SizedBox(
                   width: getProportionateScreenWidth(10),
                 ),
-
                 Container(
                   height: getProportionateScreenHeight(20),
                   width: getProportionateScreenWidth(200),
-                  child: AutoSizeText(
-                    widget.doctor.info,
-                    style: darkGrayText_14pt,
-                    minFontSize: 10,
-                    maxLines: 1,
-                    textDirection: TextDirection.rtl,
+                  child: Row(
+                    children: [
+                      Container(
+                        height: getProportionateScreenHeight(20),
+                        width: getProportionateScreenWidth(50),
+                        // width: getProportionateScreenWidth(120),
+                        child: AutoSizeText(
+                          "${widget.doctor.doctorWorkDays[i].day} ",
+                          // textDirection: TextDirection.rtl,
+                          style: body3_18pt,
+                          minFontSize: 10,
+                        ),
+                      ),
+                      Container(
+                        height: getProportionateScreenHeight(20),
+                        // width: getProportionateScreenWidth(120),
+                        child: AutoSizeText(
+                          "${widget.doctor.doctorWorkDays[i].from} ",
+                          // textDirection: TextDirection.ltr,
+                          style: body3_18pt,
+                          minFontSize: 10,
+                        ),
+                      ),
+                      Container(
+                        height: getProportionateScreenHeight(20),
+                        // width: getProportionateScreenWidth(120),
+                        child: AutoSizeText(
+                          "-",
+                          style: body3_18pt,
+                          minFontSize: 10,
+                        ),
+                      ),
+                      Container(
+                        height: getProportionateScreenHeight(20),
+                        // width: getProportionateScreenWidth(120),
+                        child: AutoSizeText(
+                          "${widget.doctor.doctorWorkDays[i].to} ",
+                          // textDirection: TextDirection.ltr ,
+                          style: body3_18pt,
+                          minFontSize: 10,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-
               ],
             ),
-            SizedBox(height: getProportionateScreenHeight(15),),
-            Container(
-              height: getProportionateScreenHeight(20),
-              // width: getProportionateScreenWidth(200),
-              alignment: Alignment.centerRight,
-              // color: Colors.red,
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Image.asset(
-                    "assets/images/home/location_icon.png",
-                    height: getProportionateScreenHeight(12),
-                  ),
-                  SizedBox(
-                    width: getProportionateScreenWidth(10),
-                  ),
-                  Container(
-
-                    // alignment: Alignment.centerRight,
-                    height: getProportionateScreenHeight(20),
-                    width: getProportionateScreenWidth(200),
-                    child: AutoSizeText(
-                    widget.doctor.address,
-                      style: darkGrayText_14pt,
-                      minFontSize: 10,
-                      maxLines: 1,
-                      textDirection: TextDirection.rtl,
-                    ),
-                  ),
-
-
-                ],
-              ),
-            ),
-
-            SizedBox(height: getProportionateScreenHeight(15),),
-            Container(
-              height: getProportionateScreenHeight(30),
-              alignment: Alignment.centerRight,
-              child: AutoSizeText(
-                "مواعيد العمل",
-                minFontSize: 14,
-                style: body3_18pt,
-                maxLines: 1,
-              ),
-            ),
-
-            ///مواعيد العمل
-            SizedBox(
-              height: getProportionateScreenHeight(16),
-            ),
-
-            for(int i=0;i<widget.doctor.doctorWorkDays.length;i++)
-              Row(
-                children: [
-                  Image.asset(
-                    "assets/images/home/clock_icon.png",
-                    height: getProportionateScreenHeight(12),
-                  ),
-                  SizedBox(
-                    width: getProportionateScreenWidth(10),
-                  ),
-                  Container(
-                    height: getProportionateScreenHeight(20),
-                    width: getProportionateScreenWidth(200),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: getProportionateScreenHeight(20),
-                          width: getProportionateScreenWidth(50),
-                          // width: getProportionateScreenWidth(120),
-                          child: AutoSizeText(
-                            "${widget.doctor.doctorWorkDays[i].day} ",textDirection: TextDirection.rtl,
-                            style: body3_18pt,
-                            minFontSize: 10,
-                          ),
-                        ),
-                        Container(
-                          height: getProportionateScreenHeight(20),
-                          // width: getProportionateScreenWidth(120),
-                          child: AutoSizeText(
-                            "${widget.doctor.doctorWorkDays[i].from} ",textDirection: TextDirection.ltr,
-                            style: body3_18pt,
-                            minFontSize: 10,
-                          ),
-                        ),
-                        Container(
-                          height: getProportionateScreenHeight(20),
-                          // width: getProportionateScreenWidth(120),
-                          child: AutoSizeText(
-                            "-",
-                            style: body3_18pt,
-                            minFontSize: 10,
-                          ),
-                        ),
-                        Container(
-                          height: getProportionateScreenHeight(20),
-                          // width: getProportionateScreenWidth(120),
-                          child: AutoSizeText(
-                            "${widget.doctor.doctorWorkDays[i].to} ",textDirection: TextDirection.ltr ,
-                            style: body3_18pt,
-                            minFontSize: 10,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            SizedBox(
-              height: getProportionateScreenHeight(20),
-            ),
+          SizedBox(
+            height: getProportionateScreenHeight(20),
+          ),
     Container(
     margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(105)
     ),
@@ -336,7 +348,7 @@ getReviews();
     if (await canLaunch('tel:${widget.doctor.mobile}')) {
     await launch('tel:${widget.doctor.mobile}');
     } else {
-    Get.rawSnackbar(message: "عذرا فشلت العملية !",);
+    Get.rawSnackbar(message:  "الرجاء المحاولة مجدداً !".i18n,);
     }
     },child: Container(width: getProportionateScreenWidth(60),height:getProportionateScreenHeight(60),child: Image.asset("assets/images/store/phone_button_icon.png"))),
     SizedBox(width: getProportionateScreenWidth(12),),
@@ -344,14 +356,14 @@ getReviews();
     onTap: ()async{
     if(widget.doctor.email==null)
     {
-    Get.rawSnackbar(message: "عذرا المتجر ليس له بريد الكتروني !",);
+    Get.rawSnackbar(message: "عذرا الطبيب ليس له بريد الكتروني !".i18n,);
     return ;
     }
     else {
     if (await canLaunch( 'mailto:${widget.doctor.email}')) {
     await launch( 'mailto:${widget.doctor.email}');
     } else {
-    Get.rawSnackbar(message: "عذرا فشلت العملية !",);
+    Get.rawSnackbar(message: "الرجاء المحاولة مجدداً !".i18n,);
     }
     }
     },
@@ -360,178 +372,177 @@ getReviews();
     ],
     ),
     ),
-            SizedBox(
-              height: getProportionateScreenHeight(15),
-            ),
-            Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(height:getProportionateScreenHeight(30), child: AutoSizeText("احدث التقييمات",style:body3_18pt,minFontSize: 12,maxLines: 1,)),
-                Spacer(),
-                GestureDetector(
-                    onTap: (){
-                      if(more==2)
-                        setMore();
-                      else removeMore();
-                      setState(() {
+          SizedBox(
+            height: getProportionateScreenHeight(15),
+          ),
+          Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(height:getProportionateScreenHeight(30), child: AutoSizeText("احدث التقييمات".i18n,style:body3_18pt,minFontSize: 12,maxLines: 1,)),
+              Spacer(),
+              GestureDetector(
+                  onTap: (){
+                    if(more==2)
+                      setMore();
+                    else removeMore();
+                    setState(() {
 
-                      });
-                    },
+                    });
+                  },
 
-                    child: Container(height:getProportionateScreenHeight(15),child: AutoSizeText("عرض "+ (more==2?"المزيد":"اقل"),style: body2_14pt,minFontSize: 8,))),
-              ],
-            ),
-            SizedBox(height: getProportionateScreenHeight(10),),
-            GestureDetector(onTap:()async{
+                  child: Container(height:getProportionateScreenHeight(15),child: AutoSizeText("عرض ".i18n+ (more==2?"المزيد".i18n:"اقل".i18n),style: body2_14pt,minFontSize: 8,))),
+            ],
+          ),
+          SizedBox(height: getProportionateScreenHeight(10),),
+          currentUserId==widget.doctor.id?Container(): GestureDetector(onTap:()async{
 
-              if( gusetId==146)
-              {
-                showDialog(
-                    context: context,
-                    builder: ((context) => AlertDialog(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      title:  Text(
-                        'يجب عليك تسجيل حساب اولاً ',
-                        textDirection: TextDirection.rtl,
-                        style: body3_18pt,
+            if( gusetId==146)
+            {
+              showDialog(
+                  context: context,
+                  builder: ((context) => AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)),
+                    title:  Text(
+                      'يجب عليك تسجيل حساب اولاً '.i18n,
+                      // textDirection: TextDirection.rtl,
+                      style: body3_18pt,
+                    ),
+
+                    actions: [
+                      TextButton(
+                        child: Text('العودة'.i18n,style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          return ;
+                          // Navigator.pop(context);
+                        },
+                      ),
+                      TextButton(
+                        child:  Text(
+                          'تسجيل حساب'.i18n,style: GoogleFonts.tajawal(
+                            color: Colors.blue.withOpacity(0.6)
+                        ),
+                        ),
+                        onPressed: () async{
+                          Get.back();
+                          Get.offAll(LoginOrRegister());
+                          return ;
+                        },
+
+                        // language.changeLanguage();
+                        // Navigator.of(context).pop();
+                        // await  LocalStorageService.prefs.clear();
+                        // Get.offAll(SplashScreen());
+                        // Navigator.popUntil(context, ModalRoute.withName('/'));
                       ),
 
-                      actions: [
-                        TextButton(
-                          child: Text('العودة',style: GoogleFonts.tajawal(color: Colors.red.withOpacity(0.6)),),
-                          onPressed: () {
-                            Navigator.pop(context);
-                            return ;
-                            // Navigator.pop(context);
-                          },
-                        ),
-                        TextButton(
-                          child:  Text(
-                            'تسجيل حساب',style: GoogleFonts.tajawal(
-                              color: Colors.blue.withOpacity(0.6)
-                          ),
-                          ),
-                          onPressed: () async{
-                            Get.back();
-                            Get.offAll(LoginOrRegister());
-                            return ;
-                          },
+                    ],
+                  )));
+              return;
+            }
 
-                          // language.changeLanguage();
-                          // Navigator.of(context).pop();
-                          // await  LocalStorageService.prefs.clear();
-                          // Get.offAll(SplashScreen());
-                          // Navigator.popUntil(context, ModalRoute.withName('/'));
-                        ),
+            final ratingDialog= RatingDialog(
+              // your app's name?
+              title: widget.doctor.firstName+" "+widget.doctor.lastName,
+              initialRating: 0,
+              ratingColor: Color(0xFF49C3EA).withOpacity(0.8),
+              // encourage your user to leave a high rating?
+              message:
+              'ماهو تقيمك لهذا الطبيب  ؟'.i18n,
+              commentHint: 'اخبرنا برئيك عن هذا الطبيب'.i18n,
+              // your app's logo?
+              // image: Container(
+              //   color: ,
+              // ),
+              submitButton: 'متابعة'.i18n,
+              onCancelled: () {
 
-                      ],
-                    )));
-                return;
-              }
+              },
+              onSubmitted: (response) async{
+                print('rating: ${response.rating}, comment: ${response.comment}');
+                addReview(response.comment, response.rating);
+              },
+            );
 
-              final ratingDialog= RatingDialog(
-                // your app's name?
-                title: widget.doctor.firstName+" "+widget.doctor.lastName,
-                initialRating: 0,
-                ratingColor: Color(0xFF49C3EA).withOpacity(0.8),
-                // encourage your user to leave a high rating?
-                message:
-                'ماهو تقيمك لهذا الطبيب  ؟',
-                commentHint: 'اخبرنا برئيك عن هذا الطبيب',
-                // your app's logo?
-                // image: Container(
-                //   color: ,
-                // ),
-                submitButton: 'متابعة',
-                onCancelled: () {
+            showDialog(context: context, builder: (context)=>ratingDialog);
+          },
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(5)),
+              width: getProportionateScreenWidth(345),
+              height: getProportionateScreenHeight(85),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: offWhite,
+                boxShadow: shadow,
+              ),child: Center(child: Icon(Icons.add,color: Colors.blue.withOpacity(0.6),),),),),
 
-                },
-                onSubmitted: (response) async{
-                  print('rating: ${response.rating}, comment: ${response.comment}');
-                  addReview(response.comment, response.rating);
-                },
-              );
-
-              showDialog(context: context, builder: (context)=>ratingDialog);
-            },
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(5)),
-                width: getProportionateScreenWidth(345),
-                height: getProportionateScreenHeight(85),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: offWhite,
-                  boxShadow: shadow,
-                ),child: Center(child: Icon(Icons.add,color: Colors.blue.withOpacity(0.6),),),),),
-
-            error?Container(
-              height: getProportionateScreenHeight(200),
-              width: getProportionateScreenWidth(300),
-              child: AutoSizeText(
-                "عذرا حدثت مشكلة بجلب التقيمات الرجاء المحاولة مجدداً",
-                style: body1_16pt,
-              ),
-            ):loading?Container(height: getProportionateScreenHeight(200),
-              width: getProportionateScreenWidth(300),
-              child: Container(
-                alignment: Alignment.center,
-                child: CircularProgressIndicator(),
-
-              ),
-            ):
-            Column(
-              children: [
-                ...List<Widget>.generate(reviewModel.rates.length,(index)=>index>more?Container(width: 0,height: 0,):ReviewCad(reviewModel.rates[index].userComment=="null"?" ":reviewModel.rates[index].userComment, reviewModel.rates[index].ratedStoreName!="null"?reviewModel.rates[index].ratedStoreName:reviewModel.rates[index].userFirstName!="null"?reviewModel.rates[index].userFirstName+" "+reviewModel.rates[index].userLastName:reviewModel.rates[index].doctorFirstName+" "+reviewModel.rates[index].doctorLastName, reviewModel.rates[index].userRate,reviewModel.rates[index].ratedStoreImage!="null"?reviewModel.rates[index].ratedStoreImage:reviewModel.rates[index].userImage!="null"?reviewModel.rates[index].userImage:reviewModel.rates[index].doctorImage))
-              ],
+          error?Container(
+            height: getProportionateScreenHeight(200),
+            width: getProportionateScreenWidth(300),
+            child: AutoSizeText(
+              "عذرا حدثت مشكلة بجلب التقيمات الرجاء المحاولة مجدداً".i18n,
+              style: body1_16pt,
             ),
+          ):loading?Container(height: getProportionateScreenHeight(200),
+            width: getProportionateScreenWidth(300),
+            child: Container(
+              alignment: Alignment.center,
+              child: CircularProgressIndicator(),
 
-            SizedBox(height: getProportionateScreenHeight(25),),
+            ),
+          ):
+          Column(
+            children: [
+              ...List<Widget>.generate(reviewModel.rates.length,(index)=>index>more?Container(width: 0,height: 0,):ReviewCad(reviewModel.rates[index].userComment=="null"?" ":reviewModel.rates[index].userComment, reviewModel.rates[index].ratedStoreName!="null"?reviewModel.rates[index].ratedStoreName:reviewModel.rates[index].userFirstName!="null"?reviewModel.rates[index].userFirstName+" "+reviewModel.rates[index].userLastName:reviewModel.rates[index].doctorFirstName+" "+reviewModel.rates[index].doctorLastName, reviewModel.rates[index].userRate,reviewModel.rates[index].ratedStoreImage!="null"?reviewModel.rates[index].ratedStoreImage:reviewModel.rates[index].userImage!="null"?reviewModel.rates[index].userImage:reviewModel.rates[index].doctorImage))
+            ],
+          ),
 
-            (widget.doctor.lat==-1.01||widget.doctor.long==-1.01)?Container(height: 0,width: 0,):
-            Container(width: getProportionateScreenWidth(370),height: getProportionateScreenHeight(370),child: Stack(
-              children: [
-                GoogleMap(
-                  mapType: MapType.normal,
-                  myLocationButtonEnabled: true,
-                  zoomControlsEnabled: false,
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(widget.doctor.lat, widget.doctor.long),
-                    zoom: 11.5,
-                  ),
+          SizedBox(height: getProportionateScreenHeight(25),),
 
-                  onTap: (position) {
-                    Get.to(MapScreen());
-                  },
-                  onCameraMove: (position) {
-                    // _customInfoWindowController.onCameraMove();
-                    // _customInfoWindowController.hideInfoWindow();
-                  },
-                  onMapCreated: (GoogleMapController controller) async {
-                    _googleMapController = controller;
-                    // _customInfoWindowController.googleMapController =
-                    //     controller;
-                  },
-                  markers:  {Marker(
-                    markerId: MarkerId('my location'),
-                    // infoWindow: const InfoWindow(title: 'Origin'),
-                    icon: icon1,
-                    position: LatLng(widget.doctor.lat, widget.doctor.long),
-
-                  )},
-                  // {
-                  //   if (_origin != null) _origin,
-                  //   if (_destination != null) _destination
-                  // },
-                  polylines: {
-
-                  },
-                  // onLongPress: _addMarker,
+          (widget.doctor.lat==-1.01||widget.doctor.long==-1.01)?Container(height: 0,width: 0,):
+          Container(width: getProportionateScreenWidth(370),height: getProportionateScreenHeight(370),child: Stack(
+            children: [
+              GoogleMap(
+                mapType: MapType.normal,
+                myLocationButtonEnabled: true,
+                zoomControlsEnabled: false,
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(widget.doctor.lat, widget.doctor.long),
+                  zoom: 11.5,
                 ),
-              ],
-            ),)
-          ],
-        ),
+
+                onTap: (position) {
+                  Get.to(MapScreen());
+                },
+                onCameraMove: (position) {
+                  // _customInfoWindowController.onCameraMove();
+                  // _customInfoWindowController.hideInfoWindow();
+                },
+                onMapCreated: (GoogleMapController controller) async {
+                  _googleMapController = controller;
+                  // _customInfoWindowController.googleMapController =
+                  //     controller;
+                },
+                markers:  {Marker(
+                  markerId: MarkerId('my location'),
+                  // infoWindow: const InfoWindow(title: 'Origin'),
+                  icon: icon1,
+                  position: LatLng(widget.doctor.lat, widget.doctor.long),
+
+                )},
+                // {
+                //   if (_origin != null) _origin,
+                //   if (_destination != null) _destination
+                // },
+                polylines: {
+
+                },
+                // onLongPress: _addMarker,
+              ),
+            ],
+          ),)
+        ],
       ),
     );;
   }

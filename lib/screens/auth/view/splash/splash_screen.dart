@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:i18n_extension/i18n_widget.dart';
 import 'package:pets/configuration/size_config.dart';
 import 'package:get/get.dart';
 import 'package:pets/screens/auth/controller/services/auth_services.dart';
@@ -9,7 +10,7 @@ import 'package:pets/services/local_storage_service.dart';
 import '../register/register_types_screen.dart';
 import 'login_or_register.dart';
 
-class SplashScreen extends StatefulWidget {
+class   SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -29,9 +30,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
             k?
         Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (BuildContext context) => MainScreen())) :
+        MaterialPageRoute(builder: (BuildContext context) => I18n(
+            // initialLocale: Locale('ar'),
+            child: MainScreen()))) :
     Navigator.pushReplacement(context, MaterialPageRoute(
-        builder: (BuildContext context) => LoginOrRegister()));});
+        builder: (BuildContext context) =>  I18n(
+            // initialLocale: Locale('ar'),
+            child: LoginOrRegister())));});
   // TODO: implement initState
     super.initState();
   }

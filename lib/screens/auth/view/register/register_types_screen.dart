@@ -8,7 +8,7 @@ import 'package:pets/screens/auth/view/components/auth_button.dart';
 import 'package:get/get.dart';
 import 'package:pets/screens/auth/view/login/login_screen.dart';
 import 'package:pets/screens/auth/view/register/register_screen.dart';
-
+import 'translations/register_types_screen.i18n.dart';
 
 
 class SignUpTypeScreen extends StatelessWidget {
@@ -25,7 +25,7 @@ class SignUpTypeScreen extends StatelessWidget {
               SizedBox(height: getProportionateScreenHeight(55),),
               Container(
                 child: Text(
-                  "إنشاء حساب",
+                  "إنشاء حساب".i18n,
                   style: h4_21pt,
                   maxLines: 1,
                   textAlign: TextAlign.center,
@@ -44,7 +44,7 @@ class SignUpTypeScreen extends StatelessWidget {
               ),
               AuthButton(
                 color: true,
-                title: "كمستخدم",
+                title: "كمستخدم".i18n,
                 image: "assets/images/auth/user_icon.png",
                 ontap: () {
                   Get.to(() => RegisterScreen(UserType.user));
@@ -53,7 +53,7 @@ class SignUpTypeScreen extends StatelessWidget {
               // SizedBox(height: getProportionateScreenHeight(10),),
               AuthButton(
                 color: false,
-                title: "كصاحب متجر",
+                title: "كصاحب متجر".i18n,
                 image: "assets/images/auth/vendor_icon.png",
                 ontap: () {
                   Get.to(() => RegisterScreen(UserType.store));
@@ -62,7 +62,7 @@ class SignUpTypeScreen extends StatelessWidget {
               // SizedBox(height: getProportionateScreenHeight(10),),
               AuthButton(
                 color: false,
-                title: "كصاحب اسطبل",
+                title: "كصاحب اسطبل".i18n,
                 image: "assets/images/auth/vendor_icon.png",
                 ontap: () {
                   Get.to(() => RegisterScreen(UserType.stable));
@@ -70,7 +70,7 @@ class SignUpTypeScreen extends StatelessWidget {
               ),
               AuthButton(
                 color: false,
-                title: "كصاحب منحلة",
+                title: "كصاحب منحلة".i18n,
                 image: "assets/images/auth/vendor_icon.png",
                 ontap: () {
                   Get.to(() => RegisterScreen(UserType.sieve));
@@ -79,7 +79,7 @@ class SignUpTypeScreen extends StatelessWidget {
               // SizedBox(height: getProportionateScreenHeight(10),),
               AuthButton(
                 color: false,
-                title: "كطبيب بيطري",
+                title: "كطبيب بيطري".i18n,
                 image: "assets/images/auth/doctor_icon.png",
                 ontap: () {
                   Get.to(() => RegisterScreen(UserType.doctor));

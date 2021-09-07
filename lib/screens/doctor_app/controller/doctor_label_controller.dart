@@ -59,12 +59,12 @@ class DoctorLabelController extends GetxController
       case 0:
         servicesStyle=notActiveTextStyle;
         services=servicesImg;
-        break;
+      break;
+
       case 1:
         aboutStoreStyle=notActiveTextStyle;
         aboutStore=aboutStoreImg;
-
-        break;
+      break;
       // case 2:
       //   ordersStyle=notActiveTextStyle;
       //   orders=ordersImg;

@@ -16,6 +16,7 @@ import 'package:pets/screens/vendor_app/view/components/products/add_new_product
 import '../services/doctor_service_card.dart';
 import '../services/add_new_service_screen.dart';
 import '../services/edit_servie_screen.dart';
+import 'translations/doctor_service_body.i18n.dart';
 class DoctorServicesBodyScreen extends StatelessWidget {
   DoctorController doctorController;
   DoctorServicesBodyScreen(this.doctorController);
@@ -41,7 +42,7 @@ class DoctorServicesBodyScreen extends StatelessWidget {
               ? Center(
             child: Container(
               child: AutoSizeText(
-                "لايوجد خدمات حالياً",
+                "لايوجد خدمات حالياً".i18n,
                 style: darkGrayText_16pt,
                 minFontSize: 25,
               ),

@@ -14,6 +14,7 @@ import 'package:pets/screens/stores/view/components/offers/store_offer_card.dart
 import 'package:pets/services/http_requests_service.dart';
 import '../../../model/custoer_store_offer.dart';
 import 'package:http/http.dart' as http;
+import 'translations/offers_body.i18n.dart';
 class OffersBodyScreen extends StatefulWidget {
   int id;
   OffersBodyScreen(this.id );
@@ -100,11 +101,11 @@ bool error=false;
     SizeConfig.init(context);
     return  error?Container(
       margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
-      child: AutoSizeText("عذرا حدثت مشكلة الرجاء المحاولة مجددا",style: body1_16pt,),
+      child: AutoSizeText(" الرجاء المحاولة مجددا".i18n,style: body1_16pt,),
     ):loading?LoadingScreen():customerStoreOffers.offers.length==0?Container(
       width: getProportionateScreenWidth(390),
       height: getProportionateScreenHeight(350),
-      child: Center(child: AutoSizeText("لا يوجد عناصر حاليا",style: body1_16pt,)),
+      child: Center(child: AutoSizeText("لا يوجد عناصر حاليا".i18n,style: body1_16pt,)),
     ):Container(
         margin: EdgeInsets.symmetric(
             horizontal: getProportionateScreenWidth(24),

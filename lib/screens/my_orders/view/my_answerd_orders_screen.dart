@@ -16,6 +16,9 @@ import 'package:pets/services/http_requests_service.dart';
 import '../../loading_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'translations/my_answered_order_screen.i18n.dart';
+
+
 class MyAnswerdOrdersScreen extends StatefulWidget {
   @override
   _MyAnswerdOrdersScreenState createState() => _MyAnswerdOrdersScreenState();
@@ -48,7 +51,7 @@ class _MyAnswerdOrdersScreenState extends State<MyAnswerdOrdersScreen> {
       if (apiResult.statusCode == 200) {
         consolePrint("statusCode==200");
         // var j = jsonDecode(apiResult.body);
-        Get.rawSnackbar(message: "لقد تم حذف الرد بنجاح",backgroundColor: Colors.green.withOpacity(0.8));
+        Get.rawSnackbar(message: "لقد تم حذف الرد بنجاح".i18n,backgroundColor: Colors.green.withOpacity(0.8));
         await fetchData();
 
         // return true;
@@ -59,14 +62,14 @@ class _MyAnswerdOrdersScreenState extends State<MyAnswerdOrdersScreen> {
         setState(() {
 
         });
-        Get.rawSnackbar(message: "لم نتمكن من حذف ردك الان الرجاء المحاولة لاحقا",backgroundColor: Colors.red.withOpacity(0.8));
+        Get.rawSnackbar(message: "لم نتمكن من حذف ردك الان الرجاء المحاولة لاحقا".i18n,backgroundColor: Colors.red.withOpacity(0.8));
 
         // return false;
       }
     }
     catch(e){
       consolePrint(e.toString());
-      Get.rawSnackbar(message: "لم نتمكن من حذف ردك الان الرجاء المحاولة لاحقا",backgroundColor: Colors.red.withOpacity(0.8));
+      Get.rawSnackbar(message: "لم نتمكن من حذف ردك الان الرجاء المحاولة لاحقا".i18n,backgroundColor: Colors.red.withOpacity(0.8));
     }
 
   }
@@ -129,14 +132,14 @@ consolePrint("statusCode:"+apiResult.statusCode.toString());
               Container(
               // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
               child:   error?Column(mainAxisSize: MainAxisSize.max,children: [
-                Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
+                Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مجدداً".i18n,style: body3_18pt,),),),
               ],):  loading?LoadingScreen():Directionality(
                 textDirection: TextDirection.rtl,
                 child: RefreshIndicator(
                   onRefresh: ()async{
                     await fetchData();
                   },
-                  child:        answers.length==0?Container(height: getProportionateScreenHeight(400),width: getProportionateScreenWidth(390),alignment:Alignment.center,child: AutoSizeText("لا يوجد ردود لك حتى الان",style: body3_18pt,),):SingleChildScrollView(
+                  child:        answers.length==0?Container(height: getProportionateScreenHeight(400),width: getProportionateScreenWidth(390),alignment:Alignment.center,child: AutoSizeText("لا يوجد ردود لك حتى الان".i18n,style: body3_18pt,),):SingleChildScrollView(
                     child: Column(
                       children: [
                   ...List<Widget>.generate(   answers.length, (index) => GestureDetector(
@@ -195,19 +198,19 @@ consolePrint("statusCode:"+apiResult.statusCode.toString());
                                                     shape: RoundedRectangleBorder(
                                                         borderRadius: BorderRadius.circular(5)),
                                                     title: Text(
-                                                      'هل أنت متأكد ؟',
+                                                      'هل أنت متأكد ؟'.i18n,
                                                       textDirection: TextDirection.rtl,
                                                       style: body3_18pt,
                                                     ),
                                                     content: Text(
-                                                      'انت على وشك حذف هذا الرد !',
+                                                      'انت على وشك حذف هذا الرد !'.i18n,
                                                       textDirection: TextDirection.rtl,
                                                       style: body1_16pt,
                                                     ),
                                                     actions: [
                                                       TextButton(
                                                         child: Text(
-                                                          'نعم',
+                                                          'نعم'.i18n,
                                                         ),
                                                         onPressed: () async{
                                                           // language.changeLanguage();
@@ -217,7 +220,7 @@ consolePrint("statusCode:"+apiResult.statusCode.toString());
                                                         },
                                                       ),
                                                       TextButton(
-                                                        child: Text('لا'),
+                                                        child: Text('لا'.i18n),
                                                         onPressed: () {
                                                           Navigator.pop(context);
                                                         },

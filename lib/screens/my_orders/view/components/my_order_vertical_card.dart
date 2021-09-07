@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:pets/screens/orders/model/all_orders_model.dart';
 
 import '../my_order_details.dart';
-
+import 'my_order_vertical_card.i18n.dart';
 class MyVerticalOrderListCard extends StatelessWidget {
   Order order;
   Function delete;
@@ -101,19 +101,19 @@ class MyVerticalOrderListCard extends StatelessWidget {
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5)),
                                     title: Text(
-                                      'هل أنت متأكد ؟',
+                                      'هل أنت متأكد ؟'.i18n,
                                       textDirection: TextDirection.rtl,
                                       style: body3_18pt,
                                     ),
                                     content: Text(
-                                      'انت على وشك حذف هذا الطلب !',
+                                      'انت على وشك حذف هذا الطلب !'.i18n,
                                       textDirection: TextDirection.rtl,
                                       style: body1_16pt,
                                     ),
                                     actions: [
                                       TextButton(
                                         child: Text(
-                                          'نعم',
+                                          'نعم'.i18n,
                                         ),
                                         onPressed: () async{
                                           // language.changeLanguage();
@@ -123,7 +123,7 @@ class MyVerticalOrderListCard extends StatelessWidget {
                                         },
                                       ),
                                       TextButton(
-                                        child: Text('لا'),
+                                        child: Text('لا'.i18n),
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },

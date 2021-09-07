@@ -6,7 +6,7 @@ import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/size_config.dart';
 import 'package:get/get.dart';
 import 'package:pets/screens/widgets/text_field.dart';
-
+import '../translations/edit_email_screen.i18n.dart';
 class EditEmailScreen extends StatelessWidget {
   String title;
   Function action;
@@ -46,7 +46,9 @@ class EditEmailScreen extends StatelessWidget {
                 ),
                 SizedBox(height: getProportionateScreenHeight(40),),
                 Container(height:SizeConfig.screenHeight/3,width:SizeConfig.screenWidth,child: Column(children: [
-                  Container(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),alignment:Alignment.centerRight,child: AutoSizeText("اليرد الالكتروني",style: body1_16pt,textDirection: TextDirection.rtl,)),
+                  Container(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),alignment:Alignment.centerRight,child: AutoSizeText("البريد الالكتروني".i18n,style: body1_16pt,
+                    // textDirection: TextDirection.rtl,
+                  )),
                   SizedBox(height: getProportionateScreenHeight(10),),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -57,7 +59,7 @@ class EditEmailScreen extends StatelessWidget {
                       onTap: ()async {
                         if(t1.text=="") {
                           Get.rawSnackbar(
-                              message: "you don't enter any email");
+                              message: "الرجاء ادخال بريد الكتروني".i18n);
                           Get.back();
                         } else {
                           Get.back();
@@ -72,7 +74,7 @@ class EditEmailScreen extends StatelessWidget {
                             gradient: blueGradient),
                         child: Center(
                           child: AutoSizeText(
-                            "حفظ ومتابعة ",
+                            "حفظ ومتابعة ".i18n,
                             style: blueButton_14pt,
                           ),
                         ),

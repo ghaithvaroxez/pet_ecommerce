@@ -19,7 +19,7 @@ import '../model/custoer_store_offer.dart';
 import 'package:http/http.dart' as http;
 import '../view/components/products/p_bodyy.dart';
 import '../view/components/photos/photos_body.dart';
-
+import 'translations/store_details.i18n.dart';
 class StoreDetailsPage extends StatefulWidget {
   Store storeModel;
 
@@ -181,7 +181,7 @@ crossAxisAlignment: CrossAxisAlignment.end,
                       width: getProportionateScreenWidth(200),
                       child: AutoSizeText(
                         widget.storeModel.name,
-                        textDirection: TextDirection.rtl,
+                        // textDirection: TextDirection.rtl,
                         style: blueButton_25pt,
                       ),
                     ),
@@ -204,7 +204,7 @@ crossAxisAlignment: CrossAxisAlignment.end,
                               style: blueButton_14pt,
                               minFontSize: 10,
                               maxLines: 1,
-                              textDirection: TextDirection.rtl,
+                              // textDirection: TextDirection.rtl,
                             ),
                           ),
                           SizedBox(
@@ -313,7 +313,7 @@ crossAxisAlignment: CrossAxisAlignment.end,
                                   height: getProportionateScreenHeight(20),
                                   width: getProportionateScreenWidth(80),
                                   child: AutoSizeText(
-                                    "الصور",
+                                    "الصور".i18n,
                                     style: controller.photosStyle,
                                     minFontSize: 8,
                                   ),
@@ -358,7 +358,7 @@ crossAxisAlignment: CrossAxisAlignment.end,
                                   height: getProportionateScreenHeight(20),
                                   width: getProportionateScreenWidth(80),
                                   child: AutoSizeText(
-                                    "المنتجات",
+                                    "المنتجات".i18n,
                                     style: controller.productsStyle,
                                     minFontSize: 8,
                                   ),
@@ -402,7 +402,7 @@ crossAxisAlignment: CrossAxisAlignment.end,
                                   height: getProportionateScreenHeight(20),
                                   width: getProportionateScreenWidth(80),
                                   child: AutoSizeText(
-                                    "عن المتجر",
+                                    "عن المتجر".i18n,
                                     style: controller.aboutStoreStyle,
                                     minFontSize: 8,
                                   ),
@@ -449,7 +449,7 @@ crossAxisAlignment: CrossAxisAlignment.end,
                                   height: getProportionateScreenHeight(20),
                                   width: getProportionateScreenWidth(80),
                                   child: AutoSizeText(
-                                    "العروض",
+                                    "العروض".i18n,
                                     style: controller.offersStyle,
                                     minFontSize: 8,
                                   ),

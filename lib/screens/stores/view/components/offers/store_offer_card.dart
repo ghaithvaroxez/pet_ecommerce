@@ -84,7 +84,7 @@ class StoreOfferCard extends StatelessWidget {
                           offer.date
                           ,minFontSize: 8
                           ,style: blueButton_14pt,
-                          textDirection: TextDirection.rtl,
+                          // textDirection: TextDirection.rtl,
                         ),
                       ),
                       SizedBox(width: 5,),

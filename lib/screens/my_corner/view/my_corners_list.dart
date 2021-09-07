@@ -19,6 +19,7 @@ import 'package:get/get.dart';
 import './components/my_corner_vertical_card.dart';
 import '../view/add_corner_screen.dart';
 import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
+import 'translations/my_corner_list.i18n.dart';
 class MyCornerList extends StatefulWidget {
   @override
   _MyCornerListState createState() => _MyCornerListState();
@@ -63,57 +64,54 @@ onTap: (){
          builder: ((context)=> SafeArea(
            child: Column(
              children: [
-               Directionality(
-                 textDirection: TextDirection.rtl,
-                 child: Container(
-                   child: Material(
-                     elevation: 5,
-                     color: Colors.white,
-                     child: Container(
-                         width: SizeConfig.screenWidth,
-                         height: getProportionateScreenHeight(95),
-                         child: Row(
-                           children: [
-                             SizedBox(
-                               width: getProportionateScreenWidth(24),
-                             ),
-                             GestureDetector(
-                               onTap: (){ Scaffold.of(context).openEndDrawer();},
-                               child: CircleAvatar(
-                                 radius: 24,
-                                 backgroundColor: Colors.grey.shade50,
-                                 child: Image.asset(
-                                   "assets/images/home/menu_icon.png",
-                                   height: 24,
-                                   width: 20,
-                                 ),
-                               ),
-                             ),
-                             Spacer(),
-                             Container(
-                                 height: getProportionateScreenHeight(28),
-                                 width: getProportionateScreenWidth(75),
-                                 child: AutoSizeText(
-                                   "زاويتي",
-                                   style: h5_21pt,
-                                   minFontSize: 8,
-                                 )),
-                             Spacer(),
-                             CircleAvatar(
+               Container(
+                 child: Material(
+                   elevation: 5,
+                   color: Colors.white,
+                   child: Container(
+                       width: SizeConfig.screenWidth,
+                       height: getProportionateScreenHeight(95),
+                       child: Row(
+                         children: [
+                           SizedBox(
+                             width: getProportionateScreenWidth(24),
+                           ),
+                           GestureDetector(
+                             onTap: (){ Scaffold.of(context).openEndDrawer();},
+                             child: CircleAvatar(
                                radius: 24,
                                backgroundColor: Colors.grey.shade50,
                                child: Image.asset(
-                                 "assets/images/home/notification_icon.png",
+                                 "assets/images/home/menu_icon.png",
                                  height: 24,
                                  width: 20,
                                ),
                              ),
-                             SizedBox(
-                               width: getProportionateScreenWidth(24),
+                           ),
+                           Spacer(),
+                           Container(
+                               height: getProportionateScreenHeight(28),
+                               width: getProportionateScreenWidth(75),
+                               child: AutoSizeText(
+                                 "زاويتي".i18n,
+                                 style: h5_21pt,
+                                 minFontSize: 8,
+                               )),
+                           Spacer(),
+                           CircleAvatar(
+                             radius: 24,
+                             backgroundColor: Colors.grey.shade50,
+                             child: Image.asset(
+                               "assets/images/home/notification_icon.png",
+                               height: 24,
+                               width: 20,
                              ),
-                           ],
-                         )),
-                   ),
+                           ),
+                           SizedBox(
+                             width: getProportionateScreenWidth(24),
+                           ),
+                         ],
+                       )),
                  ),
                ),
                ///appBAr
@@ -125,7 +123,7 @@ onTap: (){
                      // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
                        child: Container(
                          padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(16),vertical: getProportionateScreenHeight(16)),
-                         child: controller.corners.length==0?Container(height: getProportionateScreenHeight(400),width: getProportionateScreenWidth(350),alignment: Alignment.center,child: Center(child: AutoSizeText("لا يوجد عناصر حاليا",style: body3_18pt,),),):RefreshIndicator(
+                         child: controller.corners.length==0?Container(height: getProportionateScreenHeight(400),width: getProportionateScreenWidth(350),alignment: Alignment.center,child: Center(child: AutoSizeText("لا يوجد عناصر حاليا".i18n,style: body3_18pt,),),):RefreshIndicator(
                            onRefresh: ()async{
                              await controller.getCorners();
                            },

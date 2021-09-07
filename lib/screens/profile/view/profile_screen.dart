@@ -6,7 +6,7 @@ import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/size_config.dart';
 import 'package:pets/screens/auth/controller/services/auth_services.dart';
 import 'package:pets/screens/auth/view/splash/splash_screen.dart';
-import 'package:pets/screens/corner/view/my_corner_details.dart';
+// import 'package:pets/screens/corner/view/my_corner_details.dart';
 import 'package:pets/screens/favorites/views/favorite_view.dart';
 import 'package:pets/screens/my_corner/view/my_corners_list.dart';
 import 'package:pets/screens/my_orders/view/orders_main_screen.dart';
@@ -18,6 +18,7 @@ import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
 import 'package:pets/services/local_storage_service.dart';
 
 import 'edit_profile_screen.dart';
+import 'translations/profile_screen.i18n.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -113,173 +114,171 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 height: getProportionateScreenHeight(6),
               ),
               Expanded(
-                child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Column(
-                      children: [
-                        //user
-                        CustomeProfileItem(
-                          title: " المعلومات الشخصية ",
-                          img: "assets/images/profile/personal_info_icon.png",
-                          onTap: () {
+                child: Column(
+                  children: [
+                    //user
+                    CustomeProfileItem(
+                      title: " المعلومات الشخصية ".i18n,
+                      img: "assets/images/profile/personal_info_icon.png",
+                      onTap: () {
 
-                            // Get.back();
-                            Get.to(EditProfileScreen( ()async{
-                              await getdata();
-                              setState(() {
+                        // Get.back();
+                        Get.to(EditProfileScreen( ()async{
+                          await getdata();
+                          setState(() {
 
-                              });
-                            } ));
-                          },
-                          isExpanded: true,
-                        ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(6),
-                        ),
-                        //categories
+                          });
+                        } ));
+                      },
+                      isExpanded: true,
+                    ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(6),
+                    ),
+                    //categories
 
-                        //favorite
-                        CustomeProfileItem(
-                          title: "المفضلة",
-                          img:
-                          "assets/images/drawer/drawer_icons/favorite_icon.png",
-                          onTap: () {
-                            Get.to(FavoriteView());
-                            // Get.back();
-                          },
-                        ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(6),
-                        ),
-                        //map
-                        CustomeProfileItem(
-                          title: "الإشعارات",
-                          img:
-                          "assets/images/profile/notification_icon.png",
-                          onTap: () {
-                            // Get.back();
-                          },
-                        ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(6),
-                        ),
+                    //favorite
+                    CustomeProfileItem(
+                      title: "المفضلة".i18n,
+                      img:
+                      "assets/images/drawer/drawer_icons/favorite_icon.png",
+                      onTap: () {
+                        Get.to(FavoriteView());
+                        // Get.back();
+                      },
+                    ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(6),
+                    ),
+                    //map
+                    CustomeProfileItem(
+                      title: "الإشعارات".i18n,
+                      img:
+                      "assets/images/profile/notification_icon.png",
+                      onTap: () {
+                        // Get.back();
+                      },
+                    ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(6),
+                    ),
 
-                        //money
-                        CustomeProfileItem(
-                          title: "طلباتي",
-                          img: "assets/images/profile/my_orders_icon.png",
-                          onTap: () {
-                            Get.to(OrdersMainScreen());
-                            // Get.back();
-                          },
-                        ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(6),
-                        ),
-                        CustomeProfileItem(
-                          title: "زاويتي",
-                          img:
-                          "assets/images/drawer/drawer_icons/corner_icon.png",
-                          onTap: () {
-                            Get.back();
-                            Get.to(MyCornerList());
-                          },
-                        ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(6),
-                        ),
-                        //my_baqa
+                    //money
+                    CustomeProfileItem(
+                      title: "طلباتي".i18n,
+                      img: "assets/images/profile/my_orders_icon.png",
+                      onTap: () {
+                        Get.to(OrdersMainScreen());
+                        // Get.back();
+                      },
+                    ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(6),
+                    ),
+                    CustomeProfileItem(
+                      title: "زاويتي".i18n,
+                      img:
+                      "assets/images/drawer/drawer_icons/corner_icon.png",
+                      onTap: () {
+                        Get.back();
+                        Get.to(MyCornerList());
+                      },
+                    ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(6),
+                    ),
+                    //my_baqa
 
-                        //my_status
-                        CustomeProfileItem(
-                          title: "حالتي",
-                          img:
-                          "assets/images/drawer/drawer_icons/status_icon.png",
-                          onTap: () {
-                            Get.to(MyStatus());
+                    //my_status
+                    CustomeProfileItem(
+                      title: "حالتي".i18n,
+                      img:
+                      "assets/images/drawer/drawer_icons/status_icon.png",
+                      onTap: () {
+                        Get.to(MyStatus());
 
-                          },
-                        ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(6),
-                        ),
-                        //my_corner
+                      },
+                    ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(6),
+                    ),
+                    //my_corner
 
-                        //setting
-                        CustomeProfileItem(
-                          title: "الإعدادت",
-                          img:
-                          "assets/images/drawer/drawer_icons/setting_icon.png",
-                          onTap: () {
-                            Get.back();
-                          },
-                        ),
-                        SizedBox(
-                          height: getProportionateScreenHeight(6),
-                        ),
+                    //setting
+                    CustomeProfileItem(
+                      title: "الإعدادت".i18n,
+                      img:
+                      "assets/images/drawer/drawer_icons/setting_icon.png",
+                      onTap: () {
+                        Get.back();
+                      },
+                    ),
+                    SizedBox(
+                      height: getProportionateScreenHeight(6),
+                    ),
 
-                        CustomeProfileItem(
-                          title: "الأسئلة الشائعة",
-                          img:
-                          "assets/images/profile/questions_icon.png",
-                          onTap: () {
-                            Get.back();
-                          },
-                        ),
+                    CustomeProfileItem(
+                      title: "الأسئلة الشائعة".i18n,
+                      img:
+                      "assets/images/profile/questions_icon.png",
+                      onTap: () {
+                        Get.back();
+                      },
+                    ),
 
-                        //user
-                        SizedBox(
-                          height: getProportionateScreenHeight(6),
-                        ),
-                        CustomeProfileItem(
-                          title: "تسجيل الخروج",
-                          img:
-                          "assets/images/drawer/drawer_icons/logout_icon.png",
-                          onTap: ()async {
-                            showDialog(
-                                context: context,
-                                builder: ((context) => AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5)),
-                                  title:  Text(
-                                    'هل أنت متأكد ؟',
-                                    textDirection: TextDirection.rtl,
-                                    style: body3_18pt,
+                    //user
+                    SizedBox(
+                      height: getProportionateScreenHeight(6),
+                    ),
+                    CustomeProfileItem(
+                      title: "تسجيل الخروج".i18n,
+                      img:
+                      "assets/images/drawer/drawer_icons/logout_icon.png",
+                      onTap: ()async {
+                        showDialog(
+                            context: context,
+                            builder: ((context) => AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5)),
+                              title:  Text(
+                                'هل أنت متأكد ؟'.i18n,
+                                // textDirection: TextDirection.rtl,
+                                style: body3_18pt,
+                              ),
+                              content: Text(
+                                'انت على وشك تسجيل الخروج !'.i18n,
+                                // textDirection: TextDirection.rtl,
+                                style: body1_16pt,
+                              ),
+                              actions: [
+                                TextButton(
+                                  child:  Text(
+                                    'نعم',
                                   ),
-                                  content: Text(
-                                    'انت على وشك تسجيل الخروج !',
-                                    textDirection: TextDirection.rtl,
-                                    style: body1_16pt,
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      child:  Text(
-                                        'نعم',
-                                      ),
-                                      onPressed: () async{
-                                        // language.changeLanguage();
-                                        Navigator.of(context).pop();
-                                        await  LocalStorageService.prefs.clear();
-                                        Get.offAll(SplashScreen());
-                                        // Navigator.popUntil(context, ModalRoute.withName('/'));
-                                      },
-                                    ),
-                                    TextButton(
-                                      child: Text('لا'),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                      },
-                                    )
-                                  ],
-                                )));
+                                  onPressed: () async{
+                                    // language.changeLanguage();
+                                    Navigator.of(context).pop();
+                                    await  LocalStorageService.prefs.clear();
+                                    Get.offAll(SplashScreen());
+                                    // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text('لا'.i18n),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    // Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            )));
 
-                          },
-                          isRed: true,
-                        ),
+                      },
+                      isRed: true,
+                    ),
 
-                      ],
-                    )),
+                  ],
+                ),
               ),
             ],
           ),

@@ -18,6 +18,7 @@ import '../../../../loading_screen.dart';
 import '../photos/photo_card.dart';
 import 'package:pets/screens/vendor_app/model/image_model.dart' as im;
 import '../photos/photos_view.dart';
+import '../offers/translations/offers_body.i18n.dart';
 class CustomerPhotosBody extends StatefulWidget {
   int id;
   CustomerPhotosBody(this.id);
@@ -90,7 +91,7 @@ class _CustomerPhotosBodyState extends State<CustomerPhotosBody> {
 ?Container(
       width: getProportionateScreenWidth(390),
       height: getProportionateScreenHeight(350),
-      child: Center(child: AutoSizeText("لا يوجد عناصر حاليا",style: body1_16pt,)),
+      child: Center(child: AutoSizeText( "لا يوجد عناصر حاليا".i18n,style: body1_16pt,)),
     ):
       Container(
         padding: EdgeInsets.symmetric(

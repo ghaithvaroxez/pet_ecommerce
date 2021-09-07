@@ -1,9 +1,12 @@
 // import 'package:device_preview/device_preview.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:i18n_extension/i18n_widget.dart';
 import 'package:pets/screens/auth/model/contstants.dart';
 import 'package:pets/screens/auth/view/login/login_screen.dart';
 import 'package:pets/screens/auth/view/otp/otp_screen.dart';
@@ -15,6 +18,8 @@ import 'package:pets/screens/home/view/home_view.dart';
 import 'package:pets/screens/main_screen/view/main_view.dart';
 import 'package:pets/screens/vendor_app/view/vendor_details_screen.dart';
 import 'package:pets/screens/doctor_app/view/doctor_details_screen.dart';
+import 'package:i18n_extension/i18n_extension.dart';
+import 'translations/codegen_loader.g.dart';
 
 void main() async {
 
@@ -27,7 +32,15 @@ void main() async {
   //   ),
   // );
   runApp(
-    App()// Wrap your app
+      EasyLocalization(
+          path: 'assets/translations',
+          supportedLocales: [
+            Locale("en"),
+            Locale("ar")
+          ],
+          fallbackLocale: Locale('en'),
+          assetLoader: CodegenLoader(),
+          child: App())// Wrap your app
   );
 }
 class App extends StatefulWidget {
@@ -63,11 +76,24 @@ class _AppState extends State<App> {
                 hourMinuteShape: CircleBorder(),
               ),
             ),
+            // localizationsDelegates: [
+            //   GlobalMaterialLocalizations.delegate,
+            //   GlobalWidgetsLocalizations.delegate,
+            //   GlobalCupertinoLocalizations.delegate,
+            // ],
+            // supportedLocales: [
+            //    Locale('en'),
+            //    Locale('ar'),
+            // ],
             // locale: DevicePreview.locale(context), // Add the locale here
             // builder: DevicePreview.appBuilder,
 // home: RegisterScreen(UserType.user),// Add the builder here
 //             home: VendorDetailsPage(),
 //             home: DoctorAppDetailsPage(),
+
+            supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
+            locale: context.locale,
             home: SplashScreen(),
 // home:WelcomqeScreen(),
 // home:SignUpTypeScreen(),
@@ -117,7 +143,7 @@ class BL extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.rtl,
+      // textDirection: TextDirection.rtl,
       child: Container(
         child: VendorDetailsPage(),
       ),

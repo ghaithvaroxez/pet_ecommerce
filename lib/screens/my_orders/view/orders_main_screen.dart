@@ -7,7 +7,7 @@ import 'package:pets/screens/my_orders/view/my_orders_list.dart';
 import '../../loading_screen.dart';
 import '../controller/oreders_label_controller.dart';
 import 'package:get/get.dart';
-
+import 'translations/orders_main_screen.i18n.dart';
 import 'add_order_screen.dart';
 import 'my_answerd_orders_screen.dart';
 class OrdersMainScreen extends StatefulWidget {
@@ -135,149 +135,146 @@ class _OrdersMainScreenState extends State<OrdersMainScreen>with SingleTickerPro
               top: getProportionateScreenHeight(350),
               left: 0,
               right: 0,
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Container(
-                  height: getProportionateScreenHeight(55),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: GetBuilder<OrdersLabelController>(
-                          init: _customerDoctorDetailsLabelController,
-                          // init: _customerLabelController,
-                          builder: (controller) => GestureDetector(
-                            onTap: () {
-                              _tabController.animateTo(0);
-                              controller.changeIndex(0);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                  top: getProportionateScreenHeight(12)),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(12)),
-                                color: controller.backgroundColors[0],
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: getProportionateScreenHeight(18),
-                                    width: getProportionateScreenWidth(18),
-                                    child: Image.asset(
-                                      controller.ordersResponse,
-                                      fit: BoxFit.fill,
-                                    ),
+              child: Container(
+                height: getProportionateScreenHeight(55),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: GetBuilder<OrdersLabelController>(
+                        init: _customerDoctorDetailsLabelController,
+                        // init: _customerLabelController,
+                        builder: (controller) => GestureDetector(
+                          onTap: () {
+                            _tabController.animateTo(0);
+                            controller.changeIndex(0);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                top: getProportionateScreenHeight(12)),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(12)),
+                              color: controller.backgroundColors[0],
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: getProportionateScreenHeight(18),
+                                  width: getProportionateScreenWidth(18),
+                                  child: Image.asset(
+                                    controller.ordersResponse,
+                                    fit: BoxFit.fill,
                                   ),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    height: getProportionateScreenHeight(20),
-                                    width: getProportionateScreenWidth(80),
-                                    child: AutoSizeText(
-                                      "طلباتي ",
-                                      style: controller.ordersResponseStyle,
-                                      minFontSize: 8,
-                                    ),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  height: getProportionateScreenHeight(20),
+                                  width: getProportionateScreenWidth(80),
+                                  child: AutoSizeText(
+                                    "طلباتي ".i18n,
+                                    style: controller.ordersResponseStyle,
+                                    minFontSize: 8,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
+                    ),
 
-                      ///products
+                    ///products
 
-                      Expanded(
-                        child: GetBuilder<OrdersLabelController>(
-                          init: _customerDoctorDetailsLabelController,
-                          // init: _customerLabelController,
-                          builder: (controller) => GestureDetector(
-                            onTap: () {
-                              _tabController.animateTo(1);
-                              controller.changeIndex(1);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                  top: getProportionateScreenHeight(12)),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
-                                color: controller.backgroundColors[1],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: getProportionateScreenHeight(18),
-                                    width: getProportionateScreenWidth(18),
-                                    child: Image.asset(
-                                      controller.personalInfo,
-                                      fit: BoxFit.fill,
-                                    ),
+                    Expanded(
+                      child: GetBuilder<OrdersLabelController>(
+                        init: _customerDoctorDetailsLabelController,
+                        // init: _customerLabelController,
+                        builder: (controller) => GestureDetector(
+                          onTap: () {
+                            _tabController.animateTo(1);
+                            controller.changeIndex(1);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                top: getProportionateScreenHeight(12)),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
+                              color: controller.backgroundColors[1],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: getProportionateScreenHeight(18),
+                                  width: getProportionateScreenWidth(18),
+                                  child: Image.asset(
+                                    controller.personalInfo,
+                                    fit: BoxFit.fill,
                                   ),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    height: getProportionateScreenHeight(20),
-                                    width: getProportionateScreenWidth(80),
-                                    child: AutoSizeText(
-                                      "ردودي",
-                                      style: controller.personalInfoStyle,
-                                      minFontSize: 8,
-                                    ),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  height: getProportionateScreenHeight(20),
+                                  width: getProportionateScreenWidth(80),
+                                  child: AutoSizeText(
+                                    "ردودي".i18n,
+                                    style: controller.personalInfoStyle,
+                                    minFontSize: 8,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
+                    ),
 
-                      ///about store
+                    ///about store
 
-                      // Expanded(
-                      //   child: GetBuilder<CustomerDoctorDetailsLabelController>(
-                      //     init: _customerDoctorDetailsLabelController,
-                      //     builder: (controller) => GestureDetector(
-                      //       onTap: () {
-                      //         _tabController.animateTo(2);
-                      //         controller.changeIndex(2);
-                      //       },
-                      //       child: Container(
-                      //         padding: EdgeInsets.only(
-                      //             top: getProportionateScreenHeight(12)),
-                      //         decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
-                      //           color: controller.backgroundColors[2],
-                      //         ),
-                      //         child: Column(
-                      //           crossAxisAlignment: CrossAxisAlignment.center,
-                      //           children: [
-                      //             Container(
-                      //               height: getProportionateScreenHeight(18),
-                      //               width: getProportionateScreenWidth(18),
-                      //               child: Image.asset(
-                      //                 controller.ordersResponse,
-                      //                 fit: BoxFit.fill,
-                      //               ),
-                      //             ),
-                      //             Container(
-                      //               alignment: Alignment.center,
-                      //               height: getProportionateScreenHeight(20),
-                      //               width: getProportionateScreenWidth(80),
-                      //               child: AutoSizeText(
-                      //                 "ردود الطلبات",
-                      //                 style: controller.ordersResponseStyle,
-                      //                 minFontSize: 8,
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      ///orders
-                    ],
-                  ),
+                    // Expanded(
+                    //   child: GetBuilder<CustomerDoctorDetailsLabelController>(
+                    //     init: _customerDoctorDetailsLabelController,
+                    //     builder: (controller) => GestureDetector(
+                    //       onTap: () {
+                    //         _tabController.animateTo(2);
+                    //         controller.changeIndex(2);
+                    //       },
+                    //       child: Container(
+                    //         padding: EdgeInsets.only(
+                    //             top: getProportionateScreenHeight(12)),
+                    //         decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.only(topLeft: Radius.circular(12)),
+                    //           color: controller.backgroundColors[2],
+                    //         ),
+                    //         child: Column(
+                    //           crossAxisAlignment: CrossAxisAlignment.center,
+                    //           children: [
+                    //             Container(
+                    //               height: getProportionateScreenHeight(18),
+                    //               width: getProportionateScreenWidth(18),
+                    //               child: Image.asset(
+                    //                 controller.ordersResponse,
+                    //                 fit: BoxFit.fill,
+                    //               ),
+                    //             ),
+                    //             Container(
+                    //               alignment: Alignment.center,
+                    //               height: getProportionateScreenHeight(20),
+                    //               width: getProportionateScreenWidth(80),
+                    //               child: AutoSizeText(
+                    //                 "ردود الطلبات",
+                    //                 style: controller.ordersResponseStyle,
+                    //                 minFontSize: 8,
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    ///orders
+                  ],
                 ),
               ),
             ),
@@ -287,21 +284,18 @@ class _OrdersMainScreenState extends State<OrdersMainScreen>with SingleTickerPro
               right: 0,
               bottom: 0,
               child: Container(
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: TabBarView(
-                    controller: _tabController,
-                    children: [
-                      MyOrdersScreen(),
-                      MyAnswerdOrdersScreen(),
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    MyOrdersScreen(),
+                    MyAnswerdOrdersScreen(),
 
 
 
-                      // DoctorServicesBody(doctorModel.doctor.doctorServices),
-                      // DoctorPersonalInfoBody(doctorModel.doctor),
-                      // DoctorOrdersResponseBody(),
-                    ],
-                  ),
+                    // DoctorServicesBody(doctorModel.doctor.doctorServices),
+                    // DoctorPersonalInfoBody(doctorModel.doctor),
+                    // DoctorOrdersResponseBody(),
+                  ],
                 ),
               ),
             ),

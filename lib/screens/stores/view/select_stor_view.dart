@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pets/configuration/constants/api.dart';
@@ -15,6 +16,8 @@ import 'package:pets/services/http_requests_service.dart';
 import '../model/all_stores.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'components/offers/translations/offers_body.i18n.dart';
+
 class SelectStoreView extends StatefulWidget {
   @override
   _SelectStoreViewState createState() => _SelectStoreViewState();
@@ -98,7 +101,10 @@ Future<bool> addToFavorite(int storeId) async {
           onRefresh: ()async{
             await fetchData();
           },
-          child: ListView.builder(
+          child:Stores.stores.length==0?Container(width: getProportionateScreenWidth(410),child: Container(
+              width: getProportionateScreenWidth(370),
+              height: getProportionateScreenHeight(400),
+              child: Center(child: AutoSizeText("لا يوجد عناصر حاليا".i18n,style: body1_16pt,)))):ListView.builder(
               // physics: NeverScrollableScrollPhysics(),
               itemCount: Stores.stores.length,
               itemBuilder: (context, index) => index == 0

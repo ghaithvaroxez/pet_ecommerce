@@ -11,15 +11,46 @@ import 'package:pets/screens/home/view/components/favorite_icon.dart';
 import 'package:pets/screens/home/view/components/social_media_components.dart';
 import 'package:pets/screens/doctors/model/all_doctors.dart';
 import 'package:get/get.dart';
-class DoctorCard extends StatelessWidget {
+class DoctorCard extends StatefulWidget {
   Doctor doctor;
   Function fav;
   DoctorCard(this.doctor,this.fav);
+
+  @override
+  _DoctorCardState createState() => _DoctorCardState();
+}
+
+class _DoctorCardState extends State<DoctorCard> {
+  String fb,wa,ins;
+  bool bfb=true,bwa=true,bins=true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for(int i =0; i<widget.doctor.doctorContacts.length;i++)
+    {
+      if( widget.doctor.doctorContacts[i].type=="facebook"&&bfb==true)
+      {
+        fb= widget.doctor.doctorContacts[i].link;
+        bfb=false;
+      }
+      else if( widget.doctor.doctorContacts[i].type=="phone"&&bwa==true)
+      {
+        wa= widget.doctor.doctorContacts[i].link;
+        bwa=false;
+      }
+      else if ( widget.doctor.doctorContacts[i].type=="instagram"&&bins==true)
+      {
+        ins= widget.doctor.doctorContacts[i].link;
+        bins=false;
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.to(DoctorDetailsPage(doctor.id));
+        Get.to(DoctorDetailsPage(widget.doctor.id));
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 6),
@@ -36,7 +67,7 @@ class DoctorCard extends StatelessWidget {
                 height: getProportionateScreenHeight(190),
                 width: getProportionateScreenWidth(160),
                 bottom: getProportionateScreenHeight(40),
-                child: doctor.image==""||doctor.image==null?Image.asset(
+                child: widget.doctor.image==""||widget.doctor.image==null?Image.asset(
                   "assets/images/home/female_doctor.png",
                   fit: BoxFit.fitHeight,
                 ):ClipRRect(
@@ -45,7 +76,7 @@ class DoctorCard extends StatelessWidget {
                     topLeft: Radius.circular(12),
                   ),
                   child: Image.network(
-                    Api.imagePath+doctor.image,
+                    Api.imagePath+widget.doctor.image,
                     fit: BoxFit.fill,
                   ),
                 )),///doctor_image
@@ -71,7 +102,7 @@ class DoctorCard extends StatelessWidget {
                         Container
                           (height: (getProportionateScreenHeight(40)),width: getProportionateScreenWidth(120),
                          alignment: Alignment.center, child: AutoSizeText(
-                            doctor.firstName + " "+doctor.lastName,
+                            widget.doctor.firstName + " "+widget.doctor.lastName,
                             maxLines: 1,
                             minFontSize: 9,
                             style: h6_20pt,
@@ -95,7 +126,7 @@ class DoctorCard extends StatelessWidget {
               Positioned(
                         bottom: getProportionateScreenHeight(4),
                         left: getProportionateScreenWidth(4),
-                        child: SocialMedia(freez: true,),
+                        child: SocialMedia(wa: wa,fb: fb,ins: ins,),
                       ),///social media
             // Positioned(
             //   right: getProportionateScreenWidth(10),
@@ -114,7 +145,7 @@ class DoctorCard extends StatelessWidget {
             Positioned(
               left: getProportionateScreenWidth(25),
               top: getProportionateScreenHeight(8),
-              child:FavoriteIcon(s: doctor.favStatus,fav: fav,),
+              child:FavoriteIcon(s: widget.doctor.favStatus,fav: widget.fav,),
             ),///favorite icon
 
           ],

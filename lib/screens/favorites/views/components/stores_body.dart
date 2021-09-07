@@ -16,6 +16,8 @@ import 'package:pets/screens/widgets/text_field.dart';
 import 'package:pets/services/http_requests_service.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'translation.i18n.dart';
+
 class FavoriteStoresBody extends StatefulWidget {
   @override
   _FavoriteStoresBodyState createState() => _FavoriteStoresBodyState();
@@ -97,12 +99,13 @@ class _FavoriteStoresBodyState extends State<FavoriteStoresBody> {
   @override
   Widget build(BuildContext context) {
     return failed?Column(mainAxisSize: MainAxisSize.max,children: [
-      Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
-    ],):loading?LoadingScreen(): Stores.myFavourites.length==0?Container(
+      Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مجدداً ".i18n,style: body3_18pt,),),),
+    ],):loading?LoadingScreen():
+    Stores.myFavourites.length==0? Container(
       height: getProportionateScreenHeight(400),
       width: getProportionateScreenWidth(350),
       alignment: Alignment.center,
-      child: AutoSizeText("لا يوجد عناصر في المفضلة",style: body3_18pt,),
+      child: AutoSizeText("لا يوجد عناصر في المفضلة".i18n,style: body3_18pt,),
     ):Container(
         // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
       padding: EdgeInsets.only(top: getProportionateScreenHeight(25)),

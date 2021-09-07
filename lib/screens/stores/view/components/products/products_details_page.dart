@@ -9,6 +9,7 @@ import 'package:pets/screens/vendor_app/model/product.dart';
 import 'package:get/get.dart';
 
 import '../../store_details_id.dart';
+import '../offers/translations/offers_details_screen.i18n.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   StoreProduct storeProdcut;
@@ -173,7 +174,7 @@ Positioned(top:0,left:0,child: Container(
 
                                   SizedBox(width: getProportionateScreenWidth(25),),
 
-                                  Container(child: AutoSizeText("اسم المتجر",style: body3_18pt,)),
+                                  Container(child: AutoSizeText("اسم المتجر".i18n,style: body3_18pt,)),
                                 ],
                               ),
                             ),
@@ -181,7 +182,7 @@ Positioned(top:0,left:0,child: Container(
                             Row(
                               children: [
                                 Spacer(),
-                                Container(alignment:Alignment.centerRight,child: AutoSizeText("الوصف",style: body3_18pt,)),
+                                Container(alignment:Alignment.centerRight,child: AutoSizeText("الوصف".i18n,style: body3_18pt,)),
                                 SizedBox(width: getProportionateScreenWidth(5),),
 
                               ],
