@@ -11,25 +11,26 @@ import '../../model/all_orders_model.dart';
 import 'package:get/get.dart';
 import '../order_details_screen.dart';
 import '../../../my_orders/view/order_details_screen_refresh.dart';
+
 class VerticalOrderListCard extends StatefulWidget {
   Order order;
   bool refresh;
   Function ref;
-  VerticalOrderListCard(this.order,this.refresh,{this.ref});
+
+  VerticalOrderListCard(this.order, this.refresh, {this.ref});
 
   @override
   _VerticalOrderListCardState createState() => _VerticalOrderListCardState();
 }
 
 class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
-
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-      // widget.refresh?
-      Get.to(OrderDetailsScreen(widget.order.id));//:Get.to(OrderDetailsScreenWithRefresh(widget.order.id,widget.ref));
+      onTap: () {
+        // widget.refresh?
+        Get.to(OrderDetailsScreen(widget.order
+            .id)); //:Get.to(OrderDetailsScreenWithRefresh(widget.order.id,widget.ref));
       },
       child: Container(
         width: getProportionateScreenWidth(345),
@@ -46,26 +47,30 @@ class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
               width: getProportionateScreenWidth(105),
               height: getProportionateScreenHeight(134),
               decoration: BoxDecoration(
-                borderRadius:appLocal=="ar"? BorderRadius.only(
-                  topRight: Radius.circular(12),
-                  bottomRight: Radius.circular(12),
-                ): BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomLeft: Radius.circular(12),
-                ),
+                borderRadius: appLocal == "ar"
+                    ? BorderRadius.only(
+                        topRight: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
+                      )
+                    : BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        bottomLeft: Radius.circular(12),
+                      ),
                 color: offBlue,
               ),
               child: Center(
                 child: ClipRRect(
-                  borderRadius: appLocal=="ar"?BorderRadius.only(
-                    topRight: Radius.circular(12),
-                    bottomRight: Radius.circular(12),
-                  ): BorderRadius.only(
-                topLeft: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-              ),
+                  borderRadius: appLocal == "ar"
+                      ? BorderRadius.only(
+                          topRight: Radius.circular(12),
+                          bottomRight: Radius.circular(12),
+                        )
+                      : BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          bottomLeft: Radius.circular(12),
+                        ),
                   child: Image.network(
-                    Api.imagePath+widget.order.image,
+                    Api.imagePath + widget.order.image,
                     width: getProportionateScreenWidth(105),
                     height: getProportionateScreenHeight(134),
                     fit: BoxFit.fill,
@@ -85,7 +90,7 @@ class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
                     height: getProportionateScreenHeight(30),
                     width: getProportionateScreenWidth(200),
                     child: AutoSizeText(
-                     widget.order.title,
+                      widget.order.title,
                       // textDirection: TextDirection.rtl,
                       minFontSize: 8,
                       style: body1_16pt,
@@ -103,7 +108,6 @@ class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
                           height: getProportionateScreenHeight(12),
                           child: Row(
                             children: [
-
                               Expanded(
                                   flex: 1,
                                   child: Container(
@@ -111,7 +115,9 @@ class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
                                     child: Image.asset(
                                         "assets/images/store/cat_icon.png"),
                                   )),
-                              SizedBox(width: getProportionateScreenWidth(5),),
+                              SizedBox(
+                                width: getProportionateScreenWidth(5),
+                              ),
                               Expanded(
                                   flex: 3,
                                   child: Container(
@@ -138,22 +144,23 @@ class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
                                     child: Image.asset(
                                         "assets/images/home/clock_icon.png"),
                                   )),
-                              SizedBox(width: getProportionateScreenWidth(5),),
+                              SizedBox(
+                                width: getProportionateScreenWidth(5),
+                              ),
                               Expanded(
                                   flex: 3,
                                   child: Container(
                                     height: getProportionateScreenHeight(12),
-                                    child: AutoSizeText(widget.order.date.toString(),
-                                        style: darkGrayText_11pt,
-                                        minFontSize: 5,
-                                        // textDirection: TextDirection.rtl
-                                      ),
+                                    child: AutoSizeText(
+                                      widget.order.date.toString(),
+                                      style: darkGrayText_11pt,
+                                      minFontSize: 5,
+                                      // textDirection: TextDirection.rtl
+                                    ),
                                   )),
-
                             ],
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -164,10 +171,10 @@ class _VerticalOrderListCardState extends State<VerticalOrderListCard> {
                     height: getProportionateScreenHeight(50),
                     width: getProportionateScreenWidth(200),
                     child: AutoSizeText(
-                        widget.order.question,
-                        minFontSize: 8,
-                        style: darkGrayText_13pt,
-                        // textDirection: TextDirection.rtl
+                      widget.order.question,
+                      minFontSize: 8,
+                      style: darkGrayText_13pt,
+                      // textDirection: TextDirection.rtl
                     ),
                   ),
                 ],

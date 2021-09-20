@@ -18,17 +18,18 @@ import 'components/services/add_new_service_screen.dart';
 import 'package:pets/screens/doctor_app/model/doctor.dart';
 import 'package:http/http.dart' as http;
 import 'translations/doctor_details_page.i18n.dart';
-class DoctorAppDetailsPage extends StatefulWidget {
 
+class DoctorAppDetailsPage extends StatefulWidget {
   @override
   _DoctorAppDetailsPageState createState() => _DoctorAppDetailsPageState();
 }
 
 class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
     with SingleTickerProviderStateMixin {
-  DoctorController customDoctorController=Get.put(DoctorController());
+  DoctorController customDoctorController = Get.put(DoctorController());
   TabController doctorAppTabController;
-  DoctorLabelController customDoctorLabelController=Get.put(DoctorLabelController());
+  DoctorLabelController customDoctorLabelController =
+      Get.put(DoctorLabelController());
 
   @override
   void initState() {
@@ -44,19 +45,16 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
-      floatingActionButton:  Container(
+      floatingActionButton: Container(
         width: 45,
         height: 45,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            gradient: blueGradient
-        ),
+            borderRadius: BorderRadius.circular(50), gradient: blueGradient),
         child: GestureDetector(
-
-          onTap: (){
+          onTap: () {
             doctorAppTabController.animateTo(0);
             customDoctorLabelController.changeIndex(0);
-             Get.to(VendorAppAddService(customDoctorController));
+            Get.to(VendorAppAddService(customDoctorController));
             // customDoctorServicesController.changeToAddService();
           },
           child: Icon(
@@ -65,7 +63,6 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
           ),
         ),
       ),
-
       body: SafeArea(
         child: Stack(
           children: [
@@ -75,27 +72,36 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
               right: 0,
               height: getProportionateScreenHeight(300),
               child: Container(
-                child:  GetBuilder<DoctorController>(
+                child: GetBuilder<DoctorController>(
                   init: customDoctorController,
-                  builder: (controller)=>controller.init==false? Image.asset(
-                    "assets/images/doctors/femal_doctor_details_image.png",
-                    fit: BoxFit.fill,
-                  ):controller.doctorModel.doctor.image==null?Image.asset(
-                    "assets/images/doctors/femal_doctor_details_image.png",
-                    fit: BoxFit.fill,
-                  ):CachedNetworkImage(
-                    imageUrl: Api.imagePath+controller.doctorModel.doctor.image,
-                    fit: BoxFit.cover,
-                    progressIndicatorBuilder: (context, url, downloadProgress) =>
-                        Container(alignment:Alignment.center,height:getProportionateScreenHeight(75),width:getProportionateScreenWidth(75),child: CircularProgressIndicator(value: downloadProgress.progress)),
-                    errorWidget: (context, url, error) => Image.asset(
-                      "assets/images/home/shop_image.png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
+                  builder: (controller) => controller.init == false
+                      ? Image.asset(
+                          "assets/images/doctors/femal_doctor_details_image.png",
+                          fit: BoxFit.fill,
+                        )
+                      : controller.doctorModel.doctor.image == null
+                          ? Image.asset(
+                              "assets/images/doctors/femal_doctor_details_image.png",
+                              fit: BoxFit.fill,
+                            )
+                          : CachedNetworkImage(
+                              imageUrl: Api.imagePath +
+                                  controller.doctorModel.doctor.image,
+                              fit: BoxFit.cover,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) => Container(
+                                      alignment: Alignment.center,
+                                      height: getProportionateScreenHeight(75),
+                                      width: getProportionateScreenWidth(75),
+                                      child: CircularProgressIndicator(
+                                          value: downloadProgress.progress)),
+                              errorWidget: (context, url, error) => Image.asset(
+                                "assets/images/home/shop_image.png",
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                 ),
               ),
-
             ),
 
             Positioned(
@@ -110,7 +116,6 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
                 ),
               ),
             ),
-
 
             // Positioned(
             //   top: getProportionateScreenHeight(34),
@@ -154,11 +159,10 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
               child: Container(
                 height: getProportionateScreenHeight(55),
                 child: Row(
-
                   children: [
                     Expanded(
                       child: GetBuilder<DoctorLabelController>(
-                        init:  customDoctorLabelController,
+                        init: customDoctorLabelController,
                         builder: (controller) => GestureDetector(
                           onTap: () {
                             doctorAppTabController.animateTo(0);
@@ -168,9 +172,11 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
                             padding: EdgeInsets.only(
                                 top: getProportionateScreenHeight(12)),
                             decoration: BoxDecoration(
-                              borderRadius: appLocal=="ar"?BorderRadius.only(
-                                  topRight: Radius.circular(12)):BorderRadius.only(
-                                  topLeft: Radius.circular(12)),
+                              borderRadius: appLocal == "ar"
+                                  ? BorderRadius.only(
+                                      topRight: Radius.circular(12))
+                                  : BorderRadius.only(
+                                      topLeft: Radius.circular(12)),
                               color: controller.backgroundColors[0],
                             ),
                             child: Column(
@@ -204,7 +210,7 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
 
                     Expanded(
                       child: GetBuilder<DoctorLabelController>(
-                        init:  customDoctorLabelController,
+                        init: customDoctorLabelController,
                         builder: (controller) => GestureDetector(
                           onTap: () {
                             doctorAppTabController.animateTo(1);
@@ -215,9 +221,11 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
                                 top: getProportionateScreenHeight(12)),
                             decoration: BoxDecoration(
                               color: controller.backgroundColors[1],
-                              borderRadius: appLocal!="ar"?BorderRadius.only(
-                                  topRight: Radius.circular(12)):BorderRadius.only(
-                                  topLeft: Radius.circular(12)),
+                              borderRadius: appLocal != "ar"
+                                  ? BorderRadius.only(
+                                      topRight: Radius.circular(12))
+                                  : BorderRadius.only(
+                                      topLeft: Radius.circular(12)),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -248,7 +256,6 @@ class _DoctorAppDetailsPageState extends State<DoctorAppDetailsPage>
                     ),
 
                     ///about store
-
 
                     // Expanded(
                     //   child: GetBuilder<DoctorLabelController>(

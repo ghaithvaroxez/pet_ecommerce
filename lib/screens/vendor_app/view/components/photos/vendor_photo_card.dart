@@ -10,10 +10,16 @@ import 'package:pets/screens/vendor_app/model/image_model.dart' as im;
 import 'translations/vendor_photo_card.i18n.dart';
 
 class VendorAppImageCard extends StatelessWidget {
-  VendorAppImageCard(this.view,this.image,this.delete,);
+  VendorAppImageCard(
+    this.view,
+    this.image,
+    this.delete,
+  );
+
   im.Image image;
   Function delete;
   Function view;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +56,7 @@ class VendorAppImageCard extends StatelessWidget {
               left: 0,
               top: 0,
               child: GestureDetector(
-                onTap:view,
+                onTap: view,
                 child: Container(
                   height: getProportionateScreenHeight(160),
                   width: getProportionateScreenWidth(162.7),
@@ -61,67 +67,69 @@ class VendorAppImageCard extends StatelessWidget {
                       bottomRight: Radius.circular(12),
                       bottomLeft: Radius.circular(12),
                     ),
-                    child: Image.network(Api.imagePath+image.path,fit: BoxFit.fill,),
+                    child: Image.network(
+                      Api.imagePath + image.path,
+                      fit: BoxFit.fill,
+                    ),
                   ),
 
                   // Image.asset(
                   //   "assets/images/home/cat_1.png",
                   //   fit: BoxFit.fill,
                   // ),
-
                 ),
-              )
-          ),
-
+              )),
 
           Positioned(
               left: getProportionateScreenWidth(8),
               top: getProportionateScreenHeight(8),
               child: Container(
-                height: getProportionateScreenHeight(35),
-                width: getProportionateScreenWidth(35),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white
-                ),
-                child:GestureDetector(onTap:(){
-                  showDialog(
-                      context: context,
-                      builder: ((context) => AlertDialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
-                        title: Text(
-                          'هل أنت متأكد ؟'.i18n,
-                          // textDirection: TextDirection.rtl,
-                          style: body3_18pt,
-                        ),
-                        content: Text(
-                          'انت على وشك حذف هذه الصوة !'.i18n,
-                          // textDirection: TextDirection.rtl,
-                          style: body1_16pt,
-                        ),
-                        actions: [
-                          TextButton(
-                            child: Text(
-                              'نعم'.i18n,
-                            ),
-                            onPressed: () async{
-                              // language.changeLanguage();
-                              Navigator.of(context).pop();
-                              await delete();
-                              // Navigator.popUntil(context, ModalRoute.withName('/'));
-                            },
-                          ),
-                          TextButton(
-                            child: Text('لا'.i18n),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      )));
-                },child: Image.asset("assets/images/vendor_app/trash.png",fit: BoxFit.fill,))
-              ))
+                  height: getProportionateScreenHeight(35),
+                  width: getProportionateScreenWidth(35),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                  child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: ((context) => AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  title: Text(
+                                    'هل أنت متأكد ؟'.i18n,
+                                    // textDirection: TextDirection.rtl,
+                                    style: body3_18pt,
+                                  ),
+                                  content: Text(
+                                    'انت على وشك حذف هذه الصوة !'.i18n,
+                                    // textDirection: TextDirection.rtl,
+                                    style: body1_16pt,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      child: Text(
+                                        'نعم'.i18n,
+                                      ),
+                                      onPressed: () async {
+                                        // language.changeLanguage();
+                                        Navigator.of(context).pop();
+                                        await delete();
+                                        // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text('لا'.i18n),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    )
+                                  ],
+                                )));
+                      },
+                      child: Image.asset(
+                        "assets/images/vendor_app/trash.png",
+                        fit: BoxFit.fill,
+                      ))))
         ],
       ),
     );

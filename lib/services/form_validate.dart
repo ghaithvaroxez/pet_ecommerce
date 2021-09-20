@@ -1,5 +1,3 @@
-
-
 import 'package:inspection/inspection.dart';
 import 'package:basic_utils/basic_utils.dart';
 
@@ -38,13 +36,14 @@ class FormValidator {
   }
 
   static String validateEmpty(String value, {String errorTitle}) {
-    if (value.isEmpty || value.trim().isEmpty ) {
+    if (value.isEmpty || value.trim().isEmpty) {
       return ' it is empty';
     }
     return null;
   }
 
-  static String validateCustom(String value, {String name, String rules = "required"}) {
+  static String validateCustom(String value,
+      {String name, String rules = "required"}) {
     return Inspection().inspect(
       value,
       rules,

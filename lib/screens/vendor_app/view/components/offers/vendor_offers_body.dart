@@ -18,7 +18,9 @@ import 'package:pets/screens/vendor_app/view/components/products/add_new_product
 
 class VendorOffersBodyScreen extends StatefulWidget {
   VendorOffersController vendorOffersController;
-  VendorOffersBodyScreen (this.vendorOffersController);
+
+  VendorOffersBodyScreen(this.vendorOffersController);
+
   @override
   _VendorOffersBodyScreenState createState() => _VendorOffersBodyScreenState();
 }
@@ -35,54 +37,56 @@ class _VendorOffersBodyScreenState extends State<VendorOffersBodyScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Container(
-      padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(26),horizontal: getProportionateScreenWidth(8)),
+      padding: EdgeInsets.symmetric(
+          vertical: getProportionateScreenHeight(26),
+          horizontal: getProportionateScreenWidth(8)),
       child: GetBuilder<VendorOffersController>(
           init: widget.vendorOffersController,
           builder: (controller) => controller.loading == true
               ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: getProportionateScreenHeight(50),
-                width: getProportionateScreenWidth(50),
-                child: CircularProgressIndicator(),
-              )
-            ],
-          )
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: getProportionateScreenHeight(50),
+                      width: getProportionateScreenWidth(50),
+                      child: CircularProgressIndicator(),
+                    )
+                  ],
+                )
               : controller.offers.length == 0
-              ? Center(
-            child: Container(
-              child: AutoSizeText(
-                "لايوجد عروض حالياً".i18n,
-                style: darkGrayText_16pt,
-                minFontSize: 25,
-              ),
-            ),
-          )
-              : ListView.builder(
-            itemCount: controller.offers.length,
-            itemBuilder: (context, index) => VendorOfferCard(
-              offer: controller.offers[index],
-              delete:
-                  ()async{
-                await controller.deleteOffer(controller.offers[index]);
-              },
-              edit: () {
-                Get.to(
-                    VendorAppEditOffer(controller.offers[index],widget.vendorOffersController));
-              },
-              changeStatus: ()async{
-                controller.changeStatus(controller.offers[index].id);
-              },
-            ),
-          )
+                  ? Center(
+                      child: Container(
+                        child: AutoSizeText(
+                          "لايوجد عروض حالياً".i18n,
+                          style: darkGrayText_16pt,
+                          minFontSize: 25,
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: controller.offers.length,
+                      itemBuilder: (context, index) => VendorOfferCard(
+                        offer: controller.offers[index],
+                        delete: () async {
+                          await controller
+                              .deleteOffer(controller.offers[index]);
+                        },
+                        edit: () {
+                          Get.to(VendorAppEditOffer(controller.offers[index],
+                              widget.vendorOffersController));
+                        },
+                        changeStatus: () async {
+                          controller.changeStatus(controller.offers[index].id);
+                        },
+                      ),
+                    )
 
-        //         else if(controller.state==ProductsScreenState.addProduct)
-        //     return VendorAppAddNewProduct
-        //     ();else if(controller.state==ProductsScreenState.editProduct)
-        // return VendorAppEditProduct();
+          //         else if(controller.state==ProductsScreenState.addProduct)
+          //     return VendorAppAddNewProduct
+          //     ();else if(controller.state==ProductsScreenState.editProduct)
+          // return VendorAppEditProduct();
 
-      ),
+          ),
     );
   }
 }

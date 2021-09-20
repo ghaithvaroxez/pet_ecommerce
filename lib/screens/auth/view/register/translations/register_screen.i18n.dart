@@ -5,101 +5,97 @@ extension Localization on String {
   static var _t = Translations("ar")
 
       + {
-        "ar":"طبيب",
-        "en":  "Doctor",
+        "ar": "طبيب",
+        "en": "Doctor",
       }
       + {
         "ar": "مستخدم",
-        "en": "User" ,
+        "en": "User",
       }
       + {
         "ar": "متجر",
-        "en":  "Store",
+        "en": "Store",
       }
       + {
         "ar": "اسطبل",
-        "en":  "Stable",
+        "en": "Stable",
       }
       + {
         "ar": "منحلة",
-        "en":  "Sieve",
+        "en": "Sieve",
       }
       + {
         "ar": "طلب انضمام",
-        "en":  "Join request ",
+        "en": "Join request ",
       }
       + {
         "ar": "النوع",
-        "en":  "Type",
+        "en": "Type",
       }
       + {
         "ar": "اسم الاسطبل",
-        "en":  "Stable name",
+        "en": "Stable name",
       }
       + {
         "ar": "اسم المتجر",
-        "en":  "Store name",
+        "en": "Store name",
       }
       + {
         "ar": "اسم المنحلة",
-        "en":  "Sieve name",
+        "en": "Sieve name",
       }
       + {
         "ar": "الاسم الأخير",
-        "en":  "Last name",
+        "en": "Last name",
       }
       + {
         "ar": "الاسم الاول",
-        "en":  "First name",
+        "en": "First name",
       }
       + {
         "ar": "رقم الهاتف",
-        "en":  "Phone number",
+        "en": "Phone number",
       }
       + {
         "ar": "رقم الهاتف الجوال",
-        "en":  "MobileNumber",
+        "en": "MobileNumber",
       }
       + {
         "ar": "كلمة السر",
-        "en":  "Password",
+        "en": "Password",
       }
       + {
         "ar": "العنوان",
-        "en":  "Address",
+        "en": "Address",
       }
       + {
         "ar": "متابعة",
-        "en":  "Continue",
+        "en": "Continue",
       }
       + {
         "ar": " رقم الهاتف الذي ادخلته غير صالح",
-        "en":  "Phone number is not valid",
+        "en": "Phone number is not valid",
       }
       + {
         "ar": "الرجاء ادخال كلمة مرور لإكمال طلبك ",
-        "en":  "Please enter password to register",
+        "en": "Please enter password to register",
       }
       + {
         "ar": "كلمة المرور قصيرة جدا",
-        "en":  "Password is too short",
+        "en": "Password is too short",
       }
       + {
         "ar": " رقم الهاتف  موجود مسبقا بالفعل",
-        "en":   "Phone number already exist",
+        "en": "Phone number already exist",
       }
       + {
         "ar": "الرجاء تعبئة كافة الحقول اولاً",
-        "en":  "Please fill the fields first",
+        "en": "Please fill the fields first",
       }
       + {
         "ar": "حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى",
-        "en": "An error occurred during registration, please try again"  ,
+        "en": "An error occurred during registration, please try again",
       }
-
-
-
-
 
 
   ;

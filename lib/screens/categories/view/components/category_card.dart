@@ -10,16 +10,17 @@ import 'package:pets/screens/vendor_app/model/categories.dart';
 import 'package:pets/screens/vendor_app/model/product.dart';
 import 'package:get/get.dart';
 import '../catgory_stores.dart';
+
 class CategoryCard extends StatelessWidget {
   CategoryCard(this.category);
+
   Category category;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-
-        Get.to(CategoryStores(category.id,category.name));
+      onTap: () {
+        Get.to(CategoryStores(category.id, category.name));
       },
       child: Container(
         // margin: EdgeInsets.only(left: getProportionateScreenWidth(16),right:getProportionateScreenWidth(16),bottom: getProportionateScreenHeight(16)),
@@ -31,7 +32,6 @@ class CategoryCard extends StatelessWidget {
             color: Colors.white),
         child: Stack(
           children: [
-
             Positioned(
                 left: 0,
                 top: 0,
@@ -43,16 +43,17 @@ class CategoryCard extends StatelessWidget {
                       topLeft: Radius.circular(12),
                       topRight: Radius.circular(12),
                     ),
-                    child: Image.network(Api.imagePath+category.image,fit: BoxFit.fill,),
+                    child: Image.network(
+                      Api.imagePath + category.image,
+                      fit: BoxFit.fill,
+                    ),
                   ),
 
                   // Image.asset(
                   //   "assets/images/home/cat_1.png",
                   //   fit: BoxFit.fill,
                   // ),
-
                 )),
-
             Positioned(
                 bottom: 0,
                 child: Container(

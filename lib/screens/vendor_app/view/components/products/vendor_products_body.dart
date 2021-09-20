@@ -12,26 +12,32 @@ import 'package:get/get.dart';
 import 'package:pets/screens/vendor_app/model/enums.dart';
 import 'package:pets/screens/vendor_app/view/components/products/add_new_product_screen.dart';
 import 'translations/vendor_products_body.i18n.dart';
+
 class VendorProductsBodyScreen extends StatefulWidget {
   VendorProductsController vendorProductsController;
+
   VendorProductsBodyScreen(this.vendorProductsController);
+
   @override
-  _VendorProductsBodyScreenState createState() => _VendorProductsBodyScreenState();
+  _VendorProductsBodyScreenState createState() =>
+      _VendorProductsBodyScreenState();
 }
 
 class _VendorProductsBodyScreenState extends State<VendorProductsBodyScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     // vendorProductsController.getProducts();
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Container(
-      padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(26),horizontal: getProportionateScreenWidth(8)),
+      padding: EdgeInsets.symmetric(
+          vertical: getProportionateScreenHeight(26),
+          horizontal: getProportionateScreenWidth(8)),
       child: GetBuilder<VendorProductsController>(
           init: widget.vendorProductsController,
           builder: (controller) => controller.loading == true
@@ -59,17 +65,18 @@ class _VendorProductsBodyScreenState extends State<VendorProductsBodyScreen> {
                       itemCount: controller.products.length,
                       itemBuilder: (context, index) => VendorProductCard(
                         product: controller.products[index],
-                        delete:
-                            ()async{
-                          await controller.deleteProduct(controller.products[index]);
+                        delete: () async {
+                          await controller
+                              .deleteProduct(controller.products[index]);
                         },
                         edit: () {
-                          Get.to(
-                              VendorAppEditProduct(controller.products[index],widget.vendorProductsController));
+                          Get.to(VendorAppEditProduct(
+                              controller.products[index],
+                              widget.vendorProductsController));
                         },
-                        changeStatus:
-                            ()async{
-                          await controller.changeStatus(controller.products[index].id);
+                        changeStatus: () async {
+                          await controller
+                              .changeStatus(controller.products[index].id);
                         },
                       ),
                     )

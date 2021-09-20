@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-
 import 'package:pets/configuration/constants/api.dart';
 import 'package:pets/configuration/printer.dart';
 import 'package:pets/main.dart';
@@ -22,7 +21,6 @@ class HttpService {
     final userToken = await AuthServices.getAuthToken();
 
     return {
-
       // "mobile":userToken
       // HttpHeaders.acceptHeader: "application/json",
       "lang": appLocal,
@@ -80,21 +78,24 @@ class HttpService {
 
     //preparing the post options if header is required
     final mOptions = !includeHeaders
-    ?Options(
-      headers: await getHeaders(),
-    )
+        ? Options(
+            headers: await getHeaders(),
+          )
         // ? null
         : Options(
             headers: await getHeaders(),
           );
-    consolePrint("+++++++++++++++++++++++++++++++="+"try to get on"+uri+"+++++++++++++++++++++++++++++++=");
-    try{
+    consolePrint("+++++++++++++++++++++++++++++++=" +
+        "try to get on" +
+        uri +
+        "+++++++++++++++++++++++++++++++=");
+    try {
       return dio.get(
         uri,
         options: mOptions,
         queryParameters: queryParameters,
       );
-    }catch(e){
+    } catch (e) {
       consolePrint(e.toString());
     }
   }
@@ -107,7 +108,10 @@ class HttpService {
   }) async {
     //preparing the api uri/url
     String uri = "$host$url";
-print("+++++++++++++++++++++++++++++++="+"try to post on"+uri+"+++++++++++++++++++++++++++++++=");
+    print("+++++++++++++++++++++++++++++++=" +
+        "try to post on" +
+        uri +
+        "+++++++++++++++++++++++++++++++=");
     //preparing the post options if header is required
     final mOptions = !includeHeaders
         ? null
@@ -115,16 +119,16 @@ print("+++++++++++++++++++++++++++++++="+"try to post on"+uri+"+++++++++++++++++
             headers: await getHeaders(),
           );
 
-   try {
+    try {
       // consolePrint("post data :"+body);
       return dio.post(
         uri,
         data: body,
         options: mOptions,
       );
-    }catch(e){
-     consolePrint("erorrrr :" +e.toString());
-   }
+    } catch (e) {
+      consolePrint("erorrrr :" + e.toString());
+    }
   }
 
   //for post api calls with file upload

@@ -51,7 +51,7 @@ class RegisterController extends GetxController {
       case "store":
         type = UserType.store;
         break;
-        case "sieve":
+      case "sieve":
         type = UserType.sieve;
         break;
     }

@@ -9,91 +9,81 @@ import 'package:pets/screens/vendor_app/requests/offers_requests.dart';
 import 'package:pets/screens/vendor_app/requests/products_requests.dart';
 import '../model/offer.dart';
 import 'translations/offers_controller.i18n.dart';
-class VendorOffersController extends GetxController{
 
-  List<Offer> offers=[
+class VendorOffersController extends GetxController {
+  List<Offer> offers = [];
+  List<Category> vendor_category_items = [];
+  List<ProductType> vendor_type_items = [];
 
-  ];
-  List<Category> vendor_category_items = [
+  VendorAppOffersReq vendorAppOffersReq = VendorAppOffersReq();
+  bool loading = false;
 
-  ];
-  List<ProductType> vendor_type_items = [
-
-  ];
-
-  VendorAppOffersReq vendorAppOffersReq=VendorAppOffersReq();
-  bool loading=false;
-  getOffer()async {
-    offers=await vendorAppOffersReq.getStoreOffers();
+  getOffer() async {
+    offers = await vendorAppOffersReq.getStoreOffers();
     update();
   }
+
   @override
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
     init();
   }
-  init()async{
-    vendor_category_items=await vendorAppOffersReq.getStoreCategories();
-    vendor_type_items=await vendorAppOffersReq.getStoreTypes();
+
+  init() async {
+    vendor_category_items = await vendorAppOffersReq.getStoreCategories();
+    vendor_type_items = await vendorAppOffersReq.getStoreTypes();
     await vendorAppOffersReq.getmodel();
-    await  getOffer();
+    await getOffer();
   }
-  changeStatus(int offerId)async{
+
+  changeStatus(int offerId) async {
     activeLoading();
 
-    try{
-      bool k = await vendorAppOffersReq.changeOfferStatus(
-
-          offerId);
+    try {
+      bool k = await vendorAppOffersReq.changeOfferStatus(offerId);
       if (k == true) {
-
         await getOffer();
         await homeController.getHome();
         removeLoading();
         update();
-      }
-      else
-        {
+      } else {
         removeLoading();
         update();
         Get.rawSnackbar(
             message: "can't change offer status now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    }catch(e){
-
+    } catch (e) {
       removeLoading();
       update();
       Get.rawSnackbar(
           message: "can't change offer status now try again later".i18n,
           backgroundColor: Colors.redAccent);
-
     }
   }
-  addNewOffer(
-      {@required int category_id,
-        @required int type_id,
-        @required String name_ar,
-        @required String name_en,
-        @required String desc_ar,
-        @required String desc_en,
-        @required String image,
-     })async
-  {
 
+  addNewOffer({
+    @required int category_id,
+    @required int type_id,
+    @required String name_ar,
+    @required String name_en,
+    @required String desc_ar,
+    @required String desc_en,
+    @required String image,
+  }) async {
     activeLoading();
 
-    try{
+    try {
       bool k = await vendorAppOffersReq.AddOffer(
-          category_id: category_id,
-          type_id: type_id,
-          name_ar: name_ar,
-          name_en: name_en,
-          desc_ar: desc_ar,
-          desc_en: desc_en,
-          image: image,
-         );
+        category_id: category_id,
+        type_id: type_id,
+        name_ar: name_ar,
+        name_en: name_en,
+        desc_ar: desc_ar,
+        desc_en: desc_en,
+        image: image,
+      );
       if (k == true) {
         await getOffer();
         await homeController.getHome();
@@ -106,8 +96,7 @@ class VendorOffersController extends GetxController{
             message: "can't add your offer now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    }catch(e)
-    {
+    } catch (e) {
       Get.back();
       removeLoading();
       Get.rawSnackbar(
@@ -115,22 +104,20 @@ class VendorOffersController extends GetxController{
           backgroundColor: Colors.redAccent);
     }
     update();
-
   }
 
-  deleteOffer(Offer offer)
-  async {
+  deleteOffer(Offer offer) async {
     activeLoading();
 
-    try{
+    try {
       bool k = await vendorAppOffersReq.deleteOffer(
-        // category_id: product.categoryId,
-        // type_id: product.typeId,
-        // name_ar: product.name,
-        // name_en: product.name,
-        // body_ar: product.body,
-        // body_en: product.body,
-        // image: product.image,
+          // category_id: product.categoryId,
+          // type_id: product.typeId,
+          // name_ar: product.name,
+          // name_en: product.name,
+          // body_ar: product.body,
+          // body_en: product.body,
+          // image: product.image,
           offerId: offer.id);
       if (k == true) {
         await getOffer();
@@ -139,14 +126,13 @@ class VendorOffersController extends GetxController{
         removeLoading();
         update();
       } else {
-
         removeLoading();
         update();
         Get.rawSnackbar(
             message: "can't delete your product now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    }catch(e){
+    } catch (e) {
       // Get.back();
       removeLoading();
       update();
@@ -157,23 +143,19 @@ class VendorOffersController extends GetxController{
     // Get.back();
   }
 
-
-  editOffer(Offer offer,String newImage)
-  async {
+  editOffer(Offer offer, String newImage) async {
     activeLoading();
-int category_id;
-int type_id;
-for(int i=0;i<vendor_category_items.length;i++)
-  {
-    if(vendor_category_items[i].name==offer.category)
-      category_id=vendor_category_items[i].id;
-  }
-for(int i=0;i<vendor_type_items.length;i++)
-  {
-    if(vendor_type_items[i].name==offer.type)
-      type_id=vendor_type_items[i].id;
-  }
-    try{
+    int category_id;
+    int type_id;
+    for (int i = 0; i < vendor_category_items.length; i++) {
+      if (vendor_category_items[i].name == offer.category)
+        category_id = vendor_category_items[i].id;
+    }
+    for (int i = 0; i < vendor_type_items.length; i++) {
+      if (vendor_type_items[i].name == offer.type)
+        type_id = vendor_type_items[i].id;
+    }
+    try {
       bool k = await vendorAppOffersReq.updateOffer(
         category_id: category_id,
         type_id: type_id,
@@ -195,35 +177,28 @@ for(int i=0;i<vendor_type_items.length;i++)
         removeLoading();
         update();
         Get.rawSnackbar(
-            message:  "can't edit your offer now try again later".i18n,
+            message: "can't edit your offer now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    }catch(e){
-
+    } catch (e) {
       Get.back();
       removeLoading();
       update();
       Get.rawSnackbar(
-          message:  "can't edit your offer now try again later".i18n,
+          message: "can't edit your offer now try again later".i18n,
           backgroundColor: Colors.redAccent);
-
     }
   }
 
-
-
   ///state_management
 
-  activeLoading(){
-    loading=true;
-    update();
-  }
-  removeLoading(){
-    loading=false;
+  activeLoading() {
+    loading = true;
     update();
   }
 
-
-
+  removeLoading() {
+    loading = false;
+    update();
+  }
 }
-

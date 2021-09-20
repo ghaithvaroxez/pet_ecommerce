@@ -141,77 +141,73 @@ class _VendorPhotosBodyState extends State<VendorPhotosBody> {
                         vertical: getProportionateScreenHeight(8)),
                     child: SingleChildScrollView(
                       child: Directionality(
-                        textDirection: appLocal=="ar"?TextDirection.ltr:TextDirection.rtl,
+                        textDirection: appLocal == "ar"
+                            ? TextDirection.ltr
+                            : TextDirection.rtl,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                        Column(
-                                    children: [
-                                      ...List<Widget>.generate(
-                                        controller.images.length,
-                                        (index) => index % 2 == 0
-                                            ? index ==
-                                                    controller.images.length - 1
-                                                ? Column(
-                                                    children: [
-                                                      Container(
-                                                        margin:
-                                                            EdgeInsets.symmetric(
-                                                                vertical: 10),
-                                                        child: VendorAppImageCard(
-                                                            () {
-                                                              Get.to(() =>
-                                                                  StorePhotosView(
-                                                                      controller
-                                                                          .images,
-                                                                      index));
-                                                            },
-                                                            controller
-                                                                .images[index],
-                                                            () async {
-                                                              await controller
-                                                                  .deletePhoto(
-                                                                      controller
-                                                                          .images[
-                                                                              index]
-                                                                          .id);
-                                                            }),
-                                                      ),
-                                                    ],
-                                                  )
-                                                : Container(
-                                                    margin: EdgeInsets.symmetric(
-                                                        vertical: 10),
-                                                    child: VendorAppImageCard(
-                                                        () {
-                                                          Get.to(() =>
-                                                              StorePhotosView(
-                                                                  controller
-                                                                      .images,
-                                                                  index));
-                                                        },
-                                                        controller.images[index],
-                                                        () async {
-                                                          await controller
-                                                              .deletePhoto(
-                                                                  controller
-                                                                      .images[
-                                                                          index]
-                                                                      .id);
-                                                        }),
-                                                  )
-                                            : Container(
-                                                height: 0,
-                                              ),
-                                      ),
-                                    ],
-                                  ),
+                            Column(
+                              children: [
+                                ...List<Widget>.generate(
+                                  controller.images.length,
+                                  (index) => index % 2 == 0
+                                      ? index == controller.images.length - 1
+                                          ? Column(
+                                              children: [
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      vertical: 10),
+                                                  child: VendorAppImageCard(
+                                                      () {
+                                                        Get.to(() =>
+                                                            StorePhotosView(
+                                                                controller
+                                                                    .images,
+                                                                index));
+                                                      },
+                                                      controller.images[index],
+                                                      () async {
+                                                        await controller
+                                                            .deletePhoto(
+                                                                controller
+                                                                    .images[
+                                                                        index]
+                                                                    .id);
+                                                      }),
+                                                ),
+                                              ],
+                                            )
+                                          : Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  vertical: 10),
+                                              child: VendorAppImageCard(
+                                                  () {
+                                                    Get.to(() =>
+                                                        StorePhotosView(
+                                                            controller.images,
+                                                            index));
+                                                  },
+                                                  controller.images[index],
+                                                  () async {
+                                                    await controller
+                                                        .deletePhoto(controller
+                                                            .images[index].id);
+                                                  }),
+                                            )
+                                      : Container(
+                                          height: 0,
+                                        ),
+                                ),
+                              ],
+                            ),
                             Spacer(),
                             Column(
                               children: [
                                 Container(
                                   margin: EdgeInsets.symmetric(
-                                      vertical: getProportionateScreenHeight(14)),
+                                      vertical:
+                                          getProportionateScreenHeight(14)),
                                   child: GestureDetector(
                                     onTap: () async {
                                       image = await ImagePicker.pickImage(
@@ -235,7 +231,8 @@ class _VendorPhotosBodyState extends State<VendorPhotosBody> {
                                       width: getProportionateScreenWidth(163),
                                       height: getProportionateScreenHeight(160),
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(12),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
                                           border: Border.all(
                                               width: 0.3, color: borderColor),
                                           color: Colors.grey.withOpacity(0.4)),
@@ -262,7 +259,8 @@ class _VendorPhotosBodyState extends State<VendorPhotosBody> {
                                                       () {
                                                         Get.to(() =>
                                                             StorePhotosView(
-                                                                controller.images,
+                                                                controller
+                                                                    .images,
                                                                 index));
                                                       },
                                                       controller.images[index],
@@ -270,7 +268,8 @@ class _VendorPhotosBodyState extends State<VendorPhotosBody> {
                                                         await controller
                                                             .deletePhoto(
                                                                 controller
-                                                                    .images[index]
+                                                                    .images[
+                                                                        index]
                                                                     .id);
                                                       }),
                                                 ),
@@ -281,14 +280,15 @@ class _VendorPhotosBodyState extends State<VendorPhotosBody> {
                                                   vertical: 10),
                                               child: VendorAppImageCard(
                                                   () {
-                                                    Get.to(() => StorePhotosView(
-                                                        controller.images,
-                                                        index));
+                                                    Get.to(() =>
+                                                        StorePhotosView(
+                                                            controller.images,
+                                                            index));
                                                   },
                                                   controller.images[index],
                                                   () async {
-                                                    await controller.deletePhoto(
-                                                        controller
+                                                    await controller
+                                                        .deletePhoto(controller
                                                             .images[index].id);
                                                   }),
                                             )

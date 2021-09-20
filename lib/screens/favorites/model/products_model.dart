@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-FavProductsModel favProductsModelFromJson(String str) => FavProductsModel.fromJson(json.decode(str));
+FavProductsModel favProductsModelFromJson(String str) =>
+    FavProductsModel.fromJson(json.decode(str));
 
-String favProductsModelToJson(FavProductsModel data) => json.encode(data.toJson());
+String favProductsModelToJson(FavProductsModel data) =>
+    json.encode(data.toJson());
 
 class FavProductsModel {
   FavProductsModel({
@@ -15,13 +17,16 @@ class FavProductsModel {
 
   List<MyFavourite> myFavourites;
 
-  factory FavProductsModel.fromJson(Map<String, dynamic> json) => FavProductsModel(
-    myFavourites: List<MyFavourite>.from(json["my Favourites"].map((x) => MyFavourite.fromJson(x))),
-  );
+  factory FavProductsModel.fromJson(Map<String, dynamic> json) =>
+      FavProductsModel(
+        myFavourites: List<MyFavourite>.from(
+            json["my Favourites"].map((x) => MyFavourite.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "my Favourites": List<dynamic>.from(myFavourites.map((x) => x.toJson())),
-  };
+        "my Favourites":
+            List<dynamic>.from(myFavourites.map((x) => x.toJson())),
+      };
 }
 
 class MyFavourite {
@@ -38,16 +43,16 @@ class MyFavourite {
   String itemImage;
 
   factory MyFavourite.fromJson(Map<String, dynamic> json) => MyFavourite(
-    id: json["id"],
-    itemId: json["item_id"],
-    itemName: json["item_name"],
-    itemImage: json["item_image"],
-  );
+        id: json["id"],
+        itemId: json["item_id"],
+        itemName: json["item_name"],
+        itemImage: json["item_image"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "item_id": itemId,
-    "item_name": itemName,
-    "item_image": itemImage,
-  };
+        "id": id,
+        "item_id": itemId,
+        "item_name": itemName,
+        "item_image": itemImage,
+      };
 }

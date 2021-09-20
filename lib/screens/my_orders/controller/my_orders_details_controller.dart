@@ -40,30 +40,31 @@ class MyOrdersDetailsController extends GetxController {
     update();
   }
 
-  Future<bool> updateOrder(@required int oreder_id,
-      // Function refresh,
-      {
-
-      @required String orderImage,
-      @required String name,
-      @required String desc,
-      @required int cat_id,
-      @required int type_id,
-      @required String order_type,
-      @required int price,
-      }) async {
+  Future<bool> updateOrder(
+    @required int oreder_id,
+    // Function refresh,
+    {
+    @required String orderImage,
+    @required String name,
+    @required String desc,
+    @required int cat_id,
+    @required int type_id,
+    @required String order_type,
+    @required int price,
+  }) async {
     consolePrint("in my order details controller image:" + orderImage);
     // consolePrint("in my corner controller bool image:"+newImage.toString() );
     setLoading();
     try {
-      bool k = await myOrdersRequests.updateOrder(oreder_id,
-          orderImage: orderImage,
-          name: name,
-          desc: desc,
-          cat_id: cat_id,
-          type_id: type_id,
-          order_type: order_type,
-          price: price,
+      bool k = await myOrdersRequests.updateOrder(
+        oreder_id,
+        orderImage: orderImage,
+        name: name,
+        desc: desc,
+        cat_id: cat_id,
+        type_id: type_id,
+        order_type: order_type,
+        price: price,
       );
       if (k == true) {
         // await refresh();

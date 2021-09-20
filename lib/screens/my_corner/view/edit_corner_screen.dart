@@ -1,6 +1,3 @@
-
-
-
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -29,53 +26,51 @@ import 'package:image/image.dart' as Im;
 import 'dart:io';
 import 'package:get/get.dart';
 import 'translations/ediit_corner_screen.i18n.dart';
+
 class EditCornerScreen extends StatefulWidget {
   @override
   _EditCornerScreenState createState() => _EditCornerScreenState();
-  MyCornersDetailsController  myCornersDetailsController;
+  MyCornersDetailsController myCornersDetailsController;
+
   EditCornerScreen(this.myCornersDetailsController);
 }
 
 class _EditCornerScreenState extends State<EditCornerScreen> {
+  var image;
 
-  var image ;
-  var subImage ;
+  var subImage;
+
   File tmpFile;
   String base64Image;
-  String newImage="";
-  List<String> subImages=[];
-  List<File> subImagesFiles=[];
-  getcompress(File imageFile) async
-  {
+  String newImage = "";
+  List<String> subImages = [];
+  List<File> subImagesFiles = [];
+
+  getcompress(File imageFile) async {
     setState(() {
-      isloading=true;
+      isloading = true;
     });
     newImage = await compressImage(imageFile);
     setState(() {
-      isloading=false;
+      isloading = false;
     });
   }
 
-  getCompressForSubImages(File imageFile) async
-  {
-
+  getCompressForSubImages(File imageFile) async {
     setState(() {
-      isloading=true;
+      isloading = true;
     });
     String temp = await compressImage(imageFile);
     subImages.add(temp);
     setState(() {
-      isloading=false;
+      isloading = false;
     });
-
   }
 
   // bool changeImage=false;
   Future<String> compressImage(File f) async {
-    isloading=true;
-    setState(() {
-
-    });
+    isloading = true;
+    setState(() {});
     print('starting compression');
     final tempDir = await getTemporaryDirectory();
     final path = tempDir.path;
@@ -83,7 +78,7 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
     print('before decoding img');
     Im.Image image = Im.decodeImage(f.readAsBytesSync());
     print('before decoding img2');
-    image = Im.copyResize(image,width: 1080);
+    image = Im.copyResize(image, width: 1080);
     //MediaQuery.of(context).size.width.toInt());
 
     // image.format = Im.Image.RGBA; //was in old version of flutter
@@ -96,7 +91,7 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
     setState(() {
       tmpFile = newim2;
       base64Image = base64Encode(tmpFile.readAsBytesSync());
-      isloading=false;
+      isloading = false;
     });
 
     String fileName = tmpFile.path.split('/').last;
@@ -105,9 +100,11 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
     print('done');
     return base64Image;
   }
-  bool isloading=false;
+
+  bool isloading = false;
   TextEditingController descriptionController = new TextEditingController();
   TextEditingController nameController = new TextEditingController();
+
   // TextEditingController priceController = new TextEditingController();
   // VendorAppProductsReq _vendorAppProductsReq=VendorAppProductsReq();
   // fetchdata()async
@@ -131,10 +128,12 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    nameController.text=widget.myCornersDetailsController.currentCorner.name;
-    descriptionController.text=widget.myCornersDetailsController.currentCorner.desc;
+    nameController.text = widget.myCornersDetailsController.currentCorner.name;
+    descriptionController.text =
+        widget.myCornersDetailsController.currentCorner.desc;
     // fetchdata();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -142,7 +141,6 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
         child: Container(
           child: SingleChildScrollView(
             child: Column(
-
               children: [
                 Container(
                   child: Material(
@@ -156,9 +154,14 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
                             SizedBox(
                               width: getProportionateScreenWidth(24),
                             ),
-
                             Spacer(),
-                            Container(height:getProportionateScreenHeight(28),child: AutoSizeText("زاويتي".i18n,style: h5_21pt,minFontSize: 8,)),
+                            Container(
+                                height: getProportionateScreenHeight(28),
+                                child: AutoSizeText(
+                                  "زاويتي".i18n,
+                                  style: h5_21pt,
+                                  minFontSize: 8,
+                                )),
                             Spacer(),
                             SizedBox(
                               width: getProportionateScreenWidth(24),
@@ -166,8 +169,12 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
                           ],
                         )),
                   ),
-                ),///app bar
-                SizedBox(height: getProportionateScreenHeight(40),),
+                ),
+
+                ///app bar
+                SizedBox(
+                  height: getProportionateScreenHeight(40),
+                ),
                 Container(
                   height: getProportionateScreenHeight(30),
                   child: Container(
@@ -192,39 +199,42 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                           color: Colors.grey.withOpacity(0.6), width: 1)),
-                  child: image==null?
-
-                  GestureDetector(
-                      onTap: ()async {
-                        image = await ImagePicker.pickImage(source: ImageSource.gallery);
-                        File imageFile = File(image.path);
-                        if(image!=null) {
-                          newImage = await compressImage(imageFile);
-                        }
-                        setState(() {
-
-                        });
-
-                      },
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),child:Image.network(Api.imagePath+widget.myCornersDetailsController.currentCorner.image,fit: BoxFit.cover,)))
-
-                      :    GestureDetector(
-                    onTap: ()async {
-                      image = await ImagePicker.pickImage(source: ImageSource.gallery);
-                      File imageFile = File(image.path);
-                      if(image!=null) {
-                        getcompress(imageFile);
-                      }
-                      setState(() {
-
-                      });
-
-                    },
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),child:Image.file(image,fit: BoxFit.cover,)),
-                  )
-                 ,
+                  child: image == null
+                      ? GestureDetector(
+                          onTap: () async {
+                            image = await ImagePicker.pickImage(
+                                source: ImageSource.gallery);
+                            File imageFile = File(image.path);
+                            if (image != null) {
+                              newImage = await compressImage(imageFile);
+                            }
+                            setState(() {});
+                          },
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.network(
+                                Api.imagePath +
+                                    widget.myCornersDetailsController
+                                        .currentCorner.image,
+                                fit: BoxFit.cover,
+                              )))
+                      : GestureDetector(
+                          onTap: () async {
+                            image = await ImagePicker.pickImage(
+                                source: ImageSource.gallery);
+                            File imageFile = File(image.path);
+                            if (image != null) {
+                              getcompress(imageFile);
+                            }
+                            setState(() {});
+                          },
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.file(
+                                image,
+                                fit: BoxFit.cover,
+                              )),
+                        ),
                 ),
                 SizedBox(
                   height: getProportionateScreenHeight(25),
@@ -243,7 +253,9 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: getProportionateScreenHeight(20),),
+                SizedBox(
+                  height: getProportionateScreenHeight(20),
+                ),
                 Container(
                   height: getProportionateScreenHeight(75),
                   width: getProportionateScreenWidth(345),
@@ -251,10 +263,14 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                           color: Colors.grey.withOpacity(0.6), width: 1)),
-                  child:
-                  CustomTextField(textEditingController: nameController,hint: "اكتب عنوان الزاوية هنا".i18n,),
+                  child: CustomTextField(
+                    textEditingController: nameController,
+                    hint: "اكتب عنوان الزاوية هنا".i18n,
+                  ),
                 ),
-                SizedBox(height: getProportionateScreenHeight(10),),
+                SizedBox(
+                  height: getProportionateScreenHeight(10),
+                ),
                 Container(
                   height: getProportionateScreenHeight(85),
                   width: getProportionateScreenWidth(345),
@@ -262,10 +278,14 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                           color: Colors.grey.withOpacity(0.6), width: 1)),
-                  child:
-                  CustomTextField(textEditingController: descriptionController,hint: "اكتب وصف الزاوية هنا".i18n,),
+                  child: CustomTextField(
+                    textEditingController: descriptionController,
+                    hint: "اكتب وصف الزاوية هنا".i18n,
+                  ),
                 ),
-                SizedBox(height: getProportionateScreenHeight(160),),
+                SizedBox(
+                  height: getProportionateScreenHeight(160),
+                ),
 
                 Container(
                   height: getProportionateScreenHeight(60),
@@ -276,9 +296,14 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
                     children: [
                       GestureDetector(
                           onTap: () async {
-                            if(nameController.text==""||descriptionController.text=="")
-                            {
-                              CoolAlert.show(context: context, type: CoolAlertType.error,text: "الرجاء ملئ كافة الحقول قبل اضافة الزاوية".i18n,);
+                            if (nameController.text == "" ||
+                                descriptionController.text == "") {
+                              CoolAlert.show(
+                                context: context,
+                                type: CoolAlertType.error,
+                                text: "الرجاء ملئ كافة الحقول قبل اضافة الزاوية"
+                                    .i18n,
+                              );
                               return;
                             }
                             // if(image==null)
@@ -292,7 +317,11 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
                             // widget.storeProduct.price=priceController.text;
                             // widget.storeProduct.name=nameController.text;
                             // widget.storeProduct.body=descriptionController.text;
-                            await widget.myCornersDetailsController.editCorner( nameController.text, descriptionController.text,newImage,image==null?false:true);
+                            await widget.myCornersDetailsController.editCorner(
+                                nameController.text,
+                                descriptionController.text,
+                                newImage,
+                                image == null ? false : true);
                             // Get.back();
                             // vendorAppTabController.animateTo(0);
                             // vendorAppLabelController.changeIndex(0);
@@ -310,16 +339,17 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
                             ),
                           )),
                       GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             //   vendorAppTabController.animateTo(0);
                             //   vendorAppLabelController.changeIndex(0);
-                            Get.back();                      },
+                            Get.back();
+                          },
                           child: Container(
                             width: getProportionateScreenWidth(170),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
-                                border:
-                                Border.all(color: Color(0xFF49C3EA), width: 0.8)),
+                                border: Border.all(
+                                    color: Color(0xFF49C3EA), width: 0.8)),
                             child: Center(
                               child: AutoSizeText(
                                 "العودة".i18n,
@@ -330,7 +360,9 @@ class _EditCornerScreenState extends State<EditCornerScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: getProportionateScreenHeight(20),),
+                SizedBox(
+                  height: getProportionateScreenHeight(20),
+                ),
               ],
             ),
           ),

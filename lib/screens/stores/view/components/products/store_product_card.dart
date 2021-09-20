@@ -9,16 +9,19 @@ import 'package:pets/screens/home/view/components/favorite_icon.dart';
 import 'package:pets/screens/vendor_app/model/product.dart';
 import 'package:get/get.dart';
 import '../products/products_details_page.dart';
+
 class StoreProductCard extends StatelessWidget {
-  StoreProductCard(this.storeProdcut,this.fav,this.store);
+  StoreProductCard(this.storeProdcut, this.fav, this.store);
+
   StoreProduct storeProdcut;
   Function fav;
   bool store;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Get.to(ProductDetailsPage(storeProdcut,store));
+      onTap: () {
+        Get.to(ProductDetailsPage(storeProdcut, store));
       },
       child: Container(
         // margin: EdgeInsets.only(left: getProportionateScreenWidth(16),right:getProportionateScreenWidth(16),bottom: getProportionateScreenHeight(16)),
@@ -56,7 +59,7 @@ class StoreProductCard extends StatelessWidget {
                   ),
                 )),
             Positioned(
-              left: 0,
+                left: 0,
                 top: 0,
                 child: Container(
                   height: getProportionateScreenHeight(120),
@@ -66,22 +69,27 @@ class StoreProductCard extends StatelessWidget {
                       topLeft: Radius.circular(12),
                       topRight: Radius.circular(12),
                     ),
-                    child: Image.network(Api.imagePath+storeProdcut.image,fit: BoxFit.fill,),
+                    child: Image.network(
+                      Api.imagePath + storeProdcut.image,
+                      fit: BoxFit.fill,
+                    ),
                   ),
 
                   // Image.asset(
                   //   "assets/images/home/cat_1.png",
                   //   fit: BoxFit.fill,
                   // ),
-
                 )),
-                  Positioned(
-                  // width: getProportionateScreenWidth(15),
-                  // height: getProportionateScreenHeight(15),
-                  left:getProportionateScreenWidth(15),
-      top: getProportionateScreenHeight(15),
-      child: FavoriteIcon(fav: fav,s: storeProdcut.favStatus,),
-      )
+            Positioned(
+              // width: getProportionateScreenWidth(15),
+              // height: getProportionateScreenHeight(15),
+              left: getProportionateScreenWidth(15),
+              top: getProportionateScreenHeight(15),
+              child: FavoriteIcon(
+                fav: fav,
+                s: storeProdcut.favStatus,
+              ),
+            )
           ],
         ),
       ),

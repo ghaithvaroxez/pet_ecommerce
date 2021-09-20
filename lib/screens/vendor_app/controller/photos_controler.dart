@@ -6,35 +6,36 @@ import 'package:pets/screens/vendor_app/model/product.dart';
 import 'package:pets/screens/vendor_app/requests/photos_requests.dart';
 import '../model/image_model.dart' as im;
 import 'translations/photos_controller.i18n.dart';
-class VendorPhotosController extends GetxController{
 
-  List<im.Image> images=[];
-  VendorAppPhotosReq vendorAppPhotosReq=VendorAppPhotosReq();
-  bool loading=false;
-  getPhotos()async {
-    var imageModel=await vendorAppPhotosReq.getStoreImages();
+class VendorPhotosController extends GetxController {
+  List<im.Image> images = [];
+  VendorAppPhotosReq vendorAppPhotosReq = VendorAppPhotosReq();
+  bool loading = false;
+
+  getPhotos() async {
+    var imageModel = await vendorAppPhotosReq.getStoreImages();
     consolePrint(imageModel.toString());
-    images=imageModel.images;
+    images = imageModel.images;
     update();
   }
+
   @override
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
     init();
   }
-  init()async{
+
+  init() async {
     await vendorAppPhotosReq.getmodel();
-    await  getPhotos();
+    await getPhotos();
   }
-  addNewImage(
-      {@required String image})async
-  {
+
+  addNewImage({@required String image}) async {
     activeLoading();
 
-    try{
-      bool k = await vendorAppPhotosReq.addPhoto(
-     image);
+    try {
+      bool k = await vendorAppPhotosReq.addPhoto(image);
       if (k == true) {
         await getPhotos();
         // Get.back();
@@ -43,34 +44,31 @@ class VendorPhotosController extends GetxController{
         // Get.back();
         removeLoading();
         Get.rawSnackbar(
-            message: "can't add your photo now try again later" .i18n,
+            message: "can't add your photo now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    }catch(e)
-    {
+    } catch (e) {
       // Get.back();
       removeLoading();
       Get.rawSnackbar(
-          message: "can't add your photo now try again later" .i18n,
+          message: "can't add your photo now try again later".i18n,
           backgroundColor: Colors.redAccent);
     }
     update();
-
   }
 
-  deletePhoto(int  imageID)
-  async {
+  deletePhoto(int imageID) async {
     activeLoading();
 
     try {
       bool k = await vendorAppPhotosReq.deletePhoto(
-        // category_id: product.categoryId,
-        // type_id: product.typeId,
-        // name_ar: product.name,
-        // name_en: product.name,
-        // body_ar: product.body,
-        // body_en: product.body,
-        // image: product.image,
+          // category_id: product.categoryId,
+          // type_id: product.typeId,
+          // name_ar: product.name,
+          // name_en: product.name,
+          // body_ar: product.body,
+          // body_en: product.body,
+          // image: product.image,
           imageID);
       if (k == true) {
         await getPhotos();
@@ -85,7 +83,7 @@ class VendorPhotosController extends GetxController{
             message: "can't delete your photo now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    } catch(e) {
+    } catch (e) {
       Get.back();
       removeLoading();
       update();
@@ -94,18 +92,16 @@ class VendorPhotosController extends GetxController{
           backgroundColor: Colors.redAccent);
     }
   }
+
   ///state_management
 
-  activeLoading(){
-    loading=true;
-    update();
-  }
-  removeLoading(){
-    loading=false;
+  activeLoading() {
+    loading = true;
     update();
   }
 
-
-
+  removeLoading() {
+    loading = false;
+    update();
+  }
 }
-

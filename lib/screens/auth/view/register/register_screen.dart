@@ -24,6 +24,7 @@ import 'package:pets/screens/widgets/text_field.dart';
 import 'package:get/get.dart';
 import 'translations/register_screen.i18n.dart';
 import '../../../blocked_screen.dart';
+
 class RegisterScreen extends StatefulWidget {
   UserType userType;
 
@@ -33,8 +34,8 @@ class RegisterScreen extends StatefulWidget {
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-List<City> addresses=[];
-bool loaddata=false;
+List<City> addresses = [];
+bool loaddata = false;
 
 String type;
 AuthRequest authRequest = new AuthRequest();
@@ -47,37 +48,34 @@ List<String> type_items = [
 ];
 
 class LoadingScreen extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Row(
           mainAxisSize: MainAxisSize.max,
-
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  width: getProportionateScreenWidth(370),
-                  // height: getProportionateScreenHeight(400),
-                  child: Container(
-                   height: getProportionateScreenHeight(75),
-                    width: getProportionateScreenWidth(75),
-                    alignment: Alignment.center,
-                    child: Center(
-      child: CircularProgressIndicator(),
-    ),
-                  ),
+            Container(
+              alignment: Alignment.center,
+              width: getProportionateScreenWidth(370),
+              // height: getProportionateScreenHeight(400),
+              child: Container(
+                height: getProportionateScreenHeight(75),
+                width: getProportionateScreenWidth(75),
+                alignment: Alignment.center,
+                child: Center(
+                  child: CircularProgressIndicator(),
                 ),
-              ],
+              ),
             ),
           ],
-        ));
+        ),
+      ],
+    ));
   }
 }
 
@@ -93,46 +91,39 @@ TextEditingController registerStableNameController =
 TextEditingController registerPhoneNumberController =
     new TextEditingController();
 TextEditingController registerCountyController = new TextEditingController();
-String lastSelected="";
+String lastSelected = "";
 TextEditingController registerNumberController = new TextEditingController();
 
 TextEditingController registerPasswordController = new TextEditingController();
 TextEditingController otpCodeController = new TextEditingController();
 
 String location = "القدس";
-int locationId ;
+int locationId;
 
 RegisterController registerController = Get.put(RegisterController());
 
 bool showLoading = false;
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  VendorAppRequests _vendorAppRequests=VendorAppRequests();
+  VendorAppRequests _vendorAppRequests = VendorAppRequests();
+
   getaddresses() async {
-    loaddata=true;
-    setState(() {
-
-    });
-    try{
+    loaddata = true;
+    setState(() {});
+    try {
       LocationModel locationModel = await _vendorAppRequests.getLocations();
-      addresses=locationModel.cities;
-      location=addresses[0].name;
-      locationId=addresses[0].id;
-
-
-    }catch(e)
-    {
-      loaddata=false;
-      setState(() {
-
-      });
+      addresses = locationModel.cities;
+      location = addresses[0].name;
+      locationId = addresses[0].id;
+    } catch (e) {
+      loaddata = false;
+      setState(() {});
     }
 
-    loaddata=false;
-    setState(() {
-
-    });
+    loaddata = false;
+    setState(() {});
   }
+
   @override
   void initState() {
     registerFirstNameController.text = "";
@@ -153,23 +144,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
         break;
       case UserType.doctor:
         registerController.changeType("doctor");
-        type =type_items[0];
+        type = type_items[0];
         break;
       case UserType.stable:
         registerController.changeType("stable");
         type = type_items[3];
         break;
-        case UserType.stable:
+      case UserType.stable:
         registerController.changeType("stable");
-        type =  type_items[3];
+        type = type_items[3];
         break;
       case UserType.store:
         registerController.changeType("store");
-        type =  type_items[2];
+        type = type_items[2];
         break;
-        case UserType.sieve:
+      case UserType.sieve:
         registerController.changeType("sieve");
-        type =  type_items[4];
+        type = type_items[4];
         break;
     }
     // type = widget.userType.toString();
@@ -182,589 +173,639 @@ class _RegisterScreenState extends State<RegisterScreen> {
     SizeConfig.init(context);
     return Scaffold(
       body: SafeArea(
-        child: loaddata==true?LoadingScreen():GetBuilder<RegisterController>(
-          init: registerController,
-          builder: (controller) => controller.showLoading
-              ? LoadingScreen()
-              : controller.currentState ==
-                      MobileVerificationState.SHOW_MOBILE_FORM_STATE
-                  ? Container(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Container(
-                              child: Material(
-                                elevation: 5,
-                                color: Colors.white,
-                                child: Container(
-                                  width: SizeConfig.screenWidth,
-                                  height: getProportionateScreenHeight(95),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: AutoSizeText(
-                                      "طلب انضمام".i18n,
-                                      style: h4_21pt,
-                                      maxLines: 1,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.symmetric(
-                                  horizontal: getProportionateScreenWidth(16)),
+        child: loaddata == true
+            ? LoadingScreen()
+            : GetBuilder<RegisterController>(
+                init: registerController,
+                builder: (controller) => controller.showLoading
+                    ? LoadingScreen()
+                    : controller.currentState ==
+                            MobileVerificationState.SHOW_MOBILE_FORM_STATE
+                        ? Container(
+                            child: SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  SizedBox(
-                                    height: getProportionateScreenHeight(35),
+                                  Container(
+                                    child: Material(
+                                      elevation: 5,
+                                      color: Colors.white,
+                                      child: Container(
+                                        width: SizeConfig.screenWidth,
+                                        height:
+                                            getProportionateScreenHeight(95),
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          child: AutoSizeText(
+                                            "طلب انضمام".i18n,
+                                            style: h4_21pt,
+                                            maxLines: 1,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                   Container(
-                                    alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-                                    height: getProportionateScreenHeight(30),
-                                    width: getProportionateScreenWidth(370),
-                                    child: Row(
-                                      
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal:
+                                            getProportionateScreenWidth(16)),
+                                    child: Column(
                                       children: [
-
-                                        AutoSizeText(
-                                          "النوع".i18n,
-                                          style: body2_14pt,
+                                        SizedBox(
+                                          height:
+                                              getProportionateScreenHeight(35),
                                         ),
                                         Container(
+                                          alignment: appLocal == "ar"
+                                              ? Alignment.centerRight
+                                              : Alignment.centerLeft,
                                           height:
-                                          getProportionateScreenHeight(25),
+                                              getProportionateScreenHeight(30),
                                           width:
-                                          getProportionateScreenWidth(20),
-                                          child: Image.asset(
-                                            "assets/images/auth/star.png",
-                                            // fit: BoxFit.fill,
+                                              getProportionateScreenWidth(370),
+                                          child: Row(
+                                            children: [
+                                              AutoSizeText(
+                                                "النوع".i18n,
+                                                style: body2_14pt,
+                                              ),
+                                              Container(
+                                                height:
+                                                    getProportionateScreenHeight(
+                                                        25),
+                                                width:
+                                                    getProportionateScreenWidth(
+                                                        20),
+                                                child: Image.asset(
+                                                  "assets/images/auth/star.png",
+                                                  // fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: getProportionateScreenHeight(10),
-                                  ),
-                                  GetBuilder<RegisterController>(
-                                    init: registerController,
-                                    builder: (controller) => Container(
-                                      alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-                                      child: Container(
-                                          width:
-                                          getProportionateScreenWidth(156),
+                                        SizedBox(
                                           height:
-                                          getProportionateScreenHeight(45),
-                                          alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(6),
-                                            border: Border.all(
-                                                width: 1,
-                                                color: Colors.grey
-                                                    .withOpacity(0.6)),
+                                              getProportionateScreenHeight(10),
+                                        ),
+                                        GetBuilder<RegisterController>(
+                                          init: registerController,
+                                          builder: (controller) => Container(
+                                            alignment: appLocal == "ar"
+                                                ? Alignment.centerRight
+                                                : Alignment.centerLeft,
+                                            child: Container(
+                                                width:
+                                                    getProportionateScreenWidth(
+                                                        156),
+                                                height:
+                                                    getProportionateScreenHeight(
+                                                        45),
+                                                alignment: appLocal == "ar"
+                                                    ? Alignment.centerRight
+                                                    : Alignment.centerLeft,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color: Colors.grey
+                                                          .withOpacity(0.6)),
+                                                ),
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 15),
+                                                child: Directionality(
+                                                  textDirection:
+                                                      appLocal == "ar"
+                                                          ? TextDirection.ltr
+                                                          : TextDirection.rtl,
+                                                  child:
+                                                      DropdownButtonHideUnderline(
+                                                    child:
+                                                        DropdownButton<String>(
+                                                      // value: type,
+                                                      items: type_items
+                                                          .map((String item) {
+                                                        return DropdownMenuItem<
+                                                            String>(
+                                                          value: item,
+                                                          child: Text(item),
+                                                        );
+                                                      }).toList(),
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          type = value;
+                                                        });
+                                                        if (type ==
+                                                            type_items[1])
+                                                          controller.changeType(
+                                                              "user");
+                                                        else if (type ==
+                                                            type_items[0])
+                                                          controller.changeType(
+                                                              "doctor");
+                                                        else if (type ==
+                                                            type_items[3])
+                                                          controller.changeType(
+                                                              "stable");
+                                                        else if (type ==
+                                                            type_items[2])
+                                                          controller.changeType(
+                                                              "store");
+                                                        else if (type ==
+                                                            type_items[4])
+                                                          controller.changeType(
+                                                              "sieve");
+
+                                                        // switch (type) {
+                                                        //   case type_items[1]:
+                                                        //     controller
+                                                        //         .changeType("user");
+                                                        //     break;
+                                                        //   case "طبيب":
+                                                        //     controller
+                                                        //         .changeType("doctor");
+                                                        //     break;
+                                                        //   case "اسطبل":
+                                                        //     controller
+                                                        //         .changeType("stable");
+                                                        //     break;
+                                                        //   case "متجر":
+                                                        //     controller
+                                                        //         .changeType("store");
+                                                        //     break;
+                                                        //     case "منحلة":
+                                                        //     controller
+                                                        //         .changeType("sieve");
+                                                        //     break;
+                                                        // }
+                                                      },
+                                                      hint: Text(type),
+                                                      elevation: 8,
+                                                      style: blackText_14pt,
+                                                      icon: Icon(Icons
+                                                          .arrow_drop_down),
+                                                      iconDisabledColor:
+                                                          Colors.black,
+                                                      iconEnabledColor: Colors
+                                                          .blue
+                                                          .withOpacity(0.6),
+                                                      // isExpanded: true,
+                                                    ),
+                                                  ),
+                                                )),
                                           ),
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 15),
-                                          child:Directionality(
-                                            textDirection: appLocal=="ar"?TextDirection.ltr:TextDirection.rtl,
-
-                                            child: DropdownButtonHideUnderline(
-                                              child: DropdownButton<String>(
-                                                // value: type,
-                                                items:
-                                                type_items.map((String item) {
-                                                  return DropdownMenuItem<String>(
-                                                    value: item,
-                                                    child: Text(item),
-                                                  );
-                                                }).toList(),
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    type = value;
-                                                  });
-                                                  if(type==type_items[1])
-                                                    controller
-                                                        .changeType("user");
-                                                  else if(type==type_items[0])
-                                                    controller
-                                                        .changeType("doctor");
-                                                  else if(type==type_items[3])
-                                                    controller
-                                                        .changeType("stable");
-                                                  else if(type==type_items[2])
-                                                    controller
-                                                        .changeType("store");
-                                                  else if(type==type_items[4])
-                                                    controller
-                                                        .changeType("sieve");
-
-
-                                                  // switch (type) {
-                                                  //   case type_items[1]:
-                                                  //     controller
-                                                  //         .changeType("user");
-                                                  //     break;
-                                                  //   case "طبيب":
-                                                  //     controller
-                                                  //         .changeType("doctor");
-                                                  //     break;
-                                                  //   case "اسطبل":
-                                                  //     controller
-                                                  //         .changeType("stable");
-                                                  //     break;
-                                                  //   case "متجر":
-                                                  //     controller
-                                                  //         .changeType("store");
-                                                  //     break;
-                                                  //     case "منحلة":
-                                                  //     controller
-                                                  //         .changeType("sieve");
-                                                  //     break;
-                                                  // }
-                                                },
-                                                hint: Text(type),
-                                                elevation: 8,
-                                                style: blackText_14pt,
-                                                icon: Icon(Icons.arrow_drop_down),
-                                                iconDisabledColor: Colors.black,
-                                                iconEnabledColor:
-                                                Colors.blue.withOpacity(0.6),
-                                                // isExpanded: true,
-                                              ),
-                                            ),
-                                          )),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: getProportionateScreenHeight(25),
-                                  ),
-                                  GetBuilder<RegisterController>(
-                                      init: registerController,
-                                      builder: (controller) => Column(
-                                            children: [
-                                              controller.type == UserType.stable
-                                                  ? Container(
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          Container(
-                                                            alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-
-                                                            height:
-                                                                getProportionateScreenHeight(
-                                                                    30),
-                                                            width:
-                                                                getProportionateScreenWidth(
-                                                                    370),
-                                                            child: Row(
-                                                               
-                                                              children: [
+                                        ),
+                                        SizedBox(
+                                          height:
+                                              getProportionateScreenHeight(25),
+                                        ),
+                                        GetBuilder<RegisterController>(
+                                            init: registerController,
+                                            builder: (controller) => Column(
+                                                  children: [
+                                                    controller.type ==
+                                                            UserType.stable
+                                                        ? Container(
+                                                            child: Column(
+                                                              children: <
+                                                                  Widget>[
                                                                 Container(
+                                                                  alignment: appLocal ==
+                                                                          "ar"
+                                                                      ? Alignment
+                                                                          .centerRight
+                                                                      : Alignment
+                                                                          .centerLeft,
                                                                   height:
                                                                       getProportionateScreenHeight(
-                                                                          25),
+                                                                          30),
                                                                   width:
                                                                       getProportionateScreenWidth(
-                                                                          20),
-                                                                  child: Image
-                                                                      .asset(
-                                                                    "assets/images/auth/star.png",
-                                                                    // fit: BoxFit.fill,
-                                                                  ),
-                                                                ),
-                                                                AutoSizeText(
-                                                                  "اسم الاسطبل".i18n,
-                                                                  style:
-                                                                      body2_14pt,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Container(
-                                                            alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-
-                                                            child: Container(
-                                                              height:
-                                                                  getProportionateScreenHeight(
-                                                                      50),
-                                                              width:
-                                                                  getProportionateScreenWidth(
-                                                                      150),
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                  border: Border.all(
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      width:
-                                                                          0.3)),
-                                                              child:
-                                                                  CustomTextField(
-                                                                textEditingController:
-                                                                    registerStableNameController,
-                                                                // hint:,
-                                                                // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                // textInputType: TextInputType.phone,
-                                                                color: true,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height:
-                                                                getProportionateScreenHeight(
-                                                                    15),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  : Container(),
-                                              controller.type == UserType.store
-                                                  ? Container(
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          Container(
-                                                            alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-
-                                                            height:
-                                                                getProportionateScreenHeight(
-                                                                    30),
-                                                            width:
-                                                                getProportionateScreenWidth(
-                                                                    370),
-                                                            child: Row(
-                                                               
-                                                              children: [
-                                                                Container(
-                                                                  height:
-                                                                      getProportionateScreenHeight(
-                                                                          25),
-                                                                  width:
-                                                                      getProportionateScreenWidth(
-                                                                          20),
-                                                                  child: Image
-                                                                      .asset(
-                                                                    "assets/images/auth/star.png",
-                                                                    // fit: BoxFit.fill,
-                                                                  ),
-                                                                ),
-                                                                AutoSizeText(
-                                                                  "اسم المتجر".i18n,
-                                                                  style:
-                                                                      body2_14pt,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Container(
-                                                            alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-
-                                                            child:   Container(
-                                                              height:
-                                                                  getProportionateScreenHeight(
-                                                                      50),
-                                                              width:
-                                                                  getProportionateScreenWidth(
-                                                                      150),
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                  border: Border.all(
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      width:
-                                                                          0.3)),
-                                                              child:
-                                                                  CustomTextField(
-                                                                textEditingController:
-                                                                    registerStoreNameController,
-                                                                // hint:,
-                                                                // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                // textInputType: TextInputType.phone,
-                                                                color: true,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height:
-                                                                getProportionateScreenHeight(
-                                                                    15),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  : Container(),
-                                              controller.type == UserType.sieve
-                                                  ? Container(
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          Container(
-                                                            alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-
-                                                            height:
-                                                                getProportionateScreenHeight(
-                                                                    30),
-                                                            width:
-                                                                getProportionateScreenWidth(
-                                                                    370),
-                                                            child: Row(
-                                                               
-                                                              children: [
-                                                                Container(
-                                                                  height:
-                                                                      getProportionateScreenHeight(
-                                                                          25),
-                                                                  width:
-                                                                      getProportionateScreenWidth(
-                                                                          20),
-                                                                  child: Image
-                                                                      .asset(
-                                                                    "assets/images/auth/star.png",
-                                                                    // fit: BoxFit.fill,
-                                                                  ),
-                                                                ),
-                                                                AutoSizeText(
-                                                                  "اسم المنحلة".i18n,
-                                                                  style:
-                                                                      body2_14pt,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Container(
-                                                            alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-
-                                                            child:   Container(
-                                                              height:
-                                                                  getProportionateScreenHeight(
-                                                                      50),
-                                                              width:
-                                                                  getProportionateScreenWidth(
-                                                                      150),
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                  border: Border.all(
-                                                                      color: Colors
-                                                                          .grey,
-                                                                      width:
-                                                                          0.3)),
-                                                              child:
-                                                                  CustomTextField(
-                                                                textEditingController:
-                                                                    registerStoreNameController,
-                                                                // hint:,
-                                                                // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                // textInputType: TextInputType.phone,
-                                                                color: true,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height:
-                                                                getProportionateScreenHeight(
-                                                                    15),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  : Container(),
-                                              controller.type ==
-                                                          UserType.doctor ||
-                                                      controller.type ==
-                                                          UserType.user
-                                                  ? Container(
-                                                      width:
-                                                          getProportionateScreenWidth(
-                                                              390),
-                                                      // height: getProportionateScreenHeight(50),
-                                                      // alignment: Alignment.centerLeft,
-                                                      child:
-                                                      // appLocal=="ar"?
-                                                      Row(
-                                                        // mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: [
-                                                          // SizedBox(
-                                                          //   width:
-                                                          //   getProportionateScreenWidth(
-                                                          //       20),
-                                                          // ),
-
-                                                          // SizedBox(
-                                                          //   width:
-                                                          //       getProportionateScreenWidth(
-                                                          //           30),
-                                                          // ),
-                                                          Column(
-                                                            children: <Widget>[
-                                                              Container(
-                                                                alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-
-                                                                height:
-                                                                getProportionateScreenHeight(
-                                                                    30),
-                                                                width:
-                                                                getProportionateScreenWidth(
-                                                                    150),
-                                                                child: Row(
-
-                                                                  children: [
-
-                                                                    AutoSizeText(
-                                                                      "الاسم الاول".i18n,
-                                                                      style:
-                                                                      body2_14pt,
-                                                                    ),
-                                                                    Container(
-                                                                      height:
-                                                                      getProportionateScreenHeight(
-                                                                          25),
-                                                                      width:
-                                                                      getProportionateScreenWidth(
-                                                                          15),
-                                                                      child: Image
-                                                                          .asset(
-                                                                        "assets/images/auth/star.png",
-                                                                        // fit: BoxFit.fill,
+                                                                          370),
+                                                                  child: Row(
+                                                                    children: [
+                                                                      AutoSizeText(
+                                                                        "اسم الاسطبل"
+                                                                            .i18n,
+                                                                        style:
+                                                                            body2_14pt,
                                                                       ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                height: 10,
-                                                              ),
-                                                              Container(
-                                                                height:
-                                                                getProportionateScreenHeight(
-                                                                    60),
-                                                                width:
-                                                                getProportionateScreenWidth(
-                                                                    150),
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius:
-                                                                    BorderRadius.circular(
-                                                                        10),
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .grey,
-                                                                        width:
-                                                                        0.3)),
-                                                                child:
-                                                                CustomTextField(
-                                                                  textEditingController:
-                                                                  registerFirstNameController,
-                                                                  // hint:,
-                                                                  // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                  // textInputType: TextInputType.phone,
-                                                                  color: true,
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                height:
-                                                                getProportionateScreenHeight(
-                                                                    15),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Spacer(),
-                                                          Column(
-                                                            children: <Widget>[
-                                                              Container(
-                                                                alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-// color: Colors.red,
-                                                                height:
-                                                                getProportionateScreenHeight(
-                                                                    30),
-                                                                width:
-                                                                getProportionateScreenWidth(
-                                                                    150),
-                                                                child: Row(
-
-                                                                  children: [
-
-                                                                    AutoSizeText(
-                                                                      "الاسم الأخير".i18n,
-                                                                      style:
-                                                                      body2_14pt,
-                                                                    ),
-                                                                    Container(
-                                                                      height:
-                                                                      getProportionateScreenHeight(
-                                                                          25),
-                                                                      width:
-                                                                      getProportionateScreenWidth(
-                                                                          15),
-                                                                      child: Image
-                                                                          .asset(
-                                                                        "assets/images/auth/star.png",
-                                                                        // fit: BoxFit.fill,
+                                                                      Container(
+                                                                        height:
+                                                                            getProportionateScreenHeight(25),
+                                                                        width: getProportionateScreenWidth(
+                                                                            20),
+                                                                        child: Image
+                                                                            .asset(
+                                                                          "assets/images/auth/star.png",
+                                                                          // fit: BoxFit.fill,
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                  ],
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              SizedBox(
-                                                                height: 10,
-                                                              ),
-                                                              Container(
-                                                                alignment: Alignment
-                                                                    .centerLeft,
-                                                                child:
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
                                                                 Container(
-                                                                  height:
-                                                                  getProportionateScreenHeight(
-                                                                      60),
-                                                                  width:
-                                                                  getProportionateScreenWidth(
-                                                                      150),
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                      BorderRadius.circular(
-                                                                          10),
-                                                                      border: Border.all(
-                                                                          color: Colors
-                                                                              .grey,
-                                                                          width:
-                                                                          0.3)),
+                                                                  alignment: appLocal ==
+                                                                          "ar"
+                                                                      ? Alignment
+                                                                          .centerRight
+                                                                      : Alignment
+                                                                          .centerLeft,
                                                                   child:
-                                                                  CustomTextField(
-                                                                    textEditingController:
-                                                                    registerLastNameController,
-                                                                    // hint:,
-                                                                    // prefixImage: "assets/images/auth/mobile_icon.png",
-                                                                    // textInputType: TextInputType.phone,
-                                                                    color: true,
+                                                                      Container(
+                                                                    height:
+                                                                        getProportionateScreenHeight(
+                                                                            50),
+                                                                    width:
+                                                                        getProportionateScreenWidth(
+                                                                            150),
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                10),
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                Colors.grey,
+                                                                            width: 0.3)),
+                                                                    child:
+                                                                        CustomTextField(
+                                                                      textEditingController:
+                                                                          registerStableNameController,
+                                                                      // hint:,
+                                                                      // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                      // textInputType: TextInputType.phone,
+                                                                      color:
+                                                                          true,
+                                                                    ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              SizedBox(
-                                                                height:
-                                                                getProportionateScreenHeight(
-                                                                    15),
-                                                              ),
-                                                            ],
-                                                          ),
+                                                                SizedBox(
+                                                                  height:
+                                                                      getProportionateScreenHeight(
+                                                                          15),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          )
+                                                        : Container(),
+                                                    controller.type ==
+                                                            UserType.store
+                                                        ? Container(
+                                                            child: Column(
+                                                              children: <
+                                                                  Widget>[
+                                                                Container(
+                                                                  alignment: appLocal ==
+                                                                          "ar"
+                                                                      ? Alignment
+                                                                          .centerRight
+                                                                      : Alignment
+                                                                          .centerLeft,
+                                                                  height:
+                                                                      getProportionateScreenHeight(
+                                                                          30),
+                                                                  width:
+                                                                      getProportionateScreenWidth(
+                                                                          370),
+                                                                  child: Row(
+                                                                    children: [
+                                                                      AutoSizeText(
+                                                                        "اسم المتجر"
+                                                                            .i18n,
+                                                                        style:
+                                                                            body2_14pt,
+                                                                      ),
+                                                                      Container(
+                                                                        height:
+                                                                            getProportionateScreenHeight(25),
+                                                                        width: getProportionateScreenWidth(
+                                                                            20),
+                                                                        child: Image
+                                                                            .asset(
+                                                                          "assets/images/auth/star.png",
+                                                                          // fit: BoxFit.fill,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                Container(
+                                                                  alignment: appLocal ==
+                                                                          "ar"
+                                                                      ? Alignment
+                                                                          .centerRight
+                                                                      : Alignment
+                                                                          .centerLeft,
+                                                                  child:
+                                                                      Container(
+                                                                    height:
+                                                                        getProportionateScreenHeight(
+                                                                            50),
+                                                                    width:
+                                                                        getProportionateScreenWidth(
+                                                                            150),
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                10),
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                Colors.grey,
+                                                                            width: 0.3)),
+                                                                    child:
+                                                                        CustomTextField(
+                                                                      textEditingController:
+                                                                          registerStoreNameController,
+                                                                      // hint:,
+                                                                      // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                      // textInputType: TextInputType.phone,
+                                                                      color:
+                                                                          true,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height:
+                                                                      getProportionateScreenHeight(
+                                                                          15),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          )
+                                                        : Container(),
+                                                    controller.type ==
+                                                            UserType.sieve
+                                                        ? Container(
+                                                            child: Column(
+                                                              children: <
+                                                                  Widget>[
+                                                                Container(
+                                                                  alignment: appLocal ==
+                                                                          "ar"
+                                                                      ? Alignment
+                                                                          .centerRight
+                                                                      : Alignment
+                                                                          .centerLeft,
+                                                                  height:
+                                                                      getProportionateScreenHeight(
+                                                                          30),
+                                                                  width:
+                                                                      getProportionateScreenWidth(
+                                                                          370),
+                                                                  child: Row(
+                                                                    children: [
+                                                                      AutoSizeText(
+                                                                        "اسم المنحلة"
+                                                                            .i18n,
+                                                                        style:
+                                                                            body2_14pt,
+                                                                      ),
+                                                                      Container(
+                                                                        height:
+                                                                            getProportionateScreenHeight(25),
+                                                                        width: getProportionateScreenWidth(
+                                                                            20),
+                                                                        child: Image
+                                                                            .asset(
+                                                                          "assets/images/auth/star.png",
+                                                                          // fit: BoxFit.fill,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                Container(
+                                                                  alignment: appLocal ==
+                                                                          "ar"
+                                                                      ? Alignment
+                                                                          .centerRight
+                                                                      : Alignment
+                                                                          .centerLeft,
+                                                                  child:
+                                                                      Container(
+                                                                    height:
+                                                                        getProportionateScreenHeight(
+                                                                            50),
+                                                                    width:
+                                                                        getProportionateScreenWidth(
+                                                                            150),
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                10),
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                Colors.grey,
+                                                                            width: 0.3)),
+                                                                    child:
+                                                                        CustomTextField(
+                                                                      textEditingController:
+                                                                          registerStoreNameController,
+                                                                      // hint:,
+                                                                      // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                      // textInputType: TextInputType.phone,
+                                                                      color:
+                                                                          true,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height:
+                                                                      getProportionateScreenHeight(
+                                                                          15),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          )
+                                                        : Container(),
+                                                    controller.type ==
+                                                                UserType
+                                                                    .doctor ||
+                                                            controller.type ==
+                                                                UserType.user
+                                                        ? Container(
+                                                            width:
+                                                                getProportionateScreenWidth(
+                                                                    390),
+                                                            // height: getProportionateScreenHeight(50),
+                                                            // alignment: Alignment.centerLeft,
+                                                            child:
+                                                                // appLocal=="ar"?
+                                                                Row(
+                                                              // mainAxisAlignment: MainAxisAlignment.center,
+                                                              children: [
+                                                                // SizedBox(
+                                                                //   width:
+                                                                //   getProportionateScreenWidth(
+                                                                //       20),
+                                                                // ),
 
+                                                                // SizedBox(
+                                                                //   width:
+                                                                //       getProportionateScreenWidth(
+                                                                //           30),
+                                                                // ),
+                                                                Column(
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Container(
+                                                                      alignment: appLocal ==
+                                                                              "ar"
+                                                                          ? Alignment
+                                                                              .centerRight
+                                                                          : Alignment
+                                                                              .centerLeft,
+                                                                      height:
+                                                                          getProportionateScreenHeight(
+                                                                              30),
+                                                                      width: getProportionateScreenWidth(
+                                                                          150),
+                                                                      child:
+                                                                          Row(
+                                                                        children: [
+                                                                          AutoSizeText(
+                                                                            "الاسم الاول".i18n,
+                                                                            style:
+                                                                                body2_14pt,
+                                                                          ),
+                                                                          Container(
+                                                                            height:
+                                                                                getProportionateScreenHeight(25),
+                                                                            width:
+                                                                                getProportionateScreenWidth(15),
+                                                                            child:
+                                                                                Image.asset(
+                                                                              "assets/images/auth/star.png",
+                                                                              // fit: BoxFit.fill,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height:
+                                                                          10,
+                                                                    ),
+                                                                    Container(
+                                                                      height:
+                                                                          getProportionateScreenHeight(
+                                                                              60),
+                                                                      width: getProportionateScreenWidth(
+                                                                          150),
+                                                                      decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(
+                                                                              10),
+                                                                          border: Border.all(
+                                                                              color: Colors.grey,
+                                                                              width: 0.3)),
+                                                                      child:
+                                                                          CustomTextField(
+                                                                        textEditingController:
+                                                                            registerFirstNameController,
+                                                                        // hint:,
+                                                                        // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                        // textInputType: TextInputType.phone,
+                                                                        color:
+                                                                            true,
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height:
+                                                                          getProportionateScreenHeight(
+                                                                              15),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Spacer(),
+                                                                Column(
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Container(
+                                                                      alignment: appLocal ==
+                                                                              "ar"
+                                                                          ? Alignment
+                                                                              .centerRight
+                                                                          : Alignment
+                                                                              .centerLeft,
+// color: Colors.red,
+                                                                      height:
+                                                                          getProportionateScreenHeight(
+                                                                              30),
+                                                                      width: getProportionateScreenWidth(
+                                                                          150),
+                                                                      child:
+                                                                          Row(
+                                                                        children: [
+                                                                          AutoSizeText(
+                                                                            "الاسم الأخير".i18n,
+                                                                            style:
+                                                                                body2_14pt,
+                                                                          ),
+                                                                          Container(
+                                                                            height:
+                                                                                getProportionateScreenHeight(25),
+                                                                            width:
+                                                                                getProportionateScreenWidth(15),
+                                                                            child:
+                                                                                Image.asset(
+                                                                              "assets/images/auth/star.png",
+                                                                              // fit: BoxFit.fill,
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height:
+                                                                          10,
+                                                                    ),
+                                                                    Container(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerLeft,
+                                                                      child:
+                                                                          Container(
+                                                                        height:
+                                                                            getProportionateScreenHeight(60),
+                                                                        width: getProportionateScreenWidth(
+                                                                            150),
+                                                                        decoration: BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(10),
+                                                                            border: Border.all(color: Colors.grey, width: 0.3)),
+                                                                        child:
+                                                                            CustomTextField(
+                                                                          textEditingController:
+                                                                              registerLastNameController,
+                                                                          // hint:,
+                                                                          // prefixImage: "assets/images/auth/mobile_icon.png",
+                                                                          // textInputType: TextInputType.phone,
+                                                                          color:
+                                                                              true,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height:
+                                                                          getProportionateScreenHeight(
+                                                                              15),
+                                                                    ),
+                                                                  ],
+                                                                ),
 
-                                                          // Spacer(),
-                                                          // Spacer(),
-                                                        ],
-                                                      ),
+                                                                // Spacer(),
+                                                                // Spacer(),
+                                                              ],
+                                                            ),
 
 //                                                 Row(
 //                                                         // mainAxisAlignment: MainAxisAlignment.center,
@@ -934,66 +975,136 @@ class _RegisterScreenState extends State<RegisterScreen> {
 //                                                           // Spacer(),
 //                                                         ],
 //                                                       ),
-                                                    )
-                                                  : Container(),
-                                            ],
-                                          )),
-                                  Container(
-                                    alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-
-                                    height: getProportionateScreenHeight(30),
-                                    width: getProportionateScreenWidth(370),
-                                    child: Row(
-                                      
-                                      children: [
-
-                                        AutoSizeText(
-                                          "رقم الهاتف".i18n,
-                                          style: body2_14pt,
-                                        ),
+                                                          )
+                                                        : Container(),
+                                                  ],
+                                                )),
                                         Container(
+                                          alignment: appLocal == "ar"
+                                              ? Alignment.centerRight
+                                              : Alignment.centerLeft,
                                           height:
-                                          getProportionateScreenHeight(25),
+                                              getProportionateScreenHeight(30),
                                           width:
-                                          getProportionateScreenWidth(20),
-                                          child: Image.asset(
-                                            "assets/images/auth/star.png",
-                                            // fit: BoxFit.fill,
+                                              getProportionateScreenWidth(370),
+                                          child: Row(
+                                            children: [
+                                              AutoSizeText(
+                                                "رقم الهاتف".i18n,
+                                                style: body2_14pt,
+                                              ),
+                                              Container(
+                                                height:
+                                                    getProportionateScreenHeight(
+                                                        25),
+                                                width:
+                                                    getProportionateScreenWidth(
+                                                        20),
+                                                child: Image.asset(
+                                                  "assets/images/auth/star.png",
+                                                  // fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: getProportionateScreenHeight(15),
-                                  ),
-                                  Row(
-                                    children: [
-                                      CountryCodePicker(
-                                        onInit: (value) {
-                                          registerCountyController.text =
-                                              value.dialCode;
-
-                                        },
-                                        onChanged: (value) {
-                                          print("*********");
-                                          print(value.dialCode);
-                                          print("*********");
-                                          registerCountyController.text =
-                                              value.dialCode;
-                                          lastSelected=value.code;
-                                        },
-                                        // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                                        initialSelection: lastSelected==""?'US':lastSelected,
-                                        // optional. Shows only country name and flag
-                                        showCountryOnly: false,
-                                        // optional. Shows only country name and flag when popup is closed.
-                                        showOnlyCountryWhenClosed: false,
-                                        // optional. aligns the flag and the Text left
-                                        alignLeft: false,
-                                      ),
-                                      Expanded(
-                                        child: Container(
+                                        SizedBox(
+                                          height:
+                                              getProportionateScreenHeight(15),
+                                        ),
+                                        Directionality(
+                                          textDirection: TextDirection.ltr,
+                                          child: Row(
+                                            children: [
+                                              CountryCodePicker(
+                                                onInit: (value) {
+                                                  registerCountyController
+                                                      .text = value.dialCode;
+                                                },
+                                                onChanged: (value) {
+                                                  print("*********");
+                                                  print(value.dialCode);
+                                                  print("*********");
+                                                  registerCountyController
+                                                      .text = value.dialCode;
+                                                  lastSelected = value.code;
+                                                },
+                                                // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
+                                                initialSelection:
+                                                    lastSelected == ""
+                                                        ? 'US'
+                                                        : lastSelected,
+                                                // optional. Shows only country name and flag
+                                                showCountryOnly: false,
+                                                // optional. Shows only country name and flag when popup is closed.
+                                                showOnlyCountryWhenClosed:
+                                                    false,
+                                                // optional. aligns the flag and the Text left
+                                                alignLeft: false,
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: Colors.grey,
+                                                          width: 0.3),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  child: CustomTextField(
+                                                    textEditingController:
+                                                        registerNumberController,
+                                                    hint: "رقم الهاتف الجوال"
+                                                        .i18n,
+                                                    prefixImage:
+                                                        "assets/images/auth/mobile_icon.png",
+                                                    textInputType:
+                                                        TextInputType.phone,
+                                                    color: true,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height:
+                                              getProportionateScreenHeight(20),
+                                        ),
+                                        Container(
+                                          alignment: appLocal == "ar"
+                                              ? Alignment.centerRight
+                                              : Alignment.centerLeft,
+                                          height:
+                                              getProportionateScreenHeight(30),
+                                          width:
+                                              getProportionateScreenWidth(370),
+                                          child: Row(
+                                            children: [
+                                              AutoSizeText(
+                                                "كلمة السر".i18n,
+                                                style: body2_14pt,
+                                              ),
+                                              Container(
+                                                height:
+                                                    getProportionateScreenHeight(
+                                                        25),
+                                                width:
+                                                    getProportionateScreenWidth(
+                                                        20),
+                                                child: Image.asset(
+                                                  "assets/images/auth/star.png",
+                                                  // fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height:
+                                              getProportionateScreenHeight(15),
+                                        ),
+                                        Container(
                                           decoration: BoxDecoration(
                                               border: Border.all(
                                                   color: Colors.grey,
@@ -1002,187 +1113,180 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   BorderRadius.circular(10)),
                                           child: CustomTextField(
                                             textEditingController:
-                                                registerNumberController,
-                                            hint: "رقم الهاتف الجوال".i18n,
+                                                registerPasswordController,
+                                            hint: "كلمة السر".i18n,
                                             prefixImage:
-                                                "assets/images/auth/mobile_icon.png",
-                                            textInputType: TextInputType.phone,
-                                            color: true,
+                                                "assets/images/auth/lock_icon.png",
+                                            password: true,
+                                            textInputType: TextInputType.name,
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: getProportionateScreenHeight(20),
-                                  ),
-                                  Container(
-                                    alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-
-                                    height: getProportionateScreenHeight(30),
-                                    width: getProportionateScreenWidth(370),
-                                    child: Row(
-                                      
-                                      children: [
-
-                                        AutoSizeText(
-                                          "كلمة السر".i18n,
-                                          style: body2_14pt,
+                                        SizedBox(
+                                          height:
+                                              getProportionateScreenHeight(25),
                                         ),
                                         Container(
+                                          alignment: appLocal == "ar"
+                                              ? Alignment.centerRight
+                                              : Alignment.centerLeft,
                                           height:
-                                          getProportionateScreenHeight(25),
+                                              getProportionateScreenHeight(30),
                                           width:
-                                          getProportionateScreenWidth(20),
-                                          child: Image.asset(
-                                            "assets/images/auth/star.png",
-                                            // fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: getProportionateScreenHeight(15),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 0.3),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: CustomTextField(
-                                      textEditingController:
-                                          registerPasswordController,
-                                      hint: "كلمة السر".i18n,
-                                      prefixImage:
-                                          "assets/images/auth/lock_icon.png",
-                                      password: true,
-                                      textInputType: TextInputType.name,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: getProportionateScreenHeight(25),
-                                  ),
-                                  Container(
-                                    alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-
-                                    height: getProportionateScreenHeight(30),
-                                    width: getProportionateScreenWidth(370),
-                                    child: Row(
-                                      
-                                      children: [
-
-                                        AutoSizeText(
-                                          "العنوان".i18n,
-                                          style: body2_14pt,
-                                        ),
-                                        Container(
-                                          height:
-                                          getProportionateScreenHeight(25),
-                                          width:
-                                          getProportionateScreenWidth(20),
-                                          child: Image.asset(
-                                            "assets/images/auth/star.png",
-                                            // fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: getProportionateScreenHeight(15),
-                                  ),
-                                  Container(
-                                    alignment:appLocal=="ar"? Alignment.centerRight:Alignment.centerLeft,
-
-                                    // padding: EdgeInsets.only(left: getProportionateScreenWidth(5),right: getProportionateScreenWidth(5)),
-                                    child: Container(
-                                        padding: EdgeInsets.only(left: getProportionateScreenWidth(5),right: getProportionateScreenWidth(5)),
-                                        width: getProportionateScreenWidth(156),
-                                        height:
-                                        getProportionateScreenHeight(45),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(6),
-                                          border: Border.all(
-                                              width: 1,
-                                              color:
-                                              Colors.grey.withOpacity(0.6)),
-                                        ),
-                                        // padding: EdgeInsets.symmetric(
-                                        //     horizontal: 15),
-                                        alignment: appLocal=="ar"?Alignment.centerRight:Alignment.centerLeft,
-                                        child:Directionality(
-                                          textDirection: appLocal=="ar"?TextDirection.ltr:TextDirection.rtl,
-
-                                          child: DropdownButtonHideUnderline(
-                                            child: DropdownButton(
-                                              // value: controller.storeInfo.address,
-                                              // value: _value,
-                                              items: addresses
-                                                  .map((City item) {
-                                                return DropdownMenuItem<City>(
-                                                  value: item,
-                                                  child: Container(
-                                                    width: getProportionateScreenWidth(100),
-                                                    height:
-                                                    getProportionateScreenHeight(45),
-                                                    child: AutoSizeText(
-                                                      item.name,
-                                                      // textDirection:
-                                                      // TextDirection.rtl,
-                                                      style: blackText_14pt,
-                                                      minFontSize: 9,
-                                                    ),
-                                                  ),
-                                                );
-                                              }).toList(),
-                                              onChanged: (city) async{
-                                                print("before");
-                                                location=city.name;
-locationId=city.id;
-                                                print("after");
-setState(() {
-
-});
-                                              },
-                                              hint:
+                                              getProportionateScreenWidth(370),
+                                          child: Row(
+                                            children: [
+                                              AutoSizeText(
+                                                "العنوان".i18n,
+                                                style: body2_14pt,
+                                              ),
                                               Container(
-                                                width: getProportionateScreenWidth(110),
-                                                alignment: appLocal=="ar"?Alignment.centerRight:Alignment.centerLeft,
-                                                child: AutoSizeText( location,maxLines: 1,minFontSize: 9,textDirection: appLocal=="ar"?TextDirection.rtl:TextDirection.ltr,),),
-
-                                              elevation: 8,
-                                              style: blackText_14pt,
-                                              icon: Icon(Icons.arrow_drop_down),
-                                              iconDisabledColor: Colors.black,
-                                              iconEnabledColor: Colors.blue,
-                                              // isExpanded: true,
-                                            ),
+                                                height:
+                                                    getProportionateScreenHeight(
+                                                        25),
+                                                width:
+                                                    getProportionateScreenWidth(
+                                                        20),
+                                                child: Image.asset(
+                                                  "assets/images/auth/star.png",
+                                                  // fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        )),
-                                  ),
-                                  SizedBox(
-                                    height: getProportionateScreenHeight(40),
-                                  ),
-                                  AuthButton(
-                                    color: true,
-                                    title: "متابعة".i18n,
-                                    ontap: () async{
-                                     await register();
-                                     // await register2();
-                                    },
-                                  ),
+                                        ),
+                                        SizedBox(
+                                          height:
+                                              getProportionateScreenHeight(15),
+                                        ),
+                                        Container(
+                                          alignment: appLocal == "ar"
+                                              ? Alignment.centerRight
+                                              : Alignment.centerLeft,
+
+                                          // padding: EdgeInsets.only(left: getProportionateScreenWidth(5),right: getProportionateScreenWidth(5)),
+                                          child: Container(
+                                              padding: EdgeInsets.only(
+                                                  left:
+                                                      getProportionateScreenWidth(
+                                                          5),
+                                                  right:
+                                                      getProportionateScreenWidth(
+                                                          5)),
+                                              width:
+                                                  getProportionateScreenWidth(
+                                                      156),
+                                              height:
+                                                  getProportionateScreenHeight(
+                                                      45),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color: Colors.grey
+                                                        .withOpacity(0.6)),
+                                              ),
+                                              // padding: EdgeInsets.symmetric(
+                                              //     horizontal: 15),
+                                              alignment: appLocal == "ar"
+                                                  ? Alignment.centerRight
+                                                  : Alignment.centerLeft,
+                                              child: Directionality(
+                                                textDirection: appLocal == "ar"
+                                                    ? TextDirection.ltr
+                                                    : TextDirection.rtl,
+                                                child:
+                                                    DropdownButtonHideUnderline(
+                                                  child: DropdownButton(
+                                                    // value: controller.storeInfo.address,
+                                                    // value: _value,
+                                                    items: addresses
+                                                        .map((City item) {
+                                                      return DropdownMenuItem<
+                                                          City>(
+                                                        value: item,
+                                                        child: Container(
+                                                          width:
+                                                              getProportionateScreenWidth(
+                                                                  100),
+                                                          height:
+                                                              getProportionateScreenHeight(
+                                                                  45),
+                                                          child: AutoSizeText(
+                                                            item.name,
+                                                            // textDirection:
+                                                            // TextDirection.rtl,
+                                                            style:
+                                                                blackText_14pt,
+                                                            minFontSize: 9,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }).toList(),
+                                                    onChanged: (city) async {
+                                                      print("before");
+                                                      location = city.name;
+                                                      locationId = city.id;
+                                                      print("after");
+                                                      setState(() {});
+                                                    },
+                                                    hint: Container(
+                                                      width:
+                                                          getProportionateScreenWidth(
+                                                              110),
+                                                      alignment:
+                                                          appLocal == "ar"
+                                                              ? Alignment
+                                                                  .centerRight
+                                                              : Alignment
+                                                                  .centerLeft,
+                                                      child: AutoSizeText(
+                                                        location,
+                                                        maxLines: 1,
+                                                        minFontSize: 9,
+                                                        textDirection:
+                                                            appLocal == "ar"
+                                                                ? TextDirection
+                                                                    .rtl
+                                                                : TextDirection
+                                                                    .ltr,
+                                                      ),
+                                                    ),
+
+                                                    elevation: 8,
+                                                    style: blackText_14pt,
+                                                    icon: Icon(
+                                                        Icons.arrow_drop_down),
+                                                    iconDisabledColor:
+                                                        Colors.black,
+                                                    iconEnabledColor:
+                                                        Colors.blue,
+                                                    // isExpanded: true,
+                                                  ),
+                                                ),
+                                              )),
+                                        ),
+                                        SizedBox(
+                                          height:
+                                              getProportionateScreenHeight(40),
+                                        ),
+                                        AuthButton(
+                                          color: true,
+                                          title: "متابعة".i18n,
+                                          ontap: () async {
+                                            await register();
+                                            // await register2();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  : OtpScreen(),
-        ),
+                            ),
+                          )
+                        : OtpScreen(),
+              ),
       ),
     );
   }
@@ -1222,7 +1326,6 @@ setState(() {
       return false;
     }
 
-
     if (await authRequest.isExist(registerPhoneNumberController.text)) {
       CoolAlert.show(
         context: context,
@@ -1232,18 +1335,7 @@ setState(() {
       return false;
     }
 
-
-    if(type==type_items[1]) {
-      if (registerFirstNameController.text==""||registerLastNameController.text=="") {
-        CoolAlert.show(
-          context: context,
-          type: CoolAlertType.error,
-          text: "الرجاء تعبئة كافة الحقول اولاً".i18n,
-        );
-        return false;
-
-      }
-    } else if(type==type_items[0]) {
+    if (type == type_items[1]) {
       if (registerFirstNameController.text == "" ||
           registerLastNameController.text == "") {
         CoolAlert.show(
@@ -1252,37 +1344,43 @@ setState(() {
           text: "الرجاء تعبئة كافة الحقول اولاً".i18n,
         );
         return false;
-
       }
-    } else if(type==type_items[3]) {
-      if (registerStableNameController.text == "" ) {
+    } else if (type == type_items[0]) {
+      if (registerFirstNameController.text == "" ||
+          registerLastNameController.text == "") {
         CoolAlert.show(
           context: context,
           type: CoolAlertType.error,
           text: "الرجاء تعبئة كافة الحقول اولاً".i18n,
         );
         return false;
-
       }
-    } else if(type==type_items[2]) {
-      if (registerStoreNameController.text == "" ) {
+    } else if (type == type_items[3]) {
+      if (registerStableNameController.text == "") {
         CoolAlert.show(
           context: context,
           type: CoolAlertType.error,
           text: "الرجاء تعبئة كافة الحقول اولاً".i18n,
         );
         return false;
-
       }
-    } else if(type==type_items[4]) {
-      if (registerStoreNameController.text == "" ) {
+    } else if (type == type_items[2]) {
+      if (registerStoreNameController.text == "") {
         CoolAlert.show(
           context: context,
           type: CoolAlertType.error,
           text: "الرجاء تعبئة كافة الحقول اولاً".i18n,
         );
         return false;
-
+      }
+    } else if (type == type_items[4]) {
+      if (registerStoreNameController.text == "") {
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          text: "الرجاء تعبئة كافة الحقول اولاً".i18n,
+        );
+        return false;
       }
     }
 
@@ -1355,9 +1453,8 @@ setState(() {
     //     break;
     // }
 
-      // await register2();
-      await authRequest.verifyPhoneNumber(registerPhoneNumberController.text);
-
+    // await register2();
+    await authRequest.verifyPhoneNumber(registerPhoneNumberController.text);
   }
 }
 
@@ -1365,11 +1462,11 @@ Future<bool> register2() async {
   // CoolAlert.show(
   //   type: CoolAlertType.loading,
   // );
-  String mobile="00"+registerPhoneNumberController.text.substring(1);
+  String mobile = "00" + registerPhoneNumberController.text.substring(1);
   consolePrint(mobile);
   bool auth = true;
 
-  if(type==type_items[1]) {
+  if (type == type_items[1]) {
     if (!await authRequest.registerUserRequest(
         firstName: registerFirstNameController.text,
         secondName: registerLastNameController.text,
@@ -1384,7 +1481,7 @@ Future<bool> register2() async {
       //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
       // );
     }
-  } else if(type==type_items[0]) {
+  } else if (type == type_items[0]) {
     if (!await authRequest.registerDoctorRequest(
         firstName: registerFirstNameController.text,
         secondName: registerLastNameController.text,
@@ -1400,7 +1497,7 @@ Future<bool> register2() async {
       //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
       // );
     }
-  } else if(type==type_items[3]) {
+  } else if (type == type_items[3]) {
     if (!await authRequest.registerStableRequest(
         stable_name: registerStableNameController.text,
         mobile: mobile,
@@ -1415,8 +1512,8 @@ Future<bool> register2() async {
       //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
       // );
     }
-  } else if(type==type_items[2]) {
-    bool temp=await authRequest.registerStoreRequest(
+  } else if (type == type_items[2]) {
+    bool temp = await authRequest.registerStoreRequest(
         store_name: registerStoreNameController.text,
         mobile: mobile,
         password: registerPasswordController.text,
@@ -1430,8 +1527,8 @@ Future<bool> register2() async {
       //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
       // );
     }
-  } else if(type==type_items[4]) {
-    bool temp=await authRequest.registerSiveRequest(
+  } else if (type == type_items[4]) {
+    bool temp = await authRequest.registerSiveRequest(
         stable_name: registerStoreNameController.text,
         mobile: mobile,
         password: registerPasswordController.text,
@@ -1445,10 +1542,7 @@ Future<bool> register2() async {
       //   text: "حدث خطأ ما يرجى التاكد من المعلومات المدخلة",
       // );
     }
-
   }
-
-
 
   //
   // switch (type) {
@@ -1550,24 +1644,22 @@ Future<bool> register2() async {
   // registerController.changeLoading();
   if (auth) {
     UserModel user = await authRequest.loginRequest(
-        mobile:mobile,
-        password: registerPasswordController.text);
+        mobile: mobile, password: registerPasswordController.text);
 
     if (user.error != true) {
       if (user.user.approve == "pending") {
         Get.offAll(UnApprovedScreen());
-      }  else if(user.user.blockStatus=="blocked")
-      {
+      } else if (user.user.blockStatus == "blocked") {
         Get.offAll(BlockedScreen());
       } else {
-        DoctorAppRequests doctorAppRequests=DoctorAppRequests();
+        DoctorAppRequests doctorAppRequests = DoctorAppRequests();
         doctorAppRequests.getModel();
-       String token=await FirebaseMessaging.instance.getToken();
+        String token = await FirebaseMessaging.instance.getToken();
         doctorAppRequests.updateDeviceId(device_id: token);
-        Future.delayed(Duration(seconds: 1)).then((value) => Get.offAll(MainScreen()));
+        Future.delayed(Duration(seconds: 1))
+            .then((value) => Get.offAll(MainScreen()));
       }
-    } else
-      {
+    } else {
       Get.offAll(LoginScreen());
       customDialog("حدث خطأ ما اثناء التسجيل الرجاء المحاولة  مرة اخرى".i18n);
     }

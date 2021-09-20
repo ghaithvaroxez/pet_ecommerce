@@ -19,62 +19,48 @@ import '../photos/photo_card.dart';
 import 'package:pets/screens/vendor_app/model/image_model.dart' as im;
 import '../photos/photos_view.dart';
 import '../offers/translations/offers_body.i18n.dart';
+
 class CustomerPhotosBody extends StatefulWidget {
   int id;
+
   CustomerPhotosBody(this.id);
+
   @override
   _CustomerPhotosBodyState createState() => _CustomerPhotosBodyState();
 }
 
 class _CustomerPhotosBodyState extends State<CustomerPhotosBody> {
+  List<im.Image> images = [];
+  bool loading = true;
+  bool error = false;
 
-
-
-  List<im.Image> images=[];
-  bool loading =true;
-  bool error=false;
-
-
-  fetchData()async
-  {
+  fetchData() async {
     consolePrint("fetch data");
-    loading=true;
-    setState(() {
+    loading = true;
+    setState(() {});
 
+    var url = Uri.parse("${Api.baseUrl}/store/images/${widget.id.toString()}");
+    String token = await AuthServices.getAuthToken();
+    consolePrint(token);
+    final apiResult = await http.get(url, headers: {
+      "Authorization": "Bearer $token",
     });
+    consolePrint("status code :" + apiResult.statusCode.toString());
+    consolePrint("id :" + widget.id.toString());
 
-    var url=Uri.parse("${Api.baseUrl}/store/images/${widget.id.toString()}");
-    String token=await AuthServices.getAuthToken();
-    consolePrint(token)
-;
-    final apiResult =await http.get(url,headers: {"Authorization": "Bearer $token",});
-    consolePrint("status code :" +apiResult.statusCode.toString());
-    consolePrint("id :" +widget.id.toString());
-
-    if(apiResult.statusCode==200)
-    {
-
-      var d= json.decode(apiResult.body);
+    if (apiResult.statusCode == 200) {
+      var d = json.decode(apiResult.body);
       // consolePrint(d["store"].toString());
-      var model=im.ImagesModel.fromJson(d["store"]);
-      images= model.images;
-
-    }
-
-    else
-    {
+      var model = im.ImagesModel.fromJson(d["store"]);
+      images = model.images;
+    } else {
       consolePrint("error in fetch data");
-      error=true;
+      error = true;
     }
 
-    loading=false;
-    setState(() {
-
-    });
-
-
+    loading = false;
+    setState(() {});
   }
-
 
   // VendorPhotosController photosController =Get.put(VendorPhotosController());
   @override
@@ -82,66 +68,81 @@ class _CustomerPhotosBodyState extends State<CustomerPhotosBody> {
     fetchData();
     // TODO: implement initState
     super.initState();
-    consolePrint("initial state of gproductas boud tgg screvnn ffdmfk dfdkmdkfmfdfldsomf ddmksdmkvmm vkds dokfdokm;ksidk;m;;kodfsdm n ds");
+    consolePrint(
+        "initial state of gproductas boud tgg screvnn ffdmfk dfdkmdkfmfdfldsomf ddmksdmkvmm vkds dokfdokm;ksidk;m;;kodfsdm n ds");
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return loading?LoadingScreen():images.length==0
-?Container(
-      width: getProportionateScreenWidth(390),
-      height: getProportionateScreenHeight(350),
-      child: Center(child: AutoSizeText( "لا يوجد عناصر حاليا".i18n,style: body1_16pt,)),
-    ):
-      Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(16),
-            vertical: getProportionateScreenHeight(8)),
-        child:  SingleChildScrollView(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  ...List<Widget>.generate(
-                    images.length,
-                        (index)=>index%2==0?GestureDetector(
-                          onTap: (){
-                            Get.to(()=>StorePhotosView(images,index));
-                          },
-                          child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-
-                      child:  StoreImageCard(images[index]),
-                    ),
-                        ):Container(height: 0,),
-
+    return loading
+        ? LoadingScreen()
+        : images.length == 0
+            ? Container(
+                width: getProportionateScreenWidth(390),
+                height: getProportionateScreenHeight(350),
+                child: Center(
+                    child: AutoSizeText(
+                  "لا يوجد عناصر حاليا".i18n,
+                  style: body1_16pt,
+                )),
+              )
+            : Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(16),
+                    vertical: getProportionateScreenHeight(8)),
+                child: SingleChildScrollView(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        children: [
+                          ...List<Widget>.generate(
+                            images.length,
+                            (index) => index % 2 == 0
+                                ? GestureDetector(
+                                    onTap: () {
+                                      Get.to(
+                                          () => StorePhotosView(images, index));
+                                    },
+                                    child: Container(
+                                      margin:
+                                          EdgeInsets.symmetric(vertical: 10),
+                                      child: StoreImageCard(images[index]),
+                                    ),
+                                  )
+                                : Container(
+                                    height: 0,
+                                  ),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      Column(
+                        children: [
+                          ...List<Widget>.generate(
+                            images.length,
+                            (index) => index % 2 == 1
+                                ? GestureDetector(
+                                    onTap: () {
+                                      Get.to(
+                                          () => StorePhotosView(images, index));
+                                    },
+                                    child: Container(
+                                      margin:
+                                          EdgeInsets.symmetric(vertical: 10),
+                                      child: StoreImageCard(images[index]),
+                                    ),
+                                  )
+                                : Container(
+                                    height: 0,
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Spacer(),
-              Column(
-                children: [
-                  ...List<Widget>.generate(
-                    images.length,
-                        (index)=>index%2==1?GestureDetector(
-                          onTap: (){
-                            Get.to(()=>StorePhotosView(images,index));
-                          },
-                          child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 10),
-
-                      child:    StoreImageCard(images[index]),
-                    ),
-                        ):Container(height: 0,),
-
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-
-      );
+                ),
+              );
   }
 }

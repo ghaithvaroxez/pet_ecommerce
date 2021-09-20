@@ -19,24 +19,28 @@ import 'package:pets/screens/widgets/text_field.dart';
 import 'package:get/get.dart';
 
 import '../../../un_aprovverd_screen.dart';
-import 'translations/login_screen.i18n.dart';import '../../../blocked_screen.dart';
+import 'translations/login_screen.i18n.dart';
+import '../../../blocked_screen.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController loginPhoneNumberController =
+      new TextEditingController();
+  TextEditingController loginPasswordController = new TextEditingController();
+  AuthRequest _authRequest = new AuthRequest();
 
-  TextEditingController loginPhoneNumberController=new TextEditingController();
-  TextEditingController loginPasswordController=new TextEditingController();
-  AuthRequest _authRequest=new AuthRequest();
   @override
   void initState() {
     // TODO: implement initState
-    loginPhoneNumberController.text="";
-    loginPasswordController.text="";
+    loginPhoneNumberController.text = "";
+    loginPasswordController.text = "";
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -50,7 +54,6 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Positioned(
                   top: getProportionateScreenHeight(55),
-
                   child: Container(
                     width: getProportionateScreenWidth(390),
                     alignment: Alignment.center,
@@ -89,16 +92,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     right: getProportionateScreenWidth(25),
                     child: Column(
                       children: [
-                          Container(
-                            width: getProportionateScreenWidth(320),
-                            child: AutoSizeText(
-                            "أضف رقم هاتفك الجوال وكلمة المرور لتسجيل الدخول".i18n,
+                        Container(
+                          width: getProportionateScreenWidth(320),
+                          child: AutoSizeText(
+                            "أضف رقم هاتفك الجوال وكلمة المرور لتسجيل الدخول"
+                                .i18n,
                             style: subtitle1_16pt,
-
-                              maxLines: 1,
-                        ),
+                            maxLines: 1,
                           ),
-                        SizedBox(height: getProportionateScreenHeight(15),)
+                        ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(15),
+                        )
                       ],
                     )),
                 Positioned(
@@ -111,24 +116,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(width: 0.2)),
-                    child:
-                        CustomTextField(
-                          textEditingController: loginPhoneNumberController,
-                          hint: "رقم الهاتف الجوال".i18n,
-                          prefixImage: "assets/images/auth/mobile_icon.png",
-                          textInputType: TextInputType.phone,
-                          color: true,
-                        ),
-                        // TextField(
-                        //   decoration: InputDecoration(
-                        //     border: InputBorder.none,
-                        //     hintText:"رقم الهاتف الجوال",
-                        //     hintStyle: grayText_14pt,
-                        //     prefixIcon: Image.asset("assets/images/auth/mobile_icon.png",color: Color(0xFF348BA7).withOpacity(0.38),),
-                        //   ),
-                        //   keyboardType: TextInputType.phone,
-                        // ),
-
+                    child: CustomTextField(
+                      textEditingController: loginPhoneNumberController,
+                      hint: "رقم الهاتف الجوال".i18n,
+                      prefixImage: "assets/images/auth/mobile_icon.png",
+                      textInputType: TextInputType.phone,
+                      color: true,
+                    ),
+                    // TextField(
+                    //   decoration: InputDecoration(
+                    //     border: InputBorder.none,
+                    //     hintText:"رقم الهاتف الجوال",
+                    //     hintStyle: grayText_14pt,
+                    //     prefixIcon: Image.asset("assets/images/auth/mobile_icon.png",color: Color(0xFF348BA7).withOpacity(0.38),),
+                    //   ),
+                    //   keyboardType: TextInputType.phone,
+                    // ),
                   ),
                 ),
 
@@ -177,18 +180,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 Positioned(
-                    top: getProportionateScreenHeight(650),
-                    left: getProportionateScreenWidth(16),
-                    right: getProportionateScreenWidth(16),
-                    child: AuthButton(
-                      color: true,
-                      title:  "تسجيل الدخول".i18n,
-                      ontap: ()  {
-
-
-login();
-                        },
-                    ),),
+                  top: getProportionateScreenHeight(650),
+                  left: getProportionateScreenWidth(16),
+                  right: getProportionateScreenWidth(16),
+                  child: AuthButton(
+                    color: true,
+                    title: "تسجيل الدخول".i18n,
+                    ontap: () {
+                      login();
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -197,10 +199,8 @@ login();
     );
   }
 
-  void login()async {
-    if(
-    loginPhoneNumberController.text==""
-    ){
+  void login() async {
+    if (loginPhoneNumberController.text == "") {
       CoolAlert.show(
         context: context,
         type: CoolAlertType.error,
@@ -208,9 +208,7 @@ login();
       );
       return;
     }
-    if(
-    loginPasswordController.text==""
-    ){
+    if (loginPasswordController.text == "") {
       CoolAlert.show(
         context: context,
         type: CoolAlertType.error,
@@ -218,30 +216,28 @@ login();
       );
       return;
     }
-    if(!AuthServices.isValidPhoneNumber(loginPhoneNumberController.text))
-    {
+    if (!AuthServices.isValidPhoneNumber(loginPhoneNumberController.text)) {
       CoolAlert.show(
         context: context,
         type: CoolAlertType.error,
         text: " رقم الهاتف الذي ادخلته غير صالح".i18n,
       );
-      return ;
+      return;
     }
-    if(loginPasswordController.text.length<6)
-    {
+    if (loginPasswordController.text.length < 6) {
       CoolAlert.show(
         context: context,
         type: CoolAlertType.error,
         text: "كلمة المرور قصيرة جدا".i18n,
       );
-      return ;
+      return;
     }
     CoolAlert.show(
       context: context,
       type: CoolAlertType.loading,
       // text: " رقم الهاتف  أو كلمة المرور غير صحيحة",
     );
-    try{
+    try {
       UserModel user = await _authRequest.loginRequest(
           mobile: loginPhoneNumberController.text,
           password: loginPasswordController.text);
@@ -250,11 +246,9 @@ login();
       if (user.error == false) {
         if (user.user.approve == "pending") {
           Get.offAll(UnApprovedScreen());
-        }
-        else if (user.user.blockStatus == "blocked") {
+        } else if (user.user.blockStatus == "blocked") {
           Get.offAll(BlockedScreen());
-        }
-        else {
+        } else {
           Duration duration = Duration(seconds: 1);
           Future.delayed(duration).then((value) async {
             DoctorAppRequests doctorAppRequests = DoctorAppRequests();
@@ -262,18 +256,16 @@ login();
             String token = await FirebaseMessaging.instance.getToken();
             doctorAppRequests.updateDeviceId(device_id: token);
             Get.offAll(MainScreen());
-          }
-          );
+          });
         }
-      }
-      else {
+      } else {
         CoolAlert.show(
           context: context,
           type: CoolAlertType.error,
           text: " رقم الهاتف  أو كلمة المرور غير صحيحة".i18n,
         );
       }
-    }catch(e){
+    } catch (e) {
       Navigator.pop(context);
       CoolAlert.show(
         context: context,

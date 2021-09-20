@@ -18,10 +18,6 @@ import '../../loading_screen.dart';
 import 'translations/categories_screen.i18n.dart';
 import 'package:pets/screens/notifications/view/notification_button.dart';
 
-
-
-
-
 class CategoriesScreen extends StatefulWidget {
   @override
   _CategoriesScreenState createState() => _CategoriesScreenState();
@@ -29,40 +25,38 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   List<Category> categories;
-  bool loading =true;
-  bool error=false;
+  bool loading = true;
+  bool error = false;
+
   // VendorAppRequests _vendorAppRequests=VendorAppRequests();
-  fetchData()async
-  {
+  fetchData() async {
     consolePrint("fetch data");
-    loading=true;
-    setState(() {
+    loading = true;
+    setState(() {});
 
-    });
-
-    try{
-      var url =
-      Uri.parse("${Api.baseUrl}/categories");
+    try {
+      var url = Uri.parse("${Api.baseUrl}/categories");
       final h = await HttpService().getHeaders();
       final apiResult = await http.get(url, headers: h);
       if (apiResult.statusCode == 200) {
         var d = json.decode(apiResult.body);
         consolePrint(d["my products"].toString());
-        categories = List<Category>.from(d["categories"].map((x) => Category.fromJson(x)));
+        categories = List<Category>.from(
+            d["categories"].map((x) => Category.fromJson(x)));
       } else {
         error = true;
       }
 
       loading = false;
       setState(() {});
-    }catch(e)
-    {
-      error=true;
+    } catch (e) {
+      error = true;
       loading = false;
       setState(() {});
       consolePrint(e.toString());
     }
   }
+
   @override
   void initState() {
     fetchData();
@@ -70,106 +64,138 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     super.initState();
     consolePrint("initial state of get productas ");
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
       drawer: CustomDrawer(),
-
-      body: SafeArea(child:
-      Builder(
-        builder: (context)=>Column(
-          children: [
-
-            Container(
-              child: Material(
-                elevation: 5,
-                color: Colors.white,
-                child: Container(
-                    width: SizeConfig.screenWidth,
-                    height: getProportionateScreenHeight(95),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: getProportionateScreenWidth(24),
-                        ),
-                        GestureDetector(
-                          onTap: (){
-                            Scaffold.of(context).openDrawer();
-                          },
-                          child: CircleAvatar(
-                            radius: 24,
-                            backgroundColor: Colors.grey.shade50,
-                            child: Image.asset(
-                              "assets/images/home/menu_icon.png",
-                              height: 24,
-                              width: 20,
+      body: SafeArea(
+        child: Builder(
+          builder: (context) => Column(
+            children: [
+              Container(
+                child: Material(
+                  elevation: 5,
+                  color: Colors.white,
+                  child: Container(
+                      width: SizeConfig.screenWidth,
+                      height: getProportionateScreenHeight(95),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: getProportionateScreenWidth(24),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Scaffold.of(context).openDrawer();
+                            },
+                            child: CircleAvatar(
+                              radius: 24,
+                              backgroundColor: Colors.grey.shade50,
+                              child: Image.asset(
+                                "assets/images/home/menu_icon.png",
+                                height: 24,
+                                width: 20,
+                              ),
                             ),
                           ),
-                        ),
-                        Spacer(),
-                        Container(height:getProportionateScreenHeight(28),child: AutoSizeText("الأصناف".i18n,style: h5_21pt,minFontSize: 8,)),
-                        Spacer(),
-                       NotificationButton(),
-                        SizedBox(
-                          width: getProportionateScreenWidth(24),
-                        ),
-                      ],
-                    )),
-              ),
-            ),
-
-            Expanded(
-              child: error?Column(mainAxisSize: MainAxisSize.max,children: [
-                Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مرة اخرى ".i18n,style: body3_18pt,),),),
-              ],):loading?LoadingScreen():categories.length==0?NoItems():
-              Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(16),
-                    vertical: getProportionateScreenHeight(8)),
-                child:  SingleChildScrollView(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: [
-                          ...List<Widget>.generate(
-                            categories.length,
-                                (index)=>index%2==0?Container(
-                                  margin: EdgeInsets.symmetric(vertical: 10),
-
-                                  child:  CategoryCard(categories[index]),
-                                ):Container(height: 0,),
-
+                          Spacer(),
+                          Container(
+                              height: getProportionateScreenHeight(28),
+                              child: AutoSizeText(
+                                "الأصناف".i18n,
+                                style: h5_21pt,
+                                minFontSize: 8,
+                              )),
+                          Spacer(),
+                          NotificationButton(),
+                          SizedBox(
+                            width: getProportionateScreenWidth(24),
                           ),
                         ],
-                      ),
-                      Spacer(),
-                      Column(
-                        children: [
-                          ...List<Widget>.generate(
-                            categories.length,
-                                (index)=>index%2==1?Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
-
-                              child:  CategoryCard(categories[index]),
-                            ):Container(height: 0,),
-
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                      )),
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: error
+                    ? Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            height: getProportionateScreenHeight(300),
+                            width: getProportionateScreenWidth(370),
+                            child: Center(
+                              child: Text(
+                                "الرجاء المحاولة مرة اخرى ".i18n,
+                                style: body3_18pt,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : loading
+                        ? LoadingScreen()
+                        : categories.length == 0
+                            ? NoItems()
+                            : Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: getProportionateScreenWidth(16),
+                                    vertical: getProportionateScreenHeight(8)),
+                                child: SingleChildScrollView(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          ...List<Widget>.generate(
+                                            categories.length,
+                                            (index) => index % 2 == 0
+                                                ? Container(
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 10),
+                                                    child: CategoryCard(
+                                                        categories[index]),
+                                                  )
+                                                : Container(
+                                                    height: 0,
+                                                  ),
+                                          ),
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      Column(
+                                        children: [
+                                          ...List<Widget>.generate(
+                                            categories.length,
+                                            (index) => index % 2 == 1
+                                                ? Container(
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 10),
+                                                    child: CategoryCard(
+                                                        categories[index]),
+                                                  )
+                                                : Container(
+                                                    height: 0,
+                                                  ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+              ),
+            ],
+          ),
         ),
-      ),),
+      ),
     );
   }
 }
-
 
 class NoItems extends StatelessWidget {
   @override
@@ -178,7 +204,10 @@ class NoItems extends StatelessWidget {
       height: getProportionateScreenHeight(400),
       width: getProportionateScreenWidth(350),
       alignment: Alignment.center,
-      child: AutoSizeText("لا يوجد عناصر لعرضها حالياً".i18n,style: body3_18pt,),
+      child: AutoSizeText(
+        "لا يوجد عناصر لعرضها حالياً".i18n,
+        style: body3_18pt,
+      ),
     );
   }
 }

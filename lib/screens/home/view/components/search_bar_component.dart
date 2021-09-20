@@ -11,17 +11,21 @@ import 'package:pets/screens/search/view/components/filter_custom_bottom_sheet.d
 import 'translations/search_bar.i18n.dart';
 
 class SearchBar extends StatelessWidget {
-  TextEditingController searchController=TextEditingController();
+  TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return
-      GestureDetector(
-      onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: ((context)=>SearchScreen())));
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: ((context) => SearchScreen())));
       },
-      child:
-      Container(
-        margin: EdgeInsets.only( left: getProportionateScreenWidth(24),right: getProportionateScreenWidth(24),top: getProportionateScreenHeight(16),bottom: getProportionateScreenHeight(8)),
+      child: Container(
+        margin: EdgeInsets.only(
+            left: getProportionateScreenWidth(24),
+            right: getProportionateScreenWidth(24),
+            top: getProportionateScreenHeight(16),
+            bottom: getProportionateScreenHeight(8)),
         width: getProportionateScreenWidth(345),
         height: getProportionateScreenHeight(48),
         decoration: BoxDecoration(
@@ -29,17 +33,30 @@ class SearchBar extends StatelessWidget {
         child: Container(
           child: Row(
             children: [
-              SizedBox(width: getProportionateScreenWidth(10),),
-              GestureDetector(onTap:(){
-
-              },child: Image.asset("assets/images/home/search_icon.png",fit: BoxFit.fill,height: getProportionateScreenHeight(20),width: getProportionateScreenHeight(20),)),
-           SizedBox(width: getProportionateScreenWidth(10),),
-              Container(width: getProportionateScreenWidth(270),
+              SizedBox(
+                width: getProportionateScreenWidth(10),
+              ),
+              GestureDetector(
+                  onTap: () {},
+                  child: Image.asset(
+                    "assets/images/home/search_icon.png",
+                    fit: BoxFit.fill,
+                    height: getProportionateScreenHeight(20),
+                    width: getProportionateScreenHeight(20),
+                  )),
+              SizedBox(
+                width: getProportionateScreenWidth(10),
+              ),
+              Container(
+                width: getProportionateScreenWidth(270),
                 height: getProportionateScreenHeight(60),
                 // alignment: Alignment.centerRight,
-                padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(15)),
-                child:
-                AutoSizeText("ابحث هنا ".i18n,style:darkGrayText_14pt,),
+                padding: EdgeInsets.symmetric(
+                    vertical: getProportionateScreenHeight(15)),
+                child: AutoSizeText(
+                  "ابحث هنا ".i18n,
+                  style: darkGrayText_14pt,
+                ),
 //                 TextField(
 //                   controller: searchController,
 // onSubmitted: (value){
@@ -58,20 +75,30 @@ class SearchBar extends StatelessWidget {
 //                 ),
               ),
 
-            // Spacer(),
-            //   GestureDetector(onTap: (){
-            //     FocusScope.of(context).unfocus();
-            //     // showModal(context);
-            //   },child:
-              Container(height:getProportionateScreenHeight(48),width:getProportionateScreenWidth(20),child: Container(height:getProportionateScreenHeight(12),width:getProportionateScreenWidth(20),child: Image.asset("assets/images/home/filter_icon.png",height: getProportionateScreenHeight(12),width: getProportionateScreenWidth(20),))
-              // )
-      ),
-              SizedBox(width: getProportionateScreenWidth(10),),
-
-
+              // Spacer(),
+              //   GestureDetector(onTap: (){
+              //     FocusScope.of(context).unfocus();
+              //     // showModal(context);
+              //   },child:
+              Container(
+                  height: getProportionateScreenHeight(48),
+                  width: getProportionateScreenWidth(20),
+                  child: Container(
+                      height: getProportionateScreenHeight(12),
+                      width: getProportionateScreenWidth(20),
+                      child: Image.asset(
+                        "assets/images/home/filter_icon.png",
+                        height: getProportionateScreenHeight(12),
+                        width: getProportionateScreenWidth(20),
+                      ))
+                  // )
+                  ),
+              SizedBox(
+                width: getProportionateScreenWidth(10),
+              ),
             ],
           ),
-       ),
+        ),
       ),
     );
   }

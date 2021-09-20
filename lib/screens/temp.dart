@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-
 class Temp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,8 +14,7 @@ class Temp extends StatelessWidget {
           children: [
             Material(
               shape: RoundedRectangleBorder(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(20.0))),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
               color: Colors.white,
               elevation: 5,
               child: Center(

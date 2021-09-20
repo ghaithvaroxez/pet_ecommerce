@@ -5,8 +5,4 @@
 //   loading
 // }
 
-enum OffersScreenState{
-  addOffer,
-  showOffers,
-  editOffer
-}
+enum OffersScreenState { addOffer, showOffers, editOffer }

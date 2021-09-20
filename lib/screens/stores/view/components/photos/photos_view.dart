@@ -10,15 +10,17 @@ import 'package:pets/screens/vendor_app/model/image_model.dart' as im;
 class StorePhotosView extends StatefulWidget {
   List<im.Image> images;
   int index;
-  StorePhotosView(this.images,this.index);
+
+  StorePhotosView(this.images, this.index);
+
   @override
   _StorePhotosViewState createState() => _StorePhotosViewState();
 }
 
 class _StorePhotosViewState extends State<StorePhotosView> {
-  List<im.Image> myImages=[];
-  List<im.Image> before=[];
-  List<im.Image> after=[];
+  List<im.Image> myImages = [];
+  List<im.Image> before = [];
+  List<im.Image> after = [];
 
   @override
   void initState() {
@@ -33,16 +35,14 @@ class _StorePhotosViewState extends State<StorePhotosView> {
     //   after.add(widget.images[0]);
     // myImages.addAll(after);
     // myImages.addAll(before);
-    for(int i=widget.index;i<widget.images.length;i++)
-      {
-        myImages.add(widget.images[i]);
-      }
-    for(int i=0;i<widget.images.length;i++)
-      {
-        myImages.add(widget.images[i]);
-      }
-
+    for (int i = widget.index; i < widget.images.length; i++) {
+      myImages.add(widget.images[i]);
+    }
+    for (int i = 0; i < widget.images.length; i++) {
+      myImages.add(widget.images[i]);
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,8 +67,15 @@ class _StorePhotosViewState extends State<StorePhotosView> {
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     child: Padding(
-                      padding:  EdgeInsets.only(left: getProportionateScreenWidth(2),right: getProportionateScreenWidth(2),bottom: getProportionateScreenHeight(50)),
-                      child: ClipRRect(borderRadius:BorderRadius.circular(12),child: Image.network(Api.imagePath+myImages[index].path,)),
+                      padding: EdgeInsets.only(
+                          left: getProportionateScreenWidth(2),
+                          right: getProportionateScreenWidth(2),
+                          bottom: getProportionateScreenHeight(50)),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.network(
+                            Api.imagePath + myImages[index].path,
+                          )),
                     ),
                   );
                 },
@@ -79,7 +86,6 @@ class _StorePhotosViewState extends State<StorePhotosView> {
               ),
             ),
             Spacer(),
-
           ],
         ),
       ),

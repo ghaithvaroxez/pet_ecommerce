@@ -21,50 +21,41 @@ import 'package:http/http.dart' as http;
 
 import 'components/offers/translations/offers_body.i18n.dart';
 
-
 class SelectBarnView extends StatefulWidget {
   @override
   _SelectBarnViewState createState() => _SelectBarnViewState();
 }
 
 class _SelectBarnViewState extends State<SelectBarnView> {
-  bool loading =false;
+  bool loading = false;
   List<Store> Stores;
-  bool failed=false;
-  fetchData()async
-  {
-    loading=true;
-    setState(() {
+  bool failed = false;
 
-    });
+  fetchData() async {
+    loading = true;
+    setState(() {});
 
-    var url=Uri.parse("${Api.baseUrl}/stores/barns");
+    var url = Uri.parse("${Api.baseUrl}/stores/barns");
     consolePrint("before print");
-    final h=await HttpService().getHeaders();
-    final apiResult=await http.get(url,headers: h);
+    final h = await HttpService().getHeaders();
+    final apiResult = await http.get(url, headers: h);
     consolePrint("after print");
 
-    if(apiResult.statusCode==200)
-    {
-      var j=jsonDecode(apiResult.body);
+    if (apiResult.statusCode == 200) {
+      var j = jsonDecode(apiResult.body);
 
-      Stores =List<Store>.from(j["barns"].map((x) => Store.fromJson(x)));
+      Stores = List<Store>.from(j["barns"].map((x) => Store.fromJson(x)));
+    } else {
+      failed = true;
     }
-    else {
-      failed=true;
-    }
-    loading=false;
-    setState(() {
-
-    });
-
+    loading = false;
+    setState(() {});
   }
 
   Future<bool> addToFavorite(int storeId) async {
-    try{
+    try {
       consolePrint("store id" + storeId.toString());
-      var url = Uri.parse(
-          "${Api.baseUrl}/addToFavourite/$storeId/store/Store");
+      var url = Uri.parse("${Api.baseUrl}/addToFavourite/$storeId/store/Store");
       consolePrint("before add to favorite print");
       final h = await HttpService().getHeaders();
       final apiResult = await http.post(url, headers: h);
@@ -84,12 +75,11 @@ class _SelectBarnViewState extends State<SelectBarnView> {
         consolePrint("statusCode!=200");
         return false;
       }
-    }catch(e){
+    } catch (e) {
       consolePrint(e.toString());
       return false;
     }
   }
-
 
   @override
   void initState() {
@@ -97,81 +87,120 @@ class _SelectBarnViewState extends State<SelectBarnView> {
     super.initState();
     fetchData();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
-      body: SafeArea(
-        child: Builder(
-          builder: (context)=>failed?Column(mainAxisSize: MainAxisSize.max,children: [
-            Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
-          ],):loading?LoadingScreen():Column(
-            children: [
-              Container(
-                child: Material(
-                  elevation: 5,
-                  color: Colors.white,
-                  child: Container(
-                      width: SizeConfig.screenWidth,
-                      height: getProportionateScreenHeight(95),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: getProportionateScreenWidth(24),
+        drawer: CustomDrawer(),
+        body: SafeArea(
+          child: Builder(
+            builder: (context) => failed
+                ? Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        height: getProportionateScreenHeight(600),
+                        width: getProportionateScreenWidth(370),
+                        child: Center(
+                          child: Text(
+                            "حدثت مشكلة ما ",
+                            style: body3_18pt,
                           ),
-                          GestureDetector(
-                            onTap: (){
-                              Scaffold.of(context).openDrawer();
-                            },
-                            child: CircleAvatar(
-                              radius: 24,
-                              backgroundColor: Colors.grey.shade50,
-                              child: Image.asset(
-                                "assets/images/home/menu_icon.png",
-                                height: 24,
-                                width: 20,
-                              ),
+                        ),
+                      ),
+                    ],
+                  )
+                : loading
+                    ? LoadingScreen()
+                    : Column(
+                        children: [
+                          Container(
+                            child: Material(
+                              elevation: 5,
+                              color: Colors.white,
+                              child: Container(
+                                  width: SizeConfig.screenWidth,
+                                  height: getProportionateScreenHeight(95),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: getProportionateScreenWidth(24),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Scaffold.of(context).openDrawer();
+                                        },
+                                        child: CircleAvatar(
+                                          radius: 24,
+                                          backgroundColor: Colors.grey.shade50,
+                                          child: Image.asset(
+                                            "assets/images/home/menu_icon.png",
+                                            height: 24,
+                                            width: 20,
+                                          ),
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Container(
+                                          height:
+                                              getProportionateScreenHeight(28),
+                                          child: AutoSizeText(
+                                            "الاسطبلات",
+                                            style: h5_21pt,
+                                            minFontSize: 8,
+                                          )),
+                                      Spacer(),
+                                      NotificationButton(),
+                                      SizedBox(
+                                        width: getProportionateScreenWidth(24),
+                                      ),
+                                    ],
+                                  )),
                             ),
                           ),
-                          Spacer(),
-                        Container(height:getProportionateScreenHeight(28),child: AutoSizeText("الاسطبلات",style: h5_21pt,minFontSize: 8,)),
-                          Spacer(),
-                          NotificationButton(),
-
-                          SizedBox(
-                            width: getProportionateScreenWidth(24),
-                          ),
+                          Stores.length == 0
+                              ? Container(
+                                  width: getProportionateScreenWidth(410),
+                                  child: Container(
+                                      width: getProportionateScreenWidth(370),
+                                      height: getProportionateScreenHeight(400),
+                                      child: Center(
+                                          child: AutoSizeText(
+                                        "لا يوجد عناصر حاليا".i18n,
+                                        style: body1_16pt,
+                                      ))))
+                              : Expanded(
+                                  // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
+                                  child: ListView.builder(
+                                      // physics: NeverScrollableScrollPhysics(),
+                                      itemCount: Stores.length,
+                                      itemBuilder: (context, index) => index ==
+                                              0
+                                          ? Column(
+                                              children: [
+                                                SearchBar(),
+                                                VerticalStoreListCard(
+                                                  store: Stores[index],
+                                                  addToFav: () async {
+                                                    bool k =
+                                                        await addToFavorite(
+                                                            Stores[index].id);
+                                                    return k;
+                                                  },
+                                                )
+                                              ],
+                                            )
+                                          : VerticalStoreListCard(
+                                              store: Stores[index],
+                                              addToFav: () async {
+                                                bool k = await addToFavorite(
+                                                    Stores[index].id);
+                                                return k;
+                                              },
+                                            ))),
                         ],
-                      )),
-                ),
-              ),
-              Stores.length==0?Container(width: getProportionateScreenWidth(410),child: Container(
-                  width: getProportionateScreenWidth(370),
-                  height: getProportionateScreenHeight(400),
-                  child: Center(child: AutoSizeText("لا يوجد عناصر حاليا".i18n,style: body1_16pt,)))):Expanded(
-                  // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
-                  child: ListView.builder(
-                    // physics: NeverScrollableScrollPhysics(),
-                      itemCount: Stores.length,
-                      itemBuilder: (context, index) => index == 0
-                          ? Column(
-                        children: [
-
-                          SearchBar(),
-                          VerticalStoreListCard(store:Stores[index],addToFav: ()async{
-                            bool k=  await addToFavorite(Stores[index].id);
-                            return k;
-                          },)],
-                      )
-                          : VerticalStoreListCard(store:Stores[index],addToFav: ()async{
-                        bool k=  await addToFavorite(Stores[index].id);
-                        return k;
-                      },))),
-            ],
+                      ),
           ),
-        ),
-      )
-    );
+        ));
   }
 }
-

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:pets/configuration/constants/strings.dart';
 
 import '../model/notification.dart';
@@ -16,7 +15,7 @@ class NotificationService {
     } catch (e) {
       print(e);
     }
-    final notificationsStringList =  prefs.getString(
+    final notificationsStringList = prefs.getString(
       AppStrings.notificationsKey,
     );
 
@@ -39,16 +38,15 @@ class NotificationService {
   }
 
   static void addNotification(NotificationModel notification) async {
-
     final notifications = await getNotifications() ?? [];
-    notifications.insert(0,notification);
+    notifications.insert(0, notification);
     SharedPreferences prefs;
     try {
       prefs = await SharedPreferences.getInstance();
     } catch (e) {
       print(e);
     }
-   prefs.setString(
+    prefs.setString(
       AppStrings.notificationsKey,
       jsonEncode(notifications),
     );

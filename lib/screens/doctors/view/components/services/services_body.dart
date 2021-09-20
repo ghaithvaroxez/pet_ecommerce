@@ -10,6 +10,7 @@ import 'translations/service_body.i18n.dart';
 
 class DoctorServicesBody extends StatelessWidget {
   List<DoctorService> doctorServices;
+
   DoctorServicesBody(this.doctorServices);
 
   @override
@@ -18,46 +19,56 @@ class DoctorServicesBody extends StatelessWidget {
       margin: EdgeInsets.symmetric(
           horizontal: getProportionateScreenWidth(24),
           vertical: getProportionateScreenHeight(26)),
-      child:doctorServices.length==0?
-      Container(
-        width: getProportionateScreenWidth(390),
-        height: getProportionateScreenHeight(350),
-        child: Center(child: AutoSizeText("لا يوجد عناصر حاليا".i18n,style: body1_16pt,)),
-      ):SingleChildScrollView(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              children: [
-                ...List<Widget>.generate(
-                  doctorServices.length,
-                      (index)=>index%2==0?Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-
-                    child:  DoctorServicesCard(doctorServices[index]),
-                  ):Container(height: 0,),
-
-                ),
-              ],
+      child: doctorServices.length == 0
+          ? Container(
+              width: getProportionateScreenWidth(390),
+              height: getProportionateScreenHeight(350),
+              child: Center(
+                  child: AutoSizeText(
+                "لا يوجد عناصر حاليا".i18n,
+                style: body1_16pt,
+              )),
+            )
+          : SingleChildScrollView(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      ...List<Widget>.generate(
+                        doctorServices.length,
+                        (index) => index % 2 == 0
+                            ? Container(
+                                margin: EdgeInsets.symmetric(vertical: 10),
+                                child:
+                                    DoctorServicesCard(doctorServices[index]),
+                              )
+                            : Container(
+                                height: 0,
+                              ),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  Column(
+                    children: [
+                      ...List<Widget>.generate(
+                        doctorServices.length,
+                        (index) => index % 2 == 1
+                            ? Container(
+                                margin: EdgeInsets.symmetric(vertical: 10),
+                                child:
+                                    DoctorServicesCard(doctorServices[index]),
+                              )
+                            : Container(
+                                height: 0,
+                              ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            Spacer(),
-            Column(
-              children: [
-                ...List<Widget>.generate(
-                  doctorServices.length,
-                      (index)=>index%2==1?Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-
-                    child:  DoctorServicesCard(doctorServices[index]),
-                  ):Container(height: 0,),
-
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-
 
       // ListView.builder(
       //   itemCount: doctorServices.length,

@@ -1,125 +1,115 @@
 import 'package:i18n_extension/i18n_extension.dart';
 
 extension Localization on String {
-
-  static var _t = Translations("ar")
-
-      + {
+  static var _t = Translations("ar") +
+      {
         "ar": "عام",
-        "en":  "General",
-      }
-      + {
+        "en": "General",
+      } +
+      {
         "ar": "منتجات",
-        "en":  "Products",
-      }
-      + {
+        "en": "Products",
+      } +
+      {
         "ar": "عروض",
-        "en":"Offers",
-      }
-      + {
-        "ar":  "متاجر",
-        "en":  "Stores",
-      }
-      + {
+        "en": "Offers",
+      } +
+      {
+        "ar": "متاجر",
+        "en": "Stores",
+      } +
+      {
         "ar": "اسطبلات",
-        "en":  "Stables",
-      }
-      + {
+        "en": "Stables",
+      } +
+      {
         "ar": "مناحل",
-        "en":  "Sieves",
-      }
-      + {
-        "ar":  "اطباء",
-        "en":  "Doctors",
-      }
-      + {
+        "en": "Sieves",
+      } +
+      {
+        "ar": "اطباء",
+        "en": "Doctors",
+      } +
+      {
         "ar": "أصناف",
-        "en":  "Categories",
-      }
-      + {
+        "en": "Categories",
+      } +
+      {
         "ar": "عدم تحديد",
-        "en":  "All",
-      }
-      + {
+        "en": "All",
+      } +
+      {
         "ar": "النوع",
-        "en":  "Type",
-      }
-      + {
+        "en": "Type",
+      } +
+      {
         "ar": "المدينة",
-        "en":  "City",
-      }
-      + {
+        "en": "City",
+      } +
+      {
         "ar": "الصنف",
-        "en":  "Category",
-      }
-      + {
+        "en": "Category",
+      } +
+      {
         "ar": "السعر",
-        "en":  "Price",
-      }
-      + {
+        "en": "Price",
+      } +
+      {
         "ar": "إظهار النتائج ",
-        "en":  "Show Results",
-      }
-      + {
+        "en": "Show Results",
+      } +
+      {
         "ar": "العودة",
-        "en":  "Back",
-      }
-      + {
+        "en": "Back",
+      } +
+      {
         "ar": "البحث",
-        "en":  "Search",
-      }
-      + {
+        "en": "Search",
+      } +
+      {
         "ar": "ابحث هنا",
-        "en":  "Search here",
-      }
-      + {
-        "ar":  "الرجاء المحاولة مجدداً",
-        "en":  "Please try again !",
-      }
-      + {
+        "en": "Search here",
+      } +
+      {
+        "ar": "الرجاء المحاولة مجدداً",
+        "en": "Please try again !",
+      } +
+      {
         "ar": "المنتجات",
-        "en":  "Products",
-      }
-      + {
+        "en": "Products",
+      } +
+      {
         "ar": "لا يوجد عناصر لعرضها ",
-        "en":  "No items ...",
-      }
-      + {
+        "en": "No items ...",
+      } +
+      {
         "ar": "العروض",
-        "en":  "Offers",
-      }
-      + {
+        "en": "Offers",
+      } +
+      {
         "ar": "المتاجر",
-        "en":  "Stores",
-      }
-      + {
+        "en": "Stores",
+      } +
+      {
         "ar": "الاسطبلات",
-        "en":  "Stables",
-      }
-      + {
+        "en": "Stables",
+      } +
+      {
         "ar": "المناحل",
-        "en":  "Sieves",
-      }
-      + {
+        "en": "Sieves",
+      } +
+      {
         "ar": "الاطباء",
-        "en": "Doctors" ,
-      }
-      + {
+        "en": "Doctors",
+      } +
+      {
         "ar": "الأصناف",
-        "en":  "Categories",
-      }
-      + {
+        "en": "Categories",
+      } +
+      {
         "ar": "لا يوجد عناصر مطابقة لعرضها ",
-        "en":  "No matches items",
-      }
-
-
-
-
-
-
-
-  ;
+        "en": "No matches items",
+      };
 
   String get i18n => localize(this, _t);
 }

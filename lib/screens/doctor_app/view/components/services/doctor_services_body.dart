@@ -17,58 +17,67 @@ import '../services/doctor_service_card.dart';
 import '../services/add_new_service_screen.dart';
 import '../services/edit_servie_screen.dart';
 import 'translations/doctor_service_body.i18n.dart';
+
 class DoctorServicesBodyScreen extends StatelessWidget {
   DoctorController doctorController;
+
   DoctorServicesBodyScreen(this.doctorController);
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Container(
-      padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(26),horizontal: getProportionateScreenWidth(8)),
+      padding: EdgeInsets.symmetric(
+          vertical: getProportionateScreenHeight(26),
+          horizontal: getProportionateScreenWidth(8)),
       child: GetBuilder<DoctorController>(
           init: doctorController,
           builder: (controller) => controller.isLoading == true
               ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: getProportionateScreenHeight(50),
-                width: getProportionateScreenWidth(50),
-                child: CircularProgressIndicator(),
-              )
-            ],
-          )
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: getProportionateScreenHeight(50),
+                      width: getProportionateScreenWidth(50),
+                      child: CircularProgressIndicator(),
+                    )
+                  ],
+                )
               : controller.doctorModel.doctor.doctorServices.length == 0
-              ? Center(
-            child: Container(
-              child: AutoSizeText(
-                "لايوجد خدمات حالياً".i18n,
-                style: darkGrayText_16pt,
-                minFontSize: 25,
-              ),
-            ),
-          )
-              : ListView.builder(
-            itemCount: controller.doctorModel.doctor.doctorServices.length,
-            itemBuilder: (context, index) => DoctorServiceCard(
-              service: controller.doctorModel.doctor.doctorServices[index],
-              delete:
-                  ()async{
-                await controller.deleteService(controller.doctorModel.doctor.doctorServices[index]);
-              },
-              edit: () {
-                Get.to(
-                    VendorAppEditService(controller.doctorModel.doctor.doctorServices[index],doctorController));
-              },
-            ),
-          )
+                  ? Center(
+                      child: Container(
+                        child: AutoSizeText(
+                          "لايوجد خدمات حالياً".i18n,
+                          style: darkGrayText_16pt,
+                          minFontSize: 25,
+                        ),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount:
+                          controller.doctorModel.doctor.doctorServices.length,
+                      itemBuilder: (context, index) => DoctorServiceCard(
+                        service:
+                            controller.doctorModel.doctor.doctorServices[index],
+                        delete: () async {
+                          await controller.deleteService(controller
+                              .doctorModel.doctor.doctorServices[index]);
+                        },
+                        edit: () {
+                          Get.to(VendorAppEditService(
+                              controller
+                                  .doctorModel.doctor.doctorServices[index],
+                              doctorController));
+                        },
+                      ),
+                    )
 
-        //         else if(controller.state==ProductsScreenState.addProduct)
-        //     return VendorAppAddNewProduct
-        //     ();else if(controller.state==ProductsScreenState.editProduct)
-        // return VendorAppEditProduct();
+          //         else if(controller.state==ProductsScreenState.addProduct)
+          //     return VendorAppAddNewProduct
+          //     ();else if(controller.state==ProductsScreenState.editProduct)
+          // return VendorAppEditProduct();
 
-      ),
+          ),
     );
   }
 }

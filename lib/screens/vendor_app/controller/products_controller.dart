@@ -5,24 +5,22 @@ import 'package:pets/screens/vendor_app/model/enums.dart';
 import 'package:pets/screens/vendor_app/model/product.dart';
 import 'package:pets/screens/vendor_app/requests/products_requests.dart';
 import 'translations/products_controller.i18n.dart';
-class VendorProductsController extends GetxController{
 
-  List<StoreProduct> products=[
+class VendorProductsController extends GetxController {
+  List<StoreProduct> products = [];
+  VendorAppProductsReq vendorAppProductsReq = VendorAppProductsReq();
+  bool loading = false;
 
-  ];
-  VendorAppProductsReq vendorAppProductsReq=VendorAppProductsReq();
-  bool loading=false;
-  getProducts()async {
-    products=await vendorAppProductsReq.getStoreProducts();
-update();
+  getProducts() async {
+    products = await vendorAppProductsReq.getStoreProducts();
+    update();
   }
-  changeStatus(int productId)async{
+
+  changeStatus(int productId) async {
     activeLoading();
 
-    try{
-      bool k = await vendorAppProductsReq.changeProductStatus(
-
-      productId);
+    try {
+      bool k = await vendorAppProductsReq.changeProductStatus(productId);
       if (k == true) {
         await getProducts();
         await homeController.getHome();
@@ -32,10 +30,10 @@ update();
         removeLoading();
         update();
         Get.rawSnackbar(
-            message:  "can't change product status now try again later".i18n,
+            message: "can't change product status now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    }catch(e){
+    } catch (e) {
       removeLoading();
       update();
       Get.rawSnackbar(
@@ -43,16 +41,19 @@ update();
           backgroundColor: Colors.redAccent);
     }
   }
+
   @override
   void onInit() async {
     // TODO: implement onInit
     super.onInit();
- init();
+    init();
   }
-  init()async{
+
+  init() async {
     await vendorAppProductsReq.getmodel();
-    await  getProducts();
+    await getProducts();
   }
+
   addNewProduct(
       {@required int category_id,
       @required int type_id,
@@ -61,11 +62,10 @@ update();
       @required String body_ar,
       @required String body_en,
       @required String image,
-      @required var price})async
-  {
-  activeLoading();
+      @required var price}) async {
+    activeLoading();
 
-  try{
+    try {
       bool k = await vendorAppProductsReq.AddProduct(
           category_id: category_id,
           type_id: type_id,
@@ -87,8 +87,7 @@ update();
             message: "can't add your product now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    }catch(e)
-    {
+    } catch (e) {
       Get.back();
       removeLoading();
       Get.rawSnackbar(
@@ -96,14 +95,12 @@ update();
           backgroundColor: Colors.redAccent);
     }
     update();
-
   }
 
-deleteProduct(StoreProduct product)
-async {
-  activeLoading();
+  deleteProduct(StoreProduct product) async {
+    activeLoading();
 
-  try{
+    try {
       bool k = await vendorAppProductsReq.deleteProduct(
           // category_id: product.categoryId,
           // type_id: product.typeId,
@@ -127,22 +124,20 @@ async {
             message: "can't delete your product now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    }catch(e){
-    // Get.back();
-  removeLoading();
-    update();
-    Get.rawSnackbar(
-        message: "can't delete your product now try again later".i18n,
-        backgroundColor: Colors.redAccent);
+    } catch (e) {
+      // Get.back();
+      removeLoading();
+      update();
+      Get.rawSnackbar(
+          message: "can't delete your product now try again later".i18n,
+          backgroundColor: Colors.redAccent);
+    }
   }
-  }
 
+  editProduct(StoreProduct product, String newImage) async {
+    activeLoading();
 
-editProduct(StoreProduct product,String newImage)
-async {
-  activeLoading();
-
-  try{
+    try {
       bool k = await vendorAppProductsReq.updateProduct(
         category_id: product.categoryId,
         type_id: product.typeId,
@@ -168,32 +163,25 @@ async {
             message: "can't edit your product now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    }catch(e){
-
-    Get.back();
-    removeLoading();
-    update();
-    Get.rawSnackbar(
-        message: "can't edit your product now try again later".i18n,
-        backgroundColor: Colors.redAccent);
-
-  }
+    } catch (e) {
+      Get.back();
+      removeLoading();
+      update();
+      Get.rawSnackbar(
+          message: "can't edit your product now try again later".i18n,
+          backgroundColor: Colors.redAccent);
+    }
   }
 
+  ///state_management
 
-
-///state_management
-
-activeLoading(){
-    loading=true;
+  activeLoading() {
+    loading = true;
     update();
-}
-removeLoading(){
-    loading=false;
+  }
+
+  removeLoading() {
+    loading = false;
     update();
+  }
 }
-
-
-
-}
-

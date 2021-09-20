@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -15,26 +13,22 @@ import 'package:pets/screens/stores/view/components/offers/store_offer_card.dart
 import 'package:pets/services/http_requests_service.dart';
 import 'package:http/http.dart' as http;
 import 'translation.i18n.dart';
+
 class FavoriteOffersBody extends StatefulWidget {
   @override
   _FavoriteOffersBodyState createState() => _FavoriteOffersBodyState();
 }
 
 class _FavoriteOffersBodyState extends State<FavoriteOffersBody> {
-
-
   List<Offer> offers;
-  bool loading =false;
-  bool error=false;
-  fetchData()async
-  {
-    loading=true;
-    setState(() {
+  bool loading = false;
+  bool error = false;
 
-    });
-    try{
-      var url =
-          Uri.parse("${Api.baseUrl}/myFavourites/offers");
+  fetchData() async {
+    loading = true;
+    setState(() {});
+    try {
+      var url = Uri.parse("${Api.baseUrl}/myFavourites/offers");
       final h = await HttpService().getHeaders();
       consolePrint("try to get  offdmbpfb  lvlfdbfl,lmgk mfv , fv,; bbfd");
       final apiResult = await http.get(url, headers: h);
@@ -50,20 +44,17 @@ class _FavoriteOffersBodyState extends State<FavoriteOffersBody> {
 
       loading = false;
       setState(() {});
-    }catch(e){
+    } catch (e) {
       consolePrint(e.toString());
       loading = false;
       setState(() {});
     }
-
   }
 
-
   Future<bool> addToFavorite(int offerId) async {
-   try {
+    try {
       consolePrint("offer id" + offerId.toString());
-      var url = Uri.parse(
-          "${Api.baseUrl}/addToFavourite/$offerId/offer");
+      var url = Uri.parse("${Api.baseUrl}/addToFavourite/$offerId/offer");
       consolePrint("before add to favorite print");
       consolePrint("try to post on " + url.path);
 
@@ -92,77 +83,114 @@ class _FavoriteOffersBodyState extends State<FavoriteOffersBody> {
         consolePrint("statusCode!=200");
         return false;
       }
-    }catch(e){
-    consolePrint(e.toString());
-    return false;
+    } catch (e) {
+      consolePrint(e.toString());
+      return false;
     }
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     fetchData();
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return  error?Column(mainAxisSize: MainAxisSize.max,children: [
-      Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مجدداً ".i18n,style: body3_18pt,),),),
-    ],):loading?LoadingScreen():
-    offers.length==0? Container(
-      height: getProportionateScreenHeight(400),
-      width: getProportionateScreenWidth(350),
-      alignment: Alignment.center,
-      child: AutoSizeText("لا يوجد عناصر في المفضلة".i18n,style: body3_18pt,),
-    ):Container(
-      margin: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(24),
-          vertical: getProportionateScreenHeight(26)),
-      child:offers.length==0? Container(
-        height: getProportionateScreenHeight(400),
-        width: getProportionateScreenWidth(350),
-        alignment: Alignment.center,
-        child: AutoSizeText("لا يوجد عناصر في المفضلة",style: body3_18pt,),
-      ):
-      SingleChildScrollView(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              children: [
-                ...List<Widget>.generate(
-                offers.length,
-                      (index)=>index%2==0&&offers[index].visible=="visible"?Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-
-                    child:         StoreOfferCard(offers[index],()async{
-
-                    },false),
-                  ):Container(height: 0,),
-
+    return error
+        ? Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                height: getProportionateScreenHeight(300),
+                width: getProportionateScreenWidth(370),
+                child: Center(
+                  child: Text(
+                    "الرجاء المحاولة مجدداً ".i18n,
+                    style: body3_18pt,
+                  ),
                 ),
-              ],
-            ),
-            Spacer(),
-            Column(
-              children: [
-                ...List<Widget>.generate(
-                  offers.length,
-                      (index)=>index%2==1&&offers[index].visible=="visible"?Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-
-                    child:         StoreOfferCard(offers[index],()async{
-                      bool k=await addToFavorite(offers[index].id);
-                      return k;
-                    },false),
-                  ):Container(height: 0,),
-
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+              ),
+            ],
+          )
+        : loading
+            ? LoadingScreen()
+            : offers.length == 0
+                ? Container(
+                    height: getProportionateScreenHeight(400),
+                    width: getProportionateScreenWidth(350),
+                    alignment: Alignment.center,
+                    child: AutoSizeText(
+                      "لا يوجد عناصر في المفضلة".i18n,
+                      style: body3_18pt,
+                    ),
+                  )
+                : Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: getProportionateScreenWidth(24),
+                        vertical: getProportionateScreenHeight(26)),
+                    child: offers.length == 0
+                        ? Container(
+                            height: getProportionateScreenHeight(400),
+                            width: getProportionateScreenWidth(350),
+                            alignment: Alignment.center,
+                            child: AutoSizeText(
+                              "لا يوجد عناصر في المفضلة",
+                              style: body3_18pt,
+                            ),
+                          )
+                        : SingleChildScrollView(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  children: [
+                                    ...List<Widget>.generate(
+                                      offers.length,
+                                      (index) => index % 2 == 0 &&
+                                              offers[index].visible == "visible"
+                                          ? Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  vertical: 10),
+                                              child: StoreOfferCard(
+                                                  offers[index],
+                                                  () async {},
+                                                  false),
+                                            )
+                                          : Container(
+                                              height: 0,
+                                            ),
+                                    ),
+                                  ],
+                                ),
+                                Spacer(),
+                                Column(
+                                  children: [
+                                    ...List<Widget>.generate(
+                                      offers.length,
+                                      (index) => index % 2 == 1 &&
+                                              offers[index].visible == "visible"
+                                          ? Container(
+                                              margin: EdgeInsets.symmetric(
+                                                  vertical: 10),
+                                              child: StoreOfferCard(
+                                                  offers[index], () async {
+                                                bool k = await addToFavorite(
+                                                    offers[index].id);
+                                                return k;
+                                              }, false),
+                                            )
+                                          : Container(
+                                              height: 0,
+                                            ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                  );
   }
 }

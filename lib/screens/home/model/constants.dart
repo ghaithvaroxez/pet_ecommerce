@@ -16,7 +16,7 @@ List<String> images = [
   "assets/images/home/category_fish.png",
 ];
 
-List<String> productsImages =[
+List<String> productsImages = [
   "assets/images/home/cat_1.png",
   "assets/images/home/cat_2.png",
   "assets/images/home/cat_1.png",

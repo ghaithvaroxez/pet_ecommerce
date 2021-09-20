@@ -11,11 +11,13 @@ import 'package:http/http.dart' as http;
 import '../controllers/orders_controller.dart';
 import 'package:get/get.dart';
 import 'translations/select_order_view.i18n.dart';
+
 class SelectOrderView extends StatefulWidget {
   @override
   _SelectOrderViewState createState() => _SelectOrderViewState();
 }
-OrdersController allOrdersController=Get.put(OrdersController());
+
+OrdersController allOrdersController = Get.put(OrdersController());
 
 class _SelectOrderViewState extends State<SelectOrderView> {
   // bool loading =false;
@@ -62,33 +64,56 @@ class _SelectOrderViewState extends State<SelectOrderView> {
 //
 //   }
 
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-  allOrdersController.fetchData();
+    allOrdersController.fetchData();
   }
+
   @override
   Widget build(BuildContext context) {
-    return
-      GetBuilder<OrdersController>(
-          init: allOrdersController,
-          builder: (controller)=>Container(
-              margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
-              child: controller.error?Column(mainAxisSize: MainAxisSize.max,children: [
-                Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مجدداً ".i18n,style: body3_18pt,),),),
-              ],):controller.loading?LoadingScreen():RefreshIndicator(
-                onRefresh: ()async{
-                  await controller.fetchData();
-                },
-                child: ListView.builder(
-                  // physics: NeverScrollableScrollPhysics(),
-                    itemCount: controller.ordersModel.orders.length,
-                    itemBuilder:(context,index)=>index==0?Column(children: [
-                      SearchBar(),
-                      VerticalOrderListCard(controller.ordersModel.orders[index],false)],):VerticalOrderListCard(controller.ordersModel.orders[index],false) ),
-              )));
-
+    return GetBuilder<OrdersController>(
+        init: allOrdersController,
+        builder: (controller) => Container(
+            margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
+            child: controller.error
+                ? Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        height: getProportionateScreenHeight(600),
+                        width: getProportionateScreenWidth(370),
+                        child: Center(
+                          child: Text(
+                            "الرجاء المحاولة مجدداً ".i18n,
+                            style: body3_18pt,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : controller.loading
+                    ? LoadingScreen()
+                    : RefreshIndicator(
+                        onRefresh: () async {
+                          await controller.fetchData();
+                        },
+                        child: ListView.builder(
+                            // physics: NeverScrollableScrollPhysics(),
+                            itemCount: controller.ordersModel.orders.length,
+                            itemBuilder: (context, index) => index == 0
+                                ? Column(
+                                    children: [
+                                      SearchBar(),
+                                      VerticalOrderListCard(
+                                          controller.ordersModel.orders[index],
+                                          false)
+                                    ],
+                                  )
+                                : VerticalOrderListCard(
+                                    controller.ordersModel.orders[index],
+                                    false)),
+                      )));
   }
 }

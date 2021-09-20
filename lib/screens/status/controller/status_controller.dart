@@ -9,32 +9,32 @@ import 'package:pets/configuration/printer.dart';
 import 'package:pets/screens/home/view/home_view.dart';
 import '../model/status_model.dart';
 import '../requests/status_requests.dart';
+
 // import 'package:video_thumbnail/video_thumbnail.dart';
 import 'dart:io';
 import 'package:flutter_video_info/flutter_video_info.dart';
 import 'translations/status_controller.i18n.dart';
-class StatusController extends GetxController{
 
-
-
+class StatusController extends GetxController {
   // ImageFormat _format = ImageFormat.JPEG;
   int _quality = 10;
   int _size = 200;
   String _tempDir;
   String filePath;
-  List<StatusAll> status=[];
-  StatusRequests statusRequests=StatusRequests();
-  bool loading=false;
-  getStatuses()async {
+  List<StatusAll> status = [];
+  StatusRequests statusRequests = StatusRequests();
+  bool loading = false;
+
+  getStatuses() async {
     activeLoading();
-    status=await statusRequests.getAllStatuses();
+    status = await statusRequests.getAllStatuses();
     consolePrint(" after get statuses request");
     // await setImages();
     removeLoading();
     update();
   }
 
-  setImage(String path)async {
+  setImage(String path) async {
     // List<File> images = await exportImage(path,10,0.5);
     // consolePrint("image path:"+images[5].path);
 
@@ -54,21 +54,19 @@ class StatusController extends GetxController{
     //       {
     //
 
-
-
-            // String thumb = await Thumbnails.getThumbnail(
-            //     thumbnailFolder:'[FOLDER PATH TO STORE THUMBNAILS]', // creates the specified path if it doesnt exist
-            //     videoFile: '[VIDEO PATH HERE]',
-            //     imageType: ThumbFormat.PNG,
-            //     quality: 30);
-            //
-            //   filePath = uint8list;
-            //   if(filePath!="")
-            // status[i].thumb=filePath;
-            // filePath="";
-          // }
-          // }
-      }
+    // String thumb = await Thumbnails.getThumbnail(
+    //     thumbnailFolder:'[FOLDER PATH TO STORE THUMBNAILS]', // creates the specified path if it doesnt exist
+    //     videoFile: '[VIDEO PATH HERE]',
+    //     imageType: ThumbFormat.PNG,
+    //     quality: 30);
+    //
+    //   filePath = uint8list;
+    //   if(filePath!="")
+    // status[i].thumb=filePath;
+    // filePath="";
+    // }
+    // }
+  }
 
   @override
   void onInit() async {
@@ -76,18 +74,17 @@ class StatusController extends GetxController{
     super.onInit();
     init();
   }
-  init()async{
+
+  init() async {
     await statusRequests.getmodel();
-    await  getStatuses();
+    await getStatuses();
   }
-  addNewImage(
-      {@required String image})async
-  {
+
+  addNewImage({@required String image}) async {
     activeLoading();
 
-    try{
-      bool k = await statusRequests.addPhoto(
-          image);
+    try {
+      bool k = await statusRequests.addPhoto(image);
       if (k == true) {
         await getStatuses();
         // await statusController.init();
@@ -101,8 +98,7 @@ class StatusController extends GetxController{
             message: "can't add your photo now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    }catch(e)
-    {
+    } catch (e) {
       // Get.back();
       removeLoading();
       Get.rawSnackbar(
@@ -110,32 +106,29 @@ class StatusController extends GetxController{
           backgroundColor: Colors.redAccent);
     }
     update();
-
-  }
-addNewVideo(
-      {@required String videoPath})async
-  {
-    try{
-    activeLoading();
-
-    final videoInfo = FlutterVideoInfo();
-
-    String videoFilePath = videoPath;
-    var info = await videoInfo.getVideoInfo(videoFilePath);
-    consolePrint("video: length "+info.duration.toString());
-    int len=(info.duration/1000).round();
-    consolePrint("len:"+len.toString());
-if(info.filesize>92440960)//41943040//102440960
-  {
-    Get.rawSnackbar(
-        message: "Video size is too big .Please select another one...".i18n,
-        backgroundColor: Colors.redAccent);
-    removeLoading();
-return;
   }
 
-      bool k = await statusRequests.addVideo(
-          videoPath,len);
+  addNewVideo({@required String videoPath}) async {
+    try {
+      activeLoading();
+
+      final videoInfo = FlutterVideoInfo();
+
+      String videoFilePath = videoPath;
+      var info = await videoInfo.getVideoInfo(videoFilePath);
+      consolePrint("video: length " + info.duration.toString());
+      int len = (info.duration / 1000).round();
+      consolePrint("len:" + len.toString());
+      if (info.filesize > 92440960) //41943040//102440960
+      {
+        Get.rawSnackbar(
+            message: "Video size is too big .Please select another one...".i18n,
+            backgroundColor: Colors.redAccent);
+        removeLoading();
+        return;
+      }
+
+      bool k = await statusRequests.addVideo(videoPath, len);
       if (k == true) {
         await getStatuses();
         await homeController.getHome();
@@ -148,8 +141,7 @@ return;
             message: "can't add your video now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    }catch(e)
-    {
+    } catch (e) {
       // Get.back();
       removeLoading();
       Get.rawSnackbar(
@@ -157,22 +149,20 @@ return;
           backgroundColor: Colors.redAccent);
     }
     update();
-
   }
 
-  deleteStatus(int  statusID)
-  async {
+  deleteStatus(int statusID) async {
     activeLoading();
 
     try {
       bool k = await statusRequests.deleteStatus(
-        // category_id: product.categoryId,
-        // type_id: product.typeId,
-        // name_ar: product.name,
-        // name_en: product.name,
-        // body_ar: product.body,
-        // body_en: product.body,
-        // image: product.image,
+          // category_id: product.categoryId,
+          // type_id: product.typeId,
+          // name_ar: product.name,
+          // name_en: product.name,
+          // body_ar: product.body,
+          // body_en: product.body,
+          // image: product.image,
           statusID);
 
       if (k == true) {
@@ -189,7 +179,7 @@ return;
             message: "can't delete your status now try again later".i18n,
             backgroundColor: Colors.redAccent);
       }
-    } catch(e) {
+    } catch (e) {
       Get.back();
       removeLoading();
       update();
@@ -198,18 +188,16 @@ return;
           backgroundColor: Colors.redAccent);
     }
   }
+
   ///state_management
 
-  activeLoading(){
-    loading=true;
+  activeLoading() {
+    loading = true;
     update();
   }
 
-  removeLoading(){
-    loading=false;
+  removeLoading() {
+    loading = false;
     update();
   }
-
-
-
 }

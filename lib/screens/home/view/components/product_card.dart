@@ -30,7 +30,12 @@ class ProductCard extends StatelessWidget {
                       bottomLeft: Radius.circular(12)),
                   color: Colors.grey.shade200,
                 ),
-                child: Container(alignment: Alignment.center,child: Text("قطة منزلية ",style: body2_14pt,)),
+                child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "قطة منزلية ",
+                      style: body2_14pt,
+                    )),
               )),
           Positioned(
               left: 15,
@@ -42,10 +47,7 @@ class ProductCard extends StatelessWidget {
                   fit: BoxFit.fill,
                 ),
               )),
-          Positioned(
-              left: 25,
-              top: 8,
-              child: FavoriteIcon()),
+          Positioned(left: 25, top: 8, child: FavoriteIcon()),
         ],
       ),
     );

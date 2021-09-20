@@ -29,7 +29,9 @@ class _NotificationCardState extends State<NotificationCard> {
           Get.to(OrderDetailsScreen(widget.notification.itemId));
         } else if (widget.notification.type == "New Offer Notification") {
           Get.to(OfferDetailsPageById(widget.notification.itemId));
-        } else if (widget.notification.type == "New Store Notification"||widget.notification.type == "New Sieve Notification"||widget.notification.type == "New Barn Notification") {
+        } else if (widget.notification.type == "New Store Notification" ||
+            widget.notification.type == "New Sieve Notification" ||
+            widget.notification.type == "New Barn Notification") {
           Get.to(StoreDetailsById(widget.notification.itemId));
         }
       },
@@ -55,14 +57,57 @@ class _NotificationCardState extends State<NotificationCard> {
             //   image: DecorationImage(image: NetworkImage(Api.imagePath+widget.notification.image))),
             //
             // ),
-            CircleAvatar(backgroundColor: grey,backgroundImage:widget.notification.image==""?AssetImage("assets/images/splash_screen/white_logo.png"):  NetworkImage(Api.imagePath+widget.notification.image),radius: getProportionateScreenWidth(25),),
-            SizedBox(width: getProportionateScreenWidth(10),),
+            CircleAvatar(
+              backgroundColor: grey,
+              backgroundImage: widget.notification.image == ""
+                  ? AssetImage("assets/images/splash_screen/white_logo.png")
+                  : NetworkImage(Api.imagePath + widget.notification.image),
+              radius: getProportionateScreenWidth(25),
+            ),
+            SizedBox(
+              width: getProportionateScreenWidth(10),
+            ),
             Column(
               children: [
-                Container(width: getProportionateScreenWidth(260),height: getProportionateScreenHeight(20),child: AutoSizeText(widget.notification.title,style: darkGrayText_14pt,maxLines: 1,textDirection: appLocal=="en"?TextDirection.ltr:TextDirection.rtl,),),
-
-                Container(width: getProportionateScreenWidth(260),height: getProportionateScreenHeight(35),child: AutoSizeText(widget.notification.body,style: darkGrayText_14pt,maxLines: 1,textDirection: appLocal=="en"?TextDirection.ltr:TextDirection.rtl,),),
-                Container(height: getProportionateScreenHeight(20),width: getProportionateScreenWidth(260),alignment:appLocal=="ar"?Alignment.centerRight:Alignment.centerLeft,child:  AutoSizeText(widget.notification.createdAt,style: darkGrayText_14pt,maxLines: 1,textDirection: appLocal=="en"?TextDirection.ltr:TextDirection.rtl,),)
+                Container(
+                  width: getProportionateScreenWidth(260),
+                  height: getProportionateScreenHeight(20),
+                  child: AutoSizeText(
+                    widget.notification.title,
+                    style: darkGrayText_14pt,
+                    maxLines: 1,
+                    textDirection: appLocal == "en"
+                        ? TextDirection.ltr
+                        : TextDirection.rtl,
+                  ),
+                ),
+                Container(
+                  width: getProportionateScreenWidth(260),
+                  height: getProportionateScreenHeight(35),
+                  child: AutoSizeText(
+                    widget.notification.body,
+                    style: darkGrayText_14pt,
+                    maxLines: 1,
+                    textDirection: appLocal == "en"
+                        ? TextDirection.ltr
+                        : TextDirection.rtl,
+                  ),
+                ),
+                Container(
+                  height: getProportionateScreenHeight(20),
+                  width: getProportionateScreenWidth(260),
+                  alignment: appLocal == "ar"
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: AutoSizeText(
+                    widget.notification.createdAt,
+                    style: darkGrayText_14pt,
+                    maxLines: 1,
+                    textDirection: appLocal == "en"
+                        ? TextDirection.ltr
+                        : TextDirection.rtl,
+                  ),
+                )
               ],
             ),
           ],

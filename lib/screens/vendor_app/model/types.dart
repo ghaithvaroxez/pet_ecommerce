@@ -16,12 +16,14 @@ class Types {
   List<ProductType> productTypes;
 
   factory Types.fromJson(Map<String, dynamic> json) => Types(
-    productTypes: List<ProductType>.from(json["product_types"].map((x) => ProductType.fromJson(x))),
-  );
+        productTypes: List<ProductType>.from(
+            json["product_types"].map((x) => ProductType.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "product_types": List<dynamic>.from(productTypes.map((x) => x.toJson())),
-  };
+        "product_types":
+            List<dynamic>.from(productTypes.map((x) => x.toJson())),
+      };
 }
 
 class ProductType {
@@ -36,14 +38,14 @@ class ProductType {
   String image;
 
   factory ProductType.fromJson(Map<String, dynamic> json) => ProductType(
-    id: json["id"],
-    name: json["name"],
-    image: json["image"],
-  );
+        id: json["id"],
+        name: json["name"],
+        image: json["image"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "image": image,
-  };
+        "id": id,
+        "name": name,
+        "image": image,
+      };
 }

@@ -10,23 +10,28 @@ import 'package:pets/screens/orders/model/all_orders_model.dart';
 
 import '../my_order_details.dart';
 import 'my_order_vertical_card.i18n.dart';
+
 class MyVerticalOrderListCard extends StatelessWidget {
   Order order;
   Function delete;
 
-  MyVerticalOrderListCard(this.order,this.delete);
+  MyVerticalOrderListCard(this.order, this.delete);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Get.to(MyOrderDetailsScreen(order.id));
       },
       child: Container(
-
         alignment: Alignment.center,
         width: getProportionateScreenWidth(345),
         height: getProportionateScreenHeight(134),
-        margin: EdgeInsets.only(bottom: getProportionateScreenHeight(8),top: getProportionateScreenHeight(8),left: getProportionateScreenWidth(22.5), right: getProportionateScreenWidth(22.5)),
+        margin: EdgeInsets.only(
+            bottom: getProportionateScreenHeight(8),
+            top: getProportionateScreenHeight(8),
+            left: getProportionateScreenWidth(22.5),
+            right: getProportionateScreenWidth(22.5)),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: Colors.white,
@@ -38,28 +43,31 @@ class MyVerticalOrderListCard extends StatelessWidget {
               width: getProportionateScreenWidth(105),
               height: getProportionateScreenHeight(134),
               decoration: BoxDecoration(
-                borderRadius:appLocal=="ar"? BorderRadius.only(
-                  topRight: Radius.circular(12),
-                  bottomRight: Radius.circular(12),
-                ):BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomLeft: Radius.circular(12),
-                ),
+                borderRadius: appLocal == "ar"
+                    ? BorderRadius.only(
+                        topRight: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
+                      )
+                    : BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        bottomLeft: Radius.circular(12),
+                      ),
                 color: offBlue,
               ),
               child: Center(
                 child: ClipRRect(
-                  borderRadius:appLocal=="ar"? BorderRadius.only(
-                    topRight: Radius.circular(12),
-                    bottomRight: Radius.circular(12),
-                  ):BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    bottomLeft: Radius.circular(12),
-                  ),
+                  borderRadius: appLocal == "ar"
+                      ? BorderRadius.only(
+                          topRight: Radius.circular(12),
+                          bottomRight: Radius.circular(12),
+                        )
+                      : BorderRadius.only(
+                          topLeft: Radius.circular(12),
+                          bottomLeft: Radius.circular(12),
+                        ),
                   child: Image.network(
-
-                    Api.imagePath+order.image,
-                    height:getProportionateScreenHeight(134) ,
+                    Api.imagePath + order.image,
+                    height: getProportionateScreenHeight(134),
                     width: getProportionateScreenWidth(105),
                     fit: BoxFit.fill,
                   ),
@@ -82,7 +90,11 @@ class MyVerticalOrderListCard extends StatelessWidget {
                         child: Container(
                           height: getProportionateScreenHeight(30),
                           width: getProportionateScreenWidth(192),
-                          margin: appLocal=="ar"?EdgeInsets.only(right: getProportionateScreenWidth(12)):EdgeInsets.only(left: getProportionateScreenWidth(12)),
+                          margin: appLocal == "ar"
+                              ? EdgeInsets.only(
+                                  right: getProportionateScreenWidth(12))
+                              : EdgeInsets.only(
+                                  left: getProportionateScreenWidth(12)),
                           child: AutoSizeText(
                             order.title,
                             // textDirection: TextDirection.rtl,
@@ -96,48 +108,53 @@ class MyVerticalOrderListCard extends StatelessWidget {
                           height: getProportionateScreenHeight(30),
                           width: getProportionateScreenWidth(30),
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.white
-                          ),
-                          child:GestureDetector(onTap:(){
-                            showDialog(
-                                context: context,
-                                builder: ((context) => AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5)),
-                                  title: Text(
-                                    'هل أنت متأكد ؟'.i18n,
-                                    // textDirection: TextDirection.rtl,
-                                    style: body3_18pt,
-                                  ),
-                                  content: Text(
-                                    'انت على وشك حذف هذا الطلب !'.i18n,
-                                    // textDirection: TextDirection.rtl,
-                                    style: body1_16pt,
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      child: Text(
-                                        'نعم'.i18n,
-                                      ),
-                                      onPressed: () async{
-                                        // language.changeLanguage();
-                                        Navigator.of(context).pop();
-                                        await delete();
-                                        // Navigator.popUntil(context, ModalRoute.withName('/'));
-                                      },
-                                    ),
-                                    TextButton(
-                                      child: Text('لا'.i18n),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    )
-                                  ],
-                                )));
-                          },child: Image.asset("assets/images/vendor_app/trash.png",fit: BoxFit.fill,))
+                              shape: BoxShape.circle, color: Colors.white),
+                          child: GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: ((context) => AlertDialog(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          title: Text(
+                                            'هل أنت متأكد ؟'.i18n,
+                                            // textDirection: TextDirection.rtl,
+                                            style: body3_18pt,
+                                          ),
+                                          content: Text(
+                                            'انت على وشك حذف هذا الطلب !'.i18n,
+                                            // textDirection: TextDirection.rtl,
+                                            style: body1_16pt,
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              child: Text(
+                                                'نعم'.i18n,
+                                              ),
+                                              onPressed: () async {
+                                                // language.changeLanguage();
+                                                Navigator.of(context).pop();
+                                                await delete();
+                                                // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: Text('لا'.i18n),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            )
+                                          ],
+                                        )));
+                              },
+                              child: Image.asset(
+                                "assets/images/vendor_app/trash.png",
+                                fit: BoxFit.fill,
+                              ))),
+                      SizedBox(
+                        width: getProportionateScreenWidth(8),
                       ),
-                      SizedBox(width: getProportionateScreenWidth(8),),
                     ],
                   ),
                   // SizedBox(height: getProportionateScreenHeight(2),),
@@ -150,10 +167,8 @@ class MyVerticalOrderListCard extends StatelessWidget {
                         Container(
                           width: getProportionateScreenWidth(80),
                           height: getProportionateScreenHeight(12),
-                          child:
-                          Row(
+                          child: Row(
                             children: [
-
                               Expanded(
                                   flex: 1,
                                   child: Container(
@@ -161,7 +176,9 @@ class MyVerticalOrderListCard extends StatelessWidget {
                                     child: Image.asset(
                                         "assets/images/store/cat_icon.png"),
                                   )),
-                              SizedBox(width: getProportionateScreenWidth(5),),
+                              SizedBox(
+                                width: getProportionateScreenWidth(5),
+                              ),
                               Expanded(
                                   flex: 3,
                                   child: Container(
@@ -188,22 +205,23 @@ class MyVerticalOrderListCard extends StatelessWidget {
                                     child: Image.asset(
                                         "assets/images/home/clock_icon.png"),
                                   )),
-                              SizedBox(width: getProportionateScreenWidth(5),),
+                              SizedBox(
+                                width: getProportionateScreenWidth(5),
+                              ),
                               Expanded(
                                   flex: 3,
                                   child: Container(
                                     height: getProportionateScreenHeight(12),
-                                    child: AutoSizeText(order.date.toString(),
-                                        style: darkGrayText_11pt,
-                                        minFontSize: 5,
-                                        // textDirection: TextDirection.rtl
+                                    child: AutoSizeText(
+                                      order.date.toString(),
+                                      style: darkGrayText_11pt,
+                                      minFontSize: 5,
+                                      // textDirection: TextDirection.rtl
                                     ),
                                   )),
-
                             ],
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -214,10 +232,10 @@ class MyVerticalOrderListCard extends StatelessWidget {
                     height: getProportionateScreenHeight(50),
                     width: getProportionateScreenWidth(200),
                     child: AutoSizeText(
-                        order.question,
-                        minFontSize: 8,
-                        style: darkGrayText_13pt,
-                        // textDirection: TextDirection.rtl
+                      order.question,
+                      minFontSize: 8,
+                      style: darkGrayText_13pt,
+                      // textDirection: TextDirection.rtl
                     ),
                   ),
                 ],

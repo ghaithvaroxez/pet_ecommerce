@@ -6,6 +6,7 @@ import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/size_config.dart';
 import 'package:pets/screens/auth/controller/services/auth_services.dart';
 import 'package:pets/screens/auth/view/splash/splash_screen.dart';
+
 // import 'package:pets/screens/corner/view/my_corner_details.dart';
 import 'package:pets/screens/favorites/views/favorite_view.dart';
 import 'package:pets/screens/my_corner/view/my_corners_list.dart';
@@ -26,17 +27,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  String name="";
-  String img="";
-  getdata()async
-  {
-    name=await AuthServices.getName();
-    img=await AuthServices.getImage();
-    setState(() {
+  String name = "";
+  String img = "";
 
-    });
+  getdata() async {
+    name = await AuthServices.getName();
+    img = await AuthServices.getImage();
+    setState(() {});
   }
-
 
   @override
   void initState() {
@@ -44,12 +42,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
     getdata();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Container(
-
           height: getProportionateScreenHeight(851),
           width: getProportionateScreenWidth(395),
           child: Column(
@@ -59,23 +57,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 width: getProportionateScreenWidth(395),
                 child: Stack(
                   children: [
-                    Positioned(child: Container(
+                    Positioned(
+                        child: Container(
                       height: getProportionateScreenHeight(48),
                       width: getProportionateScreenWidth(48),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                       ),
-                      child: Image.asset("assets/images/profile/back_circle.png"),
+                      child:
+                          Image.asset("assets/images/profile/back_circle.png"),
                     )),
                     Positioned(
                         child: Container(
-                          height: getProportionateScreenHeight(325),
-                          width: getProportionateScreenWidth(395),
-                          child: Image.asset(
-                            "assets/images/drawer/image_background.png",
-                            fit: BoxFit.fill,
-                          ),
-                        )),
+                      height: getProportionateScreenHeight(325),
+                      width: getProportionateScreenWidth(395),
+                      child: Image.asset(
+                        "assets/images/drawer/image_background.png",
+                        fit: BoxFit.fill,
+                      ),
+                    )),
                     Positioned(
                       bottom: getProportionateScreenHeight(130),
                       // left: getProportionateScreenWidth(130),
@@ -89,8 +89,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                           ),
-                          child: gusetId==146?Container(child: Center(child: AutoSizeText("pets",style: h4_21pt_lightBlue,),),):Container(decoration: BoxDecoration(boxShadow: shadow,shape:BoxShape.circle,image: DecorationImage(image: img==null? AssetImage("assets/images/drawer/user_img.png"):NetworkImage(Api.imagePath+img),fit: BoxFit.fill
-                          ),),),),
+                          child: gusetId == 146
+                              ? Container(
+                                  child: Center(
+                                    child: AutoSizeText(
+                                      "pets",
+                                      style: h4_21pt_lightBlue,
+                                    ),
+                                  ),
+                                )
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    boxShadow: shadow,
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        image: img == null
+                                            ? AssetImage(
+                                                "assets/images/drawer/user_img.png")
+                                            : NetworkImage(Api.imagePath + img),
+                                        fit: BoxFit.fill),
+                                  ),
+                                ),
+                        ),
                       ),
                     ),
                     Positioned(
@@ -100,11 +120,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         width: getProportionateScreenWidth(390),
                         height: getProportionateScreenHeight(30),
                         alignment: Alignment.center,
-                        child: gusetId==146?Container(height: 0,width: 0,):AutoSizeText(
-                          name,
-                          style: body3_21pt_nb2,
-                          maxLines: 1,
-                        ),
+                        child: gusetId == 146
+                            ? Container(
+                                height: 0,
+                                width: 0,
+                              )
+                            : AutoSizeText(
+                                name,
+                                style: body3_21pt_nb2,
+                                maxLines: 1,
+                              ),
                       ),
                     ),
                   ],
@@ -121,14 +146,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       title: " المعلومات الشخصية ".i18n,
                       img: "assets/images/profile/personal_info_icon.png",
                       onTap: () {
-
                         // Get.back();
-                        Get.to(EditProfileScreen( ()async{
+                        Get.to(EditProfileScreen(() async {
                           await getdata();
-                          setState(() {
-
-                          });
-                        } ));
+                          setState(() {});
+                        }));
                       },
                       isExpanded: true,
                     ),
@@ -141,7 +163,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     CustomeProfileItem(
                       title: "المفضلة".i18n,
                       img:
-                      "assets/images/drawer/drawer_icons/favorite_icon.png",
+                          "assets/images/drawer/drawer_icons/favorite_icon.png",
                       onTap: () {
                         Get.to(FavoriteView());
                         // Get.back();
@@ -153,8 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     //map
                     CustomeProfileItem(
                       title: "الإشعارات".i18n,
-                      img:
-                      "assets/images/profile/notification_icon.png",
+                      img: "assets/images/profile/notification_icon.png",
                       onTap: () {
                         // Get.back();
                       },
@@ -177,8 +198,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     CustomeProfileItem(
                       title: "زاويتي".i18n,
-                      img:
-                      "assets/images/drawer/drawer_icons/corner_icon.png",
+                      img: "assets/images/drawer/drawer_icons/corner_icon.png",
                       onTap: () {
                         Get.back();
                         Get.to(MyCornerList());
@@ -192,11 +212,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     //my_status
                     CustomeProfileItem(
                       title: "حالتي".i18n,
-                      img:
-                      "assets/images/drawer/drawer_icons/status_icon.png",
+                      img: "assets/images/drawer/drawer_icons/status_icon.png",
                       onTap: () {
                         Get.to(MyStatus());
-
                       },
                     ),
                     SizedBox(
@@ -207,8 +225,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     //setting
                     CustomeProfileItem(
                       title: "الإعدادت".i18n,
-                      img:
-                      "assets/images/drawer/drawer_icons/setting_icon.png",
+                      img: "assets/images/drawer/drawer_icons/setting_icon.png",
                       onTap: () {
                         Get.back();
                       },
@@ -219,8 +236,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     CustomeProfileItem(
                       title: "الأسئلة الشائعة".i18n,
-                      img:
-                      "assets/images/profile/questions_icon.png",
+                      img: "assets/images/profile/questions_icon.png",
                       onTap: () {
                         Get.back();
                       },
@@ -232,51 +248,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     CustomeProfileItem(
                       title: "تسجيل الخروج".i18n,
-                      img:
-                      "assets/images/drawer/drawer_icons/logout_icon.png",
-                      onTap: ()async {
+                      img: "assets/images/drawer/drawer_icons/logout_icon.png",
+                      onTap: () async {
                         showDialog(
                             context: context,
                             builder: ((context) => AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
-                              title:  Text(
-                                'هل أنت متأكد ؟'.i18n,
-                                // textDirection: TextDirection.rtl,
-                                style: body3_18pt,
-                              ),
-                              content: Text(
-                                'انت على وشك تسجيل الخروج !'.i18n,
-                                // textDirection: TextDirection.rtl,
-                                style: body1_16pt,
-                              ),
-                              actions: [
-                                TextButton(
-                                  child:  Text(
-                                    'نعم',
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  title: Text(
+                                    'هل أنت متأكد ؟'.i18n,
+                                    // textDirection: TextDirection.rtl,
+                                    style: body3_18pt,
                                   ),
-                                  onPressed: () async{
-                                    // language.changeLanguage();
-                                    Navigator.of(context).pop();
-                                    await  LocalStorageService.prefs.clear();
-                                    Get.offAll(SplashScreen());
-                                    // Navigator.popUntil(context, ModalRoute.withName('/'));
-                                  },
-                                ),
-                                TextButton(
-                                  child: Text('لا'.i18n),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    // Navigator.pop(context);
-                                  },
-                                )
-                              ],
-                            )));
-
+                                  content: Text(
+                                    'انت على وشك تسجيل الخروج !'.i18n,
+                                    // textDirection: TextDirection.rtl,
+                                    style: body1_16pt,
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      child: Text(
+                                        'نعم',
+                                      ),
+                                      onPressed: () async {
+                                        // language.changeLanguage();
+                                        Navigator.of(context).pop();
+                                        await LocalStorageService.prefs.clear();
+                                        Get.offAll(SplashScreen());
+                                        // Navigator.popUntil(context, ModalRoute.withName('/'));
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text('لا'.i18n),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        // Navigator.pop(context);
+                                      },
+                                    )
+                                  ],
+                                )));
                       },
                       isRed: true,
                     ),
-
                   ],
                 ),
               ),

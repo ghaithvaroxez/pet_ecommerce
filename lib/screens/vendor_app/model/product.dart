@@ -5,7 +5,8 @@
 import 'dart:convert';
 // import 'foo.dart';
 
-StoreProduct storeProductFromJson(String str) => StoreProduct.fromJson(json.decode(str));
+StoreProduct storeProductFromJson(String str) =>
+    StoreProduct.fromJson(json.decode(str));
 
 String storeProductToJson(StoreProduct data) => json.encode(data.toJson());
 
@@ -26,11 +27,11 @@ class StoreProduct {
     this.storeName,
     this.date,
     this.visible,
-    this.favStatus
-  ,this.error=false,
-
+    this.favStatus,
+    this.error = false,
   });
-bool error;
+
+  bool error;
   int id;
   String name;
   String body;
@@ -48,39 +49,37 @@ bool error;
   String visible;
   bool favStatus;
 
-
   factory StoreProduct.fromJson(Map<String, dynamic> json) => StoreProduct(
-    id: json["id"],
-    name: json["name"],
-    body: json["body"],
-    image: json["image"],
-    price: json["price"],
-    favourites: json["favourites"],
-    fav: json["fav"],
-    categoryId: json["category_id"],
-    categoryName: json["category_name"],
-    typeId: json["type_id"],
-    typeName: json["type_name"],
-    storeId: json["store_id"],
-    storeName: json["store_name"],
-    date: json["date"],
-    visible:json["visible"],
-    favStatus: json["fav_status"]
-  );
+      id: json["id"],
+      name: json["name"],
+      body: json["body"],
+      image: json["image"],
+      price: json["price"],
+      favourites: json["favourites"],
+      fav: json["fav"],
+      categoryId: json["category_id"],
+      categoryName: json["category_name"],
+      typeId: json["type_id"],
+      typeName: json["type_name"],
+      storeId: json["store_id"],
+      storeName: json["store_name"],
+      date: json["date"],
+      visible: json["visible"],
+      favStatus: json["fav_status"]);
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "body": body,
-    "image": image,
-    "price": price,
-    "favourites": favourites,
-    "fav": fav,
-    "category_id": categoryId,
-    "category_name": categoryName,
-    "type_id": typeId,
-    "type_name": typeName,
-    "store_id": storeId,
-    "store_name": storeName,
-  };
+        "id": id,
+        "name": name,
+        "body": body,
+        "image": image,
+        "price": price,
+        "favourites": favourites,
+        "fav": fav,
+        "category_id": categoryId,
+        "category_name": categoryName,
+        "type_id": typeId,
+        "type_name": typeName,
+        "store_id": storeId,
+        "store_name": storeName,
+      };
 }

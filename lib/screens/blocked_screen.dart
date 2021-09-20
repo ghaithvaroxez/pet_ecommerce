@@ -7,7 +7,7 @@ import 'package:pets/configuration/size_config.dart';
 import 'package:pets/main.dart';
 import 'widgets/drawer/i18n/blocked_screen.i18n.dart';
 
-  class BlockedScreen extends StatelessWidget {
+class BlockedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,11 +15,25 @@ import 'widgets/drawer/i18n/blocked_screen.i18n.dart';
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(width: getProportionateScreenWidth(350),
+          Container(
+            width: getProportionateScreenWidth(350),
             height: getProportionateScreenHeight(350),
-            child:   Lottie.asset('assets/images/auth/unAproved.json'),)
-          ,SizedBox(height: getProportionateScreenHeight(25),),
-          Container(width: getProportionateScreenWidth(400),padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(16)),child: AutoSizeText("لقد تم حظرك من استخدام هذا التطبيق  ".i18n,style: h5_21pt,textDirection: appLocal=="ar"?TextDirection.rtl:TextDirection.ltr,),),
+            child: Lottie.asset('assets/images/auth/unAproved.json'),
+          ),
+          SizedBox(
+            height: getProportionateScreenHeight(25),
+          ),
+          Container(
+            width: getProportionateScreenWidth(400),
+            padding: EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(16)),
+            child: AutoSizeText(
+              "لقد تم حظرك من استخدام هذا التطبيق  ".i18n,
+              style: h5_21pt,
+              textDirection:
+                  appLocal == "ar" ? TextDirection.rtl : TextDirection.ltr,
+            ),
+          ),
         ],
       ),
     );

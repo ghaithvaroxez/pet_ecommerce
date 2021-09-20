@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-LocationModel locationModelFromJson(String str) => LocationModel.fromJson(json.decode(str));
+LocationModel locationModelFromJson(String str) =>
+    LocationModel.fromJson(json.decode(str));
 
 String locationModelToJson(LocationModel data) => json.encode(data.toJson());
 
@@ -16,12 +17,12 @@ class LocationModel {
   List<City> cities;
 
   factory LocationModel.fromJson(Map<String, dynamic> json) => LocationModel(
-    cities: List<City>.from(json["cities"].map((x) => City.fromJson(x))),
-  );
+        cities: List<City>.from(json["cities"].map((x) => City.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "cities": List<dynamic>.from(cities.map((x) => x.toJson())),
-  };
+        "cities": List<dynamic>.from(cities.map((x) => x.toJson())),
+      };
 }
 
 class City {
@@ -34,12 +35,12 @@ class City {
   String name;
 
   factory City.fromJson(Map<String, dynamic> json) => City(
-    id: json["id"],
-    name: json["name"],
-  );
+        id: json["id"],
+        name: json["name"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-  };
+        "id": id,
+        "name": name,
+      };
 }

@@ -1,71 +1,63 @@
-
 import 'package:i18n_extension/i18n_extension.dart';
 
 extension Localization on String {
-
-  static var _t = Translations("ar")
-
-      + {
+  static var _t = Translations("ar") +
+      {
         "ar": " المعلومات الشخصية ",
-        "en":  "Personal Information",
-      }
-      + {
+        "en": "Personal Information",
+      } +
+      {
         "ar": "المفضلة",
-        "en":  "Favorite",
-      }
-      + {
+        "en": "Favorite",
+      } +
+      {
         "ar": "الإشعارات",
-        "en":  "Notifications",
-      }
-      + {
+        "en": "Notifications",
+      } +
+      {
         "ar": "طلباتي",
-        "en":  "My orders",
-      }
-      + {
+        "en": "My orders",
+      } +
+      {
         "ar": "زاويتي",
-        "en":  "My corner",
-      }+ {
+        "en": "My corner",
+      } +
+      {
         "ar": "حالتي",
-        "en":  "My status",
-      }
-      + {
+        "en": "My status",
+      } +
+      {
         "ar": "الإعدادت",
-        "en":  "Settings",
-      }
-
-     + {
+        "en": "Settings",
+      } +
+      {
         "ar": "الأسئلة الشائعة",
-        "en":  "FAQ",
-      }
-
-     + {
+        "en": "FAQ",
+      } +
+      {
         "ar": "تسجيل الخروج",
-        "en":  "Log out",
-      }
-  + {
+        "en": "Log out",
+      } +
+      {
         "ar": 'هل أنت متأكد ؟',
-        "en":  "Are you sure ?",
-      }
-  + {
+        "en": "Are you sure ?",
+      } +
+      {
         "ar": 'انت على وشك تسجيل الخروج !',
-        "en":  "You are about to log out !",
-      }
-  + {
+        "en": "You are about to log out !",
+      } +
+      {
         "ar": 'نعم',
-        "en":  "Yes",
-      }  + {
+        "en": "Yes",
+      } +
+      {
         "ar": 'لا',
-        "en":  "No",
-      }  + {
+        "en": "No",
+      } +
+      {
         "ar": 'نعم',
-        "en":  "Yes",
-      }
-
-
-
-
-
-  ;
+        "en": "Yes",
+      };
 
   String get i18n => localize(this, _t);
 }

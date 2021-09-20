@@ -1,89 +1,87 @@
 import 'package:i18n_extension/i18n_extension.dart';
 
 extension Localization on String {
-
-  static var _t = Translations("ar")
-
-      + {
+  static var _t = Translations("ar") +
+      {
         "ar": "إضافة طلب",
-        "en":  "Add order",
-      }
-      + {
+        "en": "Add order",
+      } +
+      {
         "ar": "إضافة طلب جديد",
-        "en":  "Add new order",
-      }
-      + {
+        "en": "Add new order",
+      } +
+      {
         "ar": "إعادة ضبط",
-        "en":  "Reset",
-      }
-      + {
+        "en": "Reset",
+      } +
+      {
         "ar": "الصنف",
-        "en":  "Category",
-      }
-      + {
+        "en": "Category",
+      } +
+      {
         "ar": "النوع",
-        "en": "Type" ,
-      }
-      + {
+        "en": "Type",
+      } +
+      {
         "ar": "نوع الطلب",
-        "en":  "Order Type",
-      }
-      + {
+        "en": "Order Type",
+      } +
+      {
         "ar": "حيوان",
-        "en":  "Animal",
-      }
-      + {
+        "en": "Animal",
+      } +
+      {
         "ar": "بيطري",
-        "en":  "Doctor review",
-      }
-    + {
+        "en": "Doctor review",
+      } +
+      {
         "ar": "عنوان الطلب",
-        "en":  "Order Title",
-      }
-    + {
+        "en": "Order Title",
+      } +
+      {
         "ar": "صورة الطلب",
-        "en":  "Order Photo",
-      }
-   + {
+        "en": "Order Photo",
+      } +
+      {
         "ar": "حمل الصورة",
-        "en":  "Upload Photo",
-      }
-  + {
+        "en": "Upload Photo",
+      } +
+      {
         "ar": "مواصفات خاصة بالطلب",
-        "en":  "Order description",
-      } + {
-        "ar":  "السعر المتوقع",
-        "en":  "Expected Price",
-      } + {
+        "en": "Order description",
+      } +
+      {
+        "ar": "السعر المتوقع",
+        "en": "Expected Price",
+      } +
+      {
         "ar": "مواصفات خاصة بالطلب",
-        "en":  "Order description",
-      }
-
-+ {
+        "en": "Order description",
+      } +
+      {
         "ar": "الرجاء ملئ كافة الحقول قبل اضافة الطلب",
-        "en":  "Please fill all the fields first ",
-      }+ {
+        "en": "Please fill all the fields first ",
+      } +
+      {
         "ar": "الرجاء اضافة صورة للطلب",
-        "en":  "Please add photo first ",
-      }
-+ {
+        "en": "Please add photo first ",
+      } +
+      {
         "ar": "إرسال الطلب ",
-        "en":  "Send order ",
-      }
-+ {
+        "en": "Send order ",
+      } +
+      {
         "ar": "العودة",
-        "en":  "Back",
-      }
-+ {
+        "en": "Back",
+      } +
+      {
         "ar": "السعر يجب ان يكون موجب",
-        "en":  "price should be positive",
-      }
-
-
-
-
-
-  ;
+        "en": "price should be positive",
+      } +
+      {
+        "ar": "لا يوجد عناصر حالياً",
+        "en": "No items now ..",
+      };
 
   String get i18n => localize(this, _t);
 }

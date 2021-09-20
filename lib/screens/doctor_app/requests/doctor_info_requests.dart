@@ -16,50 +16,47 @@ class DoctorAppRequests extends HttpService {
 
   getModel() async {
     doctor = await AuthServices.getCurrentUser();
-    consolePrint("doctor Id :"+doctor.user.id.toString());
+    consolePrint("doctor Id :" + doctor.user.id.toString());
   }
 
-  Future<DoctorModel> getDoctorInfo() async
-  {
-    consolePrint("doctor Id :"+doctor.user.id.toString());
+  Future<DoctorModel> getDoctorInfo() async {
+    consolePrint("doctor Id :" + doctor.user.id.toString());
     final apiResult = await getRequest(
       Api.getDoctorId + '/' + doctor.user.id.toString(),
       queryParameters: null,
     );
 
-    if(apiResult.statusCode==200)
-    return DoctorModel.fromJson(apiResult.data);
+    if (apiResult.statusCode == 200)
+      return DoctorModel.fromJson(apiResult.data);
     // StoreModel storeModel= storeModelFromJson(apiResult.data["store"]);
     //
     // return storeModel.store;
   }
 
-  Future<List<Category>> getStoreCategories() async
-  {
+  Future<List<Category>> getStoreCategories() async {
     final apiResult = await getRequest(
       Api.categories,
       queryParameters: null,
     );
 
-    return  List<Category>.from(apiResult.data["categories"].map((x) => Category.fromJson(x)));
+    return List<Category>.from(
+        apiResult.data["categories"].map((x) => Category.fromJson(x)));
     // StoreModel storeModel= storeModelFromJson(apiResult.data["store"]);
 
     // return storeModel.store;
   }
 
-  Future<LocationModel> getLocations() async
-  {
+  Future<LocationModel> getLocations() async {
     final apiResult = await getRequest(
-      Api.getLocations ,
+      Api.getLocations,
       queryParameters: null,
     );
-    if(apiResult.statusCode==200)
+    if (apiResult.statusCode == 200)
       return LocationModel.fromJson(apiResult.data);
     // StoreModel storeModel= storeModelFromJson(apiResult.data["store"]);
     //
     // return storeModel.store;
   }
-
 
   Future<bool> updateAddress({
     // int openAt,
@@ -67,11 +64,8 @@ class DoctorAppRequests extends HttpService {
     // String img,
     // String email,
     int address,
-  })
-  async {
-
-    FormData formData =
-    new FormData.fromMap({
+  }) async {
+    FormData formData = new FormData.fromMap({
       // openAt!=null?? "open_from":openAt,
       // closeAt!=null?? "closed_at":closeAt,
       // img!=null??  "image":
@@ -81,16 +75,13 @@ class DoctorAppRequests extends HttpService {
     });
 
     try {
-      final apiResult = await postRequest(
-          Api.updateUser, formData, includeHeaders: true);
-      if (apiResult.statusCode == 200)
-        if (apiResult.data["status"] == true) {
-          return true;
-        }
-        else
-          return false;
-    }
-    catch (e) {
+      final apiResult =
+          await postRequest(Api.updateUser, formData, includeHeaders: true);
+      if (apiResult.statusCode == 200) if (apiResult.data["status"] == true) {
+        return true;
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
@@ -101,11 +92,8 @@ class DoctorAppRequests extends HttpService {
     // String img,
     // String email,
     String device_id,
-  })
-  async {
-
-    FormData formData =
-    new FormData.fromMap({
+  }) async {
+    FormData formData = new FormData.fromMap({
       // openAt!=null?? "open_from":openAt,
       // closeAt!=null?? "closed_at":closeAt,
       // img!=null??  "image":
@@ -115,116 +103,104 @@ class DoctorAppRequests extends HttpService {
     });
 
     try {
-      final apiResult = await postRequest(
-          Api.updateUser, formData, includeHeaders: true);
-      if (apiResult.statusCode == 200)
-        if (apiResult.data["status"] == true) {
-          return true;
-        }
-        else
-          return false;
-    }
-    catch (e) {
+      final apiResult =
+          await postRequest(Api.updateUser, formData, includeHeaders: true);
+      if (apiResult.statusCode == 200) if (apiResult.data["status"] == true) {
+        return true;
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
 
   Future<bool> addOpenAtCloseAt({
-    String openAt="",
-    String closeAt="",
-    String vacation="",
+    String openAt = "",
+    String closeAt = "",
+    String vacation = "",
     int id,
     // String email,
     // String address,
-  })
-  async {
+  }) async {
     consolePrint("add time");
 
     // {"from"  : openAt, "to" : closeAt, "vac" : vacation}
     // {"day_id" :id,"from"  : openAt, "to" : closeAt, "vac" : vacation};
 // consolePrint("time:"+formData.toString());
-    var dd={"day_id" :id,"from"  : openAt, "to" : closeAt, "vac" : vacation};
-    var j=jsonEncode(dd);
+    var dd = {"day_id": id, "from": openAt, "to": closeAt, "vac": vacation};
+    var j = jsonEncode(dd);
     // var d={"days":j};
-    FormData formData =FormData.fromMap({"days":j});
+    FormData formData = FormData.fromMap({"days": j});
 
-    try{
+    try {
       // var uri=Uri.parse(Api.baseUrl+Api.updateStore);
       // final apiResult = await http.post(uri,body:d);
-      final apiResult =await postRequest(
-          Api.updateUser, formData, includeHeaders: true);
+      final apiResult =
+          await postRequest(Api.updateUser, formData, includeHeaders: true);
       consolePrint(apiResult.statusCode.toString());
       // consolePrint(apiResult.body);
-      if(apiResult.statusCode==200)
-        // if(apiResult.data["status"]==true)
-          {
+      if (apiResult.statusCode == 200)
+      // if(apiResult.data["status"]==true)
+      {
         return true;
-      }
-      else return false;
-    }
-    catch(e)
-    {
+      } else
+        return false;
+    } catch (e) {
       consolePrint(e.toString());
       return false;
     }
   }
 
   Future<bool> editOpenAtCloseAt({
-    String openAt="",
-    String closeAt="",
-    String vacation="",
+    String openAt = "",
+    String closeAt = "",
+    String vacation = "",
     int id,
     // String email,
     // String address,
-  })
-  async {FormData formData =
-  FormData.fromMap({"from"  : openAt, "to" : closeAt,
-    "vac" : vacation
-  });
+  }) async {
+    FormData formData =
+        FormData.fromMap({"from": openAt, "to": closeAt, "vac": vacation});
 
-  try{
-    final apiResult =await postRequest(
-        Api.updateWorkTime+"/"+id.toString(), formData, includeHeaders: true);
-    consolePrint(apiResult.statusCode.toString());
-    consolePrint(jsonEncode(apiResult.data));
+    try {
+      final apiResult = await postRequest(
+          Api.updateWorkTime + "/" + id.toString(), formData,
+          includeHeaders: true);
+      consolePrint(apiResult.statusCode.toString());
+      consolePrint(jsonEncode(apiResult.data));
 
-    if(apiResult.statusCode==200)
+      if (apiResult.statusCode == 200)
       // if(apiResult.data["status"]==true)
-        {
-      return true;
+      {
+        return true;
+      } else
+        return false;
+    } catch (e) {
+      consolePrint(e.toString());
+      return false;
     }
-    else return false;
-  }
-  catch(e)
-  {
-    consolePrint(e.toString());
-    return false;
-  }
   }
 
   Future<bool> deleteOpenAtCloseAt({
     int id,
     // String email,
     // String address,
-  })
-  async {
-    Map<String,dynamic> formData =
-    {
+  }) async {
+    Map<String, dynamic> formData = {
       // "day_id" :id,"from"  : openAt, "to" : closeAt, "vac" : vacation
     };
 
-    try{
-      final apiResult =await postRequest(
-          Api.deleteWorkTime+"/"+id.toString(), formData, includeHeaders: true);
-      if(apiResult.statusCode==200)
-        // if(apiResult.data["status"]==true)
-          {
+    try {
+      final apiResult = await postRequest(
+          Api.deleteWorkTime + "/" + id.toString(), formData,
+          includeHeaders: true);
+      if (apiResult.statusCode == 200)
+      // if(apiResult.data["status"]==true)
+      {
         return true;
-      }
-      else return false;
-    }
-    catch(e)
-    {
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
@@ -235,10 +211,8 @@ class DoctorAppRequests extends HttpService {
     // String img,
     String email,
     // String address,
-  })
-  async {
-    FormData formData =
-    new FormData.fromMap({
+  }) async {
+    FormData formData = new FormData.fromMap({
       // openAt!=null?? "open_from":openAt,
       // closeAt!=null?? "closed_at":closeAt,
       // img!=null??  "image":
@@ -248,20 +222,16 @@ class DoctorAppRequests extends HttpService {
     });
 
     try {
-      final apiResult = await postRequest(
-          Api.updateUser, formData, includeHeaders: true);
-      if (apiResult.statusCode == 200)
-        if (apiResult.data["status"] == true) {
-          return true;
-        }
-        else
-          return false;
-    }
-    catch (e) {
+      final apiResult =
+          await postRequest(Api.updateUser, formData, includeHeaders: true);
+      if (apiResult.statusCode == 200) if (apiResult.data["status"] == true) {
+        return true;
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
-
 
   Future<bool> setLatLong({
     // int openAt,
@@ -270,37 +240,29 @@ class DoctorAppRequests extends HttpService {
     double lat,
     double long,
     // String address,
-  })
-  async {
-    FormData formData =
-    new FormData.fromMap({
+  }) async {
+    FormData formData = new FormData.fromMap({
       // openAt!=null?? "open_from":openAt,
       // closeAt!=null?? "closed_at":closeAt,
       // img!=null??  "image":
       // await MultipartFile.fromFile(img),
       // "email": email,
       // "address":address,
-      "longitude":long,
-      "latitude":lat,
-
+      "longitude": long,
+      "latitude": lat,
     });
 
-
     try {
-      final apiResult = await postRequest(
-          Api.updateUser, formData, includeHeaders: true);
-      if (apiResult.statusCode == 200)
-        if (apiResult.data["status"] == true) {
-          return true;
-        }
-        else
-          return false;
-    }
-    catch (e) {
+      final apiResult =
+          await postRequest(Api.updateUser, formData, includeHeaders: true);
+      if (apiResult.statusCode == 200) if (apiResult.data["status"] == true) {
+        return true;
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
-
 
   Future<bool> updateInfo({
     // int openAt,
@@ -308,32 +270,26 @@ class DoctorAppRequests extends HttpService {
     // String img,
     String info,
     // String address,
-  })
-  async {
-    FormData formData =
-    new FormData.fromMap({
+  }) async {
+    FormData formData = new FormData.fromMap({
       // openAt!=null?? "open_from":openAt,
       // closeAt!=null?? "closed_at":closeAt,
       // img!=null??  "image":
       // await MultipartFile.fromFile(img),
       // "email": email,
       // "address":address,
-      "info_ar":info,
-      "info_en":info,
-
+      "info_ar": info,
+      "info_en": info,
     });
 
     try {
-      final apiResult = await postRequest(
-          Api.updateUser, formData, includeHeaders: true);
-      if (apiResult.statusCode == 200)
-        if (apiResult.data["status"] == true) {
-          return true;
-        }
-        else
-          return false;
-    }
-    catch (e) {
+      final apiResult =
+          await postRequest(Api.updateUser, formData, includeHeaders: true);
+      if (apiResult.statusCode == 200) if (apiResult.data["status"] == true) {
+        return true;
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
@@ -344,65 +300,56 @@ class DoctorAppRequests extends HttpService {
     String img,
     // String email,
     // String address,
-  })
-  async {
-
-    consolePrint("image:"+img);
+  }) async {
+    consolePrint("image:" + img);
     // var x=await MultipartFile./fromFile(img,filename: "img");
     // FormData formdata = new FormData();
     // formdata.add("image", new UploadFileInfo(_image, basename(img)));
-    FormData formData =
-    FormData.fromMap({
+    FormData formData = FormData.fromMap({
       // openAt!=null?? "open_from":openAt,
       // closeAt!=null?? "closed_at":closeAt,
-      "image":
-      img,
+      "image": img,
       // email!=null?? "email":email,
       // "address":address,
     });
 
     try {
-      final apiResult = await postRequest(
-          Api.updateUser, formData, includeHeaders: true);
+      final apiResult =
+          await postRequest(Api.updateUser, formData, includeHeaders: true);
       // consolePrint(" image result "+apiResult.data["status"]);
-      if (apiResult.statusCode == 200)
-        if (apiResult.data["status"] == true) {
-          AuthServices.setImage(apiResult.data["user"]["image"]);
-          return true;
-        }
-        else
-          return false;
-    }
-    catch (e) {
+      if (apiResult.statusCode == 200) if (apiResult.data["status"] == true) {
+        AuthServices.setImage(apiResult.data["user"]["image"]);
+        return true;
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
 
   Future<bool> updateOpenAtCloseAt({
-    String openAt="",
-    String closeAt="",
-    String vacation="",
+    String openAt = "",
+    String closeAt = "",
+    String vacation = "",
     int id,
     // String email,
     // String address,
-  })
-  async {
-    Map<String,dynamic> formData =
-     {"day_id" :id,"from"  : openAt, "to" : closeAt, "vac" : vacation};
+  }) async {
+    Map<String, dynamic> formData = {
+      "day_id": id,
+      "from": openAt,
+      "to": closeAt,
+      "vac": vacation
+    };
 
-
-    try{
-      final apiResult =await postRequest(
-          Api.updateUser, [formData], includeHeaders: true);
-      if(apiResult.statusCode==200)
-        if(apiResult.data["status"]==true)
-        {
-          return true;
-        }
-        else return false;
-    }
-    catch(e)
-    {
+    try {
+      final apiResult =
+          await postRequest(Api.updateUser, [formData], includeHeaders: true);
+      if (apiResult.statusCode == 200) if (apiResult.data["status"] == true) {
+        return true;
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
@@ -416,34 +363,30 @@ class DoctorAppRequests extends HttpService {
     String link,
     String type,
     int SocialId,
-  })
-  async {
-    FormData formData =
-    FormData.fromMap({
+  }) async {
+    FormData formData = FormData.fromMap({
       // openAt!=null?? "open_from":openAt,
       // closeAt!=null?? "closed_at":closeAt,
       // email!=null?? "email":email,
       // "address":address,
-      "type":type,
-      "link":link,
+      "type": type,
+      "link": link,
     });
 
     try {
       final apiResult = await postRequest(
-          Api.updateSocial+"/"+SocialId.toString(), formData, includeHeaders: true);
+          Api.updateSocial + "/" + SocialId.toString(), formData,
+          includeHeaders: true);
       // consolePrint(" image result "+apiResult.data["status"]);
-      if (apiResult.statusCode == 200)
-        if (apiResult.data["class"] == "success") {
-          return true;
-        }
-        else
-          return false;
-    }
-    catch (e) {
+      if (apiResult.statusCode == 200) if (apiResult.data["class"] ==
+          "success") {
+        return true;
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
-
 
   Future<bool> addSocial({
     // int openAt,
@@ -454,31 +397,27 @@ class DoctorAppRequests extends HttpService {
     String link,
     String type,
     // int Storeid,
-  })
-  async {
-    FormData formData =
-    FormData.fromMap({
+  }) async {
+    FormData formData = FormData.fromMap({
       // openAt!=null?? "open_from":openAt,
       // closeAt!=null?? "closed_at":closeAt,
       // email!=null?? "email":email,
       // "address":address,
-      "type":type,
-      "link":link,
+      "type": type,
+      "link": link,
       // "store_id":Storeid
     });
 
     try {
-      final apiResult = await postRequest(
-          Api.addSocial, formData, includeHeaders: true);
+      final apiResult =
+          await postRequest(Api.addSocial, formData, includeHeaders: true);
       // consolePrint(" image result "+apiResult.data["status"]);
-      if (apiResult.statusCode == 200)
-        if (apiResult.data["class"] == "success") {
-          return true;
-        }
-        else
-          return false;
-    }
-    catch (e) {
+      if (apiResult.statusCode == 200) if (apiResult.data["class"] ==
+          "success") {
+        return true;
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
@@ -492,10 +431,8 @@ class DoctorAppRequests extends HttpService {
     String link,
     String type,
     int SocialId,
-  })
-  async {
-    FormData formData =
-    FormData.fromMap({
+  }) async {
+    FormData formData = FormData.fromMap({
       // openAt!=null?? "open_from":openAt,
       // closeAt!=null?? "closed_at":closeAt,
       // email!=null?? "email":email,
@@ -506,22 +443,20 @@ class DoctorAppRequests extends HttpService {
 
     try {
       final apiResult = await postRequest(
-          Api.deleteSocial+"/"+SocialId.toString(), formData, includeHeaders: true);
+          Api.deleteSocial + "/" + SocialId.toString(), formData,
+          includeHeaders: true);
       // consolePrint(" image result "+apiResult.data["status"]);
-      if (apiResult.statusCode == 200)
-        if (apiResult.data["class"] == "success") {
-          return true;
-        }
-        else
-          return false;
-    }
-    catch (e) {
+      if (apiResult.statusCode == 200) if (apiResult.data["class"] ==
+          "success") {
+        return true;
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
 
-  Future<bool> UpdateService
-      ({
+  Future<bool> UpdateService({
     @required int category_id,
     // @required int type_id,
     @required String name_ar,
@@ -530,39 +465,33 @@ class DoctorAppRequests extends HttpService {
     @required String body_en,
     @required String image,
     @required String price,
-
     @required int serviceId,
-  })
-  async {
-    FormData formData =
-    new FormData.fromMap({
-      "category_id":category_id,
+  }) async {
+    FormData formData = new FormData.fromMap({
+      "category_id": category_id,
       // "type_id":type_id,
-      "name_ar":name_ar,
-      "name_en":name_en,
-      "body_ar":body_ar,
-      "body_en":body_en,
-      "price":price,
-      "image":image,
+      "name_ar": name_ar,
+      "name_en": name_en,
+      "body_ar": body_ar,
+      "body_en": body_en,
+      "price": price,
+      "image": image,
       // "store_id":vendor.store[0].id.toString()
     });
 
     try {
       final apiResult = await postRequest(
-          Api.editServiceById+"/"+serviceId.toString(), formData,
+          Api.editServiceById + "/" + serviceId.toString(), formData,
           includeHeaders: true);
-      if (apiResult.statusCode == 200)
-        if (apiResult.data["class"] == "success") {
-          return true;
-        }
-        else
-          return false;
-    }
-    catch (e) {
+      if (apiResult.statusCode == 200) if (apiResult.data["class"] ==
+          "success") {
+        return true;
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
-
 
   Future<bool> AddService({
     @required int category_id,
@@ -573,33 +502,28 @@ class DoctorAppRequests extends HttpService {
     @required String body_en,
     @required String image,
     @required String price,
-  })
-  async {
-    FormData formData =
-    new FormData.fromMap({
-      "category_id":category_id,
+  }) async {
+    FormData formData = new FormData.fromMap({
+      "category_id": category_id,
       // "type_id":type_id,
-      "name_ar":name_ar,
-      "name_en":name_en,
-      "body_ar":body_ar,
-      "body_en":body_en,
-      "image":image,
-      "price":price,
+      "name_ar": name_ar,
+      "name_en": name_en,
+      "body_ar": body_ar,
+      "body_en": body_en,
+      "image": image,
+      "price": price,
       // "store_id": vendor.store[0].id
     });
 
     try {
-      final apiResult = await postRequest(
-          Api.addService, formData,
-          includeHeaders: true);
-      if (apiResult.statusCode == 200)
-        if (apiResult.data["class"] == "success") {
-          return true;
-        }
-        else
-          return false;
-    }
-    catch (e) {
+      final apiResult =
+          await postRequest(Api.addService, formData, includeHeaders: true);
+      if (apiResult.statusCode == 200) if (apiResult.data["class"] ==
+          "success") {
+        return true;
+      } else
+        return false;
+    } catch (e) {
       consolePrint(e.toString());
       return false;
     }
@@ -611,10 +535,8 @@ class DoctorAppRequests extends HttpService {
     // String img,
     // String email,
     int ServiceId,
-  })
-  async {
-    FormData formData =
-    new FormData.fromMap({
+  }) async {
+    FormData formData = new FormData.fromMap({
       // openAt!=null?? "open_from":openAt,
       // closeAt!=null?? "closed_at":closeAt,
       // img!=null??  "image":
@@ -625,18 +547,15 @@ class DoctorAppRequests extends HttpService {
 
     try {
       final apiResult = await postRequest(
-          Api.deleteServiceById+"/"+ServiceId.toString(), formData,
+          Api.deleteServiceById + "/" + ServiceId.toString(), formData,
           includeHeaders: true);
-      if (apiResult.statusCode == 200)
-        if (apiResult.data["class"] == "success") {
-          return true;
-        }
-        else
-          return false;
-    }
-    catch (e) {
+      if (apiResult.statusCode == 200) if (apiResult.data["class"] ==
+          "success") {
+        return true;
+      } else
+        return false;
+    } catch (e) {
       return false;
     }
   }
-
 }

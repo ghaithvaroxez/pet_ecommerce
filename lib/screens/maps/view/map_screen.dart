@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pets/main.dart';
 import 'package:pets/screens/notifications/view/notification_button.dart';
 
 import 'translations/map_screen.i18n.dart';
@@ -37,23 +38,16 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-
-
-
-
   bool loading = false;
   bool failed = false;
   AllStores Stores;
   AllDoctors doctors;
 
-getStores() async
-  {
+  getStores() async {
     loading = true;
-    setState(() {
-
-    });
-markers.clear();
-    _info=null;
+    setState(() {});
+    markers.clear();
+    _info = null;
     await addLocationMarker();
     try {
       var url = Uri.parse("${Api.baseUrl}/all/stores");
@@ -61,14 +55,13 @@ markers.clear();
       final h = await HttpService().getHeaders();
       final apiResult = await http.get(url, headers: h);
       consolePrint("after print");
-consolePrint("response body :"+apiResult.body);
-consolePrint("response code :"+apiResult.statusCode.toString());
+      consolePrint("response body :" + apiResult.body);
+      consolePrint("response code :" + apiResult.statusCode.toString());
       if (apiResult.statusCode == 200) {
         Stores = allStoresFromJson(apiResult.body);
         consolePrint(Stores.stores.length.toString());
-        for(int i=0;i<Stores.stores.length;i++)
-        {
-          consolePrint("i="+i.toString());
+        for (int i = 0; i < Stores.stores.length; i++) {
+          consolePrint("i=" + i.toString());
           await addStoreMarker(Stores.stores[i]);
         }
       } else {
@@ -77,153 +70,138 @@ consolePrint("response code :"+apiResult.statusCode.toString());
     } catch (e) {
       failed = true;
       loading = false;
-      setState(() {
-
-      });
+      setState(() {});
       consolePrint(e.toString());
     }
     loading = false;
-    setState(() {
-
-    });
+    setState(() {});
   }
 
-getDoctors() async {
+  getDoctors() async {
     loading = true;
     setState(() {});
     try {
       markers.clear();
-      _info=null;
+      _info = null;
       await addLocationMarker();
       var url = Uri.parse("${Api.baseUrl}/doctors");
       consolePrint("before print");
       final apiResult =
-      await http.get(url, headers: await HttpService().getHeaders());
+          await http.get(url, headers: await HttpService().getHeaders());
       consolePrint("after print");
 
       if (apiResult.statusCode == 200) {
         doctors = allDoctorsFromJson(apiResult.body);
-        for(int i=0;i<doctors.doctors.length;i++)
-          {
-            await addDoctorMarker(doctors.doctors[i]);
-          }
+        for (int i = 0; i < doctors.doctors.length; i++) {
+          await addDoctorMarker(doctors.doctors[i]);
+        }
       } else {
         failed = true;
       }
     } catch (e) {
       failed = true;
       loading = false;
-      setState(() {
-
-      });
+      setState(() {});
     }
     loading = false;
-    setState(() {
-
-    });
+    setState(() {});
   }
-Map<MarkerId, Marker> markers=<MarkerId, Marker>{};
-addDoctorMarker(Doctor doctor) async{
+
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+
+  addDoctorMarker(Doctor doctor) async {
     var icon1 = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty,
         "assets/images/vendor_app/location_marker.png");
-if(doctor.lat==-1.01||doctor.long==-1.01)
-  return ;
+    if (doctor.lat == -1.01 || doctor.long == -1.01) return;
 
-markers[MarkerId('doctor${doctor.id}')]=
-    Marker(
-  markerId: MarkerId('doctor${doctor.id}'),
-  // infoWindow: const InfoWindow(title: 'Origin'),
-  icon: icon1,
-  position: LatLng(doctor.lat,doctor.long),
-  onTap: () async {
-    _customInfoWindowController.addInfoWindow(
-      Column(
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(4),
+    markers[MarkerId('doctor${doctor.id}')] = Marker(
+      markerId: MarkerId('doctor${doctor.id}'),
+      // infoWindow: const InfoWindow(title: 'Origin'),
+      icon: icon1,
+      position: LatLng(doctor.lat, doctor.long),
+      onTap: () async {
+        _customInfoWindowController.addInfoWindow(
+          Column(
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: DoctorCard(doctor),
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
               ),
-              child: DoctorCard(doctor),
-              width: double.infinity,
-              height: double.infinity,
-            ),
+            ],
           ),
-
-        ],
-      ),
-      LatLng(doctor.lat,doctor.long),
-    );
-    if(directions){
+          LatLng(doctor.lat, doctor.long),
+        );
+        if (directions) {
           final directions = await DirectionsRepository().getDirections(
               origin: _origin.position,
               destination: LatLng(doctor.lat, doctor.long));
           setState(() => _info = directions);
         }
       },
-
-);
-
+    );
   }
-addStoreMarker(Store store)async {
-  consolePrint("lat"+store.lat.toString()+"long:"+store.long.toString());
-  var icon1 = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty,
-      "assets/images/vendor_app/location_marker.png");
-  consolePrint("lat:"+store.lat.toString()+"long:"+store.long.toString());
-  if(store.lat==-1.01||store.long==-1.01)
-    return ;
 
-  markers[MarkerId('store${store.id}')]=
-    Marker(
+  addStoreMarker(Store store) async {
+    consolePrint(
+        "lat" + store.lat.toString() + "long:" + store.long.toString());
+    var icon1 = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty,
+        "assets/images/vendor_app/location_marker.png");
+    consolePrint(
+        "lat:" + store.lat.toString() + "long:" + store.long.toString());
+    if (store.lat == -1.01 || store.long == -1.01) return;
+
+    markers[MarkerId('store${store.id}')] = Marker(
       markerId: MarkerId('store${store.id}'),
       // infoWindow: const InfoWindow(title: 'Origin'),
       icon: icon1,
-      position: LatLng(store.lat,store.long),
-      onTap: () async{
+      position: LatLng(store.lat, store.long),
+      onTap: () async {
         _customInfoWindowController.addInfoWindow(
-            StoreCard(store),
-          LatLng(store.lat,store.long),
+          StoreCard(store),
+          LatLng(store.lat, store.long),
         );
-       if(directions) {
+        if (directions) {
           final directions = await DirectionsRepository().getDirections(
               origin: _origin.position,
               destination: LatLng(store.lat, store.long));
           setState(() => _info = directions);
         }
       },
-
-  );
-}
-bool directions=true;
-addLocationMarker()async{
-  var icon = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty,
-      "assets/images/vendor_app/my_location_marker.png");
-  var status = await Permission.location.request();
-  if (status.isGranted) {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    LatLng userLocation = LatLng(position.latitude, position.longitude);
-
-    _origin= Marker(
-      markerId: MarkerId('my location'),
-      // infoWindow: const InfoWindow(title: 'Origin'),
-      icon: icon,
-      position: LatLng(userLocation.latitude,userLocation.longitude),
-
     );
-    markers[MarkerId('my location')]=
-        Marker(
-          markerId: MarkerId('my location'),
-          // infoWindow: const InfoWindow(title: 'Origin'),
-          icon: icon,
-          position: LatLng(userLocation.latitude,userLocation.longitude),
-
-        );
   }
 
+  bool directions = true;
 
-}
+  addLocationMarker() async {
+    var icon = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty,
+        "assets/images/vendor_app/my_location_marker.png");
+    var status = await Permission.location.request();
+    if (status.isGranted) {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      LatLng userLocation = LatLng(position.latitude, position.longitude);
+
+      _origin = Marker(
+        markerId: MarkerId('my location'),
+        // infoWindow: const InfoWindow(title: 'Origin'),
+        icon: icon,
+        position: LatLng(userLocation.latitude, userLocation.longitude),
+      );
+      markers[MarkerId('my location')] = Marker(
+        markerId: MarkerId('my location'),
+        // infoWindow: const InfoWindow(title: 'Origin'),
+        icon: icon,
+        position: LatLng(userLocation.latitude, userLocation.longitude),
+      );
+    }
+  }
 
   var stores = RxBool(true);
   static const _initialCameraPosition = CameraPosition(
@@ -242,12 +220,10 @@ addLocationMarker()async{
     super.dispose();
   }
 
-  
   CustomInfoWindowController _customInfoWindowController =
-  CustomInfoWindowController();
+      CustomInfoWindowController();
 
-  Widget StoreCard(Store doctor)
-  {
+  Widget StoreCard(Store doctor) {
     return GestureDetector(
       onTap: () {
         Get.to(StoreDetailsPage(doctor));
@@ -256,9 +232,7 @@ addLocationMarker()async{
         // width: getProportionateScreenWidth(90),
         // height: getProportionateScreenHeight(90),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(7),
-            color: Colors.white
-        ),
+            borderRadius: BorderRadius.circular(7), color: Colors.white),
         child: Column(
           children: [
             Expanded(
@@ -268,8 +242,13 @@ addLocationMarker()async{
               child: Container(
                 width: double.infinity,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(7),topRight: Radius.circular(7)),
-                  child: Image.network(Api.imagePath+doctor.image,fit: BoxFit.cover,),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(7),
+                      topRight: Radius.circular(7)),
+                  child: Image.network(
+                    Api.imagePath + doctor.image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -278,19 +257,19 @@ addLocationMarker()async{
               child: Container(
                 // width: getProportionateScreenWidth(90),
                 // height: getProportionateScreenHeight(50),
-                padding: EdgeInsets.symmetric(horizontal:getProportionateScreenHeight(8)),
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenHeight(8)),
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Row(
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-
                         Container(
                           // height: getProportionateScreenHeight(30),
                           // width: getProportionateScreenWidth(115),
                           child: AutoSizeText(
-                            doctor.name+" ",
+                            doctor.name + " ",
                             style: body3_18pt,
                             maxLines: 1,
                             minFontSize: 9,
@@ -310,12 +289,14 @@ addLocationMarker()async{
                             width: getProportionateScreenWidth(10),
                           ),
                           Container(
+                            // color: Colors.red,
                             // height: getProportionateScreenHeight(18),
-                            // width: getProportionateScreenWidth(120),
+                            width: getProportionateScreenWidth(120),
                             child: AutoSizeText(
                               doctor.district,
                               style: darkGrayText_14pt,
-                              minFontSize: 10,
+                              maxLines: 1,
+                              minFontSize: 8,
                             ),
                           ),
                         ],
@@ -325,27 +306,22 @@ addLocationMarker()async{
                 ),
               ),
             )
-
           ],
         ),
       ),
     );
   }
 
-   Widget DoctorCard(Doctor doctor)
-  {
+  Widget DoctorCard(Doctor doctor) {
     return GestureDetector(
-      onTap: () async{
+      onTap: () async {
         Get.to(DoctorDetailsPage(doctor.id));
-
       },
       child: Container(
         // width: getProportionateScreenWidth(90),
         // height: getProportionateScreenHeight(90),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7),
-color: Colors.white
-        ),
+            borderRadius: BorderRadius.circular(7), color: Colors.white),
         child: Column(
           children: [
             Expanded(
@@ -355,8 +331,13 @@ color: Colors.white
               child: Container(
                 width: double.infinity,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(7),topRight: Radius.circular(7)),
-                child: Image.network(Api.imagePath+doctor.image,fit: BoxFit.cover,),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(7),
+                      topRight: Radius.circular(7)),
+                  child: Image.network(
+                    Api.imagePath + doctor.image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -365,7 +346,8 @@ color: Colors.white
               child: Container(
                 // width: getProportionateScreenWidth(90),
                 // height: getProportionateScreenHeight(50),
-                padding: EdgeInsets.symmetric(horizontal:getProportionateScreenHeight(8)),
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenHeight(8)),
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -376,7 +358,7 @@ color: Colors.white
                           // height: getProportionateScreenHeight(30),
                           // width: getProportionateScreenWidth(115),
                           child: AutoSizeText(
-                            doctor.lastName+" ",
+                            doctor.lastName + " ",
                             style: body3_18pt,
                             maxLines: 1,
                             minFontSize: 9,
@@ -386,7 +368,7 @@ color: Colors.white
                           // height: getProportionateScreenHeight(30),
                           // width: getProportionateScreenWidth(115),
                           child: AutoSizeText(
-                            doctor.firstName+" ",
+                            doctor.firstName + " ",
                             style: body3_18pt,
                             maxLines: 1,
                             minFontSize: 9,
@@ -407,11 +389,12 @@ color: Colors.white
                           ),
                           Container(
                             // height: getProportionateScreenHeight(18),
-                            // width: getProportionateScreenWidth(120),
+                            width: getProportionateScreenWidth(120),
                             child: AutoSizeText(
                               doctor.district,
+                              maxLines: 1,
                               style: darkGrayText_14pt,
-                              minFontSize: 10,
+                              minFontSize: 8,
                             ),
                           ),
                         ],
@@ -421,13 +404,11 @@ color: Colors.white
                 ),
               ),
             )
-
           ],
         ),
       ),
     );
   }
-
 
   @override
   void initState() {
@@ -436,15 +417,15 @@ color: Colors.white
 
     getStores();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: CustomDrawer(),
       body: Builder(
-        builder:(context)=> SafeArea(
+        builder: (context) => SafeArea(
           child: Column(
             children: [
-
               Container(
                 child: Material(
                   elevation: 5,
@@ -481,16 +462,24 @@ color: Colors.white
                               )),
                           Spacer(),
                           GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Get.back();
                             },
                             child: CircleAvatar(
                               radius: 24,
                               backgroundColor: Colors.grey.shade50,
-                              child: Image.asset(
-                                "assets/images/vendor_app/back_icon.png",
-                                height: 24,
-                                width: 20,
+                              child: RotatedBox(
+                                quarterTurns: appLocal == "ar" ? 0 : 90,
+                                child: Center(
+                                  child: Opacity(
+                                    opacity: 0.6,
+                                    child: Image.asset(
+                                      "assets/images/vendor_app/back_icon.png",
+                                      height: 24,
+                                      width: 20,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -502,126 +491,143 @@ color: Colors.white
                 ),
               ),
               Expanded(
-                child: loading?LoadingScreen():Stack(
-                  alignment: Alignment.center,
-                  children: [
+                child: loading
+                    ? LoadingScreen()
+                    : Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          GoogleMap(
+                            mapType: MapType.normal,
+                            myLocationButtonEnabled: true,
+                            zoomControlsEnabled: false,
+                            initialCameraPosition: _initialCameraPosition,
 
-                    GoogleMap(
-                      mapType: MapType.normal,
-                      myLocationButtonEnabled: true,
-                      zoomControlsEnabled: false,
-                      initialCameraPosition: _initialCameraPosition,
-
-                      onTap: (position) {
-                        _customInfoWindowController.hideInfoWindow();
-                        _info=null;
-                      },
-                      onCameraMove: (position) {
-                        _customInfoWindowController.onCameraMove();
-                        _customInfoWindowController.hideInfoWindow();
-                      },
-                      onMapCreated: (GoogleMapController controller) async {
-                        _googleMapController = controller;
-                        _customInfoWindowController.googleMapController =
-                            controller;
-                      },
-                      markers: Set<Marker>.of(markers.values),
-                      // {
-                      //   if (_origin != null) _origin,
-                      //   if (_destination != null) _destination
-                      // },
-                      polylines: {
-                        if (_info != null)
-                          Polyline(
-                            polylineId: PolylineId('overview_polyline'),
-                            color: Color(0xFF49C3EA),
-                            width: 5,
-                            points: _info.polylinePoints
-                                .map((e) => LatLng(e.latitude, e.longitude))
-                                .toList(),
+                            onTap: (position) {
+                              _customInfoWindowController.hideInfoWindow();
+                              _info = null;
+                            },
+                            onCameraMove: (position) {
+                              _customInfoWindowController.onCameraMove();
+                              _customInfoWindowController.hideInfoWindow();
+                            },
+                            onMapCreated:
+                                (GoogleMapController controller) async {
+                              _googleMapController = controller;
+                              _customInfoWindowController.googleMapController =
+                                  controller;
+                            },
+                            markers: Set<Marker>.of(markers.values),
+                            // {
+                            //   if (_origin != null) _origin,
+                            //   if (_destination != null) _destination
+                            // },
+                            polylines: {
+                              if (_info != null)
+                                Polyline(
+                                  polylineId: PolylineId('overview_polyline'),
+                                  color: Color(0xFF49C3EA),
+                                  width: 5,
+                                  points: _info.polylinePoints
+                                      .map((e) =>
+                                          LatLng(e.latitude, e.longitude))
+                                      .toList(),
+                                ),
+                            },
+                            // onLongPress: _addMarker,
                           ),
-                      },
-                      // onLongPress: _addMarker,
-                    ),
-                    Positioned(top: getProportionateScreenHeight(16),
-                        height: getProportionateScreenHeight(35),
-                        child: Container(
-                          width: getProportionateScreenWidth(390),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              GestureDetector(
-                                onTap: ()async{
-                                  stores.value=!stores.value;
-                                  await getStores();
-                                },
-                                child: Container(width: getProportionateScreenWidth(105),
-                                  height: getProportionateScreenHeight(35),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      color: !stores.value ? Colors.white:Color(0xFFE4F2F6)),
-                                  child: Center(
-                                    child: AutoSizeText(
-                                      "متاجر".i18n, style: body1_16pt_blue,
-                                      minFontSize: 9,),
-                                  ),),
+                          Positioned(
+                              top: getProportionateScreenHeight(16),
+                              height: getProportionateScreenHeight(35),
+                              child: Container(
+                                width: getProportionateScreenWidth(390),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () async {
+                                        stores.value = !stores.value;
+                                        await getStores();
+                                      },
+                                      child: Container(
+                                        width: getProportionateScreenWidth(105),
+                                        height:
+                                            getProportionateScreenHeight(35),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            color: !stores.value
+                                                ? Colors.white
+                                                : Color(0xFFE4F2F6)),
+                                        child: Center(
+                                          child: AutoSizeText(
+                                            "متاجر".i18n,
+                                            style: body1_16pt_blue,
+                                            minFontSize: 9,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        stores.value = !stores.value;
+                                        await getDoctors();
+                                      },
+                                      child: Container(
+                                        width: getProportionateScreenWidth(105),
+                                        height:
+                                            getProportionateScreenHeight(35),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            color: stores.value
+                                                ? Colors.white
+                                                : Color(0xFFE4F2F6)),
+                                        child: Center(
+                                          child: AutoSizeText(
+                                            "أطباء".i18n,
+                                            style: body1_16pt_blue,
+                                            minFontSize: 9,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                          if (_info != null)
+                            Positioned(
+                              top: getProportionateScreenHeight(55.0),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 6.0,
+                                  horizontal: 12.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue.withOpacity(0.4),
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Colors.black26,
+                                      offset: Offset(0, 2),
+                                      blurRadius: 6.0,
+                                    )
+                                  ],
+                                ),
+                                child: Text(
+                                  '${_info.totalDistance}, ${_info.totalDuration}',
+                                  style: blueButton_14pt,
+                                ),
                               ),
-                              GestureDetector(
-                                  onTap: ()async{
-
-                                    stores.value=!stores.value;
-                                    await getDoctors();
-                                  },
-                                child: Container(width: getProportionateScreenWidth(105),
-                                  height: getProportionateScreenHeight(35),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      color: stores.value ? Colors.white:Color(0xFFE4F2F6)),
-                                  child: Center(
-                                    child: AutoSizeText(
-                                      "أطباء".i18n, style: body1_16pt_blue,
-                                      minFontSize: 9,),
-                                  ),),
-                              ),
-
-
-
-                            ],
+                            ),
+                          CustomInfoWindow(
+                            controller: _customInfoWindowController,
+                            height: getProportionateScreenHeight(140),
+                            width: getProportionateScreenWidth(150),
+                            offset: 50,
                           ),
-                        )),
-                    if (_info != null)
-                      Positioned(
-                        top:getProportionateScreenHeight(55.0),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 6.0,
-                            horizontal: 12.0,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.blue.withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(20.0),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black26,
-                                offset: Offset(0, 2),
-                                blurRadius: 6.0,
-                              )
-                            ],
-                          ),
-                          child: Text(
-                            '${_info.totalDistance}, ${_info.totalDuration}',
-                            style: blueButton_14pt,
-                          ),
-                        ),
+                        ],
                       ),
-                    CustomInfoWindow(
-                      controller: _customInfoWindowController,
-                      height: getProportionateScreenHeight(140),
-                      width: getProportionateScreenWidth(150),
-                      offset: 50,
-                    ),
-                  ],
-                ),
               ),
             ],
           ),
@@ -640,105 +646,105 @@ color: Colors.white
     );
   }
 
-  // void _addMarker(LatLng pos) async {
-  //   var icon = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty,
-  //       "assets/images/vendor_app/my_location_marker.png");
-  //   var icon1 = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty,
-  //       "assets/images/vendor_app/location_marker.png");
-  //   LocationPermission  permission = await Geolocator.checkPermission();
-  //   Position position = await Geolocator.getCurrentPosition(
-  //       desiredAccuracy: LocationAccuracy.high);
-  //   LatLng userLocation = LatLng(position.latitude, position.longitude);
-  //   if (_origin == null || (_origin != null && _destination != null)) {
-  //     // Origin is not set OR Origin/Destination are both set
-  //     // Set origin
-  //     setState(() {
-  //       _origin = Marker(
-  //         markerId: MarkerId('origin'),
-  //         // infoWindow: const InfoWindow(title: 'Origin'),
-  //         icon: icon,
-  //         position: userLocation,
-  //         onTap: () {
-  //           _customInfoWindowController.addInfoWindow(
-  //             Column(
-  //               children: [
-  //                 Expanded(
-  //                   child: Container(
-  //                     decoration: BoxDecoration(
-  //                       color: Colors.blue,
-  //                       borderRadius: BorderRadius.circular(4),
-  //                     ),
-  //                     child: Padding(
-  //                       padding: const EdgeInsets.all(8.0),
-  //                       child: Row(
-  //                         mainAxisAlignment: MainAxisAlignment.center,
-  //                         children: [
-  //                           Icon(
-  //                             Icons.account_circle,
-  //                             color: Colors.white,
-  //                             size: 30,
-  //                           ),
-  //                           SizedBox(
-  //                             width: 8.0,
-  //                           ),
-  //                           Text(
-  //                             "I am here",
-  //                             style:
-  //                             Theme
-  //                                 .of(context)
-  //                                 .textTheme
-  //                                 .headline6
-  //                                 .copyWith(
-  //                               color: Colors.white,
-  //                             ),
-  //                           )
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     width: double.infinity,
-  //                     height: double.infinity,
-  //                   ),
-  //                 ),
-  //                 Triangle.isosceles(
-  //                   edge: Edge.BOTTOM,
-  //                   child: Container(
-  //                     color: Colors.blue,
-  //                     width: 20.0,
-  //                     height: 10.0,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             pos,
-  //           );
-  //         },
-  //       );
-  //       // Reset destination
-  //       _destination = null;
-  //
-  //       // Reset info
-  //       _info = null;
-  //     });
-  //   } else {
-  //     // Origin is already set
-  //     // Set destination
-  //     setState(() {
-  //       _destination = Marker(
-  //         markerId: MarkerId('destination'),
-  //         // infoWindow: const InfoWindow(title: 'Destination'),
-  //         // icon: BitmapDescriptor.defaultMarker,//BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-  //         icon: icon1,
-  //         //BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-  //         position: pos,
-  //       );
-  //     });
-  //
-  //     // Get directions
-  //     final directions = await DirectionsRepository()
-  //         .getDirections(origin: _origin.position, destination: pos);
-  //     setState(() => _info = directions);
-  //   }
-  // }
+// void _addMarker(LatLng pos) async {
+//   var icon = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty,
+//       "assets/images/vendor_app/my_location_marker.png");
+//   var icon1 = await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty,
+//       "assets/images/vendor_app/location_marker.png");
+//   LocationPermission  permission = await Geolocator.checkPermission();
+//   Position position = await Geolocator.getCurrentPosition(
+//       desiredAccuracy: LocationAccuracy.high);
+//   LatLng userLocation = LatLng(position.latitude, position.longitude);
+//   if (_origin == null || (_origin != null && _destination != null)) {
+//     // Origin is not set OR Origin/Destination are both set
+//     // Set origin
+//     setState(() {
+//       _origin = Marker(
+//         markerId: MarkerId('origin'),
+//         // infoWindow: const InfoWindow(title: 'Origin'),
+//         icon: icon,
+//         position: userLocation,
+//         onTap: () {
+//           _customInfoWindowController.addInfoWindow(
+//             Column(
+//               children: [
+//                 Expanded(
+//                   child: Container(
+//                     decoration: BoxDecoration(
+//                       color: Colors.blue,
+//                       borderRadius: BorderRadius.circular(4),
+//                     ),
+//                     child: Padding(
+//                       padding: const EdgeInsets.all(8.0),
+//                       child: Row(
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         children: [
+//                           Icon(
+//                             Icons.account_circle,
+//                             color: Colors.white,
+//                             size: 30,
+//                           ),
+//                           SizedBox(
+//                             width: 8.0,
+//                           ),
+//                           Text(
+//                             "I am here",
+//                             style:
+//                             Theme
+//                                 .of(context)
+//                                 .textTheme
+//                                 .headline6
+//                                 .copyWith(
+//                               color: Colors.white,
+//                             ),
+//                           )
+//                         ],
+//                       ),
+//                     ),
+//                     width: double.infinity,
+//                     height: double.infinity,
+//                   ),
+//                 ),
+//                 Triangle.isosceles(
+//                   edge: Edge.BOTTOM,
+//                   child: Container(
+//                     color: Colors.blue,
+//                     width: 20.0,
+//                     height: 10.0,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             pos,
+//           );
+//         },
+//       );
+//       // Reset destination
+//       _destination = null;
+//
+//       // Reset info
+//       _info = null;
+//     });
+//   } else {
+//     // Origin is already set
+//     // Set destination
+//     setState(() {
+//       _destination = Marker(
+//         markerId: MarkerId('destination'),
+//         // infoWindow: const InfoWindow(title: 'Destination'),
+//         // icon: BitmapDescriptor.defaultMarker,//BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+//         icon: icon1,
+//         //BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+//         position: pos,
+//       );
+//     });
+//
+//     // Get directions
+//     final directions = await DirectionsRepository()
+//         .getDirections(origin: _origin.position, destination: pos);
+//     setState(() => _info = directions);
+//   }
+// }
 
 // Future<ui.Image> getImageFromPath(String imagePath) async {
 //
@@ -872,4 +878,3 @@ color: Colors.white
 //   return BitmapDescriptor.fromBytes(uint8List);
 // }
 }
-

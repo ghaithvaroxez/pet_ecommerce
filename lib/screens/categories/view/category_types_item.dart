@@ -18,23 +18,22 @@ import '../../loading_screen.dart';
 
 import 'translations/category_types_item.i18n.dart';
 
-
-
 class CategoryTypeItemsScreen extends StatefulWidget {
   int cat_id;
   int type_id;
-  CategoryTypeItemsScreen(this.type_id,this.cat_id);
+
+  CategoryTypeItemsScreen(this.type_id, this.cat_id);
+
   @override
-  _CategoryTypeItemsScreenState createState() => _CategoryTypeItemsScreenState();
+  _CategoryTypeItemsScreenState createState() =>
+      _CategoryTypeItemsScreenState();
 }
 
 class _CategoryTypeItemsScreenState extends State<CategoryTypeItemsScreen> {
-
   Future<bool> addToFavorite(int productId) async {
-    try{
+    try {
       consolePrint("product id" + productId.toString());
-      var url = Uri.parse(
-          "${Api.baseUrl}/addToFavourite/$productId/product");
+      var url = Uri.parse("${Api.baseUrl}/addToFavourite/$productId/product");
       consolePrint("before add to favorite print");
       consolePrint("try to post on " + url.path);
 
@@ -57,26 +56,24 @@ class _CategoryTypeItemsScreenState extends State<CategoryTypeItemsScreen> {
         consolePrint("statusCode!=200");
         return false;
       }
-    }catch(e){
+    } catch (e) {
       consolePrint(e.toString());
       return false;
     }
   }
 
-  List<StoreProduct> products=[];
-  bool loading =true;
-  bool error=false;
-  fetchData()async
-  {
+  List<StoreProduct> products = [];
+  bool loading = true;
+  bool error = false;
+
+  fetchData() async {
     consolePrint("fetch data");
-    loading=true;
-    setState(() {
+    loading = true;
+    setState(() {});
 
-    });
-
-    try{
-      var url =
-      Uri.parse("${Api.baseUrl}/productsBy/${widget.cat_id}/${widget.type_id}");
+    try {
+      var url = Uri.parse(
+          "${Api.baseUrl}/productsBy/${widget.cat_id}/${widget.type_id}");
       final h = await HttpService().getHeaders();
       final apiResult = await http.get(url, headers: h);
       if (apiResult.statusCode == 200) {
@@ -90,14 +87,14 @@ class _CategoryTypeItemsScreenState extends State<CategoryTypeItemsScreen> {
 
       loading = false;
       setState(() {});
-    }catch(e)
-    {
-      error=true;
+    } catch (e) {
+      error = true;
       loading = false;
       setState(() {});
       consolePrint(e.toString());
     }
   }
+
   @override
   void initState() {
     fetchData();
@@ -105,111 +102,159 @@ class _CategoryTypeItemsScreenState extends State<CategoryTypeItemsScreen> {
     super.initState();
     consolePrint("initial state of get productas ");
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
       drawer: CustomDrawer(),
-
-      body: SafeArea(child:
-      Builder(
-        builder: (context)=>Column(
-          children: [
-
-            Container(
-              child: Material(
-                elevation: 5,
-                color: Colors.white,
-                child: Container(
-                    width: SizeConfig.screenWidth,
-                    height: getProportionateScreenHeight(95),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: getProportionateScreenWidth(24),
-                        ),
-                        GestureDetector(
-                          onTap: (){
-                            Scaffold.of(context).openDrawer();
-                          },
-                          child: CircleAvatar(
-                            radius: 24,
-                            backgroundColor: Colors.grey.shade50,
-                            child: Image.asset(
-                              "assets/images/home/menu_icon.png",
-                              height: 24,
-                              width: 20,
+      body: SafeArea(
+        child: Builder(
+          builder: (context) => Column(
+            children: [
+              Container(
+                child: Material(
+                  elevation: 5,
+                  color: Colors.white,
+                  child: Container(
+                      width: SizeConfig.screenWidth,
+                      height: getProportionateScreenHeight(95),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: getProportionateScreenWidth(24),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Scaffold.of(context).openDrawer();
+                            },
+                            child: CircleAvatar(
+                              radius: 24,
+                              backgroundColor: Colors.grey.shade50,
+                              child: Image.asset(
+                                "assets/images/home/menu_icon.png",
+                                height: 24,
+                                width: 20,
+                              ),
                             ),
                           ),
-                        ),
-                        Spacer(),
-                        Container(height:getProportionateScreenHeight(28),child: AutoSizeText("المنتجات".i18n,style: h5_21pt,minFontSize: 8,)),
-                        Spacer(),
-                        NotificationButton(),
-                        SizedBox(
-                          width: getProportionateScreenWidth(24),
-                        ),
-                      ],
-                    )),
-              ),
-            ),
-
-            Expanded(
-              child: error?Column(mainAxisSize: MainAxisSize.max,children: [
-                Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text( "الرجاء المحاولة مرة اخرى ".i18n,style: body3_18pt,),),),
-              ],):loading?LoadingScreen():products.length==0?NoItems():
-              Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(16),
-                    vertical: getProportionateScreenHeight(8)),
-                child:  SingleChildScrollView(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: [
-                          ...List<Widget>.generate(
-                            products.length,
-                                (index)=>index%2==0&&products[index].visible=="visible"?Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              child:  StoreProductCard(products[index],()async{
-                                bool k=await addToFavorite(products[index].id);
-                                if(k==true)
-                                  return true;
-                                else return false;
-                              },false),
-                            ):Container(height: 0,),
-
+                          Spacer(),
+                          Container(
+                              height: getProportionateScreenHeight(28),
+                              child: AutoSizeText(
+                                "المنتجات".i18n,
+                                style: h5_21pt,
+                                minFontSize: 8,
+                              )),
+                          Spacer(),
+                          NotificationButton(),
+                          SizedBox(
+                            width: getProportionateScreenWidth(24),
                           ),
                         ],
-                      ),
-                      Spacer(),
-                      Column(
-                        children: [
-                          ...List<Widget>.generate(
-                            products.length,
-                                (index)=>index%2==1&&products[index].visible=="visible"?Container(
-                              margin: EdgeInsets.symmetric(vertical: 10),
-
-                              child:  StoreProductCard(products[index],()async{
-                                bool k=await addToFavorite(products[index].id);
-                                if(k==true)
-                                  return true;
-                                else return false;
-                              },false),
-                            ):Container(height: 0,),
-
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                      )),
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: error
+                    ? Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            height: getProportionateScreenHeight(300),
+                            width: getProportionateScreenWidth(370),
+                            child: Center(
+                              child: Text(
+                                "الرجاء المحاولة مرة اخرى ".i18n,
+                                style: body3_18pt,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : loading
+                        ? LoadingScreen()
+                        : products.length == 0
+                            ? NoItems()
+                            : Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: getProportionateScreenWidth(16),
+                                    vertical: getProportionateScreenHeight(8)),
+                                child: SingleChildScrollView(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          ...List<Widget>.generate(
+                                            products.length,
+                                            (index) => index % 2 == 0 &&
+                                                    products[index].visible ==
+                                                        "visible"
+                                                ? Container(
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 10),
+                                                    child: StoreProductCard(
+                                                        products[index],
+                                                        () async {
+                                                      bool k =
+                                                          await addToFavorite(
+                                                              products[index]
+                                                                  .id);
+                                                      if (k == true)
+                                                        return true;
+                                                      else
+                                                        return false;
+                                                    }, false),
+                                                  )
+                                                : Container(
+                                                    height: 0,
+                                                  ),
+                                          ),
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      Column(
+                                        children: [
+                                          ...List<Widget>.generate(
+                                            products.length,
+                                            (index) => index % 2 == 1 &&
+                                                    products[index].visible ==
+                                                        "visible"
+                                                ? Container(
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 10),
+                                                    child: StoreProductCard(
+                                                        products[index],
+                                                        () async {
+                                                      bool k =
+                                                          await addToFavorite(
+                                                              products[index]
+                                                                  .id);
+                                                      if (k == true)
+                                                        return true;
+                                                      else
+                                                        return false;
+                                                    }, false),
+                                                  )
+                                                : Container(
+                                                    height: 0,
+                                                  ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+              ),
+            ],
+          ),
         ),
-      ),),
+      ),
     );
   }
 }

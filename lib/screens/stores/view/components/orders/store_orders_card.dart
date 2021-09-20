@@ -4,7 +4,6 @@ import 'package:pets/configuration/constants/colors.dart';
 import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/size_config.dart';
 
-
 class StoreOrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -18,8 +17,6 @@ class StoreOrderCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-
-
           Container(
             margin: EdgeInsets.symmetric(
                 vertical: getProportionateScreenHeight(16)),
@@ -28,7 +25,12 @@ class StoreOrderCard extends StatelessWidget {
                 Container(
                   height: getProportionateScreenHeight(30),
                   width: getProportionateScreenWidth(200),
-                  child: AutoSizeText("قطة لونها رمادي فروها ناعم",textDirection:TextDirection.rtl,minFontSize: 8,style: body1_16pt,),
+                  child: AutoSizeText(
+                    "قطة لونها رمادي فروها ناعم",
+                    textDirection: TextDirection.rtl,
+                    minFontSize: 8,
+                    style: body1_16pt,
+                  ),
                 ),
                 // SizedBox(height: getProportionateScreenHeight(2),),
                 Container(
@@ -40,11 +42,24 @@ class StoreOrderCard extends StatelessWidget {
                       Container(
                         width: getProportionateScreenWidth(80),
                         height: getProportionateScreenHeight(12),
-                        child:  Row(
+                        child: Row(
                           children: [
-                            Expanded(flex:3,child: Container(height: getProportionateScreenHeight(12),child: AutoSizeText("منذ 3 ساعات",style: darkGrayText_11pt,minFontSize: 5,textDirection: TextDirection.rtl),)),
-                            Expanded(flex:1,child: Container(height: getProportionateScreenHeight(12),child: Image.asset("assets/images/home/clock_icon.png"),)),
-
+                            Expanded(
+                                flex: 3,
+                                child: Container(
+                                  height: getProportionateScreenHeight(12),
+                                  child: AutoSizeText("منذ 3 ساعات",
+                                      style: darkGrayText_11pt,
+                                      minFontSize: 5,
+                                      textDirection: TextDirection.rtl),
+                                )),
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                  height: getProportionateScreenHeight(12),
+                                  child: Image.asset(
+                                      "assets/images/home/clock_icon.png"),
+                                )),
                           ],
                         ),
                       ),
@@ -53,21 +68,41 @@ class StoreOrderCard extends StatelessWidget {
                         height: getProportionateScreenHeight(12),
                         child: Row(
                           children: [
-                            Expanded(flex:3,child: Container(height: getProportionateScreenHeight(12),child: AutoSizeText("قطط",style: darkGrayText_11pt,minFontSize: 5,textDirection: TextDirection.rtl,),)),
-                            Expanded(flex:1,child: Container(height: getProportionateScreenHeight(12),child: Image.asset("assets/images/store/cat_icon.png"),)),
-
+                            Expanded(
+                                flex: 3,
+                                child: Container(
+                                  height: getProportionateScreenHeight(12),
+                                  child: AutoSizeText(
+                                    "قطط",
+                                    style: darkGrayText_11pt,
+                                    minFontSize: 5,
+                                    textDirection: TextDirection.rtl,
+                                  ),
+                                )),
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                  height: getProportionateScreenHeight(12),
+                                  child: Image.asset(
+                                      "assets/images/store/cat_icon.png"),
+                                )),
                           ],
                         ),
                       ),
-
                     ],
                   ),
                 ),
-                SizedBox(height: getProportionateScreenHeight(10),),
+                SizedBox(
+                  height: getProportionateScreenHeight(10),
+                ),
                 Container(
                   height: getProportionateScreenHeight(50),
                   width: getProportionateScreenWidth(200),
-child: AutoSizeText("السلام عليكم لدي قطة لونها رمادي من سلالة أصيلة للمزيد تواصل معي",minFontSize: 8,style: darkGrayText_13pt,textDirection: TextDirection.rtl),
+                  child: AutoSizeText(
+                      "السلام عليكم لدي قطة لونها رمادي من سلالة أصيلة للمزيد تواصل معي",
+                      minFontSize: 8,
+                      style: darkGrayText_13pt,
+                      textDirection: TextDirection.rtl),
                 ),
               ],
             ),

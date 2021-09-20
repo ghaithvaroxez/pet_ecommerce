@@ -4,7 +4,6 @@ import 'package:pets/configuration/constants/colors.dart';
 import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/size_config.dart';
 
-
 class ReviewCad extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -69,10 +68,14 @@ class ReviewCad extends StatelessWidget {
               child: Container(
                 child: Row(
                   children: [
-                    AutoSizeText("5",style: darkGrayText_11pt,minFontSize: 8,),
-
-
-                    SizedBox(width: getProportionateScreenWidth(2),),
+                    AutoSizeText(
+                      "5",
+                      style: darkGrayText_11pt,
+                      minFontSize: 8,
+                    ),
+                    SizedBox(
+                      width: getProportionateScreenWidth(2),
+                    ),
                     Image.asset("assets/images/store/star_icon.png"),
                   ],
                 ),

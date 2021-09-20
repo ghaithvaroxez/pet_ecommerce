@@ -6,22 +6,21 @@ import 'package:pets/screens/auth/controller/services/auth_services.dart';
 import 'package:pets/screens/orders/views/order_details_screen.dart';
 import 'package:pets/screens/stores/view/store_details_id.dart';
 
-class NotificationNumberController extends GetxController{
-  int count=0;
+class NotificationNumberController extends GetxController {
+  int count = 0;
 
-  getCount()async{
-    count=await AuthServices.getNotificationsCount();
+  getCount() async {
+    count = await AuthServices.getNotificationsCount();
     update();
   }
 
-  increaseCount()async{
-    int temp=await AuthServices.getNotificationsCount();
+  increaseCount() async {
+    int temp = await AuthServices.getNotificationsCount();
     temp++;
-  await AuthServices.setNotificationsCount(temp.toString());
-  getCount();
+    await AuthServices.setNotificationsCount(temp.toString());
+    getCount();
     update();
   }
-
 
   @override
   void onInit() {

@@ -8,10 +8,11 @@ import 'package:pets/configuration/size_config.dart';
 import '../../../../vendor_app/model/product.dart';
 import 'package:pets/screens/vendor_app/model/image_model.dart' as im;
 
-
 class StoreImageCard extends StatelessWidget {
   StoreImageCard(this.image);
-   im.Image image;
+
+  im.Image image;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,17 +58,17 @@ class StoreImageCard extends StatelessWidget {
                     bottomLeft: Radius.circular(12),
                     bottomRight: Radius.circular(12),
                   ),
-                  child: Image.network(Api.imagePath+image.path,fit: BoxFit.fill,),
+                  child: Image.network(
+                    Api.imagePath + image.path,
+                    fit: BoxFit.fill,
+                  ),
                 ),
 
                 // Image.asset(
                 //   "assets/images/home/cat_1.png",
                 //   fit: BoxFit.fill,
                 // ),
-
-              )
-          ),
-
+              )),
 
           // Positioned(
           //     left: getProportionateScreenWidth(25),

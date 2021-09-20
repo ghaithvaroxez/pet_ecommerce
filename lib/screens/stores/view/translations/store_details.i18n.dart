@@ -1,42 +1,31 @@
-
 import 'package:i18n_extension/i18n_extension.dart';
 
 extension Localization on String {
-
-  static var _t = Translations("ar")
-
-      + {
-        "ar":"مفتوح الان",
+  static var _t = Translations("ar") +
+      {
+        "ar": "مفتوح الان",
         "en": "Now open",
-      }
-
-      + {
+      } +
+      {
         "ar": "الصور",
-        "en":  "Photos",
-      }
-
-      + {
+        "en": "Photos",
+      } +
+      {
         "ar": "المنتجات",
-        "en":  "Products",
-      }
-
-      + {
+        "en": "Products",
+      } +
+      {
         "ar": "عن المتجر",
-        "en":  "About Store",
-      }
-
-      + {
+        "en": "About Store",
+      } +
+      {
         "ar": "العروض",
-        "en":  "Offers",
-      }
-      +{
-        "ar":"مغلق الان",
-        "en": "Closed now" ,
-      }
-
-
-  ;
+        "en": "Offers",
+      } +
+      {
+        "ar": "مغلق الان",
+        "en": "Closed now",
+      };
 
   String get i18n => localize(this, _t);
 }
-

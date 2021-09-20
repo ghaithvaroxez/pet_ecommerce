@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-NotificationsModel notificationsModelFromJson(String str) => NotificationsModel.fromJson(json.decode(str));
+NotificationsModel notificationsModelFromJson(String str) =>
+    NotificationsModel.fromJson(json.decode(str));
 
-String notificationsModelToJson(NotificationsModel data) => json.encode(data.toJson());
+String notificationsModelToJson(NotificationsModel data) =>
+    json.encode(data.toJson());
 
 class NotificationsModel {
   NotificationsModel({
@@ -15,13 +17,16 @@ class NotificationsModel {
 
   List<Notification> notifications;
 
-  factory NotificationsModel.fromJson(Map<String, dynamic> json) => NotificationsModel(
-    notifications: List<Notification>.from(json["notifications"].map((x) => Notification.fromJson(x))),
-  );
+  factory NotificationsModel.fromJson(Map<String, dynamic> json) =>
+      NotificationsModel(
+        notifications: List<Notification>.from(
+            json["notifications"].map((x) => Notification.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "notifications": List<dynamic>.from(notifications.map((x) => x.toJson())),
-  };
+        "notifications":
+            List<dynamic>.from(notifications.map((x) => x.toJson())),
+      };
 }
 
 class Notification {
@@ -48,26 +53,26 @@ class Notification {
   String createdAt;
 
   factory Notification.fromJson(Map<String, dynamic> json) => Notification(
-    id: json["id"],
-    type: json["type"],
-    image: json["image"],
-    title: json["title"],
-    body: json["body"],
-    userId: json["user_id"],
-    itemId: json["item_id"],
-    isRead: json["is_read"],
-    createdAt: json["created_at"],
-  );
+        id: json["id"],
+        type: json["type"],
+        image: json["image"],
+        title: json["title"],
+        body: json["body"],
+        userId: json["user_id"],
+        itemId: json["item_id"],
+        isRead: json["is_read"],
+        createdAt: json["created_at"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "type": type,
-    "image": image,
-    "title": title,
-    "body": body,
-    "user_id": userId,
-    "item_id": itemId,
-    "is_read": isRead,
-    "created_at": createdAt,
-  };
+        "id": id,
+        "type": type,
+        "image": image,
+        "title": title,
+        "body": body,
+        "user_id": userId,
+        "item_id": itemId,
+        "is_read": isRead,
+        "created_at": createdAt,
+      };
 }

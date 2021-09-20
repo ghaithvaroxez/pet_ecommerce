@@ -8,19 +8,20 @@ import '../requests/user_profile_requests.dart';
 import 'dart:io';
 import 'package:image/image.dart' as Im;
 import 'translations/user_profile_controller.i18n.dart';
+
 class UserController extends GetxController {
   DoctorModel doctorModel;
-  List<City> cities=[];
-  bool init=false;
+  List<City> cities = [];
+  bool init = false;
   UserRequests userRequests = UserRequests();
   bool isLoading = false;
 
   fetchData() async {
     setLoading();
-    cities= await userRequests.getLocations();
+    cities = await userRequests.getLocations();
     await userRequests.getModel();
     await getDoctorInfo();
-    init=true;
+    init = true;
     removeLoading();
     update();
   }
@@ -34,28 +35,25 @@ class UserController extends GetxController {
 
   getDoctorInfo() async {
     setLoading();
-    doctorModel = await userRequests
-        .getUserInfo();
+    doctorModel = await userRequests.getUserInfo();
     removeLoading();
     update();
   }
 
-
- Future<bool> checkPassword(String pass)async{
-    try{
+  Future<bool> checkPassword(String pass) async {
+    try {
       setLoading();
-      bool k =await userRequests.checkPassword(pass);
-      if ( k== true) {
+      bool k = await userRequests.checkPassword(pass);
+      if (k == true) {
         removeLoading();
-
       } else {
         removeLoading();
         Get.rawSnackbar(
             message: "كلمة المرور التي ادخلتها ليست صحيحة !".i18n,
             backgroundColor: Colors.redAccent);
       }
-        return k;
-    }catch(e){
+      return k;
+    } catch (e) {
       removeLoading();
       Get.rawSnackbar(
           message: "كلمة المرور التي ادخلتها ليست صحيحة !".i18n,
@@ -65,12 +63,11 @@ class UserController extends GetxController {
     }
   }
 
-  updateUser(int location,String first,String last,String Email)async
-  {
+  updateUser(int location, String first, String last, String Email) async {
     try {
       setLoading();
-      bool k =await userRequests.UpdateUser(location,first,last,Email);
-      if ( k== true) {
+      bool k = await userRequests.UpdateUser(location, first, last, Email);
+      if (k == true) {
         await getDoctorInfo();
         removeLoading();
       } else {
@@ -86,16 +83,13 @@ class UserController extends GetxController {
           backgroundColor: Colors.redAccent);
     }
     update();
-
-
   }
-
 
   changeLocation(int value) async {
     try {
       setLoading();
-      bool k =await userRequests.updateAddress(address: value);
-      if ( k== true) {
+      bool k = await userRequests.updateAddress(address: value);
+      if (k == true) {
         await getDoctorInfo();
         removeLoading();
       } else {
@@ -110,12 +104,11 @@ class UserController extends GetxController {
     update();
   }
 
-
   changeImage(String path) async {
     try {
       setLoading();
-      bool k =await userRequests.updateImage(img: path);
-      if ( k== true) {
+      bool k = await userRequests.updateImage(img: path);
+      if (k == true) {
         await getDoctorInfo();
         removeLoading();
       } else {
@@ -132,14 +125,13 @@ class UserController extends GetxController {
           backgroundColor: Colors.redAccent);
       update();
     }
-
   }
 
   changeEmail(String email) async {
     try {
       setLoading();
-      bool k =await userRequests.updateEmail(email: email);
-      if ( k== true) {
+      bool k = await userRequests.updateEmail(email: email);
+      if (k == true) {
         await getDoctorInfo();
         removeLoading();
       } else {
@@ -152,14 +144,13 @@ class UserController extends GetxController {
       removeLoading();
     }
     update();
-
   }
 
   changeFirstName(String first) async {
     try {
       setLoading();
-      bool k =await userRequests.updateFirstName(first: first);
-      if ( k== true) {
+      bool k = await userRequests.updateFirstName(first: first);
+      if (k == true) {
         await getDoctorInfo();
         removeLoading();
       } else {
@@ -172,14 +163,13 @@ class UserController extends GetxController {
       removeLoading();
     }
     update();
-
   }
 
   changeLastName(String last) async {
     try {
       setLoading();
-      bool k =await userRequests.updateLastName(last: last);
-      if ( k== true) {
+      bool k = await userRequests.updateLastName(last: last);
+      if (k == true) {
         await getDoctorInfo();
         removeLoading();
       } else {
@@ -192,14 +182,13 @@ class UserController extends GetxController {
       removeLoading();
     }
     update();
-
   }
 
-   changePassword(String pass) async {
+  changePassword(String pass) async {
     try {
       setLoading();
-      bool k =await userRequests.updatePassword(pass:  pass);
-      if ( k== true) {
+      bool k = await userRequests.updatePassword(pass: pass);
+      if (k == true) {
         await getDoctorInfo();
         Get.rawSnackbar(
             message: "تم تغير كلمة المرور بنجاح ".i18n,
@@ -218,9 +207,7 @@ class UserController extends GetxController {
           backgroundColor: Colors.redAccent);
     }
     update();
-
   }
-
 
   //
   // changeSocial({String link, String type, int socialId}) async {

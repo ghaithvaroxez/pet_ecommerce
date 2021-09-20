@@ -8,9 +8,11 @@ import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
 class VideoApp extends StatefulWidget {
-StatusAll status;
-int index;
-  VideoApp(this.status,this.index);
+  StatusAll status;
+  int index;
+
+  VideoApp(this.status, this.index);
+
   @override
   _VideoAppState createState() => _VideoAppState();
 }
@@ -28,7 +30,7 @@ class _VideoAppState extends State<VideoApp> {
     //     setState(() {});
     //   });
     consolePrint(widget.index.toString());
-    storyController = StoryController() ;
+    storyController = StoryController();
     // for(int i=0;i<widget.index;i++) {
     //   storyController.next();
     //   storyController.next();
@@ -36,6 +38,7 @@ class _VideoAppState extends State<VideoApp> {
     // consolePrint("i="+i.toString());
     // }
   }
+
   StoryController storyController;
 
   @override
@@ -43,32 +46,26 @@ class _VideoAppState extends State<VideoApp> {
     return MaterialApp(
       title: 'Video Demo',
       home: Scaffold(
-        body:
-          StoryView(
+        body: StoryView(
             controller: storyController,
-              onComplete: () { Navigator.pop(context);},
-              onVerticalSwipeComplete: (direction) {
-                if (direction == Direction.down) {
-                  Navigator.pop(context);
-                }
-              },
-              storyItems:
-            [
-
-
-
-                        widget.status.type == "image"
-                            ? StoryItem.pageImage(
-                                url: Api.imagePath + widget.status.image,
-                                duration: Duration(seconds: widget.status.duration),
-                                controller: storyController)
-                            : StoryItem.pageVideo(
-                                Api.imagePath + widget.status.image,
-                            duration: Duration(seconds: widget.status.duration),
-                                controller: storyController),
-
-            ]
-      ),
+            onComplete: () {
+              Navigator.pop(context);
+            },
+            onVerticalSwipeComplete: (direction) {
+              if (direction == Direction.down) {
+                Navigator.pop(context);
+              }
+            },
+            storyItems: [
+              widget.status.type == "image"
+                  ? StoryItem.pageImage(
+                      url: Api.imagePath + widget.status.image,
+                      duration: Duration(seconds: widget.status.duration),
+                      controller: storyController)
+                  : StoryItem.pageVideo(Api.imagePath + widget.status.image,
+                      duration: Duration(seconds: widget.status.duration),
+                      controller: storyController),
+            ]),
       ),
     );
   }

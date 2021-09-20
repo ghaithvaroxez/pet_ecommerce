@@ -16,12 +16,12 @@ class AllDays {
   List<Day> days;
 
   factory AllDays.fromJson(Map<String, dynamic> json) => AllDays(
-    days: List<Day>.from(json["days"].map((x) => Day.fromJson(x))),
-  );
+        days: List<Day>.from(json["days"].map((x) => Day.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "days": List<dynamic>.from(days.map((x) => x.toJson())),
-  };
+        "days": List<dynamic>.from(days.map((x) => x.toJson())),
+      };
 }
 
 class Day {
@@ -34,12 +34,12 @@ class Day {
   String day;
 
   factory Day.fromJson(Map<String, dynamic> json) => Day(
-    id: json["id"],
-    day: json["day"],
-  );
+        id: json["id"],
+        day: json["day"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "day": day,
-  };
+        "id": id,
+        "day": day,
+      };
 }

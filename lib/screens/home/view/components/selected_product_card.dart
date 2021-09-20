@@ -11,17 +11,22 @@ import 'package:pets/screens/vendor_app/model/product.dart';
 import 'package:get/get.dart';
 
 class HomeStoreProductCard extends StatelessWidget {
-  HomeStoreProductCard(this.storeProdcut,this.fav);
+  HomeStoreProductCard(this.storeProdcut, this.fav);
+
   StoreProduct storeProdcut;
   Function fav;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Get.to(ProductDetailsPage(storeProdcut,false));
+      onTap: () {
+        Get.to(ProductDetailsPage(storeProdcut, false));
       },
       child: Container(
-        margin: EdgeInsets.only(left: getProportionateScreenWidth(5),right:getProportionateScreenWidth(5),),
+        margin: EdgeInsets.only(
+          left: getProportionateScreenWidth(5),
+          right: getProportionateScreenWidth(5),
+        ),
         width: getProportionateScreenWidth(120),
         height: getProportionateScreenHeight(150),
         decoration: BoxDecoration(
@@ -61,21 +66,26 @@ class HomeStoreProductCard extends StatelessWidget {
                       topLeft: Radius.circular(12),
                       topRight: Radius.circular(12),
                     ),
-                    child: Image.network(Api.imagePath+storeProdcut.image,fit: BoxFit.fill,),
+                    child: Image.network(
+                      Api.imagePath + storeProdcut.image,
+                      fit: BoxFit.fill,
+                    ),
                   ),
 
                   // Image.asset(
                   //   "assets/images/home/cat_1.png",
                   //   fit: BoxFit.fill,
                   // ),
-
                 )),
             Positioned(
               // width: getProportionateScreenWidth(15),
               // height: getProportionateScreenHeight(15),
-              left:getProportionateScreenWidth(15),
+              left: getProportionateScreenWidth(15),
               top: getProportionateScreenHeight(15),
-              child: FavoriteIcon(fav: fav,s: storeProdcut.favStatus,),
+              child: FavoriteIcon(
+                fav: fav,
+                s: storeProdcut.favStatus,
+              ),
             )
           ],
         ),

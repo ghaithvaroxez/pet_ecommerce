@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:pets/services/local_storage_service.dart';
@@ -36,6 +34,7 @@ class AppStrings {
   static String googleMapApiKey = "AIzaSyDVHXZ7DdC2phLuH-HWiQ8X1J6PeOPEfrU";
   static String name = "pname";
   static String image = "pimage";
+
   //END DON'T TOUNCH Ya habab
 
   //
@@ -50,6 +49,7 @@ class AppStrings {
   }
 
   static dynamic appSettingsObject;
+
   static Future<void> getAppSettingsFromLocalStorage() async {
     appSettingsObject =
         LocalStorageService.prefs.getString(AppStrings.appRemoteSettings);

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-class Product{
+class Product {
   String name;
   String price;
   String desc;
@@ -11,5 +11,15 @@ class Product{
   File img;
   String category;
   String type;
-Product({this.name,this.price,this.desc,this.isAvailable,this.date,this.img,this.category,this.type,});
+
+  Product({
+    this.name,
+    this.price,
+    this.desc,
+    this.isAvailable,
+    this.date,
+    this.img,
+    this.category,
+    this.type,
+  });
 }

@@ -36,9 +36,12 @@ import 'package:pets/screens/vendor_app/controller/info_controller.dart';
 import 'package:pets/screens/widgets/text_field.dart';
 
 import 'components/add_time_screen.dart';
+
 class AboutStoreBodyScreen extends StatefulWidget {
   VendorInfoController customVendorInfoController;
+
   AboutStoreBodyScreen(this.customVendorInfoController);
+
   @override
   _AboutStoreBodyScreenState createState() => _AboutStoreBodyScreenState();
 }
@@ -55,6 +58,7 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
     "رام الله",
     "القدس",
   ];
+
   // bool loaddata;
   // List<City> addresses=[];
   // fetchData() async {
@@ -91,23 +95,22 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
   //
   //   });
   // }
-  TextEditingController openAt=TextEditingController();
-  TextEditingController closeAt=TextEditingController();
-  TextEditingController email=TextEditingController();
-  TextEditingController info=TextEditingController();
-  TextEditingController tempSocialLink=TextEditingController();
-  TextEditingController tempSocialType=TextEditingController();
- TextEditingController tempFromTime=TextEditingController();
-  TextEditingController tempToTime=TextEditingController();
-  TextEditingController vacation=TextEditingController();
-  VendorAppRequests _vendorAppRequests=VendorAppRequests();
+  TextEditingController openAt = TextEditingController();
+  TextEditingController closeAt = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController info = TextEditingController();
+  TextEditingController tempSocialLink = TextEditingController();
+  TextEditingController tempSocialType = TextEditingController();
+  TextEditingController tempFromTime = TextEditingController();
+  TextEditingController tempToTime = TextEditingController();
+  TextEditingController vacation = TextEditingController();
+  VendorAppRequests _vendorAppRequests = VendorAppRequests();
   File tmpFile;
   String base64Image;
-  Future<String> compressImage(File f) async {
-     loaddata=true;
-    setState(() {
 
-    });
+  Future<String> compressImage(File f) async {
+    loaddata = true;
+    setState(() {});
     print('starting compression');
     final tempDir = await getTemporaryDirectory();
     final path = tempDir.path;
@@ -115,7 +118,8 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
     print('before decoding img');
     Im.Image image = Im.decodeImage(f.readAsBytesSync());
     print('before decoding img2');
-    image = Im.copyResize(image,width: 1080);//MediaQuery.of(context).size.width.toInt());
+    image = Im.copyResize(image,
+        width: 1080); //MediaQuery.of(context).size.width.toInt());
 
     // image.format = Im.Image.RGBA; //was in old version of flutter
     //Im.Image newim = Im.remapColors(image, alpha: Im.LUMINANCE);
@@ -136,648 +140,1035 @@ class _AboutStoreBodyScreenState extends State<AboutStoreBodyScreen> {
     return base64Image;
   }
 
-
+  String utcTo12HourFormat(String bigTime) {
+    // DateTime tempDate = DateFormat("hh:mm").parse(bigTime);
+    // var dateFormat = DateFormat("h:mm a"); // you can change the format here
+    // var utcDate = dateFormat.format(tempDate); // pass the UTC time here
+    // var localDate = dateFormat.parse(utcDate, true).toLocal().toString();
+    // String createdDate = dateFormat.format(DateTime.parse(localDate));
+    print("------------$bigTime");
+    String temp = '';
+    var first = bigTime.substring(0, 2);
+    var second = bigTime.substring(3);
+    consolePrint(first);
+    consolePrint(second);
+    if (int.parse(first) == 12) {
+      temp = first + ":" + second + " PM";
+    } else if (int.parse(first) == 00) {
+      temp = "12" + ":" + second + " AM";
+    } else if (int.parse(first) > 12) {
+      int t = (int.parse(first) - 12);
+      temp = t.toString() + ":" + second + " PM";
+    } else {
+      temp = first + ":" + second + " AM";
+    }
+    return temp;
+  }
 
   @override
   void initState() {
     // TODO: implement init
     super.initState();
-    loaddata=false;
+    loaddata = false;
     // getaddresses();
     // fetchData();
-
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return
-    //   loaddata?Center(child: Container(height: getProportionateScreenHeight(100),width: getProportionateScreenWidth(100),child: Column(
-    //   children: [
-    //     CircularProgressIndicator(),
-    //     SizedBox(height: getProportionateScreenHeight(5),),
-    //     AutoSizeText("Loading addresses.."),
-    //   ],
-    // ),),):
-    GetBuilder<VendorInfoController> (
+        //   loaddata?Center(child: Container(height: getProportionateScreenHeight(100),width: getProportionateScreenWidth(100),child: Column(
+        //   children: [
+        //     CircularProgressIndicator(),
+        //     SizedBox(height: getProportionateScreenHeight(5),),
+        //     AutoSizeText("Loading addresses.."),
+        //   ],
+        // ),),):
+        GetBuilder<VendorInfoController>(
       init: widget.customVendorInfoController,
-      builder: (controller)=> controller.isLoading==true?Center(child: Container(height: getProportionateScreenHeight(100),width: getProportionateScreenWidth(100),child: Column(
-        children: [
-          CircularProgressIndicator(),
-          SizedBox(height: getProportionateScreenHeight(5),),
-
-        ],
-      ),),):Container(
-        color: Colors.white,
-        padding: EdgeInsets.only(
-            left: getProportionateScreenWidth(24),
-            right: getProportionateScreenWidth(24),
-            top: getProportionateScreenWidth(16),
-            // vertical: getProportionateScreenHeight(26)
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-
-              Row(
-                children: [
-                  AutoSizeText(
-                    controller.storeInfo.store.name==null ?"":controller.storeInfo.store.name,
-
-                    style: h5_25pt,
-                    minFontSize: 16,
-                  ),
-                  Spacer(),
-                ],
-              ),
-
-              Container(
-                height: getProportionateScreenHeight(60),
-                child: Row(
+      builder: (controller) => controller.isLoading == true
+          ? Center(
+              child: Container(
+                height: getProportionateScreenHeight(100),
+                width: getProportionateScreenWidth(100),
+                child: Column(
                   children: [
+                    CircularProgressIndicator(),
+                    SizedBox(
+                      height: getProportionateScreenHeight(5),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : Container(
+              color: Colors.white,
+              padding: EdgeInsets.only(
+                left: getProportionateScreenWidth(24),
+                right: getProportionateScreenWidth(24),
+                top: getProportionateScreenWidth(16),
+                // vertical: getProportionateScreenHeight(26)
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        AutoSizeText(
+                          controller.storeInfo.store.name == null
+                              ? ""
+                              : controller.storeInfo.store.name,
+                          style: h5_25pt,
+                          minFontSize: 16,
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+
                     Container(
-                      alignment: Alignment.centerRight,
-                      child: Container(
-                          width: getProportionateScreenWidth(165),
-                          padding: EdgeInsets.only(right: getProportionateScreenWidth(4)),
-
-                          height:
-                          getProportionateScreenHeight(45),
-                          decoration: BoxDecoration(
-                            borderRadius:
-                            BorderRadius.circular(6),
-                            border: Border.all(
-                                width: 1,
-                                color:
-                                Colors.grey.withOpacity(0.6)),
-                          ),
-                          // padding: EdgeInsets.symmetric(
-                          //     horizontal: 15),
-                          alignment: appLocal=="ar"?Alignment.centerRight:Alignment.centerLeft,
-                          child:Directionality(
-                            textDirection: appLocal=="ar"?TextDirection.ltr:TextDirection.rtl,
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                // value: controller.storeInfo.address,
-                                // value: _value,
-                                items: controller.locationModel.cities
-                                    .map((City item) {
-                                  return DropdownMenuItem<City>(
-                                    value: item,
-                                    child: Container(
-                                      width: getProportionateScreenWidth(150),
-                                      height:
-                                      getProportionateScreenHeight(30),
-                                      child: AutoSizeText(
-                                        item.name,
-                                        textDirection:
-                                        TextDirection.rtl,
-                                        style: blackText_14pt,
-                                        minFontSize: 8,
-                                        maxLines: 1,
+                      height: getProportionateScreenHeight(60),
+                      child: Row(
+                        children: [
+                          Container(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                                width: getProportionateScreenWidth(165),
+                                padding: EdgeInsets.only(
+                                    right: getProportionateScreenWidth(4)),
+                                height: getProportionateScreenHeight(45),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  border: Border.all(
+                                      width: 1,
+                                      color: Colors.grey.withOpacity(0.6)),
+                                ),
+                                // padding: EdgeInsets.symmetric(
+                                //     horizontal: 15),
+                                alignment: appLocal == "ar"
+                                    ? Alignment.centerRight
+                                    : Alignment.centerLeft,
+                                child: Directionality(
+                                  textDirection: appLocal == "ar"
+                                      ? TextDirection.ltr
+                                      : TextDirection.rtl,
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      // value: controller.storeInfo.address,
+                                      // value: _value,
+                                      items: controller.locationModel.cities
+                                          .map((City item) {
+                                        return DropdownMenuItem<City>(
+                                          value: item,
+                                          child: Container(
+                                            width: getProportionateScreenWidth(
+                                                150),
+                                            height:
+                                                getProportionateScreenHeight(
+                                                    30),
+                                            child: AutoSizeText(
+                                              item.name,
+                                              textDirection: appLocal == "ar"
+                                                  ? TextDirection.rtl
+                                                  : TextDirection.ltr,
+                                              style: blackText_14pt,
+                                              minFontSize: 8,
+                                              maxLines: 1,
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (city) async {
+                                        print("before");
+                                        await controller
+                                            .changeLocation(city.id);
+                                        print("after");
+                                      },
+                                      hint: Container(
+                                        // color: Colors.red,
+                                        width: getProportionateScreenWidth(120),
+                                        alignment: appLocal == "ar"
+                                            ? Alignment.centerRight
+                                            : Alignment.centerLeft,
+                                        child: AutoSizeText(
+                                          controller.storeInfo.store.district,
+                                          maxLines: 1,
+                                          minFontSize: 9,
+                                        ),
                                       ),
+                                      elevation: 8,
+                                      style: blackText_14pt,
+                                      icon: Container(
+                                          width: getProportionateScreenWidth(8),
+                                          child: RotatedBox(
+                                              quarterTurns: 90,
+                                              child:
+                                                  Icon(Icons.arrow_drop_down))),
+                                      iconDisabledColor: Colors.black,
+                                      iconEnabledColor: Colors.blue,
+                                      // isExpanded: true,
                                     ),
-                                  );
-                                }).toList(),
-                                onChanged: (city) async{
-                                  print("before");
-                                  await controller.changeLocation(city.id);
-                                  print("after");
+                                  ),
+                                )),
+                          ),
+                          Spacer(),
+                          GestureDetector(
+                              onTap: () async {
+                                LocationResult locationResult =
+                                    await showLocationPicker(
+                                  context,
+                                  AppStrings.googleMapApiKey,
+                                  myLocationButtonEnabled: true,
+                                  initialCenter: LatLng(33.509606, 36.277816),
+                                  layersButtonEnabled: true,
+                                );
 
-                                },
-                                hint: Container(
-                                  // color: Colors.red,
-                                  width: getProportionateScreenWidth(120),
-                                  alignment: appLocal=="ar"?Alignment.centerRight:Alignment.centerLeft,
-                                  child: AutoSizeText( controller.storeInfo.store.district,maxLines: 1,minFontSize: 9,),),
-                                elevation: 8,
-                                style: blackText_14pt,
-                                icon: Container(width:getProportionateScreenWidth(8),child: RotatedBox(quarterTurns:90,child: Icon(Icons.arrow_drop_down))),
-                                iconDisabledColor: Colors.black,
-                                iconEnabledColor: Colors.blue,
-                                // isExpanded: true,
+                                consolePrint(
+                                    "Address" + locationResult.address);
+                                consolePrint("longitude" +
+                                    locationResult.latLng.longitude.toString());
+                                consolePrint("latitude" +
+                                    locationResult.latLng.latitude.toString());
+                                consolePrint(
+                                    "Address" + locationResult.placeId);
+                                await controller.setLatLong(
+                                    locationResult.latLng.latitude,
+                                    locationResult.latLng.longitude);
+                                // consolePrint("Address"+locationResult.address);
+                              },
+                              child: Container(
+                                height: getProportionateScreenHeight(30),
+                                width: getProportionateScreenWidth(30),
+                                child: Image.asset(
+                                    "assets/images/home/location_icon.png"),
+                              )),
+                        ],
+                      ),
+                    ),
+
+                    ///location
+                    SizedBox(
+                      height: getProportionateScreenHeight(25),
+                    ),
+                    Container(
+                      height: getProportionateScreenHeight(30),
+                      alignment: Alignment.centerRight,
+                      child: Row(
+                        children: [
+                          AutoSizeText(
+                            "مواعيد العمل".i18n,
+                            minFontSize: 14,
+                            style: body3_18pt,
+                            maxLines: 1,
+                          ),
+                          Spacer(),
+                          controller.storeInfo.store.storeWorksDays.length < 7
+                              ? GestureDetector(
+                                  onTap: () {
+                                    openAt.text = "";
+                                    closeAt.text = "";
+                                    Get.to(() => AddTimeScreen(
+                                          t1: openAt,
+                                          t2: closeAt,
+                                          storeWorksDay: controller.storeInfo
+                                                      .store.storeWorksDays ==
+                                                  null
+                                              ? []
+                                              : controller.storeInfo.store
+                                                  .storeWorksDays,
+                                          controller:
+                                              widget.customVendorInfoController,
+                                        ));
+                                  },
+                                  child: Container(
+                                    child: AutoSizeText(
+                                      "اضافة".i18n,
+                                      minFontSize: 14,
+                                      style: darkGrayText_14pt_underlined,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                )
+                              : Container(
+                                  width: 0,
+                                  height: 0,
+                                ),
+                        ],
+                      ),
+                    ),
+
+                    ///مواعيد العمل
+                    SizedBox(
+                      height: getProportionateScreenHeight(16),
+                    ),
+                    controller.storeInfo.store.storeWorksDays == null ||
+                            controller.storeInfo.store.storeWorksDays == []
+                        ? Row(
+                            children: [
+                              Container(
+                                height: getProportionateScreenHeight(20),
+                                alignment: Alignment.bottomCenter,
+                                child: AutoSizeText(
+                                  "اضف  مواعيد العمل لديك".i18n,
+                                  maxLines: 1,
+                                  style: darkGrayText_14pt,
+                                  minFontSize: 10,
+                                ),
                               ),
-                            ),
-                          )),
+                              Spacer(),
+                              Container(
+                                height: getProportionateScreenHeight(30),
+                                width: getProportionateScreenWidth(30),
+                                child: Image.asset(
+                                  "assets/images/vendor_app/clender.png",
+                                  height: getProportionateScreenHeight(12),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Column(
+                            children: [
+                              ...List<Widget>.generate(
+                                controller
+                                    .storeInfo.store.storeWorksDays.length,
+                                (index) => Container(
+                                  margin: EdgeInsets.symmetric(vertical: 3),
+                                  height: getProportionateScreenHeight(50),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(color: Colors.grey)),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: getProportionateScreenWidth(15),
+                                      ),
+                                      Expanded(
+                                          flex: 2,
+                                          child: AutoSizeText(
+                                            controller.storeInfo.store
+                                                .storeWorksDays[index].day,
+                                            style: darkGrayText_11pt,
+                                            maxLines: 1,
+                                          )),
+                                      Spacer(
+                                        flex: 1,
+                                      ),
+                                      Expanded(
+                                          flex: 2,
+                                          child: Row(
+                                            children: [
+                                              AutoSizeText(
+                                                utcTo12HourFormat(controller
+                                                    .storeInfo
+                                                    .store
+                                                    .storeWorksDays[index]
+                                                    .from),
+                                                style: darkGrayText_11pt,
+                                                maxLines: 1,
+                                                minFontSize: 9,
+                                                textDirection: appLocal == "ar"
+                                                    ? TextDirection.rtl
+                                                    : TextDirection.ltr,
+                                              ),
+                                              AutoSizeText(
+                                                "-",
+                                                style: darkGrayText_11pt,
+                                                maxLines: 1,
+                                                minFontSize: 9,
+                                                textDirection:
+                                                    TextDirection.rtl,
+                                              ),
+                                              AutoSizeText(
+                                                utcTo12HourFormat(controller
+                                                    .storeInfo
+                                                    .store
+                                                    .storeWorksDays[index]
+                                                    .to),
+                                                style: darkGrayText_11pt,
+                                                maxLines: 1,
+                                                minFontSize: 9,
+                                                textDirection: appLocal == "ar"
+                                                    ? TextDirection.rtl
+                                                    : TextDirection.ltr,
+                                              ),
+                                            ],
+                                          )),
+                                      GestureDetector(
+                                        onTap: () {
+                                          tempFromTime.text = utcTo12HourFormat(
+                                              controller.storeInfo.store
+                                                  .storeWorksDays[index].from);
+                                          tempToTime.text = utcTo12HourFormat(
+                                              controller.storeInfo.store
+                                                  .storeWorksDays[index].to);
+
+                                          consolePrint(tempFromTime.text);
+                                          consolePrint(tempToTime.text);
+                                          Get.to(EditTimeScreen(
+                                            t1: tempFromTime,
+                                            t2: tempToTime,
+                                            v: vacation,
+                                            editAction: () async {
+                                              consolePrint("berfor edit time");
+                                              await controller.editTime(
+                                                  controller.storeInfo.store
+                                                      .storeWorksDays[index].id,
+                                                  tempFromTime.text,
+                                                  tempToTime.text,
+                                                  vacation.text == ""
+                                                      ? false
+                                                      : true); //edit
+                                              consolePrint("after edit time");
+                                            },
+                                            deleteAction: () async {
+                                              consolePrint(
+                                                  "berfor edit social");
+                                              await controller.deleteTime(
+                                                  controller
+                                                      .storeInfo
+                                                      .store
+                                                      .storeWorksDays[index]
+                                                      .id); //delete
+                                              consolePrint(
+                                                  "after delete social");
+                                            },
+                                          ));
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          height:
+                                              getProportionateScreenHeight(30),
+                                          width:
+                                              getProportionateScreenWidth(30),
+                                          child: Image.asset(
+                                              "assets/images/vendor_app/pen.png"),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                    SizedBox(
+                      height: getProportionateScreenHeight(15),
                     ),
-                    Spacer(),
-                    GestureDetector( onTap: ()async{
 
-                      LocationResult locationResult = await showLocationPicker(
-                        context,
-                        AppStrings.googleMapApiKey,
-                        myLocationButtonEnabled: true,
-                        initialCenter: LatLng(33.509606, 36.277816),
-                        layersButtonEnabled: true,
-                      );
-
-                      consolePrint("Address"+locationResult.address);
-                      consolePrint("longitude"+locationResult.latLng.longitude.toString());
-                      consolePrint("latitude"+locationResult.latLng.latitude.toString());
-                      consolePrint("Address"+locationResult.placeId);
-                      await controller.setLatLong(locationResult.latLng.latitude, locationResult.latLng.longitude);
-                      // consolePrint("Address"+locationResult.address);
-                    }, child: Container(height: getProportionateScreenHeight(30),width: getProportionateScreenWidth(30),child: Image.asset("assets/images/home/location_icon.png"),)),
-
-                  ],
-                ),
-              ),
-              ///location
-              SizedBox(
-                height: getProportionateScreenHeight(25),
-              ),
-              Container(
-                height: getProportionateScreenHeight(30),
-                alignment: Alignment.centerRight,
-                child: Row(
-                  children: [
-                    AutoSizeText(
-                      "مواعيد العمل".i18n,
-                      minFontSize: 14,
-                      style: body3_18pt,
-                      maxLines: 1,
-                    ),
-                    Spacer(),
-                    controller.storeInfo.store.storeWorksDays.length<7?GestureDetector(
-                      onTap: (){
-openAt.text="";
-closeAt.text="";
-                        Get.to(()=>AddTimeScreen(
-                          t1:openAt,t2:closeAt,storeWorksDay: controller.storeInfo.store.storeWorksDays==null?[]:controller.storeInfo.store.storeWorksDays,controller: widget.customVendorInfoController,));
-
-                      },
-                      child: Container(
-                        child: AutoSizeText(
-                          "اضافة".i18n,
-                          minFontSize: 14,
-                          style: darkGrayText_14pt_underlined,
-                          maxLines: 1,
-                        ),
-                      ),
-                    ):Container(width: 0,height: 0,),
-                  ],
-                ),
-              ),
-
-              ///مواعيد العمل
-              SizedBox(
-                height: getProportionateScreenHeight(16),
-              ),
-              controller.storeInfo.store.storeWorksDays==null||controller.storeInfo.store.storeWorksDays==[]?
-              Row(
-                children: [
-
-
-                  Container(
-                    height: getProportionateScreenHeight(20),
-                    alignment: Alignment.bottomCenter,
-                    child: AutoSizeText(
-                      "اضف  مواعيد العمل لديك".i18n,
-                      maxLines: 1,
-                      style: darkGrayText_14pt,
-                      minFontSize: 10,
-                    ),
-                  ),
-                  Spacer(),
-                  Container(
-                    height: getProportionateScreenHeight(30),
-                    width: getProportionateScreenWidth(30),
-                    child: Image.asset(
-                      "assets/images/vendor_app/clender.png",
-                      height: getProportionateScreenHeight(12),
-                    ),
-                  ),
-                ],
-              ):
-Column(
-  children: [
-    ...List<Widget>.generate(
-      controller.storeInfo.store.storeWorksDays.length,
-   (index)=>Container(
-     margin: EdgeInsets.symmetric(vertical: 3),
-     height: getProportionateScreenHeight(50),
-     decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.grey)),
-     child: Row(
-       children: [
-       SizedBox(width: getProportionateScreenWidth(15),),
-       Expanded(flex:2,child: AutoSizeText(controller.storeInfo.store.storeWorksDays[index].day,style: darkGrayText_11pt,maxLines: 1,))  ,
-       Spacer(flex:1,),
-       Expanded(
-           flex:2,
-           child:  Row(
-             children: [
-               AutoSizeText(controller.storeInfo.store.storeWorksDays[index].from,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,textDirection: TextDirection.ltr,),
-               AutoSizeText("-",style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,textDirection: TextDirection.rtl,),
-               AutoSizeText(controller.storeInfo.store.storeWorksDays[index].to,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,textDirection: TextDirection.ltr,),
-             ],
-           )
-       ),
-
-       GestureDetector(
-         onTap: (){
-           tempFromTime.text=controller.storeInfo.store.storeWorksDays[index].from;
-           tempToTime.text=controller.storeInfo.store.storeWorksDays[index].to;
-           Get.to( EditTimeScreen(
-             t1: tempFromTime,
-             t2: tempToTime,
-             v: vacation,
-             editAction: ()async{
-               consolePrint("berfor edit time");
-               await controller.editTime(controller.storeInfo.store.storeWorksDays[index].id,tempFromTime.text, tempToTime.text , vacation.text==""?false:true);//edit
-               consolePrint("after edit time");
-             },
-             deleteAction: ()async{
-               consolePrint("berfor edit social");
-               await controller.deleteTime(controller.storeInfo.store.storeWorksDays[index].id);//delete
-               consolePrint("after delete social");
-             },
-           ));
-         },
-         child: Container(
-           alignment: Alignment.center,
-           height: getProportionateScreenHeight(30),
-           width: getProportionateScreenWidth(30),
-           child: Image.asset("assets/images/vendor_app/pen.png"),
-         ),
-       ),
-
-       ],
-     ),
-   ),
-    ),
-  ],
-),
-
-              SizedBox(
-                height: getProportionateScreenHeight(15),
-              ),
-
-              Column(
-                children: [
-                  Container(
-                    height: getProportionateScreenHeight(30),
-                    alignment: Alignment.centerRight,
-                    child: Row(
+                    Column(
                       children: [
-                        AutoSizeText(
-                          "معلومات التواصل".i18n,
-                          minFontSize: 14,
-                          style: body3_18pt,
-                          maxLines: 1,
-                        ),
-                        Spacer(),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: getProportionateScreenHeight(15),),
-
-
-                  Container(
-                    height: getProportionateScreenHeight(50),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.grey)),
-                    child: Row(
-                      children: [
-                        SizedBox(width: getProportionateScreenWidth(15),),
-                        AutoSizeText("رقم الهاتف الجوال".i18n,style: darkGrayText_11pt,)  ,
-                        Spacer(),
-                        AutoSizeText(controller.storeInfo.store.phone,style: darkGrayText_11pt,)  ,
-                        Spacer(),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: getProportionateScreenHeight(8),),
-                  Container(
-                    height: getProportionateScreenHeight(50),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.grey)),
-                    child: Row(
-                      children: [
-                        SizedBox(width: getProportionateScreenWidth(15),),
-                        AutoSizeText("الايميل  الالكتروني".i18n,style: darkGrayText_11pt,)  ,
-                        Spacer(),
-                        GestureDetector(onTap:(){},child: Container(alignment:Alignment.center,width:getProportionateScreenWidth(150),child: AutoSizeText(controller.storeInfo.store.email==null?"":controller.storeInfo.store.email,style: darkGrayText_11pt,maxLines: 1)))  ,
-                        // Spacer(),
-                        SizedBox(width: getProportionateScreenWidth(5),),
-                        GestureDetector(
-                          onTap: (){
-
-
-                            if(controller.storeInfo.store.email==null)
-                            {
-                              email.text="";
-                               Get.to( ()=>EditEmailScreen(t1: email,title: "اضافة بريد الكتروني".i18n,action: (){print("before editing email");controller.changeEmail(email.text);print("after editing email");},));
-                            }
-                            else {
-                              email.text= controller.storeInfo.store.email;
-                               Get.to( ()=>EditEmailScreen(t1: email,title: "تعديل البريد الكتروني".i18n,action: (){print("before editing email");controller.changeEmail(email.text);print("after editing email");},));
-                            }
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: getProportionateScreenHeight(30),
-                            width: getProportionateScreenWidth(30),
-                            child: Image.asset("assets/images/vendor_app/pen.png"),
+                        Container(
+                          height: getProportionateScreenHeight(30),
+                          alignment: Alignment.centerRight,
+                          child: Row(
+                            children: [
+                              AutoSizeText(
+                                "معلومات التواصل".i18n,
+                                minFontSize: 14,
+                                style: body3_18pt,
+                                maxLines: 1,
+                              ),
+                              Spacer(),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: getProportionateScreenHeight(20),),
-                  Container(
-                    height: getProportionateScreenHeight(30),
-                    alignment: Alignment.centerRight,
-                    child: Row(
-                      children: [
-                        AutoSizeText(
-                          " التواصل الاجتماعي".i18n,
-                          minFontSize: 14,
-                          style: body1_16pt,
-                          maxLines: 1,
+                        SizedBox(
+                          height: getProportionateScreenHeight(15),
                         ),
-                        Spacer(),
-                        GestureDetector(
-                          onTap: (){
-                            tempSocialLink.text="";
-                            tempSocialType.text="";
-                             Get.to( ()=>AddSocialScreen(
-                                addAction:()async{
-                                  print("before apply change");
-                                  await controller.AddSocial(link:tempSocialLink.text,type:tempSocialType.text,);
-                                  print("after apply change");
+                        Container(
+                          height: getProportionateScreenHeight(50),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.grey)),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: getProportionateScreenWidth(15),
+                              ),
+                              AutoSizeText(
+                                "رقم الهاتف الجوال".i18n,
+                                style: darkGrayText_11pt,
+                              ),
+                              Spacer(),
+                              AutoSizeText(
+                                controller.storeInfo.store.phone,
+                                style: darkGrayText_11pt,
+                              ),
+                              Spacer(),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(8),
+                        ),
+                        Container(
+                          height: getProportionateScreenHeight(50),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.grey)),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: getProportionateScreenWidth(15),
+                              ),
+                              AutoSizeText(
+                                "الايميل  الالكتروني".i18n,
+                                style: darkGrayText_11pt,
+                              ),
+                              Spacer(),
+                              GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      width: getProportionateScreenWidth(150),
+                                      child: AutoSizeText(
+                                          controller.storeInfo.store.email ==
+                                                  null
+                                              ? ""
+                                              : controller
+                                                  .storeInfo.store.email,
+                                          style: darkGrayText_11pt,
+                                          maxLines: 1))),
+                              // Spacer(),
+                              SizedBox(
+                                width: getProportionateScreenWidth(5),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  if (controller.storeInfo.store.email ==
+                                      null) {
+                                    email.text = "";
+                                    Get.to(() => EditEmailScreen(
+                                          t1: email,
+                                          title: "اضافة بريد الكتروني".i18n,
+                                          action: () {
+                                            print("before editing email");
+                                            controller.changeEmail(email.text);
+                                            print("after editing email");
+                                          },
+                                        ));
+                                  } else {
+                                    email.text =
+                                        controller.storeInfo.store.email;
+                                    Get.to(() => EditEmailScreen(
+                                          t1: email,
+                                          title: "تعديل البريد الكتروني".i18n,
+                                          action: () {
+                                            print("before editing email");
+                                            controller.changeEmail(email.text);
+                                            print("after editing email");
+                                          },
+                                        ));
+                                  }
                                 },
-                               type: tempSocialType,
-                               link: tempSocialLink,
-                            )
-                            );
-
-
-                            // if(controller.storeInfo.openFrom!=null&&controller.storeInfo.closedAt!=null) {
-                            //   openAt.text =
-                            //       controller.storeInfo.openFrom.toString();
-                            //   closeAt.text =
-                            //       controller.storeInfo.closedAt.toString();
-                            // }
-                            //  Get.to( ()=>EditTime(action:()async{print("before apply change");await controller.changeTime(int.parse(openAt.text),int.parse(closeAt.text));print("after apply change");},t1:openAt,t2:closeAt));
-
-                          },
-                          child: Container(
-                            child: AutoSizeText(
-                              "أضافة".i18n,
-                              minFontSize: 14,
-                              style: darkGrayText_14pt_underlined,
-                              maxLines: 1,
-                            ),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: getProportionateScreenHeight(30),
+                                  width: getProportionateScreenWidth(30),
+                                  child: Image.asset(
+                                      "assets/images/vendor_app/pen.png"),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: getProportionateScreenHeight(15),),
+                        SizedBox(
+                          height: getProportionateScreenHeight(20),
+                        ),
+                        Container(
+                          height: getProportionateScreenHeight(30),
+                          alignment: Alignment.centerRight,
+                          child: Row(
+                            children: [
+                              AutoSizeText(
+                                " التواصل الاجتماعي".i18n,
+                                minFontSize: 14,
+                                style: body1_16pt,
+                                maxLines: 1,
+                              ),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: () {
+                                  tempSocialLink.text = "";
+                                  tempSocialType.text = "";
+                                  Get.to(() => AddSocialScreen(
+                                        addAction: () async {
+                                          print("before apply change");
+                                          await controller.AddSocial(
+                                            link: tempSocialLink.text,
+                                            type: tempSocialType.text,
+                                          );
+                                          print("after apply change");
+                                        },
+                                        type: tempSocialType,
+                                        link: tempSocialLink,
+                                      ));
 
-
-                  for(int i=0;i<controller.storeInfo.store.storeContacts.length;i++)
-                    if(controller.storeInfo.store.storeContacts[i].type=="facebook")
-                      Column(
-                        children: [
-                          Container(
-                            height: getProportionateScreenHeight(50),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.grey)),
-                            child: Row(
-                              children: [
-                                SizedBox(width: getProportionateScreenWidth(15),),
-                                Expanded(flex:2,child: AutoSizeText("حساب الفيسبوك".i18n,style: darkGrayText_11pt,maxLines: 1,))  ,
-                                Spacer(flex:1,),
-                                Expanded(
-                                    flex:2,
-                                    child:  AutoSizeText(controller.storeInfo.store.storeContacts[i].link,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,)
-                                ),
-
-                                GestureDetector(
-                                  onTap: (){
-                                    tempSocialType.text=controller.storeInfo.store.storeContacts[i].type;
-                                    tempSocialLink.text=controller.storeInfo.store.storeContacts[i].link;
-                                     Get.to( ()=>EditSocialScreen(
-                                      type: tempSocialType,
-                                      link: tempSocialLink,
-                                      editAction: ()async{
-                                        consolePrint("berfor edit social");
-                                        await controller.changeSocial(type:tempSocialType.text, link:tempSocialLink.text , socialId:controller.storeInfo.store.storeContacts[i].id);//edit
-                                        consolePrint("after edit social");
-                                      },
-                                      deleteAction: ()async{
-                                        consolePrint("berfor edit social");
-                                        await controller.DeleteSocial(controller.storeInfo.store.storeContacts[i].id);//delete
-                                        consolePrint("after delete social");
-                                      },
-                                    ));
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: getProportionateScreenHeight(30),
-                                    width: getProportionateScreenWidth(30),
-                                    child: Image.asset("assets/images/vendor_app/pen.png"),
+                                  // if(controller.storeInfo.openFrom!=null&&controller.storeInfo.closedAt!=null) {
+                                  //   openAt.text =
+                                  //       controller.storeInfo.openFrom.toString();
+                                  //   closeAt.text =
+                                  //       controller.storeInfo.closedAt.toString();
+                                  // }
+                                  //  Get.to( ()=>EditTime(action:()async{print("before apply change");await controller.changeTime(int.parse(openAt.text),int.parse(closeAt.text));print("after apply change");},t1:openAt,t2:closeAt));
+                                },
+                                child: Container(
+                                  child: AutoSizeText(
+                                    "أضافة".i18n,
+                                    minFontSize: 14,
+                                    style: darkGrayText_14pt_underlined,
+                                    maxLines: 1,
                                   ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(15),
+                        ),
+                        for (int i = 0;
+                            i < controller.storeInfo.store.storeContacts.length;
+                            i++)
+                          if (controller
+                                  .storeInfo.store.storeContacts[i].type ==
+                              "facebook")
+                            Column(
+                              children: [
+                                Container(
+                                  height: getProportionateScreenHeight(50),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(color: Colors.grey)),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: getProportionateScreenWidth(15),
+                                      ),
+                                      Expanded(
+                                          flex: 2,
+                                          child: AutoSizeText(
+                                            "حساب الفيسبوك".i18n,
+                                            style: darkGrayText_11pt,
+                                            maxLines: 1,
+                                          )),
+                                      Spacer(
+                                        flex: 1,
+                                      ),
+                                      Expanded(
+                                          flex: 2,
+                                          child: AutoSizeText(
+                                            controller.storeInfo.store
+                                                .storeContacts[i].link,
+                                            style: darkGrayText_11pt,
+                                            maxLines: 1,
+                                            minFontSize: 9,
+                                          )),
+                                      GestureDetector(
+                                        onTap: () {
+                                          tempSocialType.text = controller
+                                              .storeInfo
+                                              .store
+                                              .storeContacts[i]
+                                              .type;
+                                          tempSocialLink.text = controller
+                                              .storeInfo
+                                              .store
+                                              .storeContacts[i]
+                                              .link;
+                                          Get.to(() => EditSocialScreen(
+                                                type: tempSocialType,
+                                                link: tempSocialLink,
+                                                editAction: () async {
+                                                  consolePrint(
+                                                      "berfor edit social");
+                                                  await controller.changeSocial(
+                                                      type: tempSocialType.text,
+                                                      link: tempSocialLink.text,
+                                                      socialId: controller
+                                                          .storeInfo
+                                                          .store
+                                                          .storeContacts[i]
+                                                          .id); //edit
+                                                  consolePrint(
+                                                      "after edit social");
+                                                },
+                                                deleteAction: () async {
+                                                  consolePrint(
+                                                      "berfor edit social");
+                                                  await controller.DeleteSocial(
+                                                      controller
+                                                          .storeInfo
+                                                          .store
+                                                          .storeContacts[i]
+                                                          .id); //delete
+                                                  consolePrint(
+                                                      "after delete social");
+                                                },
+                                              ));
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          height:
+                                              getProportionateScreenHeight(30),
+                                          width:
+                                              getProportionateScreenWidth(30),
+                                          child: Image.asset(
+                                              "assets/images/vendor_app/pen.png"),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: getProportionateScreenHeight(5),
                                 ),
                               ],
                             ),
-                          ),
-                          SizedBox(height: getProportionateScreenHeight(5),),
-                        ],
-                      ),
-                  for(int i=0;i<controller.storeInfo.store.storeContacts.length;i++)
-                    if(controller.storeInfo.store.storeContacts[i].type=="instagram")
-                      Column(
-                        children: [
-                          Container(
-                            height: getProportionateScreenHeight(50),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.grey)),
-                            child: Row(
+                        for (int i = 0;
+                            i < controller.storeInfo.store.storeContacts.length;
+                            i++)
+                          if (controller
+                                  .storeInfo.store.storeContacts[i].type ==
+                              "instagram")
+                            Column(
                               children: [
-                                SizedBox(width: getProportionateScreenWidth(15),),
-                                Expanded(flex:2,child: AutoSizeText("حساب الانستاغرام".i18n,style: darkGrayText_11pt,maxLines: 1,))  ,
-                                Spacer(flex:1,),
-                                Expanded(
-                                    flex:2,
-                                    child:  AutoSizeText(controller.storeInfo.store.storeContacts[i].link,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,)
-                                ),
-
-                                GestureDetector(
-                                  onTap: (){
-                                    tempSocialType.text=controller.storeInfo.store.storeContacts[i].type;
-                                    tempSocialLink.text=controller.storeInfo.store.storeContacts[i].link;
-                                     Get.to( ()=>EditSocialScreen(
-                                      type: tempSocialType,
-                                      link: tempSocialLink,
-                                      editAction: ()async{
-                                        consolePrint("berfor edit social");
-                                        await controller.changeSocial(type:tempSocialType.text, link:tempSocialLink.text , socialId:controller.storeInfo.store.storeContacts[i].id);//edit
-                                        consolePrint("after edit social");
-                                      },
-                                      deleteAction: ()async{
-                                        consolePrint("berfor edit social");
-                                        await controller.DeleteSocial(controller.storeInfo.store.storeContacts[i].id);//delete
-                                        consolePrint("after delete social");
-                                      },
-                                    ));
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: getProportionateScreenHeight(30),
-                                    width: getProportionateScreenWidth(30),
-                                    child: Image.asset("assets/images/vendor_app/pen.png"),
+                                Container(
+                                  height: getProportionateScreenHeight(50),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(color: Colors.grey)),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: getProportionateScreenWidth(15),
+                                      ),
+                                      Expanded(
+                                          flex: 2,
+                                          child: AutoSizeText(
+                                            "حساب الانستاغرام".i18n,
+                                            style: darkGrayText_11pt,
+                                            maxLines: 1,
+                                          )),
+                                      Spacer(
+                                        flex: 1,
+                                      ),
+                                      Expanded(
+                                          flex: 2,
+                                          child: AutoSizeText(
+                                            controller.storeInfo.store
+                                                .storeContacts[i].link,
+                                            style: darkGrayText_11pt,
+                                            maxLines: 1,
+                                            minFontSize: 9,
+                                          )),
+                                      GestureDetector(
+                                        onTap: () {
+                                          tempSocialType.text = controller
+                                              .storeInfo
+                                              .store
+                                              .storeContacts[i]
+                                              .type;
+                                          tempSocialLink.text = controller
+                                              .storeInfo
+                                              .store
+                                              .storeContacts[i]
+                                              .link;
+                                          Get.to(() => EditSocialScreen(
+                                                type: tempSocialType,
+                                                link: tempSocialLink,
+                                                editAction: () async {
+                                                  consolePrint(
+                                                      "berfor edit social");
+                                                  await controller.changeSocial(
+                                                      type: tempSocialType.text,
+                                                      link: tempSocialLink.text,
+                                                      socialId: controller
+                                                          .storeInfo
+                                                          .store
+                                                          .storeContacts[i]
+                                                          .id); //edit
+                                                  consolePrint(
+                                                      "after edit social");
+                                                },
+                                                deleteAction: () async {
+                                                  consolePrint(
+                                                      "berfor edit social");
+                                                  await controller.DeleteSocial(
+                                                      controller
+                                                          .storeInfo
+                                                          .store
+                                                          .storeContacts[i]
+                                                          .id); //delete
+                                                  consolePrint(
+                                                      "after delete social");
+                                                },
+                                              ));
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          height:
+                                              getProportionateScreenHeight(30),
+                                          width:
+                                              getProportionateScreenWidth(30),
+                                          child: Image.asset(
+                                              "assets/images/vendor_app/pen.png"),
+                                        ),
+                                      ),
+                                    ],
                                   ),
+                                ),
+                                SizedBox(
+                                  height: getProportionateScreenHeight(5),
                                 ),
                               ],
                             ),
-                          ),
-                          SizedBox(height: getProportionateScreenHeight(5),),
-                        ],
-                      ), for(int i=0;i<controller.storeInfo.store.storeContacts.length;i++)
-                    if(controller.storeInfo.store.storeContacts[i].type=="phone")
-                      Column(
-                        children: [
-                          Container(
-                            height: getProportionateScreenHeight(50),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),border: Border.all(color: Colors.grey)),
-                            child: Row(
+                        for (int i = 0;
+                            i < controller.storeInfo.store.storeContacts.length;
+                            i++)
+                          if (controller
+                                  .storeInfo.store.storeContacts[i].type ==
+                              "phone")
+                            Column(
                               children: [
-                                SizedBox(width: getProportionateScreenWidth(15),),
-                                Expanded(flex:2,child: AutoSizeText("رقم الواتس اب".i18n,style: darkGrayText_11pt,maxLines: 1,))  ,
-                                Spacer(flex:1,),
-                                Expanded(
-                                    flex:2,
-                                    child:  AutoSizeText(controller.storeInfo.store.storeContacts[i].link,style: darkGrayText_11pt,maxLines: 1,minFontSize: 9,)
-                                ),
-
-                                GestureDetector(
-                                  onTap: (){
-                                    tempSocialType.text=controller.storeInfo.store.storeContacts[i].type;
-                                    tempSocialLink.text=controller.storeInfo.store.storeContacts[i].link;
-                                     Get.to( ()=>EditSocialScreen(
-                                      type: tempSocialType,
-                                      link: tempSocialLink,
-                                      editAction: ()async{
-                                        consolePrint("berfor edit social");
-                                        await controller.changeSocial(link:tempSocialLink.text, type:tempSocialType.text , socialId:controller.storeInfo.store.storeContacts[i].id);//edit
-                                        consolePrint("after edit social");
-                                      },
-                                      deleteAction: ()async{
-                                        consolePrint("berfor delete social");
-                                        await controller.DeleteSocial(controller.storeInfo.store.storeContacts[i].id);//delete
-                                        consolePrint("after delete social");
-                                      },
-                                    ));
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: getProportionateScreenHeight(30),
-                                    width: getProportionateScreenWidth(30),
-                                    child: Image.asset("assets/images/vendor_app/pen.png"),
+                                Container(
+                                  height: getProportionateScreenHeight(50),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(color: Colors.grey)),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: getProportionateScreenWidth(15),
+                                      ),
+                                      Expanded(
+                                          flex: 2,
+                                          child: AutoSizeText(
+                                            "رقم الواتس اب".i18n,
+                                            style: darkGrayText_11pt,
+                                            maxLines: 1,
+                                          )),
+                                      Spacer(
+                                        flex: 1,
+                                      ),
+                                      Expanded(
+                                          flex: 2,
+                                          child: AutoSizeText(
+                                            controller.storeInfo.store
+                                                .storeContacts[i].link,
+                                            style: darkGrayText_11pt,
+                                            maxLines: 1,
+                                            minFontSize: 9,
+                                          )),
+                                      GestureDetector(
+                                        onTap: () {
+                                          tempSocialType.text = controller
+                                              .storeInfo
+                                              .store
+                                              .storeContacts[i]
+                                              .type;
+                                          tempSocialLink.text = controller
+                                              .storeInfo
+                                              .store
+                                              .storeContacts[i]
+                                              .link;
+                                          Get.to(() => EditSocialScreen(
+                                                type: tempSocialType,
+                                                link: tempSocialLink,
+                                                editAction: () async {
+                                                  consolePrint(
+                                                      "berfor edit social");
+                                                  await controller.changeSocial(
+                                                      link: tempSocialLink.text,
+                                                      type: tempSocialType.text,
+                                                      socialId: controller
+                                                          .storeInfo
+                                                          .store
+                                                          .storeContacts[i]
+                                                          .id); //edit
+                                                  consolePrint(
+                                                      "after edit social");
+                                                },
+                                                deleteAction: () async {
+                                                  consolePrint(
+                                                      "berfor delete social");
+                                                  await controller.DeleteSocial(
+                                                      controller
+                                                          .storeInfo
+                                                          .store
+                                                          .storeContacts[i]
+                                                          .id); //delete
+                                                  consolePrint(
+                                                      "after delete social");
+                                                },
+                                              ));
+                                        },
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          height:
+                                              getProportionateScreenHeight(30),
+                                          width:
+                                              getProportionateScreenWidth(30),
+                                          child: Image.asset(
+                                              "assets/images/vendor_app/pen.png"),
+                                        ),
+                                      ),
+                                    ],
                                   ),
+                                ),
+                                SizedBox(
+                                  height: getProportionateScreenHeight(5),
                                 ),
                               ],
                             ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(25),
+                        ),
+                        Container(
+                          height: getProportionateScreenHeight(30),
+                          alignment: appLocal == "ar"
+                              ? Alignment.centerRight
+                              : Alignment.centerLeft,
+                          child: AutoSizeText(
+                            "وصف للمتجر".i18n,
+                            minFontSize: 14,
+                            style: body3_18pt,
+                            maxLines: 1,
                           ),
-                          SizedBox(height: getProportionateScreenHeight(5),),
-                        ],
-                      ),
-
-
-                  SizedBox(height: getProportionateScreenHeight(25),),
-                  Container(
-                    height: getProportionateScreenHeight(30),
-                    alignment: appLocal=="ar"?Alignment.centerRight:Alignment.centerLeft,
-                    child: AutoSizeText(
-                      "وصف للمتجر".i18n,
-                      minFontSize: 14,
-                      style: body3_18pt,
-                      maxLines: 1,
-                    ),
-                  ),
-                  SizedBox(height: getProportionateScreenHeight(15),),
-                  Container(
-                    // height: getProportionateScreenHeight(50),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),),
-                    child: Row(
-                      children: [
-
-                        Container(width: getProportionateScreenWidth(250),child: AutoSizeText(controller.storeInfo.store.info==null?"اضف وصف للمتجر".i18n:controller.storeInfo.store.info,style: darkGrayText_14pt,)),
-                        Spacer(),
+                        ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(15),
+                        ),
+                        Container(
+                          // height: getProportionateScreenHeight(50),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                  width: getProportionateScreenWidth(250),
+                                  child: AutoSizeText(
+                                    controller.storeInfo.store.info == null
+                                        ? "اضف وصف للمتجر".i18n
+                                        : controller.storeInfo.store.info,
+                                    style: darkGrayText_14pt,
+                                  )),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: () {
+                                  if (controller.storeInfo.store.info == null) {
+                                    info.text = "";
+                                    Get.to(() => EditInfoScreen(
+                                          t1: info,
+                                          title: "اضافة وصف للمتجر".i18n,
+                                          action: () {
+                                            print("before editing info");
+                                            controller.changeInfo(info.text);
+                                            print("after editing info");
+                                          },
+                                        ));
+                                  } else {
+                                    info.text = controller.storeInfo.store.info;
+                                    Get.to(() => EditInfoScreen(
+                                          t1: info,
+                                          title: "تعديل وصف المتجر".i18n,
+                                          action: () {
+                                            print("before editing info");
+                                            controller.changeInfo(info.text);
+                                            print("after editing info");
+                                          },
+                                        ));
+                                  }
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  height: getProportionateScreenHeight(30),
+                                  width: getProportionateScreenWidth(30),
+                                  child: Image.asset(
+                                      "assets/images/vendor_app/pen.png"),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(20),
+                        ),
+                        Container(
+                          height: getProportionateScreenHeight(30),
+                          alignment: appLocal == "ar"
+                              ? Alignment.centerRight
+                              : Alignment.centerLeft,
+                          child: AutoSizeText(
+                            "شعار المتجر".i18n,
+                            minFontSize: 14,
+                            style: body3_18pt,
+                            maxLines: 1,
+                          ),
+                        ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(20),
+                        ),
                         GestureDetector(
-                          onTap: (){
-                            if(controller.storeInfo.store.info==null)
-                            {
-                              info.text="";
-                               Get.to( ()=>EditInfoScreen(t1: info,title: "اضافة وصف للمتجر".i18n,action: (){print("before editing info");controller.changeInfo(info.text);print("after editing info");},));
-                            }
-                            else {
-                              info.text= controller.storeInfo.store.info;
-                               Get.to( ()=>EditInfoScreen(t1: info,title: "تعديل وصف المتجر".i18n,action: (){print("before editing info");controller.changeInfo(info.text);print("after editing info");},));
-                            }
-
-
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: getProportionateScreenHeight(30),
-                            width: getProportionateScreenWidth(30),
-                            child: Image.asset("assets/images/vendor_app/pen.png"),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  SizedBox(height: getProportionateScreenHeight(20),),
-                  Container(
-                    height: getProportionateScreenHeight(30),
-                    alignment: appLocal== "ar"?Alignment.centerRight:Alignment.centerLeft,
-                    child: AutoSizeText(
-                      "شعار المتجر".i18n,
-                      minFontSize: 14,
-                      style: body3_18pt,
-                      maxLines: 1,
-                    ),
-                  ),
-                  SizedBox(height: getProportionateScreenHeight(20),),
-                  GestureDetector(
-                    onTap: ()async{
-                      final pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
-                      File imageFile = File(pickedFile.path);
-                      if(pickedFile!=null) {
+                          onTap: () async {
+                            final pickedFile = await ImagePicker()
+                                .getImage(source: ImageSource.gallery);
+                            File imageFile = File(pickedFile.path);
+                            if (pickedFile != null) {
                               String temp = await compressImage(imageFile);
                               controller.changeImage(temp);
                             }
                           },
-                    child: controller.storeInfo.store.image==null||controller.storeInfo.store.image==""?Center(
-                        child: Container(
-                          height: getProportionateScreenHeight(75),
-                          width: getProportionateScreenWidth(125),
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage("assets/images/vendor_app/upload_photo.png")
-                              )
-                          ),
-                          child: Center(
-                            child: AutoSizeText(
-                              "حمل صورة".i18n,
-                              style: body1_16pt,
-                              maxLines: 1,
-                            ),
-                          ),
-                        )):Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),border: Border.all(color: borderColor,width: 1,)),child: ClipRRect(borderRadius: BorderRadius.circular(12),
-                      child: CachedNetworkImage(
-                        imageUrl: Api.imagePath+controller.storeInfo.store.image,
-                        progressIndicatorBuilder: (context, url, downloadProgress) =>
-                            CircularProgressIndicator(value: downloadProgress.progress),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                      ),),),
-                  ),
-                  SizedBox(height: getProportionateScreenHeight(30),),
-                ],
+                          child: controller.storeInfo.store.image == null ||
+                                  controller.storeInfo.store.image == ""
+                              ? Center(
+                                  child: Container(
+                                  height: getProportionateScreenHeight(75),
+                                  width: getProportionateScreenWidth(125),
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/images/vendor_app/upload_photo.png"))),
+                                  child: Center(
+                                    child: AutoSizeText(
+                                      "حمل صورة".i18n,
+                                      style: body1_16pt,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                ))
+                              : Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(
+                                        color: borderColor,
+                                        width: 1,
+                                      )),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: CachedNetworkImage(
+                                      imageUrl: Api.imagePath +
+                                          controller.storeInfo.store.image,
+                                      progressIndicatorBuilder: (context, url,
+                                              downloadProgress) =>
+                                          CircularProgressIndicator(
+                                              value: downloadProgress.progress),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
+                                    ),
+                                  ),
+                                ),
+                        ),
+                        SizedBox(
+                          height: getProportionateScreenHeight(30),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

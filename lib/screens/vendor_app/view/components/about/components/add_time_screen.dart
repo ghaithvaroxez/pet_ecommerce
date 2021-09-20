@@ -18,37 +18,39 @@ import 'package:http/http.dart' as http;
 import 'package:pets/services/http_requests_service.dart';
 import '../../../../../../main.dart';
 import 'tr.i18n.dart';
+
 class AddTimeScreen extends StatefulWidget {
   // Function action;
   TextEditingController t1;
   TextEditingController t2;
   VendorInfoController controller;
   List<StoreWorksDay> storeWorksDay;
+
   @override
   _AddTimeScreenState createState() => _AddTimeScreenState();
 
-  AddTimeScreen({
-    // this.action,
-    this.t1,this.t2,
-    this.controller,this.storeWorksDay});
-
+  AddTimeScreen(
+      {
+      // this.action,
+      this.t1,
+      this.t2,
+      this.controller,
+      this.storeWorksDay});
 }
 
 class _AddTimeScreenState extends State<AddTimeScreen> {
   String _openTime;
   String _closeTime;
-  bool loading =false;
-  bool failed=false;
-  bool failed2=false;
+  bool loading = false;
+  bool failed = false;
+  bool failed2 = false;
   AllDays allDays;
-  List<Day> toRemoveIDs=[];
-  fetchData()async
-  {
-    loading=true;
-    setState(() {
+  List<Day> toRemoveIDs = [];
 
-    });
-   try {
+  fetchData() async {
+    loading = true;
+    setState(() {});
+    try {
       var url = Uri.parse("${Api.baseUrl}/days");
       consolePrint("before print");
       final h = await HttpService().getHeaders();
@@ -78,33 +80,64 @@ class _AddTimeScreenState extends State<AddTimeScreen> {
       }
       loading = false;
       setState(() {});
-    }catch(e){
-     loading = false;
-     failed=true;
-     setState(() {});
-   }
+    } catch (e) {
+      loading = false;
+      failed = true;
+      setState(() {});
+    }
   }
 
-  Future<void> _show(bool t,BuildContext context) async {
-    final TimeOfDay result = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.now(),
-        // builder: (context, child) {
-        //   return MediaQuery(
-        //       data: MediaQuery.of(context).copyWith(
-        //         // Using 12-Hour format
-        //           alwaysUse24HourFormat: true),
-        //       // If you want 24-Hour format, just change alwaysUse24HourFormat to true
-        //      child: Container(),);
-        // }
-        );
+  String replaceCharAt(String oldString, int index, String newChar) {
+    return oldString.substring(0, index) +
+        newChar +
+        oldString.substring(index + 1);
+  }
+
+  Future<void> _show(bool t, BuildContext context) async {
+    final TimeOfDay result =
+
+        // await showTimePicker(
+        //   context: context,
+        //   initialTime: TimeOfDay.now(),
+        //   builder: (BuildContext context, Widget child) {
+        //     return MediaQuery(
+        //       data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+        //       child: child,
+        //     );
+        //   },
+        // );
+        await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+
+      // builder: (context, child) {
+      //   return MediaQuery(
+      //       data: MediaQuery.of(context).copyWith(
+      //         // Using 12-Hour format
+      //           alwaysUse24HourFormat: false ),
+      //
+      //       // If you want 24-Hour format, just change alwaysUse24HourFormat to true
+      //      child: child,);
+      // }
+    );
     if (result != null) {
       setState(() {
-        t?
-        widget.t1.text = result.format(context):widget.t2.text = result.format(context);
+        consolePrint(result.format(context));
+        String time = result.format(context);
+        if (result.format(context).contains("م")) {
+          int index = result.format(context).indexOf("م");
+
+          time = replaceCharAt(result.format(context), index, "PM");
+        } else if (result.format(context).contains("ص")) {
+          int index = result.format(context).indexOf("ص");
+          time = replaceCharAt(result.format(context), index, "AM");
+        }
+        consolePrint("Time : " + time);
+        t ? widget.t1.text = time : widget.t2.text = time;
       });
     }
   }
+
 // Map<int,String> getDay={
 //     1:"الجمعة",
 //   2:"السبت",
@@ -134,6 +167,36 @@ class _AddTimeScreenState extends State<AddTimeScreen> {
 //   ];
   int dayId;
   String dayName;
+
+  String to24(String time) {
+    String first = '';
+    String last = '';
+
+    first = time.substring(0, time.indexOf(':'));
+    last = time.substring(time.indexOf(':') + 1, time.indexOf(' '));
+
+    if (time.contains("PM")) {
+      if (int.parse(first) != 12) {
+        int temp = int.parse(first) + 12;
+        first = temp.toString();
+        consolePrint("time after convert" + temp.toString());
+      }
+    }
+    if (time.contains("AM")) {
+      if (int.parse(first) == 12) {
+        int temp = int.parse(first) - 12;
+        first = temp.toString();
+        consolePrint("time after convert" + temp.toString());
+      }
+    }
+    if (int.parse(first) < 10) {
+      first = '0' + first;
+    }
+    String totalTime = first + ':' + last;
+    consolePrint("Total time " + totalTime);
+    return totalTime;
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -144,188 +207,236 @@ class _AddTimeScreenState extends State<AddTimeScreen> {
     //   }
     fetchData();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SafeArea(
-        child: failed?Container(width:getProportionateScreenWidth(410),height:getProportionateScreenHeight(200),child: AutoSizeText(" الرجاء المحاولة مرة اخرى ".i18n,style: body3_18pt,),):loading?LoadingScreen():Column(
-          children: [
-        Container(
-        child: Material(
-        elevation: 5,
-          color: Colors.white,
-          child: Container(
-              width: SizeConfig.screenWidth,
-              height: getProportionateScreenHeight(95),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: getProportionateScreenWidth(24),
-                  ),
-
-                  Spacer(),
-                  Container(height:getProportionateScreenHeight(28),child: AutoSizeText("اضافة مواعيد العمل".i18n,style: h5_21pt,minFontSize: 8,)),
-                  Spacer(),
-                  SizedBox(
-                    width: getProportionateScreenWidth(24),
-                  ),
-                ],
-              )),
-        ),
-      ),
-            SizedBox(height: getProportionateScreenHeight(40),),
-            Container(
-                  alignment: appLocal=="ar"?Alignment.centerRight:Alignment.centerLeft,
-margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(15)),
-              child: Container(
-                  width:
-                  getProportionateScreenWidth(156),
-                  height:
-                  getProportionateScreenHeight(45),
-                  alignment: appLocal=="ar"?Alignment.centerRight:Alignment.centerLeft,
-                  decoration: BoxDecoration(
-                    borderRadius:
-                    BorderRadius.circular(6),
-                    border: Border.all(
-                        width: 1,
-                        color: Colors.grey
-                            .withOpacity(0.6)),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 15),
-                  child: Directionality(
-                    textDirection: appLocal=="ar"?TextDirection.ltr:TextDirection.rtl,
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<Day>(
-                        // value: type,
-                        items:
-                        allDays.days.map((Day item) {
-                          return DropdownMenuItem<Day>(
-                            value: item,
-                            child: AutoSizeText(item.day),
-                          );
-                        }).toList(),
-                        onChanged: ( item) {
-                          setState(() {
-                            dayName = item.day;
-                            dayId=item.id;
-                          });
-                        },
-                        hint: Center(child: Text(dayName)),
-                        elevation: 8,
-                        style: blackText_14pt,
-                        icon: Icon(Icons.arrow_drop_down),
-                        iconDisabledColor: Colors.black,
-                        iconEnabledColor:
-                        Colors.blue.withOpacity(0.6),
-                        // isExpanded: true,
-                      ),
-                    ),
-                  )),
-            ),
-            SizedBox(height: getProportionateScreenHeight(5),),
-            Row(
-              children: [
-                SizedBox(width: getProportionateScreenWidth(16),),
-                Container(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),alignment:Alignment.centerRight,child: AutoSizeText("يفتح عند الساعة ".i18n,style: body1_16pt,
-                  // textDirection: TextDirection.rtl,
-                )),
-              Spacer(),
-                GestureDetector(
-                  onTap: (){_show(true,context);},
-                  child: Container(
-                    // width: getProportionateScreenWidth(170),
-                    height: getProportionateScreenHeight(56),
-                    width: getProportionateScreenWidth(100),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        border: Border.all(color: borderColor,width: 1)
-                    ),
-                    child: Center(
-                      child: AutoSizeText(
-                        widget.t1.text,
-                        style: whiteButton_14pt,
-                      ),
-                    ),
-                  ),
+        child: failed
+            ? Container(
+                width: getProportionateScreenWidth(410),
+                height: getProportionateScreenHeight(200),
+                child: AutoSizeText(
+                  " الرجاء المحاولة مرة اخرى ".i18n,
+                  style: body3_18pt,
                 ),
-
-                SizedBox(width: getProportionateScreenWidth(16),),
-              ],
-            ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 15),
-            //   child:Container(alignment:Alignment.centerLeft,decoration:BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(width: 1,color: borderColor)),child: CustomTextField(textEditingController: widget.t1,textInputType: TextInputType.number,)),
-            // ),
-            SizedBox(height: getProportionateScreenHeight(10),),
-            Row(
-              children: [
-                SizedBox(width: getProportionateScreenWidth(16),),
-                Container(padding:EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10)),alignment:Alignment.centerRight,child: AutoSizeText("يغلق عند الساعة ".i18n,style: body1_16pt,
-                )),
-                  Spacer(),
-                GestureDetector(
-                  onTap: (){_show(false,context);},
-                  child: Container(
-                    // width: getProportionateScreenWidth(170),
-                    height: getProportionateScreenHeight(56),
-                    width: getProportionateScreenWidth(100),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        border: Border.all(color: borderColor,width: 1)
-                    ),
-                    child: Center(
-                      child: AutoSizeText(
-                        widget.t2.text,
-                        style: whiteButton_14pt,
+              )
+            : loading
+                ? LoadingScreen()
+                : Column(
+                    children: [
+                      Container(
+                        child: Material(
+                          elevation: 5,
+                          color: Colors.white,
+                          child: Container(
+                              width: SizeConfig.screenWidth,
+                              height: getProportionateScreenHeight(95),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: getProportionateScreenWidth(24),
+                                  ),
+                                  Spacer(),
+                                  Container(
+                                      height: getProportionateScreenHeight(28),
+                                      child: AutoSizeText(
+                                        "اضافة مواعيد العمل".i18n,
+                                        style: h5_21pt,
+                                        minFontSize: 8,
+                                      )),
+                                  Spacer(),
+                                  SizedBox(
+                                    width: getProportionateScreenWidth(24),
+                                  ),
+                                ],
+                              )),
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        height: getProportionateScreenHeight(40),
+                      ),
+                      Container(
+                        alignment: appLocal == "ar"
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
+                        margin: EdgeInsets.symmetric(
+                            horizontal: getProportionateScreenWidth(15)),
+                        child: Container(
+                            width: getProportionateScreenWidth(156),
+                            height: getProportionateScreenHeight(45),
+                            alignment: appLocal == "ar"
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(
+                                  width: 1,
+                                  color: Colors.grey.withOpacity(0.6)),
+                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            child: Directionality(
+                              textDirection: appLocal == "ar"
+                                  ? TextDirection.ltr
+                                  : TextDirection.rtl,
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<Day>(
+                                  // value: type,
+                                  items: allDays.days.map((Day item) {
+                                    return DropdownMenuItem<Day>(
+                                      value: item,
+                                      child: AutoSizeText(item.day),
+                                    );
+                                  }).toList(),
+                                  onChanged: (item) {
+                                    setState(() {
+                                      dayName = item.day;
+                                      dayId = item.id;
+                                    });
+                                  },
+                                  hint: Center(child: Text(dayName)),
+                                  elevation: 8,
+                                  style: blackText_14pt,
+                                  icon: Icon(Icons.arrow_drop_down),
+                                  iconDisabledColor: Colors.black,
+                                  iconEnabledColor:
+                                      Colors.blue.withOpacity(0.6),
+                                  // isExpanded: true,
+                                ),
+                              ),
+                            )),
+                      ),
+                      SizedBox(
+                        height: getProportionateScreenHeight(5),
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: getProportionateScreenWidth(16),
+                          ),
+                          Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: getProportionateScreenWidth(10)),
+                              alignment: Alignment.centerRight,
+                              child: AutoSizeText(
+                                "يفتح عند الساعة ".i18n, style: body1_16pt,
+                                // textDirection: TextDirection.rtl,
+                              )),
+                          Spacer(),
+                          GestureDetector(
+                            onTap: () {
+                              _show(true, context);
+                            },
+                            child: Container(
+                              // width: getProportionateScreenWidth(170),
+                              height: getProportionateScreenHeight(56),
+                              width: getProportionateScreenWidth(100),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  border:
+                                      Border.all(color: borderColor, width: 1)),
+                              child: Center(
+                                child: AutoSizeText(
+                                  widget.t1.text,
+                                  style: whiteButton_14pt,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: getProportionateScreenWidth(16),
+                          ),
+                        ],
+                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 15),
+                      //   child:Container(alignment:Alignment.centerLeft,decoration:BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(width: 1,color: borderColor)),child: CustomTextField(textEditingController: widget.t1,textInputType: TextInputType.number,)),
+                      // ),
+                      SizedBox(
+                        height: getProportionateScreenHeight(10),
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: getProportionateScreenWidth(16),
+                          ),
+                          Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: getProportionateScreenWidth(10)),
+                              alignment: Alignment.centerRight,
+                              child: AutoSizeText(
+                                "يغلق عند الساعة ".i18n,
+                                style: body1_16pt,
+                              )),
+                          Spacer(),
+                          GestureDetector(
+                            onTap: () {
+                              _show(false, context);
+                            },
+                            child: Container(
+                              // width: getProportionateScreenWidth(170),
+                              height: getProportionateScreenHeight(56),
+                              width: getProportionateScreenWidth(100),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  border:
+                                      Border.all(color: borderColor, width: 1)),
+                              child: Center(
+                                child: AutoSizeText(
+                                  widget.t2.text,
+                                  style: whiteButton_14pt,
+                                ),
+                              ),
+                            ),
+                          ),
+                          // textDirection: TextDirection.rtl,
+
+                          SizedBox(
+                            width: getProportionateScreenWidth(16),
+                          ),
+                        ],
+                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 15),
+                      //   child: Container(decoration:BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(width: 1,color: borderColor)),child: CustomTextField(textEditingController: widget.t2,textInputType: TextInputType.number,color: true,)),
+                      // ),
+                      Spacer(),
+                      GestureDetector(
+                          onTap: () async {
+                            if (widget.t1.text == "" || widget.t2.text == "")
+                              Get.rawSnackbar(
+                                  message: "الرجاء ملئ الحقول".i18n);
+                            else {
+                              consolePrint(to24(widget.t1.text));
+                              consolePrint(to24(widget.t2.text));
+                              Get.back();
+
+                              await widget.controller.addTime(
+                                  dayId,
+                                  to24(widget.t1.text),
+                                  to24(widget.t2.text),
+                                  false);
+                            }
+                          },
+                          child: Container(
+                            // width: getProportionateScreenWidth(170),
+                            height: getProportionateScreenHeight(56),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                gradient: blueGradient),
+                            child: Center(
+                              child: AutoSizeText(
+                                "حفظ ومتابعة ".i18n,
+                                style: blueButton_14pt,
+                              ),
+                            ),
+                          )),
+                      SizedBox(
+                        height: getProportionateScreenHeight(40),
+                      )
+                    ],
                   ),
-                ),
-                  // textDirection: TextDirection.rtl,
-
-
-                SizedBox(width: getProportionateScreenWidth(16),),
-              ],
-            ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 15),
-            //   child: Container(decoration:BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(width: 1,color: borderColor)),child: CustomTextField(textEditingController: widget.t2,textInputType: TextInputType.number,color: true,)),
-            // ),
-Spacer(),
-            GestureDetector(
-                onTap: ()async {
-                  if(widget.t1.text=="" || widget.t2.text=="")
-                   Get.rawSnackbar(message: "الرجاء ملئ الحقول".i18n) ;
-                  else {
-                    Get.back();
-                    await widget.controller.addTime(
-                        dayId, widget.t1.text, widget.t2.text, false
-                    );
-
-                  }
-                },
-                child: Container(
-                  // width: getProportionateScreenWidth(170),
-                  height: getProportionateScreenHeight(56),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      gradient: blueGradient),
-                  child: Center(
-                    child: AutoSizeText(
-                      "حفظ ومتابعة ".i18n,
-                      style: blueButton_14pt,
-                    ),
-                  ),
-                )),
-         SizedBox(height: getProportionateScreenHeight(40),)
-
-          ],
-        ),
       ),
     );
   }
 }
-
-

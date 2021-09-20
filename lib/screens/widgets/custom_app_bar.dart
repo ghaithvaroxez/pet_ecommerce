@@ -8,10 +8,12 @@ import 'package:pets/screens/main_screen/controller/title_controller.dart';
 import 'package:pets/screens/main_screen/model/main_screen_model.dart';
 
 import 'package:pets/screens/notifications/view/notification_button.dart';
+
 class CustomAppBar extends StatelessWidget {
   final Function open_drawer;
 
   const CustomAppBar({Key key, this.open_drawer}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,15 +35,20 @@ class CustomAppBar extends StatelessWidget {
                     backgroundColor: Colors.grey.shade50,
                     child: Image.asset(
                       "assets/images/home/menu_icon.png",
-
-
                       height: 24,
                       width: 20,
                     ),
                   ),
                 ),
                 Spacer(),
-                Obx(()=>Container(height:getProportionateScreenHeight(28),width:getProportionateScreenWidth(75),child: AutoSizeText(customTitle.title.value,style: h5_21pt,minFontSize: 8,))),
+                Obx(() => Container(
+                    height: getProportionateScreenHeight(28),
+                    width: getProportionateScreenWidth(75),
+                    child: AutoSizeText(
+                      customTitle.title.value,
+                      style: h5_21pt,
+                      minFontSize: 8,
+                    ))),
                 Spacer(),
                 NotificationButton(),
                 SizedBox(

@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -15,7 +13,8 @@ import 'package:pets/screens/stores/view/components/offers/store_offer_card.dart
 import 'package:pets/screens/widgets/drawer/custom_drawer.dart';
 import 'package:pets/services/http_requests_service.dart';
 import 'package:http/http.dart' as http;
-import 'translations/all_offers_screen.i18n.dart';import 'package:pets/screens/notifications/view/notification_button.dart';
+import 'translations/all_offers_screen.i18n.dart';
+import 'package:pets/screens/notifications/view/notification_button.dart';
 
 class AllOffersScreen extends StatefulWidget {
   @override
@@ -23,45 +22,32 @@ class AllOffersScreen extends StatefulWidget {
 }
 
 class _AllOffersScreenState extends State<AllOffersScreen> {
-
-
   List<Offer> offers;
-  bool loading =false;
-  bool error=false;
-  fetchData()async
-  {
-    loading=true;
-    setState(() {
+  bool loading = false;
+  bool error = false;
 
-    });
-    var url=Uri.parse("${Api.baseUrl}/all/offers");
-    final h=await HttpService().getHeaders();
+  fetchData() async {
+    loading = true;
+    setState(() {});
+    var url = Uri.parse("${Api.baseUrl}/all/offers");
+    final h = await HttpService().getHeaders();
     consolePrint("try to get  offdmbpfb  lvlfdbfl,lmgk mfv , fv,; bbfd");
-    final apiResult =await http.get(url,headers: h);
-    if(apiResult.statusCode==200)
-    {
-      var j=jsonDecode(apiResult.body);
-      offers= List<Offer>.from(j["offers"].map((x) => Offer.fromJson(x)));
-    }
-    else
-    {
-      error=true;
+    final apiResult = await http.get(url, headers: h);
+    if (apiResult.statusCode == 200) {
+      var j = jsonDecode(apiResult.body);
+      offers = List<Offer>.from(j["offers"].map((x) => Offer.fromJson(x)));
+    } else {
+      error = true;
     }
 
-    loading=false;
-    setState(() {
-
-    });
-
-
+    loading = false;
+    setState(() {});
   }
-
 
   Future<bool> addToFavorite(int offerId) async {
     try {
       consolePrint("offer id" + offerId.toString());
-      var url = Uri.parse(
-          "${Api.baseUrl}/addToFavourite/$offerId/offer");
+      var url = Uri.parse("${Api.baseUrl}/addToFavourite/$offerId/offer");
       consolePrint("before add to favorite print");
       consolePrint("try to post on " + url.path);
 
@@ -90,25 +76,27 @@ class _AllOffersScreenState extends State<AllOffersScreen> {
         consolePrint("statusCode!=200");
         return false;
       }
-    }catch(e){
+    } catch (e) {
       consolePrint(e.toString());
       return false;
     }
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     fetchData();
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return  Scaffold(
-drawer: CustomDrawer(),
+    return Scaffold(
+      drawer: CustomDrawer(),
       body: SafeArea(
         child: Builder(
-          builder: (context)=>Column(
+          builder: (context) => Column(
             children: [
               Container(
                 child: Material(
@@ -123,7 +111,7 @@ drawer: CustomDrawer(),
                             width: getProportionateScreenWidth(24),
                           ),
                           GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               Scaffold.of(context).openDrawer();
                             },
                             child: CircleAvatar(
@@ -137,10 +125,15 @@ drawer: CustomDrawer(),
                             ),
                           ),
                           Spacer(),
-                          Container(height:getProportionateScreenHeight(28),child: AutoSizeText("العروض".i18n,style: h5_21pt,minFontSize: 8,)),
+                          Container(
+                              height: getProportionateScreenHeight(28),
+                              child: AutoSizeText(
+                                "العروض".i18n,
+                                style: h5_21pt,
+                                minFontSize: 8,
+                              )),
                           Spacer(),
                           NotificationButton(),
-
                           SizedBox(
                             width: getProportionateScreenWidth(24),
                           ),
@@ -148,61 +141,87 @@ drawer: CustomDrawer(),
                       )),
                 ),
               ),
-
               Expanded(
-                child: error?Container(
-                  margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
-                  child: AutoSizeText("الرجاء المحاولة مجددا".i18n),
-                ):loading?LoadingScreen():Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: getProportionateScreenWidth(24),
-                      vertical: getProportionateScreenHeight(26)),
-                  child:offers.length==0? Container(
-                    height: getProportionateScreenHeight(400),
-                    width: getProportionateScreenWidth(350),
-                    alignment: Alignment.center,
-                    child: AutoSizeText("لا يوجد عناصر لعرضها حاليا".i18n,style: body3_18pt,),
-                  ):
-                  SingleChildScrollView(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          children: [
-                            ...List<Widget>.generate(
-                              offers.length,
-                                  (index)=>index%2==0&&offers[index].visible=="visible"?Container(
-                                margin: EdgeInsets.symmetric(vertical: 10),
-
-                                child:         StoreOfferCard(offers[index],()async{
-
-                                },false),
-                              ):Container(height: 0,),
-
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        Column(
-                          children: [
-                            ...List<Widget>.generate(
-                              offers.length,
-                                  (index)=>index%2==1&&offers[index].visible=="visible"?Container(
-                                margin: EdgeInsets.symmetric(vertical: 10),
-
-                                child:         StoreOfferCard(offers[index],()async{
-                                  bool k=await addToFavorite(offers[index].id);
-                                  return k;
-                                },false),
-                              ):Container(height: 0,),
-
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                child: error
+                    ? Container(
+                        margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
+                        child: AutoSizeText("الرجاء المحاولة مجددا".i18n),
+                      )
+                    : loading
+                        ? LoadingScreen()
+                        : Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: getProportionateScreenWidth(24),
+                                vertical: getProportionateScreenHeight(26)),
+                            child: offers.length == 0
+                                ? Container(
+                                    height: getProportionateScreenHeight(400),
+                                    width: getProportionateScreenWidth(350),
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      "لا يوجد عناصر لعرضها حاليا".i18n,
+                                      style: body3_18pt,
+                                    ),
+                                  )
+                                : SingleChildScrollView(
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            ...List<Widget>.generate(
+                                              offers.length,
+                                              (index) => index % 2 == 0 &&
+                                                      offers[index].visible ==
+                                                          "visible"
+                                                  ? Container(
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 10),
+                                                      child: StoreOfferCard(
+                                                          offers[index],
+                                                          () async {},
+                                                          false),
+                                                    )
+                                                  : Container(
+                                                      height: 0,
+                                                    ),
+                                            ),
+                                          ],
+                                        ),
+                                        Spacer(),
+                                        Column(
+                                          children: [
+                                            ...List<Widget>.generate(
+                                              offers.length,
+                                              (index) => index % 2 == 1 &&
+                                                      offers[index].visible ==
+                                                          "visible"
+                                                  ? Container(
+                                                      margin:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 10),
+                                                      child: StoreOfferCard(
+                                                          offers[index],
+                                                          () async {
+                                                        bool k =
+                                                            await addToFavorite(
+                                                                offers[index]
+                                                                    .id);
+                                                        return k;
+                                                      }, false),
+                                                    )
+                                                  : Container(
+                                                      height: 0,
+                                                    ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                          ),
               ),
             ],
           ),

@@ -5,23 +5,33 @@ import 'package:pets/configuration/constants/api.dart';
 import 'package:pets/configuration/constants/text_style.dart';
 import 'package:pets/configuration/size_config.dart';
 import 'package:pets/screens/vendor_app/model/product.dart';
+
 // import 'package:pets/screens/stores/model/custoer_store_offer.dart';
 import '../../../model/offer.dart';
 import 'translation/vendors_offers_details_page.i18n.dart';
+
 class VendorOfferDetailsPage extends StatelessWidget {
   Offer offer;
+
   VendorOfferDetailsPage(this.offer);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: [
-            Positioned(top:0,left:0,child: Container(
-              height: getProportionateScreenHeight(357),
-              width: getProportionateScreenWidth(394),
-              child: Image.network(Api.imagePath+offer.image,fit: BoxFit.fill,),
-            )),
+            Positioned(
+                top: 0,
+                left: 0,
+                child: Container(
+                  height: getProportionateScreenHeight(357),
+                  width: getProportionateScreenWidth(394),
+                  child: Image.network(
+                    Api.imagePath + offer.image,
+                    fit: BoxFit.fill,
+                  ),
+                )),
             Positioned(
                 top: 0,
                 left: 0,
@@ -38,7 +48,7 @@ class VendorOfferDetailsPage extends StatelessWidget {
               top: getProportionateScreenHeight(34),
               left: getProportionateScreenWidth(24),
               child: GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.pop(context);
                 },
                 child: Container(
@@ -93,17 +103,17 @@ class VendorOfferDetailsPage extends StatelessWidget {
                 // height: getProportionateScreenHeight(53),
                 // padding: EdgeInsets.only(top: getProportionateScreenHeight(10),bottom: getProportionateScreenHeight(10),left: getProportionateScreenWidth(15),right:getProportionateScreenWidth(25) ),
                 decoration: BoxDecoration(
-                  // gradient: LinearGradient(colors: [
-                  //   Colors.brown,
-                  //   Colors.brown.withOpacity(0.6),
-                  //   // Colors.white,
-                  //
-                  // ]),
-                  // color: Colors.white.withOpacity(0.70),
-                  // borderRadius: BorderRadius.only(
-                  //     topRight: Radius.circular(12),
-                  //     bottomLeft: Radius.circular(12)),
-                ),
+                    // gradient: LinearGradient(colors: [
+                    //   Colors.brown,
+                    //   Colors.brown.withOpacity(0.6),
+                    //   // Colors.white,
+                    //
+                    // ]),
+                    // color: Colors.white.withOpacity(0.70),
+                    // borderRadius: BorderRadius.only(
+                    //     topRight: Radius.circular(12),
+                    //     bottomLeft: Radius.circular(12)),
+                    ),
                 child: Container(
                   alignment: Alignment.topRight,
                   child: Column(
@@ -112,19 +122,21 @@ class VendorOfferDetailsPage extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         width: getProportionateScreenWidth(250),
                         child: AutoSizeText(
-                          offer.name ,
+                          offer.name,
                           minFontSize: 11,
                           style: blueButton_21pt,
                           maxLines: 1,
                         ),
                       ),
-                      SizedBox(height: getProportionateScreenHeight(5),),
+                      SizedBox(
+                        height: getProportionateScreenHeight(5),
+                      ),
                       Container(
                         width: getProportionateScreenWidth(250),
                         // color: Colors.redAccent,
                         alignment: Alignment.centerRight,
                         child: AutoSizeText(
-                          offer.category ,
+                          offer.category,
                           maxLines: 1,
                           textAlign: TextAlign.right,
                           minFontSize: 11,
@@ -137,36 +149,53 @@ class VendorOfferDetailsPage extends StatelessWidget {
               ),
             ),
 
-            Positioned(top:getProportionateScreenHeight(355),bottom:0,left:0,right:0,child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
-                ),
-                color: Colors.white,
-              ),
-              child: SingleChildScrollView(
+            Positioned(
+                top: getProportionateScreenHeight(355),
+                bottom: 0,
+                left: 0,
+                right: 0,
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: getProportionateScreenHeight(8),horizontal: getProportionateScreenWidth(20)),
-
-                  child: Column(
-                    children: [
-                      SizedBox(height: getProportionateScreenHeight(10),),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: AutoSizeText("الوصف".i18n,style: body3_18pt,),
-                      ),
-                      SizedBox(height: getProportionateScreenHeight(35),),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(4)),
-                        alignment: Alignment.centerRight,
-                        child: AutoSizeText(offer.desc,style: darkGrayText_16pt,),
-                      ),
-                    ],
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                    ),
+                    color: Colors.white,
                   ),
-                ),
-              ),
-            ))
+                  child: SingleChildScrollView(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: getProportionateScreenHeight(8),
+                          horizontal: getProportionateScreenWidth(20)),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: getProportionateScreenHeight(10),
+                          ),
+                          Container(
+                            alignment: Alignment.centerRight,
+                            child: AutoSizeText(
+                              "الوصف".i18n,
+                              style: body3_18pt,
+                            ),
+                          ),
+                          SizedBox(
+                            height: getProportionateScreenHeight(35),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: getProportionateScreenWidth(4)),
+                            alignment: Alignment.centerRight,
+                            child: AutoSizeText(
+                              offer.desc,
+                              style: darkGrayText_16pt,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ))
           ],
         ),
       ),

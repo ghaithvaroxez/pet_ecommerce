@@ -21,10 +21,12 @@ import 'package:http/http.dart' as http;
 import '../view/components/products/p_bodyy.dart';
 import '../view/components/photos/photos_body.dart';
 import 'translations/store_details.i18n.dart';
+
 class StoreDetailsPage extends StatefulWidget {
   Store storeModel;
 
   StoreDetailsPage(this.storeModel);
+
   @override
   _StoreDetailsPageState createState() => _StoreDetailsPageState();
 }
@@ -35,9 +37,8 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
   CustomerLabelController _customerLabelController =
       Get.put(CustomerLabelController());
 
-
   // bool loading =false;
-  bool failed =false;
+  bool failed = false;
 
   // getData() async
   // {
@@ -83,16 +84,14 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
     _customerLabelController.changeIndex(2);
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     SizeConfig.init(context);
     return Scaffold(
       body: SafeArea(
         child:
-        // loading?LoadingScreen():
-        Stack(
+            // loading?LoadingScreen():
+            Stack(
           children: [
             Positioned(
                 top: 0,
@@ -100,11 +99,21 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                 right: 0,
                 height: getProportionateScreenHeight(400),
                 child: Container(
-                  child: widget.storeModel.image!=null?Image.network(Api.imagePath+widget.storeModel.image,fit: BoxFit.cover,):
-                  Image.asset(
-                    "assets/images/home/shop_image.png",
-                    fit: BoxFit.fill,
-                  ),
+                  child: widget.storeModel.image == null ||
+                          widget.storeModel.image == ""
+                      ? Container(
+                          height: getProportionateScreenHeight(400),
+                          width: getProportionateScreenWidth(390),
+                          color: Colors.white.withOpacity(0.8),
+                          alignment: Alignment.center,
+                          child: AutoSizeText(
+                            "Pets",
+                            style: BlueText_16pt_bold,
+                          ))
+                      : Image.network(
+                          Api.imagePath + widget.storeModel.image,
+                          fit: BoxFit.cover,
+                        ),
                 )),
             Positioned(
                 top: 0,
@@ -112,18 +121,24 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                 right: 0,
                 height: getProportionateScreenHeight(400),
                 child: Container(
-                  child: Image.asset(
-                    "assets/images/store/black_layer.png",
-                    fit: BoxFit.fill,
+                  child: Opacity(
+                    opacity: widget.storeModel.image == null ||
+                            widget.storeModel.image == ""
+                        ? 0.4
+                        : 1,
+                    child: Image.asset(
+                      "assets/images/store/black_layer.png",
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 )),
             Positioned(
               top: getProportionateScreenHeight(34),
               left: getProportionateScreenWidth(24),
               child: GestureDetector(
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
+                onTap: () {
+                  Navigator.pop(context);
+                },
                 child: Container(
                   width: getProportionateScreenWidth(48),
                   height: getProportionateScreenHeight(48),
@@ -131,295 +146,305 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                       color: Colors.white.withOpacity(0.8),
                       shape: BoxShape.circle),
                   child: Center(
-                    child: Icon(
-                      Icons.arrow_back_ios_outlined,
-                      size: 14,
+                    child: RotatedBox(
+                      quarterTurns: appLocal == "ar" ? 90 : 0,
+                      child: Icon(
+                        Icons.arrow_back_ios_outlined,
+                        size: 14,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-           appLocal=="ar"? Positioned(
-              top: getProportionateScreenHeight(290),
-              left: getProportionateScreenWidth(10),
-              child: Container(
-                width: getProportionateScreenWidth(102),
-                height: getProportionateScreenHeight(40),
-                padding: EdgeInsets.only(top: getProportionateScreenHeight(10),bottom: getProportionateScreenHeight(10),left: getProportionateScreenWidth(15),right:getProportionateScreenWidth(25) ),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    Colors.brown,
-                    Colors.brown.withOpacity(0.6),
-                    // Colors.white,
-                  ]),
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      bottomLeft: Radius.circular(12)),
-                ),
-                child: Center(
-                  child: AutoSizeText(
-                    widget.storeModel.storeStatus=="closed"?"مغلق الان".i18n :"مفتوح الان".i18n,
-                    minFontSize: 11,
-                    style: blueButton_14pt,
+            appLocal == "ar"
+                ? Positioned(
+                    top: getProportionateScreenHeight(290),
+                    left: getProportionateScreenWidth(10),
+                    child: Container(
+                      width: getProportionateScreenWidth(102),
+                      height: getProportionateScreenHeight(40),
+                      padding: EdgeInsets.only(
+                          top: getProportionateScreenHeight(10),
+                          bottom: getProportionateScreenHeight(10),
+                          left: getProportionateScreenWidth(15),
+                          right: getProportionateScreenWidth(25)),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(colors: [
+                          Colors.brown,
+                          Colors.brown.withOpacity(0.6),
+                          // Colors.white,
+                        ]),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(12),
+                            bottomLeft: Radius.circular(12)),
+                      ),
+                      child: Center(
+                        child: AutoSizeText(
+                          widget.storeModel.storeStatus == "closed"
+                              ? "مغلق الان".i18n
+                              : "مفتوح الان".i18n,
+                          minFontSize: 11,
+                          style: blueButton_14pt,
+                        ),
+                      ),
+                    ),
+                  )
+                : Positioned(
+                    top: getProportionateScreenHeight(290),
+                    right: getProportionateScreenWidth(10),
+                    child: Container(
+                      width: getProportionateScreenWidth(102),
+                      height: getProportionateScreenHeight(40),
+                      padding: EdgeInsets.only(
+                          top: getProportionateScreenHeight(10),
+                          bottom: getProportionateScreenHeight(10),
+                          left: getProportionateScreenWidth(15),
+                          right: getProportionateScreenWidth(25)),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(colors: [
+                          Colors.brown,
+                          Colors.brown.withOpacity(0.6),
+                          // Colors.white,
+                        ]),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(12),
+                            bottomLeft: Radius.circular(12)),
+                      ),
+                      child: Center(
+                        child: AutoSizeText(
+                          widget.storeModel.storeStatus == "closed"
+                              ? "مغلق الان".i18n
+                              : "مفتوح الان".i18n,
+                          minFontSize: 11,
+                          style: blueButton_14pt,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ):Positioned(
-             top: getProportionateScreenHeight(290),
-             right: getProportionateScreenWidth(10),
-             child: Container(
-               width: getProportionateScreenWidth(102),
-               height: getProportionateScreenHeight(40),
-               padding: EdgeInsets.only(top: getProportionateScreenHeight(10),bottom: getProportionateScreenHeight(10),left: getProportionateScreenWidth(15),right:getProportionateScreenWidth(25) ),
-               decoration: BoxDecoration(
-                 gradient: LinearGradient(colors: [
-                   Colors.brown,
-                   Colors.brown.withOpacity(0.6),
-                   // Colors.white,
-                 ]),
-                 borderRadius: BorderRadius.only(
-                     topRight: Radius.circular(12),
-                     bottomLeft: Radius.circular(12)),
-               ),
-               child: Center(
-                 child: AutoSizeText(
-                   widget.storeModel.storeStatus=="closed"?"مغلق الان".i18n :   "مفتوح الان".i18n,
-                   minFontSize: 11,
-                   style: blueButton_14pt,
-                 ),
-               ),
-             ),
-           ),
-           appLocal=="ar"? Positioned(
-              top: getProportionateScreenHeight(260),
-              right: getProportionateScreenWidth(10),
-              // width: getProportionateScreenWidth(190),
-              height: getProportionateScreenHeight(80),
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            appLocal == "ar"
+                ? Positioned(
+                    top: getProportionateScreenHeight(260),
+                    right: getProportionateScreenWidth(10),
+                    // width: getProportionateScreenWidth(190),
+                    height: getProportionateScreenHeight(80),
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
 // crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      alignment: Alignment.centerRight,
-                      height: getProportionateScreenHeight(30),
-                      width: getProportionateScreenWidth(250),
-                      child: AutoSizeText(
-                        widget.storeModel.name,
-                        // textDirection: TextDirection.rtl,
-                        style: blueButton_25pt,
-                      ),
-                    ),
-                    Container(
-                      
-                      height: getProportionateScreenHeight(20),
-                      width: getProportionateScreenWidth(250),
-                      alignment: Alignment.centerRight,
-                      // color: Colors.red,
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-
-                          Image.asset(
-                            "assets/images/home/location_icon.png",
-                            height: getProportionateScreenHeight(12),
-                          ),
-                          SizedBox(
-                            width: getProportionateScreenWidth(10),
-                          ),
                           Container(
-
-                            // alignment: Alignment.centerRight,
-                            height: getProportionateScreenHeight(20),
-                            width: getProportionateScreenWidth(200),
+                            alignment: Alignment.centerRight,
+                            height: getProportionateScreenHeight(30),
+                            width: getProportionateScreenWidth(250),
                             child: AutoSizeText(
-                              widget.storeModel.district,
-                              style: blueButton_14pt,
-                              minFontSize: 10,
-                              maxLines: 1,
+                              widget.storeModel.name,
                               // textDirection: TextDirection.rtl,
+                              style: blueButton_25pt,
                             ),
-                          ),
-
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: getProportionateScreenWidth(250),
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            "assets/images/home/clock_icon.png",
-                            height: getProportionateScreenHeight(12),
-                          ),
-                          SizedBox(
-                            width: getProportionateScreenWidth(10),
                           ),
                           Container(
                             height: getProportionateScreenHeight(20),
-                            alignment: Alignment.centerLeft,
-                            child: Container(
-                              child: Row(
-                                children: [
-                                  Container(
-
-                                    height: getProportionateScreenHeight(20),
-                                    // width: getProportionateScreenWidth(120),
-                                    child: AutoSizeText(
-                                      "${widget.storeModel.openFrom} ",textDirection: TextDirection.ltr,
-                                      style: blueButton_14pt,
-                                      minFontSize: 10,
-                                    ),
+                            width: getProportionateScreenWidth(250),
+                            alignment: Alignment.centerRight,
+                            // color: Colors.red,
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Image.asset(
+                                  "assets/images/home/location_icon.png",
+                                  height: getProportionateScreenHeight(12),
+                                ),
+                                SizedBox(
+                                  width: getProportionateScreenWidth(10),
+                                ),
+                                Container(
+                                  // alignment: Alignment.centerRight,
+                                  height: getProportionateScreenHeight(20),
+                                  width: getProportionateScreenWidth(200),
+                                  child: AutoSizeText(
+                                    widget.storeModel.district,
+                                    style: blueButton_14pt,
+                                    minFontSize: 10,
+                                    maxLines: 1,
+                                    // textDirection: TextDirection.rtl,
                                   ),
-                                  Container(
-                                    height: getProportionateScreenHeight(20),
-                                    // width: getProportionateScreenWidth(120),
-                                    child: AutoSizeText(
-                                      "-",
-                                      style: blueButton_14pt,
-                                      minFontSize: 10,
-                                    ),
-                                  ),
-                                  Container(
-                                    height: getProportionateScreenHeight(20),
-                                    // width: getProportionateScreenWidth(120),
-                                    child: AutoSizeText(
-                                      "${widget.storeModel.closedAt} ",textDirection: TextDirection.ltr ,
-                                      style: blueButton_14pt,
-                                      minFontSize: 10,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-
-
-
-
+                          Container(
+                            width: getProportionateScreenWidth(250),
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  "assets/images/home/clock_icon.png",
+                                  height: getProportionateScreenHeight(12),
+                                ),
+                                SizedBox(
+                                  width: getProportionateScreenWidth(10),
+                                ),
+                                Container(
+                                  height: getProportionateScreenHeight(20),
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height:
+                                              getProportionateScreenHeight(20),
+                                          // width: getProportionateScreenWidth(120),
+                                          child: AutoSizeText(
+                                            "${widget.storeModel.openFrom} ",
+                                            textDirection: TextDirection.ltr,
+                                            style: blueButton_14pt,
+                                            minFontSize: 10,
+                                          ),
+                                        ),
+                                        Container(
+                                          height:
+                                              getProportionateScreenHeight(20),
+                                          // width: getProportionateScreenWidth(120),
+                                          child: AutoSizeText(
+                                            "-",
+                                            style: blueButton_14pt,
+                                            minFontSize: 10,
+                                          ),
+                                        ),
+                                        Container(
+                                          height:
+                                              getProportionateScreenHeight(20),
+                                          // width: getProportionateScreenWidth(120),
+                                          child: AutoSizeText(
+                                            "${widget.storeModel.closedAt} ",
+                                            textDirection: TextDirection.ltr,
+                                            style: blueButton_14pt,
+                                            minFontSize: 10,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ):
-           Positioned(
-             top: getProportionateScreenHeight(260),
-             left: getProportionateScreenWidth(10),
-             // width: getProportionateScreenWidth(190),
-             height: getProportionateScreenHeight(80),
-             child: Container(
-               child: Column(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  )
+                : Positioned(
+                    top: getProportionateScreenHeight(260),
+                    left: getProportionateScreenWidth(10),
+                    // width: getProportionateScreenWidth(190),
+                    height: getProportionateScreenHeight(80),
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
 // crossAxisAlignment: CrossAxisAlignment.end,
-                 children: [
-                   Container(
-                     // alignment: Alignment.centerRight,
-                     height: getProportionateScreenHeight(30),
-                     width: getProportionateScreenWidth(250),
-                     child: AutoSizeText(
-                       widget.storeModel.name,
-                       // textDirection: TextDirection.rtl,
-                       style: blueButton_25pt,
-                     ),
-                   ),
-                   Container(
-
-                     height: getProportionateScreenHeight(20),
-                     width: getProportionateScreenWidth(250),
-                     alignment: Alignment.centerRight,
-                     // color: Colors.red,
-                     child: Row(
-                       // mainAxisAlignment: MainAxisAlignment.end,
-                       children: [
-
-                         Image.asset(
-                           "assets/images/home/location_icon.png",
-                           height: getProportionateScreenHeight(12),
-                         ),
-                         SizedBox(
-                           width: getProportionateScreenWidth(10),
-                         ),
-                         Container(
-
-                           // alignment: Alignment.centerRight,
-                           height: getProportionateScreenHeight(20),
-                           width: getProportionateScreenWidth(200),
-                           child: AutoSizeText(
-                             widget.storeModel.district,
-                             style: blueButton_14pt,
-                             minFontSize: 10,
-                             maxLines: 1,
-                             // textDirection: TextDirection.rtl,
-                           ),
-                         ),
-
-                       ],
-                     ),
-                   ),
-                   Container(
-                     width: getProportionateScreenWidth(250),
-                     child: Row(
-                       // mainAxisAlignment: MainAxisAlignment.start,
-                       children: [
-                         Image.asset(
-                           "assets/images/home/clock_icon.png",
-                           height: getProportionateScreenHeight(12),
-                         ),
-                         SizedBox(
-                           width: getProportionateScreenWidth(10),
-                         ),
-                         Container(
-                           height: getProportionateScreenHeight(20),
-                           alignment: Alignment.centerLeft,
-                           child: Container(
-                             child: Row(
-                               children: [
-                                 Container(
-
-                                   height: getProportionateScreenHeight(20),
-                                   // width: getProportionateScreenWidth(120),
-                                   child: AutoSizeText(
-                                     "${widget.storeModel.openFrom} ",textDirection: TextDirection.ltr,
-                                     style: blueButton_14pt,
-                                     minFontSize: 10,
-                                   ),
-                                 ),
-                                 Container(
-                                   height: getProportionateScreenHeight(20),
-                                   // width: getProportionateScreenWidth(120),
-                                   child: AutoSizeText(
-                                     "-",
-                                     style: blueButton_14pt,
-                                     minFontSize: 10,
-                                   ),
-                                 ),
-                                 Container(
-                                   height: getProportionateScreenHeight(20),
-                                   // width: getProportionateScreenWidth(120),
-                                   child: AutoSizeText(
-                                     "${widget.storeModel.closedAt} ",textDirection: TextDirection.ltr ,
-                                     style: blueButton_14pt,
-                                     minFontSize: 10,
-                                   ),
-                                 ),
-                               ],
-                             ),
-                           ),
-                         ),
-
-
-
-
-                       ],
-                     ),
-                   ),
-                 ],
-               ),
-             ),
-           ),
+                        children: [
+                          Container(
+                            // alignment: Alignment.centerRight,
+                            height: getProportionateScreenHeight(30),
+                            width: getProportionateScreenWidth(250),
+                            child: AutoSizeText(
+                              widget.storeModel.name,
+                              // textDirection: TextDirection.rtl,
+                              style: blueButton_25pt,
+                            ),
+                          ),
+                          Container(
+                            height: getProportionateScreenHeight(20),
+                            width: getProportionateScreenWidth(250),
+                            alignment: Alignment.centerRight,
+                            // color: Colors.red,
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Image.asset(
+                                  "assets/images/home/location_icon.png",
+                                  height: getProportionateScreenHeight(12),
+                                ),
+                                SizedBox(
+                                  width: getProportionateScreenWidth(10),
+                                ),
+                                Container(
+                                  // alignment: Alignment.centerRight,
+                                  height: getProportionateScreenHeight(20),
+                                  width: getProportionateScreenWidth(200),
+                                  child: AutoSizeText(
+                                    widget.storeModel.district,
+                                    style: blueButton_14pt,
+                                    minFontSize: 10,
+                                    maxLines: 1,
+                                    // textDirection: TextDirection.rtl,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: getProportionateScreenWidth(250),
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  "assets/images/home/clock_icon.png",
+                                  height: getProportionateScreenHeight(12),
+                                ),
+                                SizedBox(
+                                  width: getProportionateScreenWidth(10),
+                                ),
+                                Container(
+                                  height: getProportionateScreenHeight(20),
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height:
+                                              getProportionateScreenHeight(20),
+                                          // width: getProportionateScreenWidth(120),
+                                          child: AutoSizeText(
+                                            "${widget.storeModel.openFrom} ",
+                                            textDirection: TextDirection.ltr,
+                                            style: blueButton_14pt,
+                                            minFontSize: 10,
+                                          ),
+                                        ),
+                                        Container(
+                                          height:
+                                              getProportionateScreenHeight(20),
+                                          // width: getProportionateScreenWidth(120),
+                                          child: AutoSizeText(
+                                            "-",
+                                            style: blueButton_14pt,
+                                            minFontSize: 10,
+                                          ),
+                                        ),
+                                        Container(
+                                          height:
+                                              getProportionateScreenHeight(20),
+                                          // width: getProportionateScreenWidth(120),
+                                          child: AutoSizeText(
+                                            "${widget.storeModel.closedAt} ",
+                                            textDirection: TextDirection.ltr,
+                                            style: blueButton_14pt,
+                                            minFontSize: 10,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
             Positioned(
               top: getProportionateScreenHeight(350),
               left: 0,
@@ -440,9 +465,11 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                             padding: EdgeInsets.only(
                                 top: getProportionateScreenHeight(12)),
                             decoration: BoxDecoration(
-                              borderRadius: appLocal=="ar"?BorderRadius.only(
-                                  topRight: Radius.circular(12)):BorderRadius.only(
-                                  topLeft: Radius.circular(12)),
+                              borderRadius: appLocal == "ar"
+                                  ? BorderRadius.only(
+                                      topRight: Radius.circular(12))
+                                  : BorderRadius.only(
+                                      topLeft: Radius.circular(12)),
                               color: controller.backgroundColors[0],
                             ),
                             child: Column(
@@ -472,7 +499,6 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                       ),
                     ),
 
-
                     Expanded(
                       child: GetBuilder<CustomerLabelController>(
                         // init: _customerLabelController,
@@ -487,7 +513,7 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                   // topLeft: Radius.circular(12)
-                              ),
+                                  ),
                               color: controller.backgroundColors[1],
                             ),
                             child: Column(
@@ -576,10 +602,11 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                                 top: getProportionateScreenHeight(12)),
                             decoration: BoxDecoration(
                               color: controller.backgroundColors[3],
-                              borderRadius:appLocal=="ar"?BorderRadius.only(
-                                  topLeft: Radius.circular(12)): BorderRadius.only(
-                                topRight:Radius.circular(12)
-                              ),
+                              borderRadius: appLocal == "ar"
+                                  ? BorderRadius.only(
+                                      topLeft: Radius.circular(12))
+                                  : BorderRadius.only(
+                                      topRight: Radius.circular(12)),
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -675,7 +702,6 @@ class _StoreDetailsPageState extends State<StoreDetailsPage>
                       AboutStoreBodyScreen(widget.storeModel.id),
                       OffersBodyScreen(widget.storeModel.id),
                       // OrdersBodyScreen(),
-
                     ],
                   ),
                 )),

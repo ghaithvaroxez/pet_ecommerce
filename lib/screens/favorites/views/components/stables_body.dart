@@ -24,23 +24,20 @@ class FavoriteStablesBody extends StatefulWidget {
 }
 
 class _FavoriteStablesBodyState extends State<FavoriteStablesBody> {
-  bool loading =false;
+  bool loading = false;
   FavoriteStoreModel Stores;
-  bool failed=false;
-  fetchData()async
-  {
-    loading=true;
-    setState(() {
+  bool failed = false;
 
-    });
-    try{
-      var url =
-      Uri.parse("${Api.baseUrl}/myFavourites/barns");
+  fetchData() async {
+    loading = true;
+    setState(() {});
+    try {
+      var url = Uri.parse("${Api.baseUrl}/myFavourites/barns");
       consolePrint("before print");
       final h = await HttpService().getHeaders();
       consolePrint("try to get " + url.path);
       final apiResult = await http.get(url, headers: h);
-      consolePrint("body :"+apiResult.body);
+      consolePrint("body :" + apiResult.body);
       consolePrint("after print");
 
       if (apiResult.statusCode == 200) {
@@ -50,7 +47,7 @@ class _FavoriteStablesBodyState extends State<FavoriteStablesBody> {
       }
       loading = false;
       setState(() {});
-    }catch(e){
+    } catch (e) {
       failed = true;
       loading = false;
       setState(() {});
@@ -59,10 +56,9 @@ class _FavoriteStablesBodyState extends State<FavoriteStablesBody> {
   }
 
   Future<bool> addToFavorite(int storeId) async {
-    try{
+    try {
       consolePrint("store id" + storeId.toString());
-      var url = Uri.parse(
-          "${Api.baseUrl}/addToFavourite/$storeId/store/store");
+      var url = Uri.parse("${Api.baseUrl}/addToFavourite/$storeId/store/store");
       consolePrint("before add to favorite print");
       final h = await HttpService().getHeaders();
       final apiResult = await http.post(url, headers: h);
@@ -83,12 +79,11 @@ class _FavoriteStablesBodyState extends State<FavoriteStablesBody> {
         consolePrint("statusCode!=200");
         return false;
       }
-    }catch(e){
+    } catch (e) {
       consolePrint(e.toString());
       return false;
     }
   }
-
 
   @override
   void initState() {
@@ -96,35 +91,65 @@ class _FavoriteStablesBodyState extends State<FavoriteStablesBody> {
     super.initState();
     fetchData();
   }
+
   @override
   Widget build(BuildContext context) {
-    return failed?Column(mainAxisSize: MainAxisSize.max,children: [
-      Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مجدداً ".i18n,style: body3_18pt,),),),
-    ],):loading?LoadingScreen():
-    Stores.myFavourites.length==0? Container(
-      height: getProportionateScreenHeight(400),
-      width: getProportionateScreenWidth(350),
-      alignment: Alignment.center,
-      child: AutoSizeText("لا يوجد عناصر في المفضلة".i18n,style: body3_18pt,),
-    ):Container(
-      // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
-        padding: EdgeInsets.only(top: getProportionateScreenHeight(25)),
-        child: ListView.builder(
+    return failed
+        ? Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                height: getProportionateScreenHeight(300),
+                width: getProportionateScreenWidth(370),
+                child: Center(
+                  child: Text(
+                    "الرجاء المحاولة مجدداً ".i18n,
+                    style: body3_18pt,
+                  ),
+                ),
+              ),
+            ],
+          )
+        : loading
+            ? LoadingScreen()
+            : Stores.myFavourites.length == 0
+                ? Container(
+                    height: getProportionateScreenHeight(400),
+                    width: getProportionateScreenWidth(350),
+                    alignment: Alignment.center,
+                    child: AutoSizeText(
+                      "لا يوجد عناصر في المفضلة".i18n,
+                      style: body3_18pt,
+                    ),
+                  )
+                : Container(
+                    // margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
+                    padding:
+                        EdgeInsets.only(top: getProportionateScreenHeight(25)),
+                    child: ListView.builder(
 // physics: NeverScrollableScrollPhysics(),
-            itemCount: Stores.myFavourites.length,
-            itemBuilder: (context, index) => index == 0
-                ? Column(
-              children: [
-                // SearchBar(),
-                VerticalStoreListCard(store:Stores.myFavourites[index],addToFav: ()async{
-                  bool k=  await addToFavorite(Stores.myFavourites[index].id);
-                  return k;
-                },)],
-            )
-                : VerticalStoreListCard(store:Stores.myFavourites[index],addToFav: ()async{
-              bool k=  await addToFavorite(Stores.myFavourites[index].id);
-              return k;
-            },)));
+                        itemCount: Stores.myFavourites.length,
+                        itemBuilder: (context, index) => index == 0
+                            ? Column(
+                                children: [
+                                  // SearchBar(),
+                                  VerticalStoreListCard(
+                                    store: Stores.myFavourites[index],
+                                    addToFav: () async {
+                                      bool k = await addToFavorite(
+                                          Stores.myFavourites[index].id);
+                                      return k;
+                                    },
+                                  )
+                                ],
+                              )
+                            : VerticalStoreListCard(
+                                store: Stores.myFavourites[index],
+                                addToFav: () async {
+                                  bool k = await addToFavorite(
+                                      Stores.myFavourites[index].id);
+                                  return k;
+                                },
+                              )));
   }
 }
-

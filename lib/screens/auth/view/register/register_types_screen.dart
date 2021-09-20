@@ -10,7 +10,6 @@ import 'package:pets/screens/auth/view/login/login_screen.dart';
 import 'package:pets/screens/auth/view/register/register_screen.dart';
 import 'translations/register_types_screen.i18n.dart';
 
-
 class SignUpTypeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -19,10 +18,14 @@ class SignUpTypeScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 15,),
+          margin: EdgeInsets.symmetric(
+            horizontal: 15,
+          ),
           child: Column(
             children: [
-              SizedBox(height: getProportionateScreenHeight(55),),
+              SizedBox(
+                height: getProportionateScreenHeight(55),
+              ),
               Container(
                 child: Text(
                   "إنشاء حساب".i18n,

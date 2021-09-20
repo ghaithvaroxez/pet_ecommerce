@@ -5,32 +5,34 @@ import 'package:pets/configuration/constants/api.dart';
 import 'package:pets/configuration/printer.dart';
 import 'package:pets/configuration/size_config.dart';
 import 'package:pets/screens/corner/model/corner_model.dart';
+
 // import 'package:pets/screens/vendor_app/model/image_model.dart' as im;
 @JsonSerializable(explicitToJson: true)
 class CornerPhotosView extends StatefulWidget {
   List<Img> images;
   int index;
-  CornerPhotosView(this.images,this.index);
+
+  CornerPhotosView(this.images, this.index);
+
   @override
   _CornerPhotosViewState createState() => _CornerPhotosViewState();
 }
 
 class _CornerPhotosViewState extends State<CornerPhotosView> {
-  List<Img> myImages=[];
-  List<Img> before=[];
-  List<Img> after=[];
+  List<Img> myImages = [];
+  List<Img> before = [];
+  List<Img> after = [];
 
   @override
   void initState() {
     consolePrint(widget.index.toString());
     // TODO: implement initState
     super.initState();
-    before=widget.images.sublist(0,widget.index);
-    after=widget.images.sublist(widget.index,widget.images.length-1);
-    if(widget.images.length>1)
-      after.add(widget.images[widget.images.length-1]);
-    if(widget.images.length==1)
-      after.add(widget.images[0]);
+    before = widget.images.sublist(0, widget.index);
+    after = widget.images.sublist(widget.index, widget.images.length - 1);
+    if (widget.images.length > 1)
+      after.add(widget.images[widget.images.length - 1]);
+    if (widget.images.length == 1) after.add(widget.images[0]);
     myImages.addAll(after);
     myImages.addAll(before);
     // myImages.addAll(widget.images);
@@ -50,12 +52,10 @@ class _CornerPhotosViewState extends State<CornerPhotosView> {
     // {
     //   myImages.add(widget.images[i]);
     // }
-    swiperController.index=widget.index;
+    swiperController.index = widget.index;
   }
 
-  SwiperController swiperController=SwiperController();
-
-
+  SwiperController swiperController = SwiperController();
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,6 @@ class _CornerPhotosViewState extends State<CornerPhotosView> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Swiper(
-
                 // controller: swiperController,
                 // loop: false,
                 // outer: true,
@@ -86,8 +85,15 @@ class _CornerPhotosViewState extends State<CornerPhotosView> {
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     child: Padding(
-                      padding:  EdgeInsets.only(left: getProportionateScreenWidth(2),right: getProportionateScreenWidth(2),bottom: getProportionateScreenHeight(50)),
-                      child: ClipRRect(borderRadius:BorderRadius.circular(12),child: Image.network(Api.imagePath+myImages[index].path,)),
+                      padding: EdgeInsets.only(
+                          left: getProportionateScreenWidth(2),
+                          right: getProportionateScreenWidth(2),
+                          bottom: getProportionateScreenHeight(50)),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.network(
+                            Api.imagePath + myImages[index].path,
+                          )),
                     ),
                   );
                 },
@@ -98,7 +104,6 @@ class _CornerPhotosViewState extends State<CornerPhotosView> {
               ),
             ),
             Spacer(),
-
           ],
         ),
       ),

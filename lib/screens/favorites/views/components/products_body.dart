@@ -14,20 +14,16 @@ import 'package:pets/services/http_requests_service.dart';
 import '../../../loading_screen.dart';
 import 'translation.i18n.dart';
 
-
-
 class FavoriteProductsBody extends StatefulWidget {
   @override
   _FavoriteProductsBodyState createState() => _FavoriteProductsBodyState();
 }
 
 class _FavoriteProductsBodyState extends State<FavoriteProductsBody> {
-
   Future<bool> addToFavorite(int productId) async {
-    try{
+    try {
       consolePrint("product id" + productId.toString());
-      var url = Uri.parse(
-          "${Api.baseUrl}/addToFavourite/$productId/product");
+      var url = Uri.parse("${Api.baseUrl}/addToFavourite/$productId/product");
       consolePrint("before add to favorite print");
       consolePrint("try to post on " + url.path);
 
@@ -50,26 +46,23 @@ class _FavoriteProductsBodyState extends State<FavoriteProductsBody> {
         consolePrint("statusCode!=200");
         return false;
       }
-    }catch(e){
-    consolePrint(e.toString());
-    return false;
+    } catch (e) {
+      consolePrint(e.toString());
+      return false;
     }
   }
 
-  List<StoreProduct> products=[];
-  bool loading =true;
-  bool error=false;
-  fetchData()async
-  {
+  List<StoreProduct> products = [];
+  bool loading = true;
+  bool error = false;
+
+  fetchData() async {
     consolePrint("fetch data");
-    loading=true;
-    setState(() {
+    loading = true;
+    setState(() {});
 
-    });
-
-    try{
-      var url =
-          Uri.parse("${Api.baseUrl}/myFavourites/items");
+    try {
+      var url = Uri.parse("${Api.baseUrl}/myFavourites/items");
       final h = await HttpService().getHeaders();
       final apiResult = await http.get(url, headers: h);
       if (apiResult.statusCode == 200) {
@@ -83,14 +76,14 @@ class _FavoriteProductsBodyState extends State<FavoriteProductsBody> {
 
       loading = false;
       setState(() {});
-    }catch(e)
-    {
-      error=true;
+    } catch (e) {
+      error = true;
       loading = false;
       setState(() {});
       consolePrint(e.toString());
     }
   }
+
   @override
   void initState() {
     fetchData();
@@ -98,65 +91,100 @@ class _FavoriteProductsBodyState extends State<FavoriteProductsBody> {
     super.initState();
     consolePrint("initial state of get productas ");
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return error?Column(mainAxisSize: MainAxisSize.max,children: [
-      Container(height:getProportionateScreenHeight(300),width: getProportionateScreenWidth(370),child: Center(child: Text("الرجاء المحاولة مجدداً ".i18n,style: body3_18pt,),),),
-    ],):loading?LoadingScreen():
-    products.length==0? Container(
-      height: getProportionateScreenHeight(400),
-      width: getProportionateScreenWidth(350),
-      alignment: Alignment.center,
-      child: AutoSizeText("لا يوجد عناصر في المفضلة".i18n,style: body3_18pt,),
-    ):
-    Container(
-      padding: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(16),
-          vertical: getProportionateScreenHeight(8)),
-      child:  SingleChildScrollView(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              children: [
-                ...List<Widget>.generate(
-                  products.length,
-                      (index)=>index%2==0&&products[index].visible=="visible"?Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    child:  StoreProductCard(products[index],()async{
-                      bool k=await addToFavorite(products[index].id);
-                      if(k==true)
-                        return true;
-                      else return false;
-                    },false),
-                  ):Container(height: 0,),
-
+    return error
+        ? Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                height: getProportionateScreenHeight(300),
+                width: getProportionateScreenWidth(370),
+                child: Center(
+                  child: Text(
+                    "الرجاء المحاولة مجدداً ".i18n,
+                    style: body3_18pt,
+                  ),
                 ),
-              ],
-            ),
-            Spacer(),
-            Column(
-              children: [
-                ...List<Widget>.generate(
-                  products.length,
-                      (index)=>index%2==1&&products[index].visible=="visible"?Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-
-                    child:  StoreProductCard(products[index],()async{
-                      bool k=await addToFavorite(products[index].id);
-                      if(k==true)
-                        return true;
-                      else return false;
-                    },false),
-                  ):Container(height: 0,),
-
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+              ),
+            ],
+          )
+        : loading
+            ? LoadingScreen()
+            : products.length == 0
+                ? Container(
+                    height: getProportionateScreenHeight(400),
+                    width: getProportionateScreenWidth(350),
+                    alignment: Alignment.center,
+                    child: AutoSizeText(
+                      "لا يوجد عناصر في المفضلة".i18n,
+                      style: body3_18pt,
+                    ),
+                  )
+                : Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: getProportionateScreenWidth(16),
+                        vertical: getProportionateScreenHeight(8)),
+                    child: SingleChildScrollView(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            children: [
+                              ...List<Widget>.generate(
+                                products.length,
+                                (index) => index % 2 == 0 &&
+                                        products[index].visible == "visible"
+                                    ? Container(
+                                        margin:
+                                            EdgeInsets.symmetric(vertical: 10),
+                                        child: StoreProductCard(products[index],
+                                            () async {
+                                          bool k = await addToFavorite(
+                                              products[index].id);
+                                          if (k == true)
+                                            return true;
+                                          else
+                                            return false;
+                                        }, false),
+                                      )
+                                    : Container(
+                                        height: 0,
+                                      ),
+                              ),
+                            ],
+                          ),
+                          Spacer(),
+                          Column(
+                            children: [
+                              ...List<Widget>.generate(
+                                products.length,
+                                (index) => index % 2 == 1 &&
+                                        products[index].visible == "visible"
+                                    ? Container(
+                                        margin:
+                                            EdgeInsets.symmetric(vertical: 10),
+                                        child: StoreProductCard(products[index],
+                                            () async {
+                                          bool k = await addToFavorite(
+                                              products[index].id);
+                                          if (k == true)
+                                            return true;
+                                          else
+                                            return false;
+                                        }, false),
+                                      )
+                                    : Container(
+                                        height: 0,
+                                      ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
   }
 }

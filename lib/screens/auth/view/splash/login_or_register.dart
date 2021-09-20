@@ -19,8 +19,8 @@ class LoginOrRegister extends StatefulWidget {
 }
 
 class _LoginOrRegisterState extends State<LoginOrRegister> {
-  getUser()async{
-    UserModel userModel=await AuthServices.getCurrentUser();
+  getUser() async {
+    UserModel userModel = await AuthServices.getCurrentUser();
     //
     // gusetId=userModel.user.id;
   }
@@ -31,6 +31,7 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
     super.initState();
     getUser();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,8 +60,7 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
                   );
                   AuthRequest _authRequest = new AuthRequest();
                   UserModel user = await _authRequest.loginRequest(
-                      mobile: "00963962749232",
-                      password: "123456");
+                      mobile: "00963962749232", password: "123456");
                   if (user.error == false) {
                     if (user.user.approve == "pending") {
                       Navigator.of(context).pop();

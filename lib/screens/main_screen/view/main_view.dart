@@ -39,139 +39,153 @@ import 'main_view.i18n..dart';
 import 'package:pets/screens/notifications/view/notification_button.dart';
 import '../../blocked_screen.dart';
 
-
 import 'package:http/http.dart' as http;
 import '../../../configuration/notification/controller/notification_controller.dart';
+
 class MainScreen extends StatefulWidget {
   @override
   _MainScreenState createState() => _MainScreenState();
 }
+
 BuildContext homeContext;
-NotificationController notificationController= Get.put(NotificationController(),);
+NotificationController notificationController = Get.put(
+  NotificationController(),
+);
 
 class _MainScreenState extends State<MainScreen>
-with SingleTickerProviderStateMixin {
-
+    with SingleTickerProviderStateMixin {
   // FirebaseMessaging messaging;
-   getToken() async {
+  getToken() async {
     // final token= await FirebaseMessaging.instance.getToken();
     //     consolePrint("token is");
     //     consolePrint(token);
     //     consolePrint("token done");
   }
-   FirebaseMessaging messaging=FirebaseMessaging();
 
-   Timer _timer;
-   Timer _timer1;
-   _startTimer(){
-     _timer=Timer.periodic(Duration(seconds: 10), (timer) {
-       checkBlock();
-     });
-   } _startTimer1(){
-     _timer=Timer.periodic(Duration(seconds: 4), (timer) {
-       checkConnection();
-     });
-   }
+  FirebaseMessaging messaging = FirebaseMessaging();
 
-   _cancelTimer(){
-     _timer.cancel();
-   }
- _cancelTimer1(){
-     _timer.cancel();
-   }
-   bool connection =true;
-checkConnection()async{
+  Timer _timer;
+  Timer _timer1;
 
-  var connectivityResult = await (Connectivity().checkConnectivity());
-  if (connectivityResult == ConnectivityResult.mobile) {
-    if(!connection){
-      Get.rawSnackbar(backgroundColor: Colors.green,message: "لقد تم التوصيل بلانترنت".i18n);
-    }
-    connection=true;
-  } else if (connectivityResult == ConnectivityResult.wifi) {
-    if(!connection){
-      Get.rawSnackbar(backgroundColor: Colors.green,message:"لقد تم التوصيل بلانترنت".i18n);
-    }
-    connection=true;
-  }else {
- if(connection){
-   Get.rawSnackbar(backgroundColor: Colors.red,message: "الرجاء التاكد من توفر الانترنت".i18n);
- }
- connection=false;
+  _startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 10), (timer) {
+      checkBlock();
+    });
   }
-}
 
-   checkBlock()async{
-     try{
+  _startTimer1() {
+    _timer = Timer.periodic(Duration(seconds: 4), (timer) {
+      checkConnection();
+    });
+  }
+
+  _cancelTimer() {
+    _timer.cancel();
+  }
+
+  _cancelTimer1() {
+    _timer.cancel();
+  }
+
+  bool connection = true;
+
+  checkConnection() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile) {
+      if (!connection) {
+        Get.rawSnackbar(
+            backgroundColor: Colors.green,
+            message: "لقد تم التوصيل بلانترنت".i18n);
+      }
+      connection = true;
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      if (!connection) {
+        Get.rawSnackbar(
+            backgroundColor: Colors.green,
+            message: "لقد تم التوصيل بلانترنت".i18n);
+      }
+      connection = true;
+    } else {
+      if (connection) {
+        Get.rawSnackbar(
+            backgroundColor: Colors.red,
+            message: "الرجاء التاكد من توفر الانترنت".i18n);
+      }
+      connection = false;
+    }
+  }
+
+  checkBlock() async {
+    try {
       var url = Uri.parse("${Api.baseUrl}/block");
       final h = await HttpService().getHeaders();
       final apiResult = await http.get(url, headers: h);
-if(apiResult.statusCode==200){
-var j=jsonDecode(apiResult.body);
-consolePrint("check block :"+apiResult.body);
-if(j['block_status']!="false"){
- bool k= await logOut();
-  if(k){
-Get.offAll(LoginOrRegister());
-Get.to(BlockedScreen());
+      consolePrint(apiResult.statusCode.toString());
+      if (apiResult.statusCode == 200) {
+        var j = jsonDecode(apiResult.body);
+        consolePrint("check block :" + apiResult.body);
+        if (j['block_status'] != "false") {
+          bool k = await logOut();
+          if (k) {
+            Get.offAll(LoginOrRegister());
+            Get.to(BlockedScreen());
+          } else {
+            // while(!k){
+            //   k= await logOut();
+            //   if(k){
+            //     Get.offAll(BlockedScreen());
+            //     break ;
+            //   }
+            // }
+          }
+        }
+      } else if (apiResult.statusCode == 401) {
+        Get.offAll(LoginOrRegister());
+      }
+    } catch (e) {
+      consolePrint("block req" + e.toString());
+    }
   }
-  else{
 
-    // while(!k){
-    //   k= await logOut();
-    //   if(k){
-    //     Get.offAll(BlockedScreen());
-    //     break ;
-    //   }
-    // }
-  }
-}
-}
-    }catch(e){
-consolePrint("block req"+e.toString());
-     }
-   }
-
- Future<bool> logOut()async{
-     try{
+  Future<bool> logOut() async {
+    try {
       var url = Uri.parse("${Api.baseUrl}/logout");
       final h = await HttpService().getHeaders();
       final apiResult = await http.post(url, headers: h);
-if(apiResult.statusCode==200){
-  var j=jsonDecode(apiResult.body);
-  if(j["message"]== "logged out")
-    {
-      await  LocalStorageService.prefs.clear();
-      return true;
-    }
-}
-return false;
+      if (apiResult.statusCode == 200) {
+        var j = jsonDecode(apiResult.body);
+        if (j["message"] == "logged out") {
+          await LocalStorageService.prefs.clear();
+          return true;
+        }
+      }
+      return false;
 // else  await logOut();
-    }catch(e){
-consolePrint(e);
-return false;
+    } catch (e) {
+      consolePrint(e);
+      return false;
 
 // await logOut();
-     }
+    }
+  }
 
-   }
-
-@override
+  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     _cancelTimer();
   }
-   // updateDeviceId(){
-   //
-   // }
+
+  // updateDeviceId(){
+  //
+  // }
   @override
   void initState() {
     // final pushNotificationService = PushNotificationService(messaging,context);
     // pushNotificationService.initialise(true);
     // TODO: implement initState
     super.initState();
-    if(gusetId!=146)_startTimer();
+    if (gusetId != 146) _startTimer();
     _startTimer1();
 //     FirebaseMessaging firebaseMessaging=FirebaseMessaging();
 //     messaging.configure(
@@ -200,7 +214,6 @@ return false;
 //       },
 //     );
 
-
     messaging.getToken().then((value) {
       consolePrint("token is");
       consolePrint(value);
@@ -209,7 +222,7 @@ return false;
       // HomeController.postToken(value);
     });
 //
-    FirebaseMessaging.onBackgroundMessage((message) async{
+    FirebaseMessaging.onBackgroundMessage((message) async {
       consolePrint("inside onbackground");
 // int temp=await AuthServices.getNotificationsCount();
 // temp++;
@@ -218,7 +231,8 @@ return false;
       notificationNumberController.getCount();
       notificationNumberController.increaseCount();
 
-      await notificationController.showNotification(message);//(message.notification.title, message.notification.body);
+      await notificationController.showNotification(
+          message); //(message.notification.title, message.notification.body);
       // notificationController.saveNewNotification(message);
       // AwesomeDialog(
       //   context: context,
@@ -229,7 +243,7 @@ return false;
       // )..show();
       // Get.snackbar(message.notification.title, message.notification.body);
     });
-    FirebaseMessaging.onMessage.listen((RemoteMessage message)async {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print('Got a message whilst in the foreground!');
       print('Message data: ${message.data}');
       // notificationController.saveNewNotification(message);
@@ -240,72 +254,70 @@ return false;
       //   title: message.notification.title,
       //   desc: message.notification.body,
       // )..show();
-      await notificationController.showNotification(message);//(message.notification.title, message.notification.body);
+      await notificationController.showNotification(
+          message); //(message.notification.title, message.notification.body);
       // Get.snackbar(message.notification.title, message.notification.body);
     });
 
-
-
     getToken();
-  // final  messaging = FirebaseMessaging.instance;
-  //   messaging.getToken().then((value) {
-  //     consolePrint("token is");
-  //     consolePrint(value);
-  //     consolePrint("token done");
-  //     // HomeController.subsAll(value);
-  //     // HomeController.postToken(value);
-  //   });مبد
-  //   messaging.onBackgroundMessage((message) async{
-  //     print('Message data: ${message.data}');
-  //     // await notificationController.showNotification(message.notification.title, message.notification.body);
-  //     // notificationController.saveNewNotification(message);
-  //     // AwesomeDialog(
-  //     //   context: context,
-  //     //   dialogType: DialogType.INFO,
-  //     //   animType: AnimType.BOTTOMSLIDE,
-  //     //   title: message.notification.title,
-  //     //   desc: message.notification.body,
-  //     // )..show();
-  //     Get.snackbar(message.notification.title, message.notification.body);
-  //   });
-  //   FirebaseMessaging.onMessage.listen((RemoteMessage message)async {
-  //     print('Got a message whilst in the foreground!');
-  //     print('Message data: ${message.data}');
-  //     // notificationController.saveNewNotification(message);
-  //     // AwesomeDialog(
-  //     //   context: context,
-  //     //   dialogType: DialogType.INFO,
-  //     //   animType: AnimType.BOTTOMSLIDE,
-  //     //   title: message.notification.title,
-  //     //   desc: message.notification.body,
-  //     // )..show();
-  //     // await notificationController.showNotification(message.notification.title, message.notification.body);
-  //     Get.snackbar(message.notification.title, message.notification.body);
-  //   });
+    // final  messaging = FirebaseMessaging.instance;
+    //   messaging.getToken().then((value) {
+    //     consolePrint("token is");
+    //     consolePrint(value);
+    //     consolePrint("token done");
+    //     // HomeController.subsAll(value);
+    //     // HomeController.postToken(value);
+    //   });مبد
+    //   messaging.onBackgroundMessage((message) async{
+    //     print('Message data: ${message.data}');
+    //     // await notificationController.showNotification(message.notification.title, message.notification.body);
+    //     // notificationController.saveNewNotification(message);
+    //     // AwesomeDialog(
+    //     //   context: context,
+    //     //   dialogType: DialogType.INFO,
+    //     //   animType: AnimType.BOTTOMSLIDE,
+    //     //   title: message.notification.title,
+    //     //   desc: message.notification.body,
+    //     // )..show();
+    //     Get.snackbar(message.notification.title, message.notification.body);
+    //   });
+    //   FirebaseMessaging.onMessage.listen((RemoteMessage message)async {
+    //     print('Got a message whilst in the foreground!');
+    //     print('Message data: ${message.data}');
+    //     // notificationController.saveNewNotification(message);
+    //     // AwesomeDialog(
+    //     //   context: context,
+    //     //   dialogType: DialogType.INFO,
+    //     //   animType: AnimType.BOTTOMSLIDE,
+    //     //   title: message.notification.title,
+    //     //   desc: message.notification.body,
+    //     // )..show();
+    //     // await notificationController.showNotification(message.notification.title, message.notification.body);
+    //     Get.snackbar(message.notification.title, message.notification.body);
+    //   });
 
-    homeContext=context;
+    homeContext = context;
     bottomTabController = TabController(length: 5, vsync: this);
     customTitle = new CustomTitle();
   }
-restart(){
 
-  Phoenix.rebirth(context);
-}
-  out(){
-
-    Navigator.pop(context);
-    Navigator.pop(context);
-    Navigator.pop(context);
-
-
+  restart() {
+    Phoenix.rebirth(context);
   }
-  bool k=false;
-  setk(){
-  k=true;
-  setState(() {
 
-  });
-}
+  out() {
+    Navigator.pop(context);
+    Navigator.pop(context);
+    Navigator.pop(context);
+  }
+
+  bool k = false;
+
+  setk() {
+    k = true;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -313,54 +325,51 @@ restart(){
       child: WillPopScope(
         onWillPop: () async {
           if (bottomTabController.index == 0) {
-
-
-
-          await showDialog(
-              context: context,
-              builder: ((context) => AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)),
-                title:  Text(
-                  'هل أنت متأكد ؟'.i18n,
-                  // textDirection: TextDirection.rtl,
-                  style: body3_18pt,
-                ),
-                content: Text(
-                  'انت على وشك الخروج من التطبيق !'.i18n,
-                  // textDirection: TextDirection.rtl,
-                  style: body1_16pt,
-                ),
-                actions: [
-                  TextButton(
-                    child:  Text(
-                      'نعم'.i18n,
-                    ),
-                    onPressed: () async{
-                      // language.changeLanguage();
-consolePrint("inside yes");
-                 setk();
-                 Get.back();
-                 // k=true;
+            await showDialog(
+                context: context,
+                builder: ((context) => AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5)),
+                      title: Text(
+                        'هل أنت متأكد ؟'.i18n,
+                        // textDirection: TextDirection.rtl,
+                        style: body3_18pt,
+                      ),
+                      content: Text(
+                        'انت على وشك الخروج من التطبيق !'.i18n,
+                        // textDirection: TextDirection.rtl,
+                        style: body1_16pt,
+                      ),
+                      actions: [
+                        TextButton(
+                          child: Text(
+                            'نعم'.i18n,
+                          ),
+                          onPressed: () async {
+                            // language.changeLanguage();
+                            consolePrint("inside yes");
+                            setk();
+                            Get.back();
+                            // k=true;
 // return true;
 
-                      // await  LocalStorageService.prefs.clear();
-                      // Get.offAll(SplashScreen());
-                      // Navigator.popUntil(context, ModalRoute.withName('/'));
-                    },
-                  ),
-                  TextButton(
-                    child: Text('لا'.i18n),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      k=false;
-                     // k= false;
-                      // Navigator.pop(context);
-                    },
-                  )
-                ],
-              )));
-consolePrint(k.toString());
+                            // await  LocalStorageService.prefs.clear();
+                            // Get.offAll(SplashScreen());
+                            // Navigator.popUntil(context, ModalRoute.withName('/'));
+                          },
+                        ),
+                        TextButton(
+                          child: Text('لا'.i18n),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            k = false;
+                            // k= false;
+                            // Navigator.pop(context);
+                          },
+                        )
+                      ],
+                    )));
+            consolePrint(k.toString());
             return k;
           } else {
             bottomTabController.animateTo(0, curve: Curves.ease);
@@ -371,10 +380,11 @@ consolePrint(k.toString());
 // floatingActionButton: FloatingActionButton(onPressed: (){
 //   getToken();
 // },),
-          drawer: CustomDrawer(home: true,),
+          drawer: CustomDrawer(
+            home: true,
+          ),
           body: Builder(
-              builder: ((context) =>
-                  SafeArea(
+              builder: ((context) => SafeArea(
                     child: Stack(
                       children: [
                         Opacity(
@@ -384,10 +394,10 @@ consolePrint(k.toString());
                             width: SizeConfig.screenWidth,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage(
-                                      "assets/images/home/custom_background.png"),
-                                )),
+                              fit: BoxFit.fill,
+                              image: AssetImage(
+                                  "assets/images/home/custom_background.png"),
+                            )),
                           ),
                         ),
 
@@ -414,18 +424,17 @@ consolePrint(k.toString());
                             ],
                           ),
                         ),
-                        Positioned(bottom: 0,
+                        Positioned(
+                            bottom: 0,
                             left: 0,
                             child: CustomBottomBar(
-                              controller: bottomTabController,)),
+                              controller: bottomTabController,
+                            )),
                       ],
                     ),
-                  )
-              )
-          ),
+                  ))),
         ),
       ),
     );
   }
-
 }

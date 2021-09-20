@@ -9,13 +9,16 @@ import 'package:pets/screens/doctor_app/model/doctor.dart';
 import 'package:pets/screens/home/view/components/favorite_icon.dart';
 import 'package:get/get.dart';
 import '../services/service_details_screen.dart';
+
 class DoctorServicesCard extends StatelessWidget {
   DoctorService doctorService;
+
   DoctorServicesCard(this.doctorService);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Get.to(DoctorServiceDetailsPage(doctorService));
       },
       child: Container(
@@ -29,22 +32,21 @@ class DoctorServicesCard extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              // left: getProportionateScreenWidth(25),
+                // left: getProportionateScreenWidth(25),
                 child: Container(
-                  height: getProportionateScreenHeight(135),
-                  width: getProportionateScreenWidth(163),
-
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      topLeft: Radius.circular(12),
-                    ),
-                    child: Image.network(
-                      Api.imagePath+ doctorService.image,
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                )),
+              height: getProportionateScreenHeight(135),
+              width: getProportionateScreenWidth(163),
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(12),
+                  topLeft: Radius.circular(12),
+                ),
+                child: Image.network(
+                  Api.imagePath + doctorService.image,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            )),
             Positioned(
                 top: getProportionateScreenHeight(120),
                 child: Container(
@@ -66,7 +68,6 @@ class DoctorServicesCard extends StatelessWidget {
                         style: body2_14pt,
                       )),
                 )),
-
           ],
         ),
       ),

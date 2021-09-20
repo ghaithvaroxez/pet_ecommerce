@@ -18,38 +18,36 @@ import 'package:get/get.dart';
 class StoreAndStableCard extends StatefulWidget {
   Store store;
   Function fav;
-  StoreAndStableCard(this.store,this.fav);
+
+  StoreAndStableCard(this.store, this.fav);
 
   @override
   _StoreAndStableCardState createState() => _StoreAndStableCardState();
 }
 
 class _StoreAndStableCardState extends State<StoreAndStableCard> {
-  String fb,wa,ins;
-  bool bfb=true,bwa=true,bins=true;
+  String fb, wa, ins;
+  bool bfb = true, bwa = true, bins = true;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    for(int i =0; i<widget.store.storeContacts.length;i++)
-    {
-      if( widget.store.storeContacts[i].type=="facebook"&&bfb==true)
-      {
-        fb= widget.store.storeContacts[i].link;
-        bfb=false;
-      }
-      else if( widget.store.storeContacts[i].type=="phone"&&bwa==true)
-      {
-        wa= widget.store.storeContacts[i].link;
-        bwa=false;
-      }
-      else if ( widget.store.storeContacts[i].type=="instagram"&&bins==true)
-      {
-        ins= widget.store.storeContacts[i].link;
-        bins=false;
+    for (int i = 0; i < widget.store.storeContacts.length; i++) {
+      if (widget.store.storeContacts[i].type == "facebook" && bfb == true) {
+        fb = widget.store.storeContacts[i].link;
+        bfb = false;
+      } else if (widget.store.storeContacts[i].type == "phone" && bwa == true) {
+        wa = widget.store.storeContacts[i].link;
+        bwa = false;
+      } else if (widget.store.storeContacts[i].type == "instagram" &&
+          bins == true) {
+        ins = widget.store.storeContacts[i].link;
+        bins = false;
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -61,9 +59,9 @@ class _StoreAndStableCardState extends State<StoreAndStableCard> {
         width: getProportionateScreenWidth(192),
         // height: getProportionateScreenHeight(150),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(width: 0.3, color: borderColor),
-            color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(width: 0.3, color: borderColor),
+          color: Colors.white,
         ),
         child: Stack(
           children: [
@@ -71,9 +69,7 @@ class _StoreAndStableCardState extends State<StoreAndStableCard> {
                 top: getProportionateScreenHeight(120),
                 height: getProportionateScreenHeight(100),
                 width: getProportionateScreenWidth(191.8),
-
                 child: Container(
-
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(12),
@@ -83,97 +79,111 @@ class _StoreAndStableCardState extends State<StoreAndStableCard> {
                   child: Container(
                       // alignment: Alignment.centerRight,
                       child: Row(
+                    children: [
+                      SizedBox(
+                        width: getProportionateScreenHeight(15),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: getProportionateScreenHeight(15),
+                            height: getProportionateScreenHeight(15),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: getProportionateScreenHeight(15),
-                              ),
-                              Container(
-                                height: getProportionateScreenHeight(25),
-                                child: AutoSizeText(
-                                  widget.store.name,
-                                  // minFontSize: 8,
-                                  style: body1_16pt,
+                          Container(
+                            height: getProportionateScreenHeight(25),
+                            child: AutoSizeText(
+                              widget.store.name,
+                              // minFontSize: 8,
+                              style: body1_16pt,
+                            ),
+                          ),
+                          // SizedBox(
+                          //   height: getProportionateScreenHeight(10),
+                          // ),
+                          Container(
+                            height: getProportionateScreenHeight(25),
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                // Icon(Icons.location_on_rounded,color: Colors.grey,size: 16,),
+                                Image.asset(
+                                  "assets/images/home/location_icon.png",
+                                  height: getProportionateScreenHeight(12),
+                                  width: getProportionateScreenWidth(12),
                                 ),
-                              ),
-                              // SizedBox(
-                              //   height: getProportionateScreenHeight(10),
-                              // ),
-                              Container(
-                                height: getProportionateScreenHeight(25),
-                                child: Row(
-                                  // mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    // Icon(Icons.location_on_rounded,color: Colors.grey,size: 16,),
-                                    Image.asset(
-                                      "assets/images/home/location_icon.png",
-                                      height: getProportionateScreenHeight(12),
-                                      width: getProportionateScreenWidth(12),
-                                    ),
-                                    SizedBox(
-                                      width: getProportionateScreenWidth(10),
-                                    ),
-                                    Container(
-                                      width: getProportionateScreenWidth(150),
-                                      child: AutoSizeText(
-                                        widget.store.district,
-                                        // minFontSize: 8,
-                                        style: darkGrayText_13pt,
-                                      ),
-                                    ),
-                                  ],
+                                SizedBox(
+                                  width: getProportionateScreenWidth(10),
                                 ),
-                              ),
-                              // SizedBox(
-                              //   height: getProportionateScreenHeight(5),
-                              // ),
-                              // Container(
-                              //   height: getProportionateScreenHeight(25),
-                              //   child: Row(
-                              //     mainAxisAlignment: MainAxisAlignment.end,
-                              //     children: [
-                              //       // Icon(Icons.location_on_rounded,color: Colors.grey,size: 16,),
-                              //       Image.asset(
-                              //         "assets/images/home/location_icon.png",
-                              //         height: getProportionateScreenHeight(12),
-                              //         width: getProportionateScreenWidth(12),
-                              //       ),
-                              //       SizedBox(
-                              //         width: getProportionateScreenWidth(10),
-                              //       ),
-                              //       Container(
-                              //         height: 10,
-                              //         child: AutoSizeText(
-                              //           "53 كم",
-                              //           // minFontSize: 8,
-                              //           style: darkGrayText_11pt,
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
-                              SizedBox(
-                                height: getProportionateScreenHeight(5),
-                              ),
-                            ],
+                                Container(
+                                  width: getProportionateScreenWidth(150),
+                                  child: AutoSizeText(
+                                    widget.store.district,
+                                    // minFontSize: 8,
+                                    style: darkGrayText_13pt,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          // SizedBox(
+                          //   height: getProportionateScreenHeight(5),
+                          // ),
+                          // Container(
+                          //   height: getProportionateScreenHeight(25),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.end,
+                          //     children: [
+                          //       // Icon(Icons.location_on_rounded,color: Colors.grey,size: 16,),
+                          //       Image.asset(
+                          //         "assets/images/home/location_icon.png",
+                          //         height: getProportionateScreenHeight(12),
+                          //         width: getProportionateScreenWidth(12),
+                          //       ),
+                          //       SizedBox(
+                          //         width: getProportionateScreenWidth(10),
+                          //       ),
+                          //       Container(
+                          //         height: 10,
+                          //         child: AutoSizeText(
+                          //           "53 كم",
+                          //           // minFontSize: 8,
+                          //           style: darkGrayText_11pt,
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                          SizedBox(
+                            height: getProportionateScreenHeight(5),
                           ),
                         ],
-                      )),
-                )),///grey footer
-            appLocal=="en"?Positioned(
-              bottom: getProportionateScreenHeight(4),
-              right:getProportionateScreenWidth(4),
-              child:SocialMedia(wa: wa,fb: fb,ins: ins,),
-            ): Positioned(
-              bottom: getProportionateScreenHeight(4),
-              left:getProportionateScreenWidth(4),
-              child:SocialMedia(wa: wa,fb: fb,ins: ins,),
-            ),///social media
+                      ),
+                    ],
+                  )),
+                )),
+
+            ///grey footer
+            appLocal == "en"
+                ? Positioned(
+                    bottom: getProportionateScreenHeight(4),
+                    right: getProportionateScreenWidth(4),
+                    child: SocialMedia(
+                      wa: wa,
+                      fb: fb,
+                      ins: ins,
+                    ),
+                  )
+                : Positioned(
+                    bottom: getProportionateScreenHeight(4),
+                    left: getProportionateScreenWidth(4),
+                    child: SocialMedia(
+                      wa: wa,
+                      fb: fb,
+                      ins: ins,
+                    ),
+                  ),
+
+            ///social media
             Positioned(
                 // left: 15,
                 bottom: getProportionateScreenHeight(90),
@@ -185,15 +195,23 @@ class _StoreAndStableCardState extends State<StoreAndStableCard> {
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(12),
                         topLeft: Radius.circular(12)),
-                    child: widget.store.image==""||widget.store.image==null?Image.asset(
-                      "assets/images/home/shop_image.png",
-                      fit: BoxFit.fill,
-                    ):Image.network(
-                      Api.imagePath+widget.store.image,
-                      fit: BoxFit.fill,
-                    ),
+                    child:
+                        widget.store.image == "" || widget.store.image == null
+                            ? Container(
+                                color: Colors.white.withOpacity(0.8),
+                                alignment: Alignment.center,
+                                child: AutoSizeText(
+                                  "Pets",
+                                  style: BlueText_16pt_bold,
+                                ))
+                            : Image.network(
+                                Api.imagePath + widget.store.image,
+                                fit: BoxFit.fill,
+                              ),
                   ),
-                )),///photo
+                )),
+
+            ///photo
             // Positioned(
             //     bottom: getProportionateScreenHeight(70),
             //     left: getProportionateScreenWidth(20),
@@ -212,8 +230,13 @@ class _StoreAndStableCardState extends State<StoreAndStableCard> {
               bottom: getProportionateScreenHeight(90),
               // width: getProportionateScreenWidth(73),
               height: 27,
-              child: OpenNow(widget.store.storeStatus=="closed"?false:true,rightBottom: false,),
-            ),///opens now
+              child: OpenNow(
+                widget.store.storeStatus == "closed" ? false : true,
+                rightBottom: false,
+              ),
+            ),
+
+            ///opens now
             // Positioned(
             //   right: getProportionateScreenWidth(10),
             //   top: getProportionateScreenHeight(8),
@@ -232,7 +255,10 @@ class _StoreAndStableCardState extends State<StoreAndStableCard> {
             Positioned(
                 left: 25,
                 top: 8,
-                child: FavoriteIcon(s:widget.store.favStatus ,fav: widget.fav,)),
+                child: FavoriteIcon(
+                  s: widget.store.favStatus,
+                  fav: widget.fav,
+                )),
           ],
         ),
       ),

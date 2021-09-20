@@ -26,101 +26,84 @@ class SelectStoreView extends StatefulWidget {
 }
 
 class _SelectStoreViewState extends State<SelectStoreView> {
-bool loading =false;
-AllStores Stores;
-AllStores refreshedStores;
-bool failed=false;
-fetchData()async
-{
-  loading=true;
-  setState(() {
+  bool loading = false;
+  AllStores Stores;
+  AllStores refreshedStores;
+  bool failed = false;
 
-  });
+  fetchData() async {
+    loading = true;
+    setState(() {});
 
-var url=Uri.parse("${Api.baseUrl}/stores/stores");
-consolePrint("before print");
-final h=await HttpService().getHeaders();
-  final apiResult=await http.get(url,headers: h);
-  consolePrint("after print");
+    var url = Uri.parse("${Api.baseUrl}/stores/stores");
+    consolePrint("before print");
+    final h = await HttpService().getHeaders();
+    final apiResult = await http.get(url, headers: h);
+    consolePrint("after print");
 
-  if(apiResult.statusCode==200)
-  {
-    Stores =allStoresFromJson(apiResult.body);
+    if (apiResult.statusCode == 200) {
+      Stores = allStoresFromJson(apiResult.body);
+    } else {
+      failed = true;
+    }
+    loading = false;
+    setState(() {});
   }
-  else {
-  failed=true;
-   }
-    loading=false;
-  setState(() {
 
-  });
+  refreshData() async {
+    bool refresh = false;
+    var url = Uri.parse("${Api.baseUrl}/stores/stores");
+    consolePrint("before print");
+    final h = await HttpService().getHeaders();
+    final apiResult = await http.get(url, headers: h);
+    consolePrint("after print");
 
-}
+    if (apiResult.statusCode == 200) {
+      refreshedStores = allStoresFromJson(apiResult.body);
+      for (int i = 0; i < refreshedStores.stores.length; i++) {
+        bool contains = true;
 
-
-
-refreshData()async{
-bool refresh=false;
-  var url=Uri.parse("${Api.baseUrl}/stores/stores");
-  consolePrint("before print");
-  final h=await HttpService().getHeaders();
-  final apiResult=await http.get(url,headers: h);
-  consolePrint("after print");
-
-  if(apiResult.statusCode==200)
-  {
-    refreshedStores =allStoresFromJson(apiResult.body);
-    for(int i=0;i<refreshedStores.stores.length;i++)
-      {
-        bool contains=true;
-
-        for(int j=0;j<Stores.stores.length;j++) {
+        for (int j = 0; j < Stores.stores.length; j++) {
           if (Stores.stores[j].id == refreshedStores.stores[i].id) {
             contains = false;
           }
         }
-         if(contains)
-           {
-             refresh=true;
-             Stores.stores.insert(0, refreshedStores.stores[i]);
-
-           }
-
-
+        if (contains) {
+          refresh = true;
+          Stores.stores.insert(0, refreshedStores.stores[i]);
+        }
       }
-  }
-  if(refresh) {
-    setState(() {
-
-    });
-    Fluttertoast.showToast(
-        msg: "new stores has been added",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.blueGrey,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
+    }
+    if (refresh) {
+      setState(() {});
+      Fluttertoast.showToast(
+          msg: "new stores has been added",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.blueGrey,
+          textColor: Colors.white,
+          fontSize: 16.0);
       // Get.rawSnackbar(message: "new stores has been added");
     }
   }
 
-Timer _timer;
-_startTimer(){
-  _timer=Timer.periodic(Duration(seconds: 2), (timer) {
-refreshData();
-  });
-}
-_cancelTimer(){
-  _timer.cancel();
-}
+  Timer _timer;
 
-Future<bool> addToFavorite(int storeId) async {
-  try{
+  _startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 2), (timer) {
+      refreshData();
+    });
+  }
+
+  _cancelTimer() {
+    _timer.cancel();
+  }
+
+  Future<bool> addToFavorite(int storeId) async {
+    try {
       consolePrint("store id" + storeId.toString());
-      var url = Uri.parse(
-          "${Api.baseUrl}/addToFavourite/$storeId/store/Store");
+      var url = Uri.parse("${Api.baseUrl}/addToFavourite/$storeId/store/Store");
       consolePrint("before add to favorite print");
       final h = await HttpService().getHeaders();
       final apiResult = await http.post(url, headers: h);
@@ -140,59 +123,90 @@ Future<bool> addToFavorite(int storeId) async {
         consolePrint("statusCode!=200");
         return false;
       }
-    }catch(e){
-    consolePrint(e.toString());
-    return false;
+    } catch (e) {
+      consolePrint(e.toString());
+      return false;
+    }
   }
-  }
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-  fetchData();
-  _startTimer();
+    fetchData();
+    // _startTimer();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _cancelTimer();
+    // _cancelTimer();
   }
-
 
   @override
   Widget build(BuildContext context) {
-    return failed?Column(mainAxisSize: MainAxisSize.max,children: [
-      Container(height:getProportionateScreenHeight(600),width: getProportionateScreenWidth(370),child: Center(child: Text("حدثت مشكلة ما ",style: body3_18pt,),),),
-    ],):loading?LoadingScreen():Container(
-        margin: EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
-        child:RefreshIndicator(
-          onRefresh: ()async{
-            await fetchData();
-          },
-          child:Stores.stores.length==0?Container(width: getProportionateScreenWidth(410),child: Container(
-              width: getProportionateScreenWidth(370),
-              height: getProportionateScreenHeight(400),
-              child: Center(child: AutoSizeText("لا يوجد عناصر حاليا".i18n,style: body1_16pt,)))):ListView.builder(
-              // physics: NeverScrollableScrollPhysics(),
-              itemCount: Stores.stores.length,
-              itemBuilder: (context, index) => index == 0
-                  ? Column(
-                      children: [
-                        SearchBar(),
-                        VerticalStoreListCard(store:Stores.stores[index],addToFav: ()async{
-                          bool k=  await addToFavorite(Stores.stores[index].id);
-                          return k;
-                        },)],
-                    )
-                  : VerticalStoreListCard(store:Stores.stores[index],addToFav: ()async{
-              bool k=  await addToFavorite(Stores.stores[index].id);
-              return k;
-              },)),
-        ));
+    return failed
+        ? Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                height: getProportionateScreenHeight(600),
+                width: getProportionateScreenWidth(370),
+                child: Center(
+                  child: Text(
+                    "حدثت مشكلة ما ",
+                    style: body3_18pt,
+                  ),
+                ),
+              ),
+            ],
+          )
+        : loading
+            ? LoadingScreen()
+            : Container(
+                margin:
+                    EdgeInsets.only(bottom: getProportionateScreenHeight(100)),
+                child: RefreshIndicator(
+                  onRefresh: () async {
+                    await fetchData();
+                  },
+                  child: Stores.stores.length == 0
+                      ? Container(
+                          width: getProportionateScreenWidth(410),
+                          child: Container(
+                              width: getProportionateScreenWidth(370),
+                              height: getProportionateScreenHeight(400),
+                              child: Center(
+                                  child: AutoSizeText(
+                                "لا يوجد عناصر حاليا".i18n,
+                                style: body1_16pt,
+                              ))))
+                      : ListView.builder(
+                          // physics: NeverScrollableScrollPhysics(),
+                          itemCount: Stores.stores.length,
+                          itemBuilder: (context, index) => index == 0
+                              ? Column(
+                                  children: [
+                                    SearchBar(),
+                                    VerticalStoreListCard(
+                                      store: Stores.stores[index],
+                                      addToFav: () async {
+                                        bool k = await addToFavorite(
+                                            Stores.stores[index].id);
+                                        return k;
+                                      },
+                                    )
+                                  ],
+                                )
+                              : VerticalStoreListCard(
+                                  store: Stores.stores[index],
+                                  addToFav: () async {
+                                    bool k = await addToFavorite(
+                                        Stores.stores[index].id);
+                                    return k;
+                                  },
+                                )),
+                ));
   }
 }
-

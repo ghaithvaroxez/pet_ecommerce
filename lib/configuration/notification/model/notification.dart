@@ -12,7 +12,7 @@ class NotificationModel {
     this.title,
     this.body,
     this.timeStamp,
-    this.read =false,
+    this.read = false,
   });
 
   String get formattedTimeStamp {

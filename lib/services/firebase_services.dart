@@ -1,4 +1,1 @@
-class FirebaseServices {
-
-
-}
+class FirebaseServices {}

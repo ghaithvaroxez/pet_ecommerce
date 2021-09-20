@@ -24,6 +24,7 @@ import 'package:pets/screens/doctor_app/view/doctor_details_screen.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:pets/services/local_storage_service.dart';
 import 'configuration/PushNotificationService.dart';
+
 // import 'configuration/notification/controller/notification_controller.dart';
 import 'configuration/notification/controller/notification_controller.dart';
 import 'configuration/printer.dart';
@@ -31,29 +32,27 @@ import 'translations/codegen_loader.g.dart';
 import 'package:pets/screens/notifications/view/notification_button.dart';
 import 'package:get/get.dart';
 
-
-Future<void> _firebaseMessagingBackgroundHandler( message) async {
+Future<void> _firebaseMessagingBackgroundHandler(message) async {
   // print("onBackground: $message");
   // print('${message['data']}');
   // await notificationController.showNotification(message['title'], message['body']);
- consolePrint("inside background handling");
- await LocalStorageService.getPrefs();
+  consolePrint("inside background handling");
+  await LocalStorageService.getPrefs();
   notificationNumberController.getCount();
   notificationNumberController.increaseCount();
 
-  await notificationController.showNotification(message);//(message.notification.title, message.notification.body);
+  await notificationController.showNotification(
+      message); //(message.notification.title, message.notification.body);
 
   // print("================================/nHandling a background message: ${message.messageId}/n============================================");
 }
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
   await LocalStorageService.getPrefs();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
 
 //   FirebaseMessaging.onBackgroundMessage((message) async{
 //     consolePrint("inside onbackground");
@@ -83,20 +82,17 @@ void main() async {
   // );
   await LocalStorageService.getPrefs();
 
-
-  runApp(
-      EasyLocalization(
+  runApp(EasyLocalization(
           path: 'assets/translations',
-          supportedLocales: [
-            Locale("en"),
-            Locale("ar")
-          ],
+          supportedLocales: [Locale("en"), Locale("ar")],
           fallbackLocale: Locale('en'),
           assetLoader: CodegenLoader(),
-          child: Phoenix(child  : App()))// Wrap your app
-  );
+          child: Phoenix(child: App())) // Wrap your app
+      );
 }
-String appLocal="en";
+
+String appLocal = "en";
+
 class App extends StatefulWidget {
   // Create the initialization Future outside of `build`:
   @override
@@ -107,12 +103,14 @@ class _AppState extends State<App> {
   /// The future is part of the state of our widget. We should not call `initializeApp`
   /// directly inside [build].
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-@override
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    appLocal=AuthServices.getLocale();
+    appLocal = AuthServices.getLocale();
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -127,12 +125,15 @@ class _AppState extends State<App> {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return GetMaterialApp(
+            // builder: (context, child) =>
+            //     MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true), child: child),
+
             title: "Pets",
             theme: ThemeData(
               timePickerTheme: TimePickerThemeData(
                 backgroundColor: Colors.white,
-                shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
                 hourMinuteShape: CircleBorder(),
               ),
             ),
@@ -172,11 +173,14 @@ class _AppState extends State<App> {
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return Center(child: CircularProgressIndicator(),);
+        return Center(
+          child: CircularProgressIndicator(),
+        );
       },
     );
   }
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -210,4 +214,3 @@ class BL extends StatelessWidget {
     );
   }
 }
-

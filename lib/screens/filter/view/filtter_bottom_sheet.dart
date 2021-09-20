@@ -9,16 +9,16 @@ import 'package:pets/screens/filter/controller/type_controller.dart';
 import 'package:pets/screens/filter/view/components/type_card.dart';
 import 'components/type_drop_down_button.dart';
 
-
 class CustomBottomSheet extends StatelessWidget {
+  FilterType _filterType = Get.put(FilterType());
 
-  FilterType _filterType=Get.put(FilterType());
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(24)),
+        margin:
+            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(24)),
         height: getProportionateScreenHeight(651),
         width: getProportionateScreenWidth(392),
         child: Column(
@@ -37,15 +37,15 @@ class CustomBottomSheet extends StatelessWidget {
               height: getProportionateScreenHeight(30),
               child: Row(
                 children: [
-
                   Container(
-                      width: getProportionateScreenWidth(150),
-                      height: getProportionateScreenHeight(24),
-                      child: AutoSizeText(
-                        "النوع",
-                        textDirection: TextDirection.rtl,
-                        style: body3_18pt,
-                      ),),
+                    width: getProportionateScreenWidth(150),
+                    height: getProportionateScreenHeight(24),
+                    child: AutoSizeText(
+                      "النوع",
+                      textDirection: TextDirection.rtl,
+                      style: body3_18pt,
+                    ),
+                  ),
                   Spacer(),
                   Container(
                       width: getProportionateScreenWidth(150),
@@ -56,12 +56,12 @@ class CustomBottomSheet extends StatelessWidget {
                         style: body3_18pt,
                       )),
                   Spacer(),
-
                 ],
               ),
             ),
-            SizedBox(height: getProportionateScreenHeight(16),),
-           
+            SizedBox(
+              height: getProportionateScreenHeight(16),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -69,28 +69,37 @@ class CustomBottomSheet extends StatelessWidget {
                 LocationDropDownButton(),
               ],
             ),
-            SizedBox(height: getProportionateScreenHeight(25),),
+            SizedBox(
+              height: getProportionateScreenHeight(25),
+            ),
             Row(
               children: [
-                Container(height:getProportionateScreenHeight(30),width:getProportionateScreenWidth(150),child: Text("الصنف",style: body3_18pt,textAlign: TextAlign.start,),),
+                Container(
+                  height: getProportionateScreenHeight(30),
+                  width: getProportionateScreenWidth(150),
+                  child: Text(
+                    "الصنف",
+                    style: body3_18pt,
+                    textAlign: TextAlign.start,
+                  ),
+                ),
               ],
             ),
-
             GetBuilder<FilterType>(
 // init: _filterType,
-              builder: (controller) {
-                return Container(
-                  height: getProportionateScreenHeight(50),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-itemCount: controller.types.length,
-                    itemBuilder: (context,index)=>TypeCard(title: controller.types[index].type,callback: controller.changeType(index),),
-
+                builder: (controller) {
+              return Container(
+                height: getProportionateScreenHeight(50),
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: controller.types.length,
+                  itemBuilder: (context, index) => TypeCard(
+                    title: controller.types[index].type,
+                    callback: controller.changeType(index),
                   ),
-                );
-              }
-            )
-
+                ),
+              );
+            })
           ],
         ),
       ),

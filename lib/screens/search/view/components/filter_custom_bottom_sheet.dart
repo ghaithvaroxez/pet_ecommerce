@@ -9,9 +9,6 @@ import 'package:pets/screens/vendor_app/model/types.dart';
 import 'package:pets/screens/vendor_app/requests/products_requests.dart';
 import 'package:pets/screens/vendor_app/requests/vendor_app_requests.dart';
 
-
-
-
 // void showModal(context) {
 //   showModalBottomSheet(
 //       isScrollControlled: true,
@@ -59,6 +56,3 @@ import 'package:pets/screens/vendor_app/requests/vendor_app_requests.dart';
 //             });
 //
 // }
-
-
-

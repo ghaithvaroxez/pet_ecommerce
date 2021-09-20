@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-StatusModel statusModelFromJson(String str) => StatusModel.fromJson(json.decode(str));
+StatusModel statusModelFromJson(String str) =>
+    StatusModel.fromJson(json.decode(str));
 
 String statusModelToJson(StatusModel data) => json.encode(data.toJson());
 
@@ -16,23 +17,23 @@ class StatusModel {
   List<StatusAll> statusAll;
 
   factory StatusModel.fromJson(Map<String, dynamic> json) => StatusModel(
-    statusAll: List<StatusAll>.from(json["status_all"].map((x) => StatusAll.fromJson(x))),
-  );
+        statusAll: List<StatusAll>.from(
+            json["status_all"].map((x) => StatusAll.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status_all": List<dynamic>.from(statusAll.map((x) => x.toJson())),
-  };
+        "status_all": List<dynamic>.from(statusAll.map((x) => x.toJson())),
+      };
 }
 
 class StatusAll {
-  StatusAll({
-    this.id,
-    this.storeId,
-    this.userId,
-    this.image,
-    this.type,
-    this.duration
-  });
+  StatusAll(
+      {this.id,
+      this.storeId,
+      this.userId,
+      this.image,
+      this.type,
+      this.duration});
 
   int id;
   dynamic storeId;
@@ -40,21 +41,23 @@ class StatusAll {
   String image;
   String type;
   String thumb;
-int duration;
+  int duration;
+
   factory StatusAll.fromJson(Map<String, dynamic> json) => StatusAll(
-    id: json["id"],
-    storeId: json["store_id"],
-    userId: json["user_id"],
-    image: json["image"],
-    type: json["type"],
-    duration: json["duration"]==""||json["duration"]==null?15:json["duration"],
-  );
+        id: json["id"],
+        storeId: json["store_id"],
+        userId: json["user_id"],
+        image: json["image"],
+        type: json["type"],
+        duration: json["duration"] == "" || json["duration"] == null
+            ? 15
+            : json["duration"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "store_id": storeId,
-    "user_id": userId,
-    "image": image,
-  };
-
+        "id": id,
+        "store_id": storeId,
+        "user_id": userId,
+        "image": image,
+      };
 }

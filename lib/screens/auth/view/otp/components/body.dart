@@ -9,6 +9,7 @@ import 'package:pets/screens/auth/view/register/register_screen.dart';
 
 import 'otp_form.dart';
 import '../translations/body.i18n.dart';
+
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -21,6 +22,7 @@ class _BodyState extends State<Body> {
     super.initState();
     start_timer();
   }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -37,25 +39,35 @@ class _BodyState extends State<Body> {
                 "التحقق من رقم الهاتف".i18n,
                 style: h5_24pt,
               ),
-              SizedBox(height: getProportionateScreenHeight(10),),
-
-              AutoSizeText("لقد تم ارسال رمز التحق الى الرقم ".i18n+registerPhoneNumberController.text,style: body1_16pt_blue,maxLines: 1,),
-              SizedBox(height: getProportionateScreenHeight(5),),
+              SizedBox(
+                height: getProportionateScreenHeight(10),
+              ),
+              AutoSizeText(
+                "لقد تم ارسال رمز التحق الى الرقم ".i18n +
+                    registerPhoneNumberController.text,
+                style: body1_16pt_blue,
+                maxLines: 1,
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(5),
+              ),
               buildTimer(),
               OtpForm(),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
               GestureDetector(
                 onTap: () {
-                  if(ctimer!=0){
-                    return ;
+                  if (ctimer != 0) {
+                    return;
                   }
                   // OTP code resend
-                  authRequest.reVerifyPhoneNumber(registerPhoneNumberController.text);
+                  authRequest
+                      .reVerifyPhoneNumber(registerPhoneNumberController.text);
                 },
                 child: Text(
                   "اعادة ارسال الرمز".i18n,
-                  style:ctimer!=0?darkGrayText_14pt: whiteButton_14pt_underLined,
-
+                  style: ctimer != 0
+                      ? darkGrayText_14pt
+                      : whiteButton_14pt_underLined,
                 ),
               )
             ],
@@ -65,24 +77,21 @@ class _BodyState extends State<Body> {
     );
   }
 
-int ctimer=30;
+  int ctimer = 30;
 
+  Timer _timer;
 
-
-Timer _timer;
-  start_timer(){
-    _timer=Timer.periodic(Duration(seconds: 1), (timer) {
-ctimer-=1;
-if(ctimer==0)
-  {
-    _cancelTimer();
-    setState(() {
-
+  start_timer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      ctimer -= 1;
+      if (ctimer == 0) {
+        _cancelTimer();
+        setState(() {});
+      }
     });
   }
-    });
-  }
-  _cancelTimer(){
+
+  _cancelTimer() {
     _timer.cancel();
   }
 
@@ -90,20 +99,20 @@ if(ctimer==0)
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-
         TweenAnimationBuilder(
-          tween: Tween(begin: 30.0, end: 0.0),
-          duration: Duration(minutes: 1),
-          builder: (_, value, child)
-          {
-            return Text(
-            "00:${value.toInt()}",
-            // style: TextStyle(color: kPrimaryColor),
-            style: body1_16pt,
-          );
-          }
+            tween: Tween(begin: 30.0, end: 0.0),
+            duration: Duration(minutes: 1),
+            builder: (_, value, child) {
+              return Text(
+                "00:${value.toInt()}",
+                // style: TextStyle(color: kPrimaryColor),
+                style: body1_16pt,
+              );
+            }),
+        Text(
+          "سوف تنتهي صلاحية الكود بعد ".i18n,
+          style: body2_14pt,
         ),
-        Text("سوف تنتهي صلاحية الكود بعد ".i18n,style: body2_14pt,),
       ],
     );
   }
